@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://sgebb.github.io/bussin-site/sitemap.xml
