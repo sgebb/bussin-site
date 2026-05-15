@@ -134,6 +134,24 @@ h1 {
   padding: 3rem;
   box-shadow: 0 24px 70px rgba(15, 23, 42, 0.06);
 }
+.page-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.75rem 0;
+}
+.page-content th,
+.page-content td {
+  border: 1px solid rgba(148, 163, 184, 0.24);
+  padding: 0.9rem 1rem;
+  text-align: left;
+}
+.page-content th {
+  background: #f1f5f9;
+  font-weight: 700;
+}
+.page-content tr:nth-child(even) {
+  background: #f8fafc;
+}
 .page-content h1,
 .page-content h2 {
   margin-top: 0;
