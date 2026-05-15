@@ -49,10 +49,26 @@ svg {
   padding: 1rem 0;
 }
 .brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
   font-size: 1rem;
   font-weight: 700;
   letter-spacing: 0.05em;
   color: #f8fcff;
+}
+.logo-mark {
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #22c2b7 0%, #72f2f3 100%);
+  box-shadow: 0 0 0 4px rgba(34, 194, 183, 0.16);
+}
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
 .topbar-nav {
   display: flex;
@@ -62,13 +78,23 @@ svg {
 .topbar-nav a {
   color: #a8dbe8;
   font-size: 0.95rem;
-  padding: 0.6rem 0.85rem;
+  padding: 0.55rem 0.85rem;
   border-radius: 999px;
   transition: background 0.2s ease, color 0.2s ease;
 }
 .topbar-nav a:hover {
   background: rgba(34, 194, 183, 0.16);
   color: #7ff4e1;
+}
+.button.header-cta {
+  padding: 0.75rem 1.2rem;
+  font-size: 0.95rem;
+  background: #18a894;
+  color: #fff;
+  box-shadow: 0 14px 28px rgba(24, 168, 148, 0.26);
+}
+.button.header-cta:hover {
+  background: #14a083;
 }
 .site-banner {
   padding: 4rem 0 5rem;
