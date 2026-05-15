@@ -149,6 +149,10 @@ h1 {
   background: #f1f5f9;
   font-weight: 700;
 }
+.page-content .checkmark {
+  text-align: center;
+  font-size: 1.05rem;
+}
 .page-content tr:nth-child(even) {
   background: #f8fafc;
 }

@@ -17,7 +17,27 @@
     <priority>0.90</priority>
   </url>
   <url>
+    <loc>https://sgebb.github.io/bussin-site/blog/2026-05-16-azure-service-bus-explorer-alternatives.html</loc>
+    <priority>0.75</priority>
+  </url>
+  <url>
     <loc>https://sgebb.github.io/bussin-site/blog/2026-05-15-launching-bussin-homepage.html</loc>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://sgebb.github.io/bussin-site/blog/background-tasks.html</loc>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://sgebb.github.io/bussin-site/blog/security-architecture.html</loc>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://sgebb.github.io/bussin-site/blog/tips-and-tricks.html</loc>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://sgebb.github.io/bussin-site/blog/auto-forwarding-topics-queues.html</loc>
     <priority>0.70</priority>
   </url>
 </urlset>
