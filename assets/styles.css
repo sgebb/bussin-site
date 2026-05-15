@@ -163,6 +163,34 @@ h1 {
   padding: 1.75rem;
   border: 1px solid rgba(148, 163, 184, 0.18);
 }
+.visual-grid {
+  margin-top: 2rem;
+}
+.media-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  margin-top: 1.5rem;
+}
+.media-grid article {
+  overflow: hidden;
+  border-radius: 24px;
+  border: 1px solid rgba(148, 163, 184, 0.18);
+  background: #fff;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06);
+}
+.media-grid img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.media-grid p {
+  margin: 0;
+  padding: 1rem;
+  color: #334155;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
 .blog-card.muted {
   opacity: 0.8;
 }
