@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://sgebb.github.io/bussin-site/</loc>
+    <priority>1.00</priority>
+  </url>
+  <url>
+    <loc>https://sgebb.github.io/bussin-site/about/</loc>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://sgebb.github.io/bussin-site/privacy/</loc>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://sgebb.github.io/bussin-site/blog/</loc>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://sgebb.github.io/bussin-site/blog/2026-05-15-launching-bussin-homepage.html</loc>
+    <priority>0.70</priority>
+  </url>
+</urlset>
