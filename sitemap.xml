@@ -5,7 +5,6 @@
   <url><loc>https://bussin.dev/service-bus-explorer-alternative/</loc><priority>0.90</priority></url>
   <url><loc>https://bussin.dev/service-bus-linux-mac/</loc><priority>0.85</priority></url>
   <url><loc>https://bussin.dev/docs/</loc><priority>0.90</priority></url>
-  <url><loc>https://bussin.dev/docs/overview/</loc><priority>0.85</priority></url>
   <url><loc>https://bussin.dev/docs/peek-lock/</loc><priority>0.80</priority></url>
   <url><loc>https://bussin.dev/docs/dead-letter-queues/</loc><priority>0.80</priority></url>
   <url><loc>https://bussin.dev/docs/topic-subscriptions/</loc><priority>0.80</priority></url>
@@ -16,5 +15,4 @@
   <url><loc>https://bussin.dev/features/cross-platform/</loc><priority>0.80</priority></url>
   <url><loc>https://bussin.dev/privacy/</loc><priority>0.60</priority></url>
   <url><loc>https://bussin.dev/about/</loc><priority>0.60</priority></url>
-  <url><loc>https://bussin.dev/compare/service-bus-explorer/</loc><priority>0.80</priority></url>
 </urlset>
