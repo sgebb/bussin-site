@@ -205,7 +205,7 @@ svg {
   }
 }
 .hero-card,
-.placeholder-card,
+.visual-card,
 .feature-grid article,
 .docs-grid article,
 .page-content .faq-item,
@@ -216,7 +216,7 @@ svg {
   padding: 1.8rem;
 }
 .hero-card,
-.placeholder-card {
+.visual-card {
   min-height: 320px;
   display: grid;
   place-items: center;
@@ -224,7 +224,7 @@ svg {
   color: #c7effb;
 }
 .hero-card img,
-.placeholder-card img {
+.visual-card img {
   width: 100%;
   height: auto;
   border-radius: 18px;
@@ -302,23 +302,6 @@ svg {
   border-left: 4px solid #22c2b7;
   border-radius: 18px;
   color: #d4f7f2;
-}
-.section-nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-bottom: 1.75rem;
-}
-.section-nav a {
-  background: rgba(255, 255, 255, 0.04);
-  color: #c7e9f7;
-  padding: 0.75rem 1rem;
-  border-radius: 999px;
-  font-size: 0.95rem;
-}
-.section-nav a:hover {
-  background: rgba(34, 194, 183, 0.16);
-  color: #7ff4e1;
 }
 .site-footer {
   padding: 2rem 0;
