@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Auto-Forwarding: Azure Service Bus's Most Under-Appreciated Feature | Bussin Blog</title>
+    <title>Auto-Forwarding: Azure Service Bus's Most Under-Appreciated Feature | Bussin Resources</title>
     <meta name="description" content="Why giving your downstream teams true ownership of their queues is the secret to scalable, drama-free message routing.">
     <link rel="canonical" href="https://sgebb.github.io/bussin-site/blog/auto-forwarding-topics-queues.html">
     <meta property="og:title" content="Auto-Forwarding: Azure Service Bus's Most Under-Appreciated Feature">
@@ -49,13 +49,31 @@
     </style>
 </head>
 <body>
-    <header class="site-header">
-        <div class="header-brand">
-            <a href="../" class="brand-root"><strong>bussin</strong></a><span class="header-sep">/</span><a href="./" class="header-section">blog</a>
+    <header class="topbar">
+        <div class="container topbar-inner">
+            <a class="brand" href="/">Bussin</a>
+            <div class="header-actions">
+                <details class="topbar-menu" role="menu" aria-label="Main menu">
+                    <summary aria-haspopup="true">Menu</summary>
+                    <div class="menu-panel">
+                        <nav class="topbar-nav">
+                            <a href="/docs/">Docs</a>
+                            <a href="/docs/peek-lock/">Peek-lock</a>
+                            <a href="/docs/dead-letter-queues/">Dead-letter queues</a>
+                            <a href="/docs/topic-subscriptions/">Topic subscriptions</a>
+                            <a href="/glossary/amqp/">Glossary</a>
+                            <a href="/compare/service-bus-explorer/">Compare</a>
+                            <a href="/features/browser-native/">Features</a>
+                            <a href="/features/cross-platform/">Cross-platform</a>
+                            <a href="/service-bus-explorer-alternative/">Alternative</a>
+                            <a href="/about/">About</a>
+                            <a href="/privacy/">Privacy</a>
+                        </nav>
+                    </div>
+                </details>
+                <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open app</a>
+            </div>
         </div>
-        <a href="./" class="header-back">&#8592; All articles</a>
-        <span class="header-spacer"></span>
-        <a href="../" class="header-cta">Open Bussin &#8599;</a>
     </header>
     <article>
         <span class="tag">Architecture</span>
@@ -72,8 +90,8 @@ resource subscription 'Microsoft.ServiceBus/namespaces/topics/subscriptions@2022
 }</code></pre><h2>The One Error You Need to Know</h2><p>One tricky aspect of auto-forwarding is debugging routing failures. If the destination queue is full, disabled, or deleted, messages land in the <strong>Subscription's</strong> Dead Letter Queue with a <code>DeadLetterReason</code> of <code>TransferEndpointUpdateFailed</code>.</p><p>If you see this error, it means your 'pipe' is broken before the message even reached the consumer's 'bucket'.</p><img src='../assets/media/single-blade-view-bussin-auto-forwarding.jpg' alt='Bussin visualizing Auto Forwarding and DLQ' style='width:100%; border-radius:8px; border:1px solid #e2e8f0; margin:2rem 0;'><div class='callout'><strong>Monitoring with Bussin</strong><br>Tracking down these <code>TransferEndpointUpdateFailed</code> errors in the Azure Portal is a nightmare of blade-clicking. I built <a href='../'>Bussin</a> specifically to make this topology obvious. It visually flags auto-forwarders in the list and surfaces both the subscription-level and queue-level DLQs on a single screen so you never lose track of a message between teams.</div>
     </article>
     <footer class="site-footer">
-        <a href="./" class="back">&#8592; All articles</a>
-        <a href="../" class="cta">Open Bussin &#8594;</a>
+        <a href="./" class="back">&#8592; All pages</a>
+        <a href="https://app.bussin.dev" class="cta" target="_blank" rel="noopener">Open app</a>
     </footer>
 </body>
 </html>

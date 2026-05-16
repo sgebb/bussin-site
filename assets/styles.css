@@ -249,6 +249,43 @@ svg {
     padding: 2rem;
   }
 }
+
+/* Topbar menu (compact dropdown) */
+.topbar-menu {
+  position: relative;
+  display: inline-block;
+}
+.topbar-menu summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 0.6rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.03);
+  color: #d4e4f4;
+  border: 1px solid rgba(255,255,255,0.04);
+}
+.topbar-menu summary::-webkit-details-marker { display: none; }
+.topbar-menu[open] summary { background: rgba(34,194,183,0.14); }
+.menu-panel {
+  position: absolute;
+  right: 0;
+  top: calc(100% + 0.6rem);
+  background: rgba(6,10,18,0.98);
+  border-radius: 14px;
+  padding: 0.6rem;
+  min-width: 220px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.04);
+  z-index: 40;
+}
+.menu-panel .topbar-nav { display: grid; gap: 0.25rem; }
+.menu-panel .topbar-nav a { padding: 0.5rem 0.7rem; border-radius: 8px; }
+.menu-panel .topbar-nav a:hover { background: rgba(34,194,183,0.08); }
+
+@media (max-width: 720px) {
+  .menu-panel { position: static; width: 100%; box-shadow: none; padding: 0.5rem 0; }
+  .menu-panel .topbar-nav { gap: 0.5rem; }
+}
 .post-preview p {
   margin: 0;
 }
@@ -301,4 +338,14 @@ svg {
   .footer-inner {
     gap: 1rem;
   }
+}
+
+/* Simple yes/no indicators for comparison tables */
+.checkmark {
+  color: #35d39a;
+  font-weight: 800;
+}
+.no-mark {
+  color: #ff7b85;
+  font-weight: 700;
 }

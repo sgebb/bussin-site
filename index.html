@@ -17,14 +17,27 @@
   <header class="topbar">
     <div class="container topbar-inner">
       <a class="brand" href="/">Bussin</a>
-      <nav class="topbar-nav">
-        <a href="/docs/">Docs</a>
-        <a href="/features/browser-native/">Features</a>
-        <a href="/compare/service-bus-explorer/">Compare</a>
-        <a href="/service-bus-explorer-alternative/">Alternative</a>
-        <a href="/glossary/amqp/">Glossary</a>
-      </nav>
-      <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+      <div class="header-actions">
+        <details class="topbar-menu" role="menu" aria-label="Main menu">
+          <summary aria-haspopup="true">Menu</summary>
+          <div class="menu-panel">
+            <nav class="topbar-nav">
+              <a href="/docs/">Docs</a>
+              <a href="/docs/peek-lock/">Peek-lock</a>
+              <a href="/docs/dead-letter-queues/">Dead-letter queues</a>
+              <a href="/docs/topic-subscriptions/">Topic subscriptions</a>
+              <a href="/glossary/amqp/">Glossary</a>
+              <a href="/compare/service-bus-explorer/">Compare</a>
+              <a href="/features/browser-native/">Features</a>
+              <a href="/features/cross-platform/">Cross-platform</a>
+              <a href="/service-bus-explorer-alternative/">Alternative</a>
+              <a href="/about/">About</a>
+              <a href="/privacy/">Privacy</a>
+            </nav>
+          </div>
+        </details>
+        <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open app</a>
+      </div>
     </div>
   </header>
 

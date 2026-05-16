@@ -16,13 +16,27 @@
   <header class="topbar">
     <div class="container topbar-inner">
       <a class="brand" href="/">Bussin</a>
-      <nav class="topbar-nav">
-        <a href="/docs/">Docs</a>
-        <a href="/features/browser-native/">Features</a>
-        <a href="/service-bus-explorer-alternative/">Alternative</a>
-        <a href="/glossary/amqp/">Glossary</a>
-      </nav>
-      <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+      <div class="header-actions">
+        <details class="topbar-menu" role="menu" aria-label="Main menu">
+          <summary aria-haspopup="true">Menu</summary>
+          <div class="menu-panel">
+            <nav class="topbar-nav">
+              <a href="/docs/">Docs</a>
+              <a href="/docs/peek-lock/">Peek-lock</a>
+              <a href="/docs/dead-letter-queues/">Dead-letter queues</a>
+              <a href="/docs/topic-subscriptions/">Topic subscriptions</a>
+              <a href="/glossary/amqp/">Glossary</a>
+              <a href="/compare/service-bus-explorer/">Compare</a>
+              <a href="/features/browser-native/">Features</a>
+              <a href="/features/cross-platform/">Cross-platform</a>
+              <a href="/service-bus-explorer-alternative/">Alternative</a>
+              <a href="/about/">About</a>
+              <a href="/privacy/">Privacy</a>
+            </nav>
+          </div>
+        </details>
+        <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open app</a>
+      </div>
     </div>
   </header>
 
@@ -42,42 +56,102 @@
 
     <section>
       <h2>Comparison summary</h2>
+      <p class="note">Green checkmarks show where a tool provides the capability out of the box. This table aims to be fair; Bussin focuses on browser-native workflows, modern authentication, and quick message inspection.</p>
       <table>
         <thead>
           <tr>
-            <th>Capability</th>
-            <th>Bussin.dev</th>
-            <th>Desktop Service Bus Explorer</th>
+            <th>Tool</th>
+            <th>Entra / Azure AD</th>
+            <th>Connection method</th>
+            <th>Install required</th>
+            <th>Platform support</th>
+            <th>Dead-letter support</th>
+            <th>Peek-lock workflows</th>
+            <th>Security / privacy</th>
+            <th>Workflow focus</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Connection method</td>
-            <td>AMQP over WebSockets directly from browser</td>
-            <td>AMQP or REST via native client, often behind proxy</td>
+            <td>Bussin (app.bussin.dev)</td>
+            <td class="checkmark">✓</td>
+            <td>AMQP over WebSockets (direct browser connection)</td>
+            <td class="checkmark">✓</td>
+            <td class="checkmark">Cross-platform (browser)</td>
+            <td class="checkmark">✓</td>
+            <td class="checkmark">✓</td>
+            <td class="checkmark">Browser-only tokens, no server-side storage</td>
+            <td>Fast message inspection, namespace discovery, demo-ready</td>
           </tr>
           <tr>
-            <td>Install required</td>
-            <td>No</td>
-            <td>Yes</td>
+            <td>Service Bus Explorer (community desktop)</td>
+            <td class="no-mark">—</td>
+            <td>AMQP / management API (native client)</td>
+            <td class="no-mark">Yes</td>
+            <td class="no-mark">Windows-only (official)</td>
+            <td class="checkmark">✓</td>
+            <td class="no-mark">Partial (manual)</td>
+            <td class="no-mark">Connection strings stored locally</td>
+            <td>Local desktop inspection, power-user focused</td>
           </tr>
           <tr>
-            <td>Cross-platform consistency</td>
-            <td>Browser-native on Mac, Linux, Windows</td>
-            <td>Varies by release cadence and support</td>
+            <td>VS Code Service Bus extension</td>
+            <td class="checkmark">✓</td>
+            <td>Azure SDK / management APIs (editor-hosted)</td>
+            <td class="no-mark">Extension install</td>
+            <td class="checkmark">Cross-platform (via VS Code)</td>
+            <td class="checkmark">✓</td>
+            <td class="no-mark">Partial (editor workflows)</td>
+            <td class="no-mark">Runs in editor; tokens may be cached by VS Code</td>
+            <td>Developer-in-editor flows, not a standalone browser app</td>
           </tr>
           <tr>
-            <td>Dead-letter support</td>
-            <td>Built-in queue and dead-letter workflow support</td>
-            <td>Supported, but often more manual</td>
+            <td>Azure Portal (Service Bus blade)</td>
+            <td class="checkmark">✓</td>
+            <td>Management plane (Azure Portal UI)</td>
+            <td class="no-mark">No</td>
+            <td class="checkmark">Cross-platform (browser)</td>
+            <td class="no-mark">Limited</td>
+            <td class="no-mark">Not optimized for peek-lock workflows</td>
+            <td class="no-mark">Hosted by Microsoft (not local)</td>
+            <td>Subscription & resource management, not message-first workflows</td>
           </tr>
           <tr>
-            <td>Peek-lock workflows</td>
-            <td>Designed for transparent peek-lock inspection and message recovery</td>
-            <td>May require additional steps or local tooling</td>
+            <td>Paid SaaS tools (Serverless360, etc.)</td>
+            <td class="checkmark">✓</td>
+            <td>Proprietary connectors or management APIs</td>
+            <td class="no-mark">No</td>
+            <td class="checkmark">Cross-platform (web)</td>
+            <td class="checkmark">✓</td>
+            <td class="checkmark">✓</td>
+            <td class="no-mark">Requires managed backend; data may leave your network</td>
+            <td>Monitoring, dashboards, enterprise workflows</td>
+          </tr>
+          <tr>
+            <td>Electron / 3rd‑party desktop clients</td>
+            <td class="no-mark">Varies</td>
+            <td>AMQP / WebSockets / native bindings</td>
+            <td class="no-mark">Yes</td>
+            <td class="no-mark">Often cross-platform, quality varies</td>
+            <td class="checkmark">✓</td>
+            <td class="no-mark">Varies</td>
+            <td class="no-mark">Depends on vendor; may use backend proxy</td>
+            <td>Desktop-first UX, can bundle tooling</td>
+          </tr>
+          <tr>
+            <td>In-house / custom tooling</td>
+            <td class="no-mark">Varies</td>
+            <td>Varies (custom integrations)</td>
+            <td class="no-mark">Varies</td>
+            <td class="no-mark">Varies</td>
+            <td class="no-mark">Varies</td>
+            <td class="no-mark">Varies</td>
+            <td class="no-mark">Depends on implementation</td>
+            <td>Tailored to specific internal workflows</td>
           </tr>
         </tbody>
       </table>
+      <p class="note">Notes: "Varies" means capability depends on the specific tool or configuration. Where practical, green checkmarks indicate built-in support without extra connectors or backend components.</p>
     </section>
 
     <section>
