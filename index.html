@@ -3,95 +3,198 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bussin — modern Azure Service Bus GUI</title>
-  <meta name="description" content="Bussin is a modern Azure Service Bus interface at app.bussin.dev. This site links to the live app and the latest blog updates.">
-  <link rel="canonical" href="https://sgebb.github.io/bussin-site/">
-  <meta property="og:title" content="Bussin — modern Azure Service Bus GUI">
-  <meta property="og:description" content="Bussin is a modern Azure Service Bus interface at app.bussin.dev. This site links to the live app and the latest blog updates.">
+  <title>Bussin.dev — Browser-native Azure Service Bus explorer</title>
+  <meta name="description" content="Bussin.dev is a browser-native Azure Service Bus explorer that connects directly with AMQP over WebSockets. Inspect queues, topics, dead-letters, and peek-lock workflows without desktop install.">
+  <link rel="canonical" href="https://bussin.dev/">
+  <meta property="og:title" content="Bussin.dev — Browser-native Azure Service Bus explorer">
+  <meta property="og:description" content="Bussin.dev is a browser-native Azure Service Bus explorer that connects directly with AMQP over WebSockets. Inspect queues, topics, dead-letters, and peek-lock workflows without desktop install.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://sgebb.github.io/bussin-site/">
-  <meta property="og:site_name" content="Bussin">
+  <meta property="og:url" content="https://bussin.dev/">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="stylesheet" href="/assets/styles.css">
 </head>
 <body>
   <header class="topbar">
     <div class="container topbar-inner">
-      <a class="brand" href="./"><span class="logo-mark" aria-hidden="true"></span>Bussin</a>
-      <div class="header-actions">
-        <nav class="topbar-nav">
-          <a href="blog/">Blog</a>
-          <a href="about/">About</a>
-        </nav>
-        <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open Bussin</a>
-      </div>
-    </div>
-  </header>
-  <header class="site-banner">
-    <div class="container">
-      <p class="eyebrow">Secure Service Bus UI</p>
-      <h1>Bussin</h1>
-      <p class="hero-copy">Bussin is a fast, safe Azure Service Bus product for managing queues, topics, subscriptions, and messages with a polished dark interface. Open the app at <strong>app.bussin.dev</strong>, explore powerful workflows, and stay on top of updates.</p>
-      <div class="hero-actions">
-        <a class="button primary" href="https://app.bussin.dev" target="_blank" rel="noopener">Launch Bussin</a>
-        <a class="button secondary" href="blog/">Browse the blog</a>
-      </div>
+      <a class="brand" href="/">Bussin</a>
+      <nav class="topbar-nav">
+        <a href="/docs/">Docs</a>
+        <a href="/features/browser-native/">Features</a>
+        <a href="/compare/service-bus-explorer/">Compare</a>
+        <a href="/service-bus-explorer-alternative/">Alternative</a>
+        <a href="/glossary/amqp/">Glossary</a>
+      </nav>
+      <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
     </div>
   </header>
 
-  <main class="container">
-    <section class="feature-grid">
+  <main class="container page-content">
+    <article class="hero-grid">
+      <div>
+        <p class="eyebrow">Azure Service Bus tooling</p>
+        <h1>Browser-native Azure Service Bus explorer for real developer workflows</h1>
+        <p>Bussin.dev connects directly to Azure Service Bus using AMQP over WebSockets. No desktop install, no Electron runtime, and no backend proxy — just browser-native access to queues, topics, and dead-letter workflows.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="https://app.bussin.dev/demo" target="_blank" rel="noopener">Open demo — no login</a>
+          <a class="button secondary" href="https://app.bussin.dev" target="_blank" rel="noopener">Open app</a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card">
+          <p>Placeholder for screenshot showing namespace explorer, queue details, and peek-lock message view.</p>
+        </div>
+      </div>
+    </article>
+
+    <section>
+      <h2>What Bussin does — and what it does not do</h2>
+      <p>Bussin only takes the actions you explicitly choose in the browser. The demo opens instantly without login or consent, while the full app requests Graph and Service Bus consent for discovery and direct Azure access. We do not store your Azure message or namespace data outside of basic analytics for this site.</p>
+      <p>Preferences such as favorites and light/dark mode are stored in your browser only. Bussin is open source — see the code at <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">github.com/sgebb/bussin</a>.</p>
+    </section>
+
+    <section class="section-grid">
       <article>
-        <h2>Fast workflow visibility</h2>
-        <p>Scan queue and topic state instantly, then jump into message peeks with confidence.</p>
+        <h2>AMQP over WebSockets</h2>
+        <p>Maintain a direct Service Bus connection from the browser using the same protocol layer that Azure expects for web clients.</p>
       </article>
       <article>
-        <h2>Safe message inspection</h2>
-        <p>Inspect payloads and history without changing production state, with controls designed for security-conscious teams.</p>
+        <h2>Queue inspection</h2>
+        <p>Browse queue metadata, active lock counts, and message state without removing items from the broker.</p>
       </article>
       <article>
-        <h2>Modern product UI</h2>
-        <p>Enjoy a polished dark UI with teal accents, smooth filters, and visual operations for real Service Bus work.</p>
+        <h2>Dead-letter workflows</h2>
+        <p>Open dead-letter queues, inspect failure details, and recover messages with explicit replay controls.</p>
+      </article>
+      <article>
+        <h2>Topic subscriptions</h2>
+        <p>Validate subscription filters and message routing in a browser-native UI built for Azure Service Bus concepts.</p>
       </article>
     </section>
 
-    <section class="preview-card visual-grid">
-      <h2>Product preview</h2>
-      <p>These screenshots and animated flows show how Bussin makes Service Bus operations feel fast, clear, and secure.</p>
-      <div class="media-grid">
+    <section>
+      <h2>How Bussin.dev is different</h2>
+      <div class="feature-grid">
         <article>
-          <img src="assets/media/namespace-filter-and-folder-organize.gif" alt="Namespace filter and folder organization in Bussin" loading="lazy">
-          <p>Namespace filtering with folder organization for queues and topics.</p>
+          <h3>No install or desktop runtime</h3>
+          <p>Open the app in a browser session and connect from any platform instead of shipping a desktop client.</p>
         </article>
         <article>
-          <img src="assets/media/peak-filter-deepsearch.gif" alt="Deep search and peak filtering in Bussin" loading="lazy">
-          <p>Deep search and peak filtering make it easy to find the right messages.</p>
+          <h3>Protocol fidelity</h3>
+          <p>Use AMQP semantics directly over secure WebSocket transport for queue and subscription state management.</p>
         </article>
         <article>
-          <img src="assets/media/darkmode.jpg" alt="Dark mode screenshot of Bussin UI" loading="lazy">
-          <p>Dark mode keeps the UI comfortable during longer sessions.</p>
-        </article>
-        <article>
-          <img src="assets/media/advancedPeek.jpg" alt="Advanced peek screenshot for Bussin" loading="lazy">
-          <p>Advanced peek view gives direct message inspection and event context.</p>
+          <h3>Fast static rendering</h3>
+          <p>This site is static and SEO-friendly, designed to serve documentation and product details quickly to search engines.</p>
         </article>
       </div>
     </section>
 
-    <section class="preview-card">
-      <h2>Latest from the blog</h2>
-      <div class="post-preview">
-        <h3><a href="blog/2026-05-16-azure-service-bus-explorer-alternatives.html">Azure Service Bus Explorer Alternatives for Mac, Linux, and Entra</a></h3>
-        <p>Explore cross-platform Azure Service Bus tooling for developers who need Mac, Linux, and Entra-ready alternatives.</p>
-        <p class="meta">May 16, 2026 · Azure · Service Bus</p>
+    <section>
+      <h2>Quick comparison</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Characteristic</th>
+            <th>Bussin.dev</th>
+            <th>Desktop-only tools</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Service Bus connection</td>
+            <td>AMQP over WebSockets from browser</td>
+            <td>Native AMQP or REST inside app</td>
+          </tr>
+          <tr>
+            <td>Installation</td>
+            <td>No install needed</td>
+            <td>Requires download and updates</td>
+          </tr>
+          <tr>
+            <td>Platform coverage</td>
+            <td>Browser-based on Mac, Linux, Windows</td>
+            <td>Windows-first and cross-platform gaps</td>
+          </tr>
+          <tr>
+            <td>Workflow focus</td>
+            <td>Queue, dead-letter, subscription, peek-lock</td>
+            <td>General message browsing</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="split-section">
+      <div>
+        <h2>Architecture overview</h2>
+        <p>Bussin.dev is a static browser client that establishes AMQP sessions over WSS. The UI runs in the browser and interacts directly with Azure Service Bus endpoints, eliminating proxies and desktop middleware.</p>
+      </div>
+      <div class="placeholder-card">Architecture illustration placeholder</div>
+    </section>
+
+    <section>
+      <h2>Supported workflows</h2>
+      <div class="feature-grid">
+        <article>
+          <h3>Inspect queues</h3>
+          <p>Review entity details and live counts before you peek or complete messages.</p>
+        </article>
+        <article>
+          <h3>Browse dead-letter queues</h3>
+          <p>Investigate failed messages and decide whether to replay or archive.</p>
+        </article>
+        <article>
+          <h3>Topic subscription diagnostics</h3>
+          <p>Validate filter logic and message routing for topic subscriptions.</p>
+        </article>
+        <article>
+          <h3>Peek-lock messages</h3>
+          <p>Inspect payloads safely and release or complete messages explicitly.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Documentation</h2>
+      <div class="docs-grid">
+        <article>
+          <h3><a href="/docs/peek-lock/">Peek-lock workflows</a></h3>
+          <p>Step-by-step guidance for safe message inspection and completion.</p>
+        </article>
+        <article>
+          <h3><a href="/docs/dead-letter-queues/">Dead-letter queues</a></h3>
+          <p>Recover failed messages and inspect exception details.</p>
+        </article>
+        <article>
+          <h3><a href="/docs/topic-subscriptions/">Topic subscriptions</a></h3>
+          <p>Inspect subscription delivery and filter behavior.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Frequently asked questions</h2>
+      <div class="faq-item">
+        <h3>Does Bussin.dev require a backend proxy?</h3>
+        <p>No. Bussin.dev connects directly to Azure Service Bus using AMQP over WebSockets from the browser.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can I use it on Linux and macOS?</h3>
+        <p>Yes. Because it runs in the browser, Bussin.dev works across Mac, Linux, and Windows without platform-specific installers.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Is this a production-ready workflow?</h3>
+        <p>Yes. The product is designed for developers and operators who need direct, secure access to Azure Service Bus workflows.</p>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>This page links directly to the live app at <a href="https://app.bussin.dev" target="_blank" rel="noopener">app.bussin.dev</a> and shares the latest product updates.</p>
-      <p>© 2026 Bussin</p>
+      <div>
+        <p><strong>Explore:</strong> <a href="/docs/">Docs</a> · <a href="/features/browser-native/">Features</a> · <a href="/compare/service-bus-explorer/">Compare</a></p>
+      </div>
+      <p>Browser-native Azure Service Bus tooling designed for serious technical workflows.</p>
     </div>
   </footer>
 </body>

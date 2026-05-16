@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dead-letter queue glossary | Bussin.dev</title>
+  <meta name="description" content="Dead-letter queue explained for Azure Service Bus. Learn what dead-letter queues are, why they matter, and how Bussin.dev helps inspect and recover dead-lettered messages.">
+  <link rel="canonical" href="https://bussin.dev/glossary/dead-letter-queue/">
+  <meta property="og:title" content="Dead-letter queue glossary | Bussin.dev">
+  <meta property="og:description" content="Dead-letter queue explained for Azure Service Bus. Learn what dead-letter queues are, why they matter, and how Bussin.dev helps inspect and recover dead-lettered messages.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://bussin.dev/glossary/dead-letter-queue/">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="/">Bussin</a>
+      <nav class="topbar-nav">
+        <a href="/docs/">Docs</a>
+        <a href="/features/cross-platform/">Features</a>
+        <a href="/compare/service-bus-explorer/">Compare</a>
+      </nav>
+      <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+    </div>
+  </header>
+
+  <main class="container page-content">
+    <nav class="section-nav">
+      <a href="/glossary/amqp/">AMQP</a>
+      <a href="/docs/dead-letter-queues/">Docs</a>
+      <a href="/features/browser-native/">Features</a>
+    </nav>
+
+    <article>
+      <p class="eyebrow">Glossary</p>
+      <h1>Dead-letter queue</h1>
+      <p>A dead-letter queue holds Service Bus messages that could not be processed normally. Bussin.dev exposes dead-letter inspection and recovery without requiring a desktop client.</p>
+    </article>
+
+    <section>
+      <h2>When messages land in dead-letter queues</h2>
+      <p>Messages are dead-lettered for delivery failures, expiration, filter evaluation issues, or manual moves. The dead-letter queue retains the message body and system metadata for analysis.</p>
+    </section>
+
+    <section>
+      <h2>Inspecting dead-letter queue details</h2>
+      <p>Look for dead-letter reason, error description, and user-defined properties. This data is essential for diagnosing why a message was rejected or timed out.</p>
+    </section>
+
+    <section>
+      <h2>How Bussin.dev helps</h2>
+      <p>Bussin.dev lets you open dead-letter queues directly in the browser and move selected messages back to an active queue or subscription. It keeps the workflow explicit so the recovery path is easy to follow.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p><strong>More:</strong> <a href="/docs/dead-letter-queues/">Dead-letter queue docs</a> · <a href="/compare/service-bus-explorer/">Tool comparison</a></p>
+      </div>
+      <p>Simple glossary content for long-tail Azure Service Bus queries.</p>
+    </div>
+  </footer>
+</body>
+</html>

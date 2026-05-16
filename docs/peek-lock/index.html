@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Peek-lock workflows | Bussin.dev Docs</title>
+  <meta name="description" content="Learn how to inspect Azure Service Bus messages with peek-lock workflows in Bussin.dev. Practical browser-native guidance for safe message browsing and handling.">
+  <link rel="canonical" href="https://bussin.dev/docs/peek-lock/">
+  <meta property="og:title" content="Peek-lock workflows | Bussin.dev Docs">
+  <meta property="og:description" content="Learn how to inspect Azure Service Bus messages with peek-lock workflows in Bussin.dev. Practical browser-native guidance for safe message browsing and handling.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://bussin.dev/docs/peek-lock/">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="/">Bussin</a>
+      <nav class="topbar-nav">
+        <a href="/docs/">Docs</a>
+        <a href="/features/browser-native/">Features</a>
+        <a href="/glossary/amqp/">Glossary</a>
+      </nav>
+      <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+    </div>
+  </header>
+
+  <main class="container page-content">
+    <nav class="section-nav">
+      <a href="/docs/">Docs overview</a>
+      <a href="/docs/dead-letter-queues/">Dead-letter queues</a>
+      <a href="/docs/topic-subscriptions/">Topic subscriptions</a>
+    </nav>
+
+    <article>
+      <p class="eyebrow">Workflow guide</p>
+      <h1>Peek-lock inspection for Azure Service Bus</h1>
+      <p>Peek-lock is the core pattern for safely reading messages without removing them from a queue or subscription. Bussin.dev surfaces this workflow with clear controls and explicit completion steps.</p>
+    </article>
+
+    <section>
+      <h2>Step 1: Open a queue or subscription</h2>
+      <p>Select the queue or topic subscription from the namespace explorer. The client shows live message counts, active locks, and whether the entity contains a dead-letter path.</p>
+      <p class="note">This section should contain a screenshot of queue state and message list panels.</p>
+    </section>
+
+    <section>
+      <h2>Step 2: Peek messages</h2>
+      <p>Use the peek action to inspect payloads, headers, and delivery metadata without completing or abandoning the message. This preserves the message in the broker while letting you examine its contents.</p>
+      <pre><code>1. Select peek mode
+2. Review message body and properties
+3. Confirm message is valid before completing</code></pre>
+    </section>
+
+    <section>
+      <h2>Step 3: Complete or abandon</h2>
+      <p>After inspection, choose to complete, abandon, or move the message to the dead-letter queue. Bussin.dev keeps the workflow explicit so teams can audit message state changes.</p>
+    </section>
+
+    <section>
+      <h2>Why this works in the browser</h2>
+      <p>Bussin.dev uses AMQP over WebSockets so the browser can maintain a live Service Bus session and manage peek-lock leases without a backend proxy. That means the interface behaves like a native client while staying fully browser-native.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p><strong>Next:</strong> <a href="/docs/dead-letter-queues/">Dead-letter queues</a> · <a href="/glossary/amqp/">AMQP definition</a></p>
+      </div>
+      <p>Practical guidance for Azure Service Bus peek-lock inspection.</p>
+    </div>
+  </footer>
+</body>
+</html>

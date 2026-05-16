@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Compare with Azure Service Bus Explorer | Bussin.dev</title>
+  <meta name="description" content="Compare Bussin.dev with Azure Service Bus Explorer and desktop-only Service Bus tooling. Learn browser-native advantages, protocol details, and workflow differences.">
+  <link rel="canonical" href="https://bussin.dev/compare/service-bus-explorer/">
+  <meta property="og:title" content="Compare with Azure Service Bus Explorer | Bussin.dev">
+  <meta property="og:description" content="Compare Bussin.dev with Azure Service Bus Explorer and desktop-only Service Bus tooling. Learn browser-native advantages, protocol details, and workflow differences.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bussin.dev/compare/service-bus-explorer/">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="/">Bussin</a>
+      <nav class="topbar-nav">
+        <a href="/docs/">Docs</a>
+        <a href="/features/browser-native/">Features</a>
+        <a href="/service-bus-explorer-alternative/">Alternative</a>
+        <a href="/glossary/amqp/">Glossary</a>
+      </nav>
+      <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+    </div>
+  </header>
+
+  <main class="container page-content">
+    <nav class="section-nav">
+      <a href="/">Home</a>
+      <a href="/service-bus-explorer-alternative/">Alternative</a>
+      <a href="/docs/">Docs</a>
+    </nav>
+
+    <article>
+      <p class="eyebrow">Comparison guide</p>
+      <h1>Compare Bussin with desktop Service Bus Explorer tools</h1>
+      <p>This comparison page outlines the practical differences between a browser-native Service Bus client and desktop-only tools such as Azure Service Bus Explorer and other Electron-based alternatives.</p>
+      <a class="button primary" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+    </article>
+
+    <section>
+      <h2>Comparison summary</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Capability</th>
+            <th>Bussin.dev</th>
+            <th>Desktop Service Bus Explorer</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Connection method</td>
+            <td>AMQP over WebSockets directly from browser</td>
+            <td>AMQP or REST via native client, often behind proxy</td>
+          </tr>
+          <tr>
+            <td>Install required</td>
+            <td>No</td>
+            <td>Yes</td>
+          </tr>
+          <tr>
+            <td>Cross-platform consistency</td>
+            <td>Browser-native on Mac, Linux, Windows</td>
+            <td>Varies by release cadence and support</td>
+          </tr>
+          <tr>
+            <td>Dead-letter support</td>
+            <td>Built-in queue and dead-letter workflow support</td>
+            <td>Supported, but often more manual</td>
+          </tr>
+          <tr>
+            <td>Peek-lock workflows</td>
+            <td>Designed for transparent peek-lock inspection and message recovery</td>
+            <td>May require additional steps or local tooling</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Browser-native advantages</h2>
+      <div class="feature-grid">
+        <article>
+          <h3>No desktop runtime</h3>
+          <p>Use the same app in any modern browser, without Electron or native install packages.</p>
+        </article>
+        <article>
+          <h3>Direct protocol fidelity</h3>
+          <p>AMQP over WebSockets keeps the connection close to what Azure Service Bus expects for web environments.</p>
+        </article>
+        <article>
+          <h3>Fast updates</h3>
+          <p>Deploy UI improvements instantly without asking users to download a new client.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Limitations of desktop-only tooling</h2>
+      <ul>
+        <li>Install and update friction slows adoption across engineering teams.</li>
+        <li>Desktop-only tooling can be blocked in restricted environments.</li>
+        <li>Some clients expose a less polished experience for subscription and dead-letter workflows.</li>
+      </ul>
+      <p>Browser-native tooling is not a replacement for the protocol; it is a more accessible way to use the same Azure Service Bus concepts from anywhere.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p><strong>Learn more:</strong> <a href="/docs/">Docs</a> · <a href="/features/cross-platform/">Cross-platform</a> · <a href="/glossary/dead-letter-queue/">Glossary</a></p>
+      </div>
+      <p>Compare Service Bus tooling with a focus on real developer workflows.</p>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,43 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://sgebb.github.io/bussin-site/</loc>
+    <loc>https://bussin.dev/</loc>
     <priority>1.00</priority>
   </url>
   <url>
-    <loc>https://sgebb.github.io/bussin-site/about/</loc>
-    <priority>0.80</priority>
+    <loc>https://bussin.dev/service-bus-explorer-alternative/</loc>
+    <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://sgebb.github.io/bussin-site/privacy/</loc>
-    <priority>0.60</priority>
+    <loc>https://bussin.dev/compare/service-bus-explorer/</loc>
+    <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://sgebb.github.io/bussin-site/blog/</loc>
+    <loc>https://bussin.dev/docs/</loc>
     <priority>0.90</priority>
   </url>
   <url>
-    <loc>https://sgebb.github.io/bussin-site/blog/2026-05-16-azure-service-bus-explorer-alternatives.html</loc>
+    <loc>https://bussin.dev/docs/peek-lock/</loc>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://bussin.dev/docs/dead-letter-queues/</loc>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://bussin.dev/docs/topic-subscriptions/</loc>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://bussin.dev/glossary/amqp/</loc>
     <priority>0.75</priority>
   </url>
   <url>
-    <loc>https://sgebb.github.io/bussin-site/blog/2026-05-15-launching-bussin-homepage.html</loc>
+    <loc>https://bussin.dev/glossary/dead-letter-queue/</loc>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://bussin.dev/features/browser-native/</loc>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://bussin.dev/features/cross-platform/</loc>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://bussin.dev/about/</loc>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://bussin.dev/privacy/</loc>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://bussin.dev/blog/</loc>
     <priority>0.70</priority>
   </url>
   <url>
-    <loc>https://sgebb.github.io/bussin-site/blog/background-tasks.html</loc>
-    <priority>0.70</priority>
+    <loc>https://bussin.dev/blog/2026-05-16-azure-service-bus-explorer-alternatives.html</loc>
+    <priority>0.65</priority>
   </url>
   <url>
-    <loc>https://sgebb.github.io/bussin-site/blog/security-architecture.html</loc>
-    <priority>0.70</priority>
+    <loc>https://bussin.dev/blog/2026-05-15-launching-bussin-homepage.html</loc>
+    <priority>0.65</priority>
   </url>
   <url>
-    <loc>https://sgebb.github.io/bussin-site/blog/tips-and-tricks.html</loc>
-    <priority>0.70</priority>
+    <loc>https://bussin.dev/blog/background-tasks.html</loc>
+    <priority>0.65</priority>
   </url>
   <url>
-    <loc>https://sgebb.github.io/bussin-site/blog/auto-forwarding-topics-queues.html</loc>
-    <priority>0.70</priority>
+    <loc>https://bussin.dev/blog/security-architecture.html</loc>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://bussin.dev/blog/tips-and-tricks.html</loc>
+    <priority>0.65</priority>
+  </url>
+  <url>
+    <loc>https://bussin.dev/blog/auto-forwarding-topics-queues.html</loc>
+    <priority>0.65</priority>
   </url>
 </urlset>

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AMQP glossary | Bussin.dev</title>
+  <meta name="description" content="What is AMQP? A glossary entry for Bussin.dev explaining Advanced Message Queuing Protocol and how it works with Azure Service Bus over WebSockets.">
+  <link rel="canonical" href="https://bussin.dev/glossary/amqp/">
+  <meta property="og:title" content="AMQP glossary | Bussin.dev">
+  <meta property="og:description" content="What is AMQP? A glossary entry for Bussin.dev explaining Advanced Message Queuing Protocol and how it works with Azure Service Bus over WebSockets.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://bussin.dev/glossary/amqp/">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="/">Bussin</a>
+      <nav class="topbar-nav">
+        <a href="/docs/">Docs</a>
+        <a href="/features/browser-native/">Features</a>
+        <a href="/compare/service-bus-explorer/">Compare</a>
+      </nav>
+      <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+    </div>
+  </header>
+
+  <main class="container page-content">
+    <nav class="section-nav">
+      <a href="/glossary/dead-letter-queue/">Dead-letter queue</a>
+      <a href="/docs/peek-lock/">Peek-lock</a>
+      <a href="/features/browser-native/">Browser-native</a>
+    </nav>
+
+    <article>
+      <p class="eyebrow">Glossary</p>
+      <h1>AMQP</h1>
+      <p>AMQP stands for Advanced Message Queuing Protocol. It is the wire protocol used by Azure Service Bus for reliable messaging, and Bussin.dev supports it directly over WebSockets from the browser.</p>
+    </article>
+
+    <section>
+      <h2>Why AMQP matters for Azure Service Bus</h2>
+      <p>Azure Service Bus uses AMQP to carry message payloads, properties, and delivery semantics. A browser-native client must support AMQP over WebSockets to connect without a native proxy.</p>
+    </section>
+
+    <section>
+      <h2>Browser-native AMQP over WebSockets</h2>
+      <p>Bussin.dev maintains an AMQP session through the browser by opening a WebSocket connection to Service Bus. This keeps the client simple while preserving the same protocol semantics used by desktop and server-side clients.</p>
+      <p class="note">This section should contain a technical diagram showing AMQP over WebSockets between browser and Service Bus.</p>
+    </section>
+
+    <section>
+      <h2>Common queries this page answers</h2>
+      <ul>
+        <li>What is AMQP?</li>
+        <li>How does Azure Service Bus use AMQP?</li>
+        <li>Can a browser connect directly to Service Bus?</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p><strong>Related topics:</strong> <a href="/glossary/dead-letter-queue/">Dead-letter queue</a> · <a href="/docs/peek-lock/">Peek-lock</a></p>
+      </div>
+      <p>Glossary content designed for long-tail Service Bus queries and developer search intent.</p>
+    </div>
+  </footer>
+</body>
+</html>

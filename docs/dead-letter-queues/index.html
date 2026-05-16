@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dead-letter queues | Bussin.dev Docs</title>
+  <meta name="description" content="Dead-letter queue documentation for Bussin.dev. Learn how to inspect, analyze, and recover Azure Service Bus dead-letter messages in the browser.">
+  <link rel="canonical" href="https://bussin.dev/docs/dead-letter-queues/">
+  <meta property="og:title" content="Dead-letter queues | Bussin.dev Docs">
+  <meta property="og:description" content="Dead-letter queue documentation for Bussin.dev. Learn how to inspect, analyze, and recover Azure Service Bus dead-letter messages in the browser.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://bussin.dev/docs/dead-letter-queues/">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="/">Bussin</a>
+      <nav class="topbar-nav">
+        <a href="/docs/">Docs</a>
+        <a href="/features/cross-platform/">Features</a>
+        <a href="/glossary/dead-letter-queue/">Glossary</a>
+      </nav>
+      <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+    </div>
+  </header>
+
+  <main class="container page-content">
+    <nav class="section-nav">
+      <a href="/docs/">Docs overview</a>
+      <a href="/docs/peek-lock/">Peek-lock</a>
+      <a href="/docs/topic-subscriptions/">Topic subscriptions</a>
+    </nav>
+
+    <article>
+      <p class="eyebrow">Workflow guide</p>
+      <h1>Dead-letter queue inspection and recovery</h1>
+      <p>Dead-letter queues contain messages that could not be processed normally. Bussin.dev helps you inspect those messages and decide whether to replay, fix, or archive them.</p>
+    </article>
+
+    <section>
+      <h2>Find dead-letter messages</h2>
+      <p>Select the dead-letter queue from the entity list. The UI makes it obvious when a queue has a dead-letter path and how many messages are waiting for review.</p>
+      <p class="note">This section should contain a screenshot of the dead-letter message list and metadata panels.</p>
+    </section>
+
+    <section>
+      <h2>Inspect failure details</h2>
+      <p>Open individual dead-letter messages to view failure reason, UserProperties, and system properties. This makes root cause investigation easier than guessing from topic activity alone.</p>
+    </section>
+
+    <section>
+      <h2>Recover or move messages</h2>
+      <p>Use dedicated actions to move dead-letter messages back to a queue, deliver them to a new subscription, or archive them for later review.</p>
+      <pre><code>1. Review dead-letter reason and custom properties
+2. Validate payload before replay
+3. Move message to target queue or keep in dead-letter queue</code></pre>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p><strong>Keep exploring:</strong> <a href="/docs/topic-subscriptions/">Topic subscriptions</a> · <a href="/glossary/dead-letter-queue/">Definition</a></p>
+      </div>
+      <p>Dead-letter workflows that keep Azure Service Bus inspection transparent and safe.</p>
+    </div>
+  </footer>
+</body>
+</html>

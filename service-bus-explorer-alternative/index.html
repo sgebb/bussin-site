@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Browser-native Azure Service Bus Explorer alternative | Bussin.dev</title>
+  <meta name="description" content="Bussin.dev is a browser-native Azure Service Bus explorer alternative. Learn why teams choose direct AMQP over WebSockets access without Electron or desktop proxies.">
+  <link rel="canonical" href="https://bussin.dev/service-bus-explorer-alternative/">
+  <meta property="og:title" content="Browser-native Azure Service Bus Explorer alternative | Bussin.dev">
+  <meta property="og:description" content="Bussin.dev is a browser-native Azure Service Bus explorer alternative. Learn why teams choose direct AMQP over WebSockets access without Electron or desktop proxies.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bussin.dev/service-bus-explorer-alternative/">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="/">Bussin</a>
+      <nav class="topbar-nav">
+        <a href="/docs/">Docs</a>
+        <a href="/features/browser-native/">Features</a>
+        <a href="/compare/service-bus-explorer/">Compare</a>
+        <a href="/glossary/amqp/">Glossary</a>
+      </nav>
+      <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+    </div>
+  </header>
+
+  <main class="container page-content">
+    <nav class="section-nav">
+      <a href="/">Home</a>
+      <a href="/compare/service-bus-explorer/">Comparison</a>
+      <a href="/docs/">Docs</a>
+      <a href="/features/browser-native/">Browser-native</a>
+    </nav>
+
+    <article>
+      <p class="eyebrow">Service Bus tooling</p>
+      <h1>Browser-native Azure Service Bus explorer alternative</h1>
+      <p>Bussin.dev connects directly to Azure Service Bus using AMQP over WebSockets. It works in the browser, without Electron or a backend proxy, and is built for queue inspection, dead-letter recovery, and subscription troubleshooting.</p>
+      <div class="hero-actions">
+        <a class="button primary" href="https://app.bussin.dev/demo" target="_blank" rel="noopener">Open demo — no login</a>
+        <a class="button secondary" href="https://app.bussin.dev" target="_blank" rel="noopener">Open app</a>
+      </div>
+    </article>
+
+    <section>
+      <h2>Why browser-native matters for Service Bus</h2>
+      <ul>
+        <li><strong>No install, no desktop runtime:</strong> open Bussin directly in the browser and connect to namespaces from any operating system.</li>
+        <li><strong>Direct AMQP over WebSockets:</strong> the client speaks the same protocol as managed Azure tooling, without proxying message traffic through a backend service.</li>
+        <li><strong>Cross-platform compatibility:</strong> Mac, Linux, and Windows teams can use the same browser experience.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Typical workflows</h2>
+      <div class="feature-grid">
+        <article>
+          <h3>Queue inspection</h3>
+          <p>View queue metadata, live message counts, and lease state before you inspect or replay messages.</p>
+        </article>
+        <article>
+          <h3>Dead-letter analysis</h3>
+          <p>Browse dead-letter queues, inspect failure details, and move messages back into processing with confidence.</p>
+        </article>
+        <article>
+          <h3>Topic subscriptions</h3>
+          <p>Open subscriptions for direct message browsing and validate filter behavior without deploying code.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Consent and control</h2>
+      <p>Bussin only operates when you explicitly tell it to. The full app requests Graph and Service Bus consent only to discover namespaces and issue direct Service Bus calls, and it cannot do anything autonomously.</p>
+      <p class="note">For a quick preview, open the demo path without login or consent.</p>
+    </section>
+
+    <section>
+      <h2>What this page should show</h2>
+      <p>This section should contain screenshots/gifs comparing browser-native connection flows, queue state views, and dead-letter inspection workflows.</p>
+      <div class="placeholder-card">Screenshot placeholder</div>
+    </section>
+
+    <section>
+      <h2>Limitations of desktop-only tooling</h2>
+      <ul>
+        <li>Electron and native apps require install, updates, and permission management.</li>
+        <li>Desktop tools often need a local proxy or VM network bridge for cloud AMQP.</li>
+        <li>Mac and Linux support can lag behind Windows-first clients.</li>
+      </ul>
+      <p>Browser-native tooling removes those friction points and keeps the interaction directly in the browser.</p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p><strong>Explore:</strong> <a href="/docs/">Docs</a> · <a href="/features/browser-native/">Features</a> · <a href="/compare/service-bus-explorer/">Compare</a></p>
+      </div>
+      <p>Built for developers who need direct Azure Service Bus access in the browser.</p>
+    </div>
+  </footer>
+</body>
+</html>
