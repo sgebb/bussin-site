@@ -15,34 +15,35 @@
 <body>
   <header class="topbar">
     <div class="container topbar-inner">
-      <a class="brand" href="/">Bussin</a>
-      <div class="header-actions">
-        <details class="topbar-menu" role="menu" aria-label="Main menu">
-          <summary aria-haspopup="true">Menu</summary>
-          <div class="menu-panel">
-            <nav class="topbar-nav">
-              <span class="menu-heading">Docs</span>
-              <a href="/docs/">Docs home</a>
-              <a href="/docs/overview/">Overview</a>
-              <a href="/docs/peek-lock/">Peek-lock</a>
-              <a href="/docs/dead-letter-queues/">Dead-letter queues</a>
-              <a href="/docs/topic-subscriptions/">Topic subscriptions</a>
-              <span class="divider" aria-hidden="true"></span>
-              <span class="menu-heading">Learn</span>
-              <a href="/browser-based-service-bus-explorer/">Browser-based explorer</a>
-              <a href="/service-bus-explorer-alternative/">Alternative</a>
-              <a href="/service-bus-linux-mac/">Linux & Mac</a>
-              <a href="/features/browser-native/">Browser-native</a>
-              <a href="/features/cross-platform/">Cross-platform</a>
-              <span class="divider" aria-hidden="true"></span>
-              <a href="/glossary/amqp/">Glossary</a>
-              <a href="/glossary/dead-letter-queue/">Glossary</a>
-              <a href="/privacy/">Privacy</a>
-            </nav>
-          </div>
+      <div class="header-brand">
+        <details class="topbar-menu menu-left">
+          <summary class="hamburger-icon" aria-label="Menu">☰</summary>
+          <nav class="menu-panel">
+            <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+            <span class="menu-heading">PRODUCT</span>
+            <a href="/docs/overview/">Overview</a>
+            <a href="/features/browser-native/">Features</a>
+            <a href="/browser-based-service-bus-explorer/">How it works</a>
+            <span class="menu-heading">COMPARE</span>
+            <a href="/service-bus-explorer-alternative/">Service Bus Explorer alternative</a>
+            <a href="/compare/service-bus-explorer/">Azure Portal vs Bussin</a>
+            <a href="/compare/service-bus-explorer/">VS Code vs Bussin</a>
+            <span class="menu-heading">LEARN</span>
+            <a href="/glossary/">What is Service Bus</a>
+            <a href="/glossary/dead-letter-queue/">Dead-letter queues</a>
+            <a href="/docs/peek-lock/">Peek-lock</a>
+            <span class="menu-heading">DOCS</span>
+            <a href="/docs/overview/">Getting started</a>
+            <a href="/browser-based-service-bus-explorer/">Connecting</a>
+            <a href="/docs/peek-lock/">Debugging workflows</a>
+            <span class="menu-heading">Legal</span>
+            <a href="/privacy/">Privacy</a>
+            <a href="/privacy/">Security</a>
+          </nav>
         </details>
-        <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open app</a>
+        <a class="brand" href="/">Bussin</a>
       </div>
+      <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
     </div>
   </header>
 
@@ -63,7 +64,10 @@
     <section>
       <h2>Find dead-letter messages</h2>
       <p>Select the dead-letter queue from the entity list. The UI highlights dead-letter counts and metadata for quick triage.</p>
-      <p class="note">Placeholder: screenshot of dead-letter queue selection and message list.</p>
+      <figure class="placeholder-card">
+        <img src="/assets/media/bulk-operations-movetodlq-resubmit.gif" alt="Dead-letter queue selection and message list in Bussin" />
+        <figcaption>Dead-letter queue selection and message list in the browser.</figcaption>
+      </figure>
     </section>
 
     <section>

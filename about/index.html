@@ -15,28 +15,35 @@
 <body>
   <header class="topbar">
     <div class="container topbar-inner">
-      <a class="brand" href="/">Bussin</a>
-      <div class="header-actions">
-        <details class="topbar-menu" role="menu" aria-label="Main menu">
-          <summary aria-haspopup="true">Menu</summary>
-          <div class="menu-panel">
-            <nav class="topbar-nav">
-              <a href="/docs/">Docs</a>
-              <a href="/docs/peek-lock/">Peek-lock</a>
-              <a href="/docs/dead-letter-queues/">Dead-letter queues</a>
-              <a href="/docs/topic-subscriptions/">Topic subscriptions</a>
-              <a href="/glossary/amqp/">Glossary</a>
-              <a href="/compare/service-bus-explorer/">Compare</a>
-              <a href="/features/browser-native/">Features</a>
-              <a href="/features/cross-platform/">Cross-platform</a>
-              <a href="/service-bus-explorer-alternative/">Alternative</a>
-              <a href="/about/">About</a>
-              <a href="/privacy/">Privacy</a>
-            </nav>
-          </div>
+      <div class="header-brand">
+        <details class="topbar-menu menu-left">
+          <summary class="hamburger-icon" aria-label="Menu">☰</summary>
+          <nav class="menu-panel">
+            <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+            <span class="menu-heading">PRODUCT</span>
+            <a href="/docs/overview/">Overview</a>
+            <a href="/features/browser-native/">Features</a>
+            <a href="/browser-based-service-bus-explorer/">How it works</a>
+            <span class="menu-heading">COMPARE</span>
+            <a href="/service-bus-explorer-alternative/">Service Bus Explorer alternative</a>
+            <a href="/compare/service-bus-explorer/">Azure Portal vs Bussin</a>
+            <a href="/compare/service-bus-explorer/">VS Code vs Bussin</a>
+            <span class="menu-heading">LEARN</span>
+            <a href="/glossary/">What is Service Bus</a>
+            <a href="/glossary/dead-letter-queue/">Dead-letter queues</a>
+            <a href="/docs/peek-lock/">Peek-lock</a>
+            <span class="menu-heading">DOCS</span>
+            <a href="/docs/overview/">Getting started</a>
+            <a href="/browser-based-service-bus-explorer/">Connecting</a>
+            <a href="/docs/peek-lock/">Debugging workflows</a>
+            <span class="menu-heading">Legal</span>
+            <a href="/privacy/">Privacy</a>
+            <a href="/privacy/">Security</a>
+          </nav>
         </details>
-        <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open app</a>
+        <a class="brand" href="/">Bussin</a>
       </div>
+      <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
     </div>
   </header>
   <main class="container page-content">
