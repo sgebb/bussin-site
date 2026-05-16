@@ -89,6 +89,11 @@ svg {
   gap: 1rem;
   margin-top: 1.8rem;
 }
+.hero-subtext {
+  margin-top: 1rem;
+  color: #9cdbe8;
+  font-size: 0.98rem;
+}
 .menu-heading {
   display: block;
   margin: 0.75rem 0 0.35rem;
