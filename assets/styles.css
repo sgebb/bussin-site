@@ -98,6 +98,8 @@ svg {
   padding: 0.6rem;
   min-width: 180px;
   max-width: min(90vw, 260px);
+  max-height: calc(100vh - 5rem);
+  overflow-y: auto;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.04);
   z-index: 40;
@@ -108,9 +110,20 @@ svg {
 .menu-panel a {
   color: #a7d5ea;
   font-size: 0.95rem;
-  padding: 0.65rem 0.95rem;
+  padding: 0.55rem 0.85rem;
   border-radius: 8px;
   transition: background-color 0.2s ease, color 0.2s ease;
+}
+@media (max-width: 720px) {
+  .menu-panel {
+    gap: 0.15rem;
+    padding: 0.4rem;
+    max-height: calc(100vh - 3.5rem);
+  }
+  .menu-panel a {
+    padding: 0.45rem 0.75rem;
+    font-size: 0.92rem;
+  }
 }
 .menu-panel a:hover {
   background: rgba(34, 194, 183, 0.12);
