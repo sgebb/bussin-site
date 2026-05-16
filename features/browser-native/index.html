@@ -21,16 +21,22 @@
           <summary aria-haspopup="true">Menu</summary>
           <div class="menu-panel">
             <nav class="topbar-nav">
-              <a href="/docs/">Docs</a>
+              <span class="menu-heading">Docs</span>
+              <a href="/docs/">Docs home</a>
+              <a href="/docs/overview/">Overview</a>
               <a href="/docs/peek-lock/">Peek-lock</a>
               <a href="/docs/dead-letter-queues/">Dead-letter queues</a>
               <a href="/docs/topic-subscriptions/">Topic subscriptions</a>
-              <a href="/glossary/amqp/">Glossary</a>
-              <a href="/compare/service-bus-explorer/">Compare</a>
-              <a href="/features/browser-native/">Features</a>
-              <a href="/features/cross-platform/">Cross-platform</a>
+              <span class="divider" aria-hidden="true"></span>
+              <span class="menu-heading">Learn</span>
+              <a href="/browser-based-service-bus-explorer/">Browser-based explorer</a>
               <a href="/service-bus-explorer-alternative/">Alternative</a>
-              <a href="/about/">About</a>
+              <a href="/service-bus-linux-mac/">Linux & Mac</a>
+              <a href="/features/browser-native/">Browser-native</a>
+              <a href="/features/cross-platform/">Cross-platform</a>
+              <span class="divider" aria-hidden="true"></span>
+              <a href="/glossary/amqp/">Glossary</a>
+              <a href="/glossary/dead-letter-queue/">Glossary</a>
               <a href="/privacy/">Privacy</a>
             </nav>
           </div>
@@ -56,19 +62,19 @@
 
     <section>
       <h2>What browser-native means</h2>
-      <p>Browser-native means the application runs entirely in the browser and connects directly to Azure Service Bus using supported web protocols. This eliminates install friction and keeps the product lightweight for teams.</p>
+      <p>The application runs entirely in the browser and connects directly to Azure Service Bus using supported web transport. This eliminates install friction and keeps the tool lightweight for teams.</p>
     </section>
 
     <section>
-      <h2>Key browser-native capabilities</h2>
+      <h2>Key capabilities</h2>
       <div class="feature-grid">
         <article>
           <h3>AMQP over WebSockets</h3>
-          <p>Maintains the same messaging protocol semantics in a browser environment.</p>
+          <p>Preserve messaging semantics in a browser environment.</p>
         </article>
         <article>
           <h3>Queue and topic navigation</h3>
-          <p>Browse queue metadata, subscriptions, and dead-letter entries without switching tools.</p>
+          <p>Browse entity metadata, subscriptions, and dead-letter entries without switching tools.</p>
         </article>
         <article>
           <h3>Safe message workflows</h3>
@@ -79,8 +85,8 @@
 
     <section>
       <h2>Where to use it</h2>
-      <p>Bussin.dev is ideal for developers, SREs, and integration teams who need to validate Service Bus state without setting up a native client or desktop tool.</p>
-      <p class="note">This section should contain a screenshot of browser-native connection flow and namespace explorer.</p>
+      <p>Bussin.dev is ideal for developers, SREs, and integration teams who need to validate Service Bus state without installing a native client.</p>
+      <p class="note">Placeholder: screenshot of browser-native connection flow.</p>
     </section>
   </main>
 
@@ -89,7 +95,7 @@
       <div>
         <p><strong>More:</strong> <a href="/features/cross-platform/">Cross-platform</a> · <a href="/docs/">Docs</a></p>
       </div>
-      <p>Feature content focused on practical browser-native Azure Service Bus usage.</p>
+      <p>Browser-native Azure Service Bus tooling for direct inspection workflows.</p>
     </div>
   </footer>
 </body>

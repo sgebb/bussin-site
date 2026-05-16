@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Docs overview | Bussin.dev</title>
+  <meta name="description" content="Overview of Bussin.dev documentation for browser-native Azure Service Bus workflows, including peek-lock, dead-letter queues, and topic subscriptions.">
+  <link rel="canonical" href="https://bussin.dev/docs/overview/">
+  <meta property="og:title" content="Docs overview | Bussin.dev">
+  <meta property="og:description" content="Overview of Bussin.dev documentation for browser-native Azure Service Bus workflows, including peek-lock, dead-letter queues, and topic subscriptions.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://bussin.dev/docs/overview/">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="/">Bussin</a>
+      <div class="header-actions">
+        <details class="topbar-menu" role="menu" aria-label="Main menu">
+          <summary aria-haspopup="true">Menu</summary>
+          <div class="menu-panel">
+            <nav class="topbar-nav">
+              <span class="menu-heading">Docs</span>
+              <a href="/docs/">Docs home</a>
+              <a href="/docs/overview/">Overview</a>
+              <a href="/docs/peek-lock/">Peek-lock</a>
+              <a href="/docs/dead-letter-queues/">Dead-letter queues</a>
+              <a href="/docs/topic-subscriptions/">Topic subscriptions</a>
+              <span class="divider" aria-hidden="true"></span>
+              <span class="menu-heading">Learn</span>
+              <a href="/browser-based-service-bus-explorer/">Browser-based explorer</a>
+              <a href="/service-bus-explorer-alternative/">Alternative</a>
+              <a href="/service-bus-linux-mac/">Linux & Mac</a>
+              <a href="/features/browser-native/">Browser-native</a>
+              <a href="/features/cross-platform/">Cross-platform</a>
+              <span class="divider" aria-hidden="true"></span>
+              <a href="/glossary/amqp/">Glossary</a>
+              <a href="/glossary/dead-letter-queue/">Glossary</a>
+              <a href="/privacy/">Privacy</a>
+            </nav>
+          </div>
+        </details>
+        <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open app</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container page-content">
+    <article>
+      <p class="eyebrow">Docs overview</p>
+      <h1>Browser-native Service Bus documentation for real workflows</h1>
+      <p>This overview explains how Bussin.dev supports the core Azure Service Bus scenarios you need in a browser-native tool: peek-lock inspection, dead-letter recovery, and topic subscription diagnostics.</p>
+    </article>
+
+    <section>
+      <h2>What this documentation covers</h2>
+      <ul>
+        <li>How to inspect messages without completing them</li>
+        <li>How to review and recover dead-letter queues</li>
+        <li>How to validate topic subscription filters and routing</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Typical usage steps</h2>
+      <ol>
+        <li>Connect to Azure Service Bus with the browser-native app.</li>
+        <li>Select the namespace, queue, topic, or subscription to inspect.</li>
+        <li>Use the peek-lock view to read messages safely.</li>
+        <li>Open dead-letter queues to review failure details and replay messages.</li>
+      </ol>
+      <p class="note">Screenshots and examples are intentionally left as placeholders so the content can be enhanced with current UI assets.</p>
+    </section>
+
+    <section>
+      <h2>Related reference</h2>
+      <div class="docs-grid">
+        <article>
+          <h3><a href="/docs/peek-lock/">Peek-lock workflows</a></h3>
+          <p>Review how Bussin handles safe message inspection and completion.</p>
+        </article>
+        <article>
+          <h3><a href="/docs/dead-letter-queues/">Dead-letter queues</a></h3>
+          <p>Open failure queues and recover messages with explicit replay actions.</p>
+        </article>
+        <article>
+          <h3><a href="/docs/topic-subscriptions/">Topic subscriptions</a></h3>
+          <p>Inspect filter behavior and delivery metrics for topic-driven workloads.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Glossary and concepts</h2>
+      <p>When you need quick definitions, these pages explain the core Service Bus terms used by the docs.</p>
+      <ul>
+        <li><a href="/glossary/amqp/">AMQP</a></li>
+        <li><a href="/glossary/dead-letter-queue/">Dead-letter queue</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <p><strong>Read next:</strong> <a href="/docs/peek-lock/">Peek-lock</a> · <a href="/docs/dead-letter-queues/">Dead-letter queues</a> · <a href="/docs/topic-subscriptions/">Topic subscriptions</a></p>
+      </div>
+      <p>Documentation designed for browser-native Azure Service Bus workflows.</p>
+    </div>
+  </footer>
+</body>
+</html>

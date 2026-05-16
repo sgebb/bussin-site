@@ -83,6 +83,26 @@ svg {
 .button:hover {
   transform: translateY(-1px);
 }
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.8rem;
+}
+.menu-heading {
+  display: block;
+  margin: 0.75rem 0 0.35rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #7ff4e1;
+}
+.divider {
+  height: 1px;
+  width: 100%;
+  margin: 0.75rem 0;
+  background: rgba(255, 255, 255, 0.06);
+}
 .primary {
   background: #22c2b7;
   color: #041519;
@@ -104,9 +124,22 @@ svg {
   grid-template-columns: 1.1fr 0.9fr;
   align-items: center;
 }
+.split-section {
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 2rem;
+  align-items: center;
+  margin-top: 2rem;
+}
 .hero-visual {
   display: grid;
   place-items: center;
+}
+@media (max-width: 860px) {
+  .hero-grid,
+  .split-section {
+    grid-template-columns: 1fr;
+  }
 }
 .hero-card,
 .placeholder-card,

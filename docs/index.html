@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Documentation for Bussin.dev | Azure Service Bus workflows</title>
-  <meta name="description" content="Bussin.dev documentation for Azure Service Bus workflows, including peek-lock, dead-letter queues, and topic subscriptions. Practical guides for browser-native Service Bus inspection.">
+  <meta name="description" content="Bussin.dev documentation for browser-native Azure Service Bus workflows, including peek-lock, dead-letter queues, and topic subscriptions.">
   <link rel="canonical" href="https://bussin.dev/docs/">
   <meta property="og:title" content="Documentation for Bussin.dev | Azure Service Bus workflows">
-  <meta property="og:description" content="Bussin.dev documentation for Azure Service Bus workflows, including peek-lock, dead-letter queues, and topic subscriptions. Practical guides for browser-native Service Bus inspection.">
+  <meta property="og:description" content="Bussin.dev documentation for browser-native Azure Service Bus workflows, including peek-lock, dead-letter queues, and topic subscriptions.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://bussin.dev/docs/">
   <link rel="stylesheet" href="/assets/styles.css">
@@ -21,16 +21,22 @@
           <summary aria-haspopup="true">Menu</summary>
           <div class="menu-panel">
             <nav class="topbar-nav">
-              <a href="/docs/">Docs</a>
+              <span class="menu-heading">Docs</span>
+              <a href="/docs/">Docs home</a>
+              <a href="/docs/overview/">Overview</a>
               <a href="/docs/peek-lock/">Peek-lock</a>
               <a href="/docs/dead-letter-queues/">Dead-letter queues</a>
               <a href="/docs/topic-subscriptions/">Topic subscriptions</a>
-              <a href="/glossary/amqp/">Glossary</a>
-              <a href="/compare/service-bus-explorer/">Compare</a>
-              <a href="/features/browser-native/">Features</a>
-              <a href="/features/cross-platform/">Cross-platform</a>
+              <span class="divider" aria-hidden="true"></span>
+              <span class="menu-heading">Learn</span>
+              <a href="/browser-based-service-bus-explorer/">Browser-based explorer</a>
               <a href="/service-bus-explorer-alternative/">Alternative</a>
-              <a href="/about/">About</a>
+              <a href="/service-bus-linux-mac/">Linux & Mac</a>
+              <a href="/features/browser-native/">Browser-native</a>
+              <a href="/features/cross-platform/">Cross-platform</a>
+              <span class="divider" aria-hidden="true"></span>
+              <a href="/glossary/amqp/">Glossary</a>
+              <a href="/glossary/dead-letter-queue/">Glossary</a>
               <a href="/privacy/">Privacy</a>
             </nav>
           </div>
@@ -43,42 +49,59 @@
   <main class="container page-content">
     <article>
       <p class="eyebrow">Documentation</p>
-      <h1>Service Bus workflows for browser-native inspection</h1>
-      <p>Browse practical guides for the core Service Bus workflows supported by Bussin.dev. These pages focus on peek-lock inspection, dead-letter queue recovery, and subscription diagnostics.</p>
+      <h1>Practical Azure Service Bus workflows for browser-native inspection</h1>
+      <p>Follow workflow-focused guides for the core Service Bus inspection scenarios supported by Bussin.dev. These docs are designed for developers who need fast, transparent, browser-native tooling for queues, dead-letter messages, and topic subscriptions.</p>
     </article>
 
     <section class="docs-grid">
       <article>
+        <h2><a href="/docs/overview/">Overview</a></h2>
+        <p>Start here to understand the browser-native Service Bus workflow and how Bussin fits into your diagnostics process.</p>
+      </article>
+      <article>
         <h2><a href="/docs/peek-lock/">Peek-lock workflows</a></h2>
-        <p>Understand how Bussin dev tools manage peek-lock, message browsing, and safe message retries without accidental completion.</p>
+        <p>Inspect messages safely without removing them from the broker and complete them only after review.</p>
       </article>
       <article>
         <h2><a href="/docs/dead-letter-queues/">Dead-letter queues</a></h2>
-        <p>Open dead-letter queues, inspect failure details, and prepare messages for replay or investigation.</p>
+        <p>Recover failed messages and review dead-letter metadata before replaying or archiving.</p>
       </article>
       <article>
         <h2><a href="/docs/topic-subscriptions/">Topic subscriptions</a></h2>
-        <p>Explore topic subscription views, filter evaluation, and message routing inside the browser client.</p>
+        <p>Validate subscription filters, message delivery, and routing behavior for topic-based architectures.</p>
       </article>
     </section>
 
     <section>
-      <h2>Quick start</h2>
-      <p>The documentation is optimized for teams who need to verify Azure Service Bus state without leaving the browser. If you are evaluating an alternative to desktop tooling, start with the peek-lock and dead-letter workflows.</p>
+      <h2>Documentation workflow</h2>
+      <p>Use these pages as a quick reference for the most common Service Bus troubleshooting tasks in Bussin.dev. Each page includes practical steps, placeholder UI examples, and links to glossary terms that explain the underlying messaging concepts.</p>
     </section>
 
     <section>
-      <h2>Related reference</h2>
-      <p>Also see <a href="/glossary/amqp/">AMQP</a> and <a href="/glossary/dead-letter-queue/">dead-letter queue</a> definitions to ground these practical workflows.</p>
+      <h2>Jump to</h2>
+      <div class="feature-grid">
+        <article>
+          <h3><a href="/glossary/amqp/">AMQP</a></h3>
+          <p>Learn the protocol behind browser-native Service Bus connections.</p>
+        </article>
+        <article>
+          <h3><a href="/glossary/dead-letter-queue/">Dead-letter queue</a></h3>
+          <p>Understand why messages are dead-lettered and how to recover them.</p>
+        </article>
+        <article>
+          <h3><a href="/browser-based-service-bus-explorer/">Browser-based explorer</a></h3>
+          <p>See why browser-native tooling is useful for modern Azure Service Bus workflows.</p>
+        </article>
+      </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
       <div>
-        <p><strong>Navigation:</strong> <a href="/features/browser-native/">Browser-native</a> · <a href="/features/cross-platform/">Cross-platform</a> · <a href="/compare/service-bus-explorer/">Compare</a></p>
+        <p><strong>Documentation:</strong> <a href="/docs/overview/">Overview</a> · <a href="/docs/peek-lock/">Peek-lock</a> · <a href="/docs/dead-letter-queues/">Dead-letter queues</a></p>
       </div>
-      <p>Documentation built for real Azure Service Bus work.</p>
+      <p>Workflow-first docs for browser-native Azure Service Bus inspection.</p>
     </div>
   </footer>
 </body>

@@ -21,16 +21,22 @@
           <summary aria-haspopup="true">Menu</summary>
           <div class="menu-panel">
             <nav class="topbar-nav">
-              <a href="/docs/">Docs</a>
+              <span class="menu-heading">Docs</span>
+              <a href="/docs/">Docs home</a>
+              <a href="/docs/overview/">Overview</a>
               <a href="/docs/peek-lock/">Peek-lock</a>
               <a href="/docs/dead-letter-queues/">Dead-letter queues</a>
               <a href="/docs/topic-subscriptions/">Topic subscriptions</a>
-              <a href="/glossary/amqp/">Glossary</a>
-              <a href="/compare/service-bus-explorer/">Compare</a>
-              <a href="/features/browser-native/">Features</a>
-              <a href="/features/cross-platform/">Cross-platform</a>
+              <span class="divider" aria-hidden="true"></span>
+              <span class="menu-heading">Learn</span>
+              <a href="/browser-based-service-bus-explorer/">Browser-based explorer</a>
               <a href="/service-bus-explorer-alternative/">Alternative</a>
-              <a href="/about/">About</a>
+              <a href="/service-bus-linux-mac/">Linux & Mac</a>
+              <a href="/features/browser-native/">Browser-native</a>
+              <a href="/features/cross-platform/">Cross-platform</a>
+              <span class="divider" aria-hidden="true"></span>
+              <a href="/glossary/amqp/">Glossary</a>
+              <a href="/glossary/dead-letter-queue/">Glossary</a>
               <a href="/privacy/">Privacy</a>
             </nav>
           </div>
@@ -44,37 +50,37 @@
     <nav class="section-nav">
       <a href="/glossary/amqp/">AMQP</a>
       <a href="/docs/dead-letter-queues/">Docs</a>
-      <a href="/features/browser-native/">Features</a>
+      <a href="/features/browser-native/">Browser-native</a>
     </nav>
 
     <article>
       <p class="eyebrow">Glossary</p>
       <h1>Dead-letter queue</h1>
-      <p>A dead-letter queue holds Service Bus messages that could not be processed normally. Bussin.dev exposes dead-letter inspection and recovery without requiring a desktop client.</p>
+      <p>A dead-letter queue holds Azure Service Bus messages that could not be processed normally. Bussin.dev exposes dead-letter inspection and recovery directly in the browser.</p>
     </article>
 
     <section>
-      <h2>When messages land in dead-letter queues</h2>
-      <p>Messages are dead-lettered for delivery failures, expiration, filter evaluation issues, or manual moves. The dead-letter queue retains the message body and system metadata for analysis.</p>
+      <h2>Why messages go to the dead-letter queue</h2>
+      <p>Messages are dead-lettered for delivery failures, expiration, filter mismatch, or manual route decisions. The dead-letter queue keeps the message body and metadata for investigation.</p>
     </section>
 
     <section>
-      <h2>Inspecting dead-letter queue details</h2>
-      <p>Look for dead-letter reason, error description, and user-defined properties. This data is essential for diagnosing why a message was rejected or timed out.</p>
+      <h2>How to inspect dead-lettered messages</h2>
+      <p>View dead-letter reason, exception details, and user properties before choosing whether to replay or archive the message.</p>
     </section>
 
     <section>
-      <h2>How Bussin.dev helps</h2>
-      <p>Bussin.dev lets you open dead-letter queues directly in the browser and move selected messages back to an active queue or subscription. It keeps the workflow explicit so the recovery path is easy to follow.</p>
+      <h2>Why Bussin helps</h2>
+      <p>Bussin.dev lets you open dead-letter queues directly in the browser and move selected messages back to an active queue or subscription with explicit recovery controls.</p>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
       <div>
-        <p><strong>More:</strong> <a href="/docs/dead-letter-queues/">Dead-letter queue docs</a> · <a href="/compare/service-bus-explorer/">Tool comparison</a></p>
+        <p><strong>More:</strong> <a href="/docs/dead-letter-queues/">Dead-letter queue docs</a> · <a href="/compare/service-bus-explorer/">Compare</a></p>
       </div>
-      <p>Simple glossary content for long-tail Azure Service Bus queries.</p>
+      <p>Glossary content for practical Azure Service Bus terms and search intent.</p>
     </div>
   </footer>
 </body>

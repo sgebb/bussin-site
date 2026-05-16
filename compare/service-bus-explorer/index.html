@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Compare with Azure Service Bus Explorer | Bussin.dev</title>
-  <meta name="description" content="Compare Bussin.dev with Azure Service Bus Explorer and desktop-only Service Bus tooling. Learn browser-native advantages, protocol details, and workflow differences.">
+  <meta name="description" content="Compare Bussin.dev with Azure Service Bus Explorer and browser-native alternatives. Learn which tool is best for direct Service Bus workflows and dead-letter diagnostics.">
   <link rel="canonical" href="https://bussin.dev/compare/service-bus-explorer/">
   <meta property="og:title" content="Compare with Azure Service Bus Explorer | Bussin.dev">
-  <meta property="og:description" content="Compare Bussin.dev with Azure Service Bus Explorer and desktop-only Service Bus tooling. Learn browser-native advantages, protocol details, and workflow differences.">
+  <meta property="og:description" content="Compare Bussin.dev with Azure Service Bus Explorer and browser-native alternatives. Learn which tool is best for direct Service Bus workflows and dead-letter diagnostics.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://bussin.dev/compare/service-bus-explorer/">
   <link rel="stylesheet" href="/assets/styles.css">
@@ -21,16 +21,22 @@
           <summary aria-haspopup="true">Menu</summary>
           <div class="menu-panel">
             <nav class="topbar-nav">
-              <a href="/docs/">Docs</a>
+              <span class="menu-heading">Docs</span>
+              <a href="/docs/">Docs home</a>
+              <a href="/docs/overview/">Overview</a>
               <a href="/docs/peek-lock/">Peek-lock</a>
               <a href="/docs/dead-letter-queues/">Dead-letter queues</a>
               <a href="/docs/topic-subscriptions/">Topic subscriptions</a>
-              <a href="/glossary/amqp/">Glossary</a>
-              <a href="/compare/service-bus-explorer/">Compare</a>
-              <a href="/features/browser-native/">Features</a>
-              <a href="/features/cross-platform/">Cross-platform</a>
+              <span class="divider" aria-hidden="true"></span>
+              <span class="menu-heading">Learn</span>
+              <a href="/browser-based-service-bus-explorer/">Browser-based explorer</a>
               <a href="/service-bus-explorer-alternative/">Alternative</a>
-              <a href="/about/">About</a>
+              <a href="/service-bus-linux-mac/">Linux & Mac</a>
+              <a href="/features/browser-native/">Browser-native</a>
+              <a href="/features/cross-platform/">Cross-platform</a>
+              <span class="divider" aria-hidden="true"></span>
+              <a href="/glossary/amqp/">Glossary</a>
+              <a href="/glossary/dead-letter-queue/">Glossary</a>
               <a href="/privacy/">Privacy</a>
             </nav>
           </div>
@@ -49,109 +55,49 @@
 
     <article>
       <p class="eyebrow">Comparison guide</p>
-      <h1>Compare Bussin with desktop Service Bus Explorer tools</h1>
-      <p>This comparison page outlines the practical differences between a browser-native Service Bus client and desktop-only tools such as Azure Service Bus Explorer and other Electron-based alternatives.</p>
+      <h1>Compare Bussin with Service Bus Explorer tools</h1>
+      <p>This guide shows how Bussin.dev's browser-native approach compares with Azure Portal, desktop Service Bus Explorer clients, and VS Code workflows.</p>
       <a class="button primary" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
     </article>
 
     <section>
-      <h2>Comparison summary</h2>
-      <p class="note">Green checkmarks show where a tool provides the capability out of the box. This table aims to be fair; Bussin focuses on browser-native workflows, modern authentication, and quick message inspection.</p>
+      <h2>Tool comparison</h2>
       <table>
         <thead>
           <tr>
-            <th>Tool</th>
-            <th>Entra / Azure AD</th>
-            <th>Connection method</th>
-            <th>Install required</th>
-            <th>Platform support</th>
-            <th>Dead-letter support</th>
-            <th>Peek-lock workflows</th>
-            <th>Security / privacy</th>
-            <th>Workflow focus</th>
+            <th>Characteristic</th>
+            <th>Bussin.dev</th>
+            <th>Azure Portal / Desktop tools</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Bussin (app.bussin.dev)</td>
-            <td class="checkmark">✓</td>
-            <td>AMQP over WebSockets (direct browser connection)</td>
-            <td class="checkmark">✓</td>
-            <td class="checkmark">Cross-platform (browser)</td>
-            <td class="checkmark">✓</td>
-            <td class="checkmark">✓</td>
-            <td class="checkmark">Browser-only tokens, no server-side storage</td>
-            <td>Fast message inspection, namespace discovery, demo-ready</td>
+            <td>Connection method</td>
+            <td>AMQP over WebSockets directly from browser</td>
+            <td>Management APIs or native desktop connection</td>
           </tr>
           <tr>
-            <td>Service Bus Explorer (community desktop)</td>
-            <td class="no-mark">—</td>
-            <td>AMQP / management API (native client)</td>
-            <td class="no-mark">Yes</td>
-            <td class="no-mark">Windows-only (official)</td>
-            <td class="checkmark">✓</td>
-            <td class="no-mark">Partial (manual)</td>
-            <td class="no-mark">Connection strings stored locally</td>
-            <td>Local desktop inspection, power-user focused</td>
+            <td>Install required</td>
+            <td>No</td>
+            <td>Yes for desktop clients, no for portal</td>
           </tr>
           <tr>
-            <td>VS Code Service Bus extension</td>
-            <td class="checkmark">✓</td>
-            <td>Azure SDK / management APIs (editor-hosted)</td>
-            <td class="no-mark">Extension install</td>
-            <td class="checkmark">Cross-platform (via VS Code)</td>
-            <td class="checkmark">✓</td>
-            <td class="no-mark">Partial (editor workflows)</td>
-            <td class="no-mark">Runs in editor; tokens may be cached by VS Code</td>
-            <td>Developer-in-editor flows, not a standalone browser app</td>
+            <td>Platform support</td>
+            <td>Browser-based on all major OS</td>
+            <td>Windows-first or siloed experiences</td>
           </tr>
           <tr>
-            <td>Azure Portal (Service Bus blade)</td>
-            <td class="checkmark">✓</td>
-            <td>Management plane (Azure Portal UI)</td>
-            <td class="no-mark">No</td>
-            <td class="checkmark">Cross-platform (browser)</td>
-            <td class="no-mark">Limited</td>
-            <td class="no-mark">Not optimized for peek-lock workflows</td>
-            <td class="no-mark">Hosted by Microsoft (not local)</td>
-            <td>Subscription & resource management, not message-first workflows</td>
+            <td>Peek-lock workflows</td>
+            <td>Explicit browser-native support</td>
+            <td>Limited in portal, partial in desktop clients</td>
           </tr>
           <tr>
-            <td>Paid SaaS tools (Serverless360, etc.)</td>
-            <td class="checkmark">✓</td>
-            <td>Proprietary connectors or management APIs</td>
-            <td class="no-mark">No</td>
-            <td class="checkmark">Cross-platform (web)</td>
-            <td class="checkmark">✓</td>
-            <td class="checkmark">✓</td>
-            <td class="no-mark">Requires managed backend; data may leave your network</td>
-            <td>Monitoring, dashboards, enterprise workflows</td>
-          </tr>
-          <tr>
-            <td>Electron / 3rd‑party desktop clients</td>
-            <td class="no-mark">Varies</td>
-            <td>AMQP / WebSockets / native bindings</td>
-            <td class="no-mark">Yes</td>
-            <td class="no-mark">Often cross-platform, quality varies</td>
-            <td class="checkmark">✓</td>
-            <td class="no-mark">Varies</td>
-            <td class="no-mark">Depends on vendor; may use backend proxy</td>
-            <td>Desktop-first UX, can bundle tooling</td>
-          </tr>
-          <tr>
-            <td>In-house / custom tooling</td>
-            <td class="no-mark">Varies</td>
-            <td>Varies (custom integrations)</td>
-            <td class="no-mark">Varies</td>
-            <td class="no-mark">Varies</td>
-            <td class="no-mark">Varies</td>
-            <td class="no-mark">Varies</td>
-            <td class="no-mark">Depends on implementation</td>
-            <td>Tailored to specific internal workflows</td>
+            <td>Dead-letter inspection</td>
+            <td>Direct browser support with recovery actions</td>
+            <td>Supported, but often through separate UI flows</td>
           </tr>
         </tbody>
       </table>
-      <p class="note">Notes: "Varies" means capability depends on the specific tool or configuration. Where practical, green checkmarks indicate built-in support without extra connectors or backend components.</p>
     </section>
 
     <section>
@@ -159,36 +105,35 @@
       <div class="feature-grid">
         <article>
           <h3>No desktop runtime</h3>
-          <p>Use the same app in any modern browser, without Electron or native install packages.</p>
+          <p>Open the same app in any modern browser without installing or updating a native client.</p>
         </article>
         <article>
           <h3>Direct protocol fidelity</h3>
-          <p>AMQP over WebSockets keeps the connection close to what Azure Service Bus expects for web environments.</p>
+          <p>AMQP over WebSockets preserves Service Bus semantics in a browser session.</p>
         </article>
         <article>
-          <h3>Fast updates</h3>
-          <p>Deploy UI improvements instantly without asking users to download a new client.</p>
+          <h3>Fast team onboarding</h3>
+          <p>Share a single browser URL rather than distributing desktop packages.</p>
         </article>
       </div>
     </section>
 
     <section>
-      <h2>Limitations of desktop-only tooling</h2>
+      <h2>What browser-native is not</h2>
       <ul>
-        <li>Install and update friction slows adoption across engineering teams.</li>
-        <li>Desktop-only tooling can be blocked in restricted environments.</li>
-        <li>Some clients expose a less polished experience for subscription and dead-letter workflows.</li>
+        <li>It is not a hosted backend service for your message data.</li>
+        <li>It is not a desktop-only client that must be installed and updated.</li>
+        <li>It is not a portal UI designed for resource management instead of message workflows.</li>
       </ul>
-      <p>Browser-native tooling is not a replacement for the protocol; it is a more accessible way to use the same Azure Service Bus concepts from anywhere.</p>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
       <div>
-        <p><strong>Learn more:</strong> <a href="/docs/">Docs</a> · <a href="/features/cross-platform/">Cross-platform</a> · <a href="/glossary/dead-letter-queue/">Glossary</a></p>
+        <p><strong>Learn more:</strong> <a href="/docs/">Docs</a> · <a href="/features/browser-native/">Browser-native</a> · <a href="/glossary/dead-letter-queue/">Glossary</a></p>
       </div>
-      <p>Compare Service Bus tooling with a focus on real developer workflows.</p>
+      <p>Compare Service Bus tooling with a focus on practical browser-native workflows.</p>
     </div>
   </footer>
 </body>

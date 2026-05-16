@@ -21,16 +21,22 @@
           <summary aria-haspopup="true">Menu</summary>
           <div class="menu-panel">
             <nav class="topbar-nav">
-              <a href="/docs/">Docs</a>
+              <span class="menu-heading">Docs</span>
+              <a href="/docs/">Docs home</a>
+              <a href="/docs/overview/">Overview</a>
               <a href="/docs/peek-lock/">Peek-lock</a>
               <a href="/docs/dead-letter-queues/">Dead-letter queues</a>
               <a href="/docs/topic-subscriptions/">Topic subscriptions</a>
-              <a href="/glossary/amqp/">Glossary</a>
-              <a href="/compare/service-bus-explorer/">Compare</a>
-              <a href="/features/browser-native/">Features</a>
-              <a href="/features/cross-platform/">Cross-platform</a>
+              <span class="divider" aria-hidden="true"></span>
+              <span class="menu-heading">Learn</span>
+              <a href="/browser-based-service-bus-explorer/">Browser-based explorer</a>
               <a href="/service-bus-explorer-alternative/">Alternative</a>
-              <a href="/about/">About</a>
+              <a href="/service-bus-linux-mac/">Linux & Mac</a>
+              <a href="/features/browser-native/">Browser-native</a>
+              <a href="/features/cross-platform/">Cross-platform</a>
+              <span class="divider" aria-hidden="true"></span>
+              <a href="/glossary/amqp/">Glossary</a>
+              <a href="/glossary/dead-letter-queue/">Glossary</a>
               <a href="/privacy/">Privacy</a>
             </nav>
           </div>
@@ -42,7 +48,8 @@
 
   <main class="container page-content">
     <nav class="section-nav">
-      <a href="/docs/">Docs overview</a>
+      <a href="/docs/">Docs home</a>
+      <a href="/docs/overview/">Overview</a>
       <a href="/docs/peek-lock/">Peek-lock</a>
       <a href="/docs/topic-subscriptions/">Topic subscriptions</a>
     </nav>
@@ -50,35 +57,40 @@
     <article>
       <p class="eyebrow">Workflow guide</p>
       <h1>Dead-letter queue inspection and recovery</h1>
-      <p>Dead-letter queues contain messages that could not be processed normally. Bussin.dev helps you inspect those messages and decide whether to replay, fix, or archive them.</p>
+      <p>Dead-letter queues contain messages that could not be delivered or processed. Bussin.dev helps you inspect those messages, understand the failure reason, and move them back into processing when appropriate.</p>
     </article>
 
     <section>
       <h2>Find dead-letter messages</h2>
-      <p>Select the dead-letter queue from the entity list. The UI makes it obvious when a queue has a dead-letter path and how many messages are waiting for review.</p>
-      <p class="note">This section should contain a screenshot of the dead-letter message list and metadata panels.</p>
+      <p>Select the dead-letter queue from the entity list. The UI highlights dead-letter counts and metadata for quick triage.</p>
+      <p class="note">Placeholder: screenshot of dead-letter queue selection and message list.</p>
     </section>
 
     <section>
       <h2>Inspect failure details</h2>
-      <p>Open individual dead-letter messages to view failure reason, UserProperties, and system properties. This makes root cause investigation easier than guessing from topic activity alone.</p>
+      <p>Open a dead-lettered message to review the reason, error description, and user-defined properties. This gives you the context needed to decide whether to replay or archive the message.</p>
     </section>
 
     <section>
       <h2>Recover or move messages</h2>
-      <p>Use dedicated actions to move dead-letter messages back to a queue, deliver them to a new subscription, or archive them for later review.</p>
-      <pre><code>1. Review dead-letter reason and custom properties
-2. Validate payload before replay
-3. Move message to target queue or keep in dead-letter queue</code></pre>
+      <p>Choose a recovery action explicitly: replay to the original queue, move to a different queue, or keep the message in dead-letter for later investigation.</p>
+      <pre><code>1. Review error metadata
+2. Validate payload and headers
+3. Choose replay destination or archive</code></pre>
+    </section>
+
+    <section>
+      <h2>Related concepts</h2>
+      <p>For definitions and deeper context, see the <a href="/glossary/dead-letter-queue/">dead-letter queue glossary</a> and the <a href="/docs/overview/">docs overview</a>.</p>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
       <div>
-        <p><strong>Keep exploring:</strong> <a href="/docs/topic-subscriptions/">Topic subscriptions</a> · <a href="/glossary/dead-letter-queue/">Definition</a></p>
+        <p><strong>Keep exploring:</strong> <a href="/docs/peek-lock/">Peek-lock</a> · <a href="/glossary/dead-letter-queue/">Definition</a></p>
       </div>
-      <p>Dead-letter workflows that keep Azure Service Bus inspection transparent and safe.</p>
+      <p>Dead-letter workflows designed for transparent browser-native recovery.</p>
     </div>
   </footer>
 </body>
