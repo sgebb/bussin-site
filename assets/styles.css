@@ -90,12 +90,14 @@ svg {
 }
 .menu-panel {
   position: absolute;
-  right: 0;
+  left: 0;
+  right: auto;
   top: calc(100% + 0.6rem);
   background: rgba(6, 10, 18, 0.98);
   border-radius: 14px;
   padding: 0.6rem;
   min-width: 180px;
+  max-width: min(90vw, 260px);
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.04);
   z-index: 40;
@@ -399,4 +401,15 @@ svg {
 .no-mark {
   color: #ff7b85;
   font-weight: 700;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
