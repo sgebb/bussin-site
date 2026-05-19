@@ -53,18 +53,28 @@
 
     <section>
       <h2>Why AMQP matters for Service Bus</h2>
-      <p>Azure Service Bus uses AMQP to transport message body, properties, and delivery semantics. Supporting this protocol over WebSockets lets a browser client connect directly without a backend mediator.</p>
+      <p>Azure Service Bus uses AMQP 1.0, the standardized Advanced Message Queuing Protocol, to transport message body, properties, annotations, and delivery semantics. It's a binary wire protocol that enables reliable, transactional message exchange—including features like message locking, settlement (complete/abandon/dead-letter), and session-based correlation.</p>
+      <p>Supporting AMQP 1.0 over WebSockets lets a browser client connect directly to Azure Service Bus without a backend proxy, accessing queues, topics, subscriptions, and dead-letter queues with full protocol fidelity.</p>
     </section>
 
     <section>
       <h2>Browser-native AMQP over WebSockets</h2>
-      <p>bussin.dev maintains AMQP sessions through a secure WebSocket channel so the browser can manage message state and locks directly.</p>
-      </section>
+      <p>bussin.dev uses the <strong>rhea</strong> JavaScript AMQP 1.0 client library to establish and manage AMQP sessions through a secure WebSocket channel (<code>wss://</code>). Once connected, your browser can:</p>
+      <ul>
+        <li>Authenticate using AMQP CBS (Claims-Based Security) with OAuth JWT tokens</li>
+        <li>Send and receive messages with full AMQP message properties and annotations</li>
+        <li>Lock messages for transactional processing (peek-lock mode)</li>
+        <li>Settle message disposition (complete, abandon, or dead-letter)</li>
+        <li>Query entity metadata and dead-letter queues via the Service Bus management client</li>
+      </ul>
+      <p>All of this happens directly in your browser—no backend intermediary, no credential exposure.</p>
+    </section>
 
     <section>
       <h2>See also</h2>
       <ul>
         <li><a href="/docs/peek-lock/">Peek-lock workflows</a></li>
+        <li><a href="/browser-based-service-bus-explorer/">How bussin.dev works</a></li>
         <li><a href="/service-bus-explorer-alternative/">Browser-native alternative</a></li>
       </ul>
     </section>

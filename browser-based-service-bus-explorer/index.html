@@ -56,8 +56,21 @@
     </article>
 
     <section>
-      <h2>Built for browser-first workflows</h2>
-      <p>Inspect queues, subscriptions, and dead-letter messages without installing software. bussin.dev provides the same protocol fidelity as native tools using web-friendly transport.</p>
+      <h2>How it works under the hood</h2>
+      <p>bussin.dev connects your browser directly to Azure Service Bus using AMQP 1.0 over a secure WebSocket channel (<code>wss://</code>). When you authenticate with your Azure credentials, the browser receives delegated OAuth tokens for both Azure Management (to list resources) and Azure Service Bus (to interact with queues, topics, and subscriptions).</p>
+      <p>The application uses <strong>rhea</strong>, a JavaScript AMQP 1.0 client library, to establish and manage the AMQP connection. Authentication happens at the protocol level using AMQP CBS (Claims-Based Security): your JWT token is wrapped in an AMQP message and sent to the <code>$cbs</code> endpoint for validation. Once authenticated, all message operations—send, receive, peek, and lock—happen directly in your browser with full AMQP protocol support.</p>
+      <p><strong>No backend proxy or intermediary.</strong> Your credentials and messages never touch a bussin.dev server. All operations execute client-side, respecting your Azure RBAC permissions.</p>
+    </section>
+
+    <section>
+      <h2>Message operations</h2>
+      <ul>
+        <li><strong>Peek:</strong> Non-destructive read via the Service Bus management client</li>
+        <li><strong>Send:</strong> Publish messages to queues or topics</li>
+        <li><strong>Receive &amp; Lock:</strong> Pull messages with transactional semantics (peek-lock mode)</li>
+        <li><strong>Complete/Abandon/Dead-Letter:</strong> Settle message disposition</li>
+        <li><strong>Dead-letter inspection:</strong> Access separate dead-letter queues for each entity</li>
+      </ul>
     </section>
 
     <section>
@@ -66,6 +79,8 @@
         <li>No installer, no desktop runtime</li>
         <li>Works in Chrome, Edge, Safari, and Firefox</li>
         <li>Same experience across Mac, Linux, and Windows</li>
+        <li>Full AMQP protocol fidelity—same as native tools</li>
+        <li>Zero backend risk—credentials stay in your browser</li>
       </ul>
     </section>
 

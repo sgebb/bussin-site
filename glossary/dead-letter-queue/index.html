@@ -53,17 +53,32 @@
 
     <section>
       <h2>Why messages go to the dead-letter queue</h2>
-      <p>Messages are dead-lettered for delivery failures, expiration, filter mismatch, or manual route decisions. The dead-letter queue keeps the message body and metadata for investigation.</p>
+      <p>Messages are dead-lettered in Azure Service Bus when:</p>
+      <ul>
+        <li>Max delivery count exceeded (message abandoned too many times)</li>
+        <li>Message expiration (TTL) exceeded</li>
+        <li>Filter mismatch on topic subscriptions</li>
+        <li>Explicit dead-letter operation (programmatic or manual)</li>
+        <li>Processing errors that trigger abandonment</li>
+      </ul>
+      <p>The dead-letter queue preserves the original message body and metadata, plus system annotations like <code>DeadLetterReason</code> and <code>DeadLetterErrorDescription</code>, for investigation and recovery.</p>
     </section>
 
     <section>
       <h2>How to inspect dead-lettered messages</h2>
-      <p>View dead-letter reason, exception details, and user properties before choosing whether to replay or archive the message.</p>
+      <p>Dead-letter queues in Azure Service Bus are accessed via a special path: <code>queueName/$DeadLetterQueue</code> or <code>topicName/subscriptions/subscriptionName/$DeadLetterQueue</code>. You can:</p>
+      <ul>
+        <li>View the dead-letter reason and exception details</li>
+        <li>Inspect the original message body and all properties</li>
+        <li>Check custom user properties and message annotations</li>
+        <li>Replay the message by re-sending it to the active queue</li>
+        <li>Archive or purge messages for cleanup</li>
+      </ul>
     </section>
 
     <section>
       <h2>Why bussin helps</h2>
-      <p>bussin.dev lets you open dead-letter queues directly in the browser and move selected messages back to an active queue or subscription with explicit recovery controls.</p>
+      <p>bussin.dev lets you open dead-letter queues directly in the browser using AMQP, eliminating the need for desktop tools or scripting. With bussin, you can browse, peek, and manage dead-lettered messages with full visibility into why they were dead-lettered, all while keeping your credentials secure in the browser.</p>
     </section>
   </main>
 
