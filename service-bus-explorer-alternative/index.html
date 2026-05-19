@@ -49,12 +49,12 @@
       <div>
         <p class="eyebrow">Service Bus Explorer alternative</p>
         <h1>Azure Service Bus Explorer Alternative (Browser-based)</h1>
-        <p>bussin is a browser-native tool for inspecting Azure Service Bus using AMQP over secure WebSockets. It works without installation, without a backend proxy, and with live namespace discovery after Entra ID sign-in and consent.</p>
+        <p>bussin is a browser app that connects directly to Azure Service Bus using AMQP over secure WebSockets. It surfaces namespaces, queues, topics, subscriptions, and dead-letter entities in the browser without a desktop client.</p>
         <div class="hero-actions">
           <a class="button primary" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
           <a class="button secondary" href="/docs/">View Docs</a>
         </div>
-        <p class="hero-subtext">Discover namespaces, pin favorites, and run deep searches across queues, topics, and dead-letter messages.</p>
+        <p class="hero-subtext">Use the browser itself as the Service Bus client, with runtime discovery and direct broker access.</p>
       </div>
       <div class="hero-visual">
         <figure class="hero-card">
@@ -97,19 +97,19 @@
       <header>
         <h2>How bussin solves these issues</h2>
       </header>
-      <p>bussin is a browser-native Service Bus tool that connects directly to Azure Service Bus over AMQP WebSockets. It does not use a backend relay, so the browser itself becomes the client for queue and topic inspection.</p>
+      <p>bussin turns the browser into the Service Bus client. It performs resource discovery, message inspection, and entity operations from the browser session, while preserving Azure RBAC controls and staying free of backend message relays.</p>
       <div class="section-grid">
         <article>
-          <h3>Browser-native architecture</h3>
-          <p>The UI runs entirely in the browser and opens AMQP sessions directly to Service Bus.</p>
+          <h3>Browser-side AMQP client</h3>
+          <p>Connections are opened in the browser with a JavaScript AMQP client library over secure WebSockets.</p>
         </article>
         <article>
-          <h3>Direct AMQP over WebSockets</h3>
-          <p>Connections are made over standard AMQP WebSockets instead of requiring a proxy or desktop transport. This preserves Service Bus workflows and message semantics in the browser.</p>
+          <h3>Entra ID sign-in</h3>
+          <p>Authentication uses browser-based Azure AD/OAuth flows, so the app works only with identities and permissions you already control.</p>
         </article>
         <article>
-          <h3>No backend relay</h3>
-          <p>Messages and metadata flow directly between the browser and Azure Service Bus, with authentication and consent handled through Entra ID.</p>
+          <h3>Direct message workflows</h3>
+          <p>Peek, send, receive/lock, complete, abandon, dead-letter, and resubmit messages directly in the browser using Service Bus protocol semantics.</p>
         </article>
         <article>
           <figure class="visual-card">
@@ -244,27 +244,25 @@
       </section>
 
     <section>
-      <h2>Use cases</h2>
+      <h2>When to use bussin</h2>
       <div class="feature-grid">
         <article>
-          <h3>Debugging dead-letter queues</h3>
-          <p>Review failed messages and dead-letter metadata before replaying or archiving.</p>
+          <h3>Live namespace debugging</h3>
+          <p>Inspect a production Service Bus namespace quickly without installing a desktop client.
+</p>
         </article>
         <article>
-          <h3>Inspecting production Service Bus issues</h3>
-          <p>Connect to live namespaces and troubleshoot without installing local software.</p>
+          <h3>Dead-letter recovery</h3>
+          <p>Open dead-letter entities, read failure detail, and choose whether to replay or archive messages.</p>
         </article>
         <article>
-          <h3>Development testing</h3>
-          <p>Validate queue and subscription behavior from a fast browser-native interface.</p>
+          <h3>Subscription validation</h3>
+          <p>Check topic filters and subscription delivery state in the browser.</p>
         </article>
         <article>
-          <h3>Cross-platform debugging</h3>
-          <p>Use the same tool in any browser on Windows, macOS, or Linux.</p>
-        </article>
-        <article>
-          <h3>Onboarding new engineers</h3>
-          <p>New team members can start inspecting Service Bus immediately without installing software.</p>
+          <h3>Cross-platform access</h3>
+          <p>Use the same browser-based client across macOS, Linux, and Windows.
+</p>
         </article>
       </div>
     </section>

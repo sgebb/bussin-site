@@ -48,7 +48,8 @@
     <article>
       <p class="eyebrow">Browser-native</p>
       <h1>Browser-based Azure Service Bus explorer</h1>
-      <p>bussin.dev lets you explore Azure Service Bus resources directly from the browser. It uses AMQP over secure WebSockets for direct queue, topic, and dead-letter access, with no desktop install or backend proxy required.</p>
+      <p>bussin.dev is a browser app that opens AMQP sessions directly to Azure Service Bus. It uses standard WebSockets and Azure identity tokens so the browser acts as the Service Bus client.
+</p>
       <div class="hero-actions">
         <a class="button primary" href="https://app.bussin.dev/demo" target="_blank" rel="noopener">Open demo</a>
         <a class="button secondary" href="https://app.bussin.dev" target="_blank" rel="noopener">Open app</a>
@@ -57,30 +58,32 @@
 
     <section>
       <h2>How it works under the hood</h2>
-      <p>bussin.dev connects your browser directly to Azure Service Bus using AMQP 1.0 over a secure WebSocket channel (<code>wss://</code>). When you sign in with Entra ID, the browser receives delegated OAuth tokens for Azure Management and Service Bus, then discovers available namespaces and entities.</p>
-      <p>The application uses <strong>rhea</strong>, a JavaScript AMQP 1.0 client library, to establish and manage the AMQP connection. Authentication happens at the protocol level using Claims-Based Security (CBS): your JWT token is wrapped in an AMQP message and sent to the <code>$cbs</code> endpoint for validation. Once authenticated, all message operations—send, receive, peek, lock, complete, abandon, and dead-letter—happen directly in your browser with full AMQP semantics.</p>
-      <p><strong>No backend proxy or intermediary.</strong> Your credentials and messages do not pass through bussin.dev servers. All browser-based interactions are controlled by your Azure RBAC permissions and explicit consent flows.</p>
+      <p>bussin.dev connects your browser directly to Azure Service Bus using AMQP 1.0 over secure WebSockets. When you sign in with Entra ID, the browser acquires delegated OAuth tokens for ARM namespace discovery and Service Bus messaging access.</p>
+      <p>The app uses a browser-side AMQP client and AMQP CBS token exchange so all Service Bus operations execute with protocol fidelity from the client.</p>
+      <p><strong>No backend proxy or intermediary.</strong> The app serves static assets, while your credentials, tokens, and Service Bus traffic stay between your browser and Azure.</p>
     </section>
 
     <section>
       <h2>Browser-native message operations</h2>
       <ul>
-        <li><strong>Discover namespaces:</strong> Browse available Service Bus namespaces after Entra ID sign-in and consent.</li>
-        <li><strong>Peek:</strong> Non-destructive read through the broker with peek-lock semantics.</li>
+        <li><strong>Discover namespaces:</strong> List accessible Service Bus namespaces after Entra ID sign-in and consent.</li>
+        <li><strong>Peek:</strong> Non-destructive broker reads to inspect messages without consuming them.</li>
         <li><strong>Send:</strong> Publish messages to queues or topics from the browser UI.</li>
-        <li><strong>Receive &amp; Lock:</strong> Pull messages with transactional semantics, then choose complete, abandon, or dead-letter.</li>
-        <li><strong>Search:</strong> Filter across message genres, payloads, properties, and dead-letter reasons.</li>
+        <li><strong>Receive &amp; Lock:</strong> Reserve messages, then complete, abandon, or dead-letter them.</li>
+        <li><strong>Dead-letter support:</strong> View dead-letter queues, resubmit messages, or move messages to DLQ.</li>
+        <li><strong>Deep search:</strong> Scan payloads, IDs, subjects, and properties with filter-driven background searches for large message sets.</li>
       </ul>
     </section>
 
     <section>
       <h2>Browser-native benefits</h2>
       <ul>
-        <li>No installer, no desktop runtime.</li>
-        <li>Works in Chrome, Edge, Safari, and Firefox.</li>
-        <li>Same experience across macOS, Linux, and Windows.</li>
-        <li>Full AMQP protocol fidelity—same as native tools.</li>
-        <li>Zero backend risk—credentials and consent stay in your browser.</li>
+        <li>Uses the browser network stack for secure WebSocket connections.</li>
+        <li>Keeps Service Bus identity and access tokens in the browser session.</li>
+        <li>Preserves AMQP delivery patterns like peek-lock and dead-letter routing.
+</li>
+        <li>Requires no server-side message relay or proxy.
+</li>
       </ul>
     </section>
 

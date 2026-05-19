@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>bussin.dev — Browser-native Azure Service Bus Explorer</title>
-  <meta name="description" content="bussin.dev is a browser-native Azure Service Bus explorer that connects directly to Azure Service Bus over AMQP WebSockets. Discover namespaces with Entra ID, save favorites, run deep searches, and manage queues, topics, and dead-letter messages in the browser.">
+  <meta name="description" content="bussin.dev is a browser-native Azure Service Bus explorer that runs as a PWA in your browser. Sign in with Entra ID, discover namespaces, and inspect queues, topics, subscriptions, and dead-letter queues directly over AMQP WebSockets.">
   <link rel="canonical" href="https://bussin.dev/">
   <meta property="og:title" content="bussin.dev — Browser-native Azure Service Bus Explorer">
-  <meta property="og:description" content="bussin.dev is a browser-native Azure Service Bus explorer that connects directly to Azure Service Bus over AMQP WebSockets. Discover namespaces with Entra ID, save favorites, run deep searches, and manage queues, topics, and dead-letter messages in the browser.">
+  <meta property="og:description" content="bussin.dev is a browser-native Azure Service Bus explorer that runs as a PWA in your browser. Sign in with Entra ID, discover namespaces, and inspect queues, topics, subscriptions, and dead-letter queues directly over AMQP WebSockets.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://bussin.dev/">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
@@ -49,12 +49,12 @@
       <div>
         <p class="eyebrow">Azure Service Bus explorer</p>
         <h1>Browser-native Azure Service Bus Explorer</h1>
-        <p>Inspect queues, topics, subscriptions, and dead-letter messages directly from your browser using AMQP over secure WebSockets. Connect with Entra ID, consent once, and discover namespaces and resources without a backend proxy.</p>
+        <p>Open app.bussin.dev to inspect Service Bus queues, topics, subscriptions, and dead-letter messages in a browser session. The app uses Azure identity and secure WebSockets so the browser itself becomes the Service Bus client.</p>
         <div class="hero-actions">
           <a class="button primary" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
           <a class="button secondary" href="/docs/">View Docs</a>
         </div>
-        <p class="hero-subtext">Supports Entra ID sign-in, consent flows, namespace discovery, and browser-local preferences.</p>
+        <p class="hero-subtext">Fast browser access for Service Bus inspection, with local preferences and saved entity shortcuts.</p>
       </div>
       <div class="hero-visual">
         <figure class="hero-card">
@@ -67,25 +67,25 @@
     <section>
       <header>
         <h2>What is bussin?</h2>
-        <p>bussin is a browser-native Azure Service Bus explorer that gives developers and operations teams fast access to queues, topics, subscriptions, and dead-letter queues. It connects directly over AMQP WebSockets and brings discovery, search, and browser-local conveniences to production debugging.</p>
+        <p>bussin is a browser-native Azure Service Bus explorer that runs as a Progressive Web App. It opens direct AMQP 1.0 sessions over secure WebSockets, discovers namespaces after Entra ID sign-in, and lets you inspect queues, topics, subscriptions, and dead-letter queues without a backend relay.</p>
       </header>
       <div class="section-grid">
         <article>
           <h3>Problem it solves</h3>
-          <p>Traditional tools require installs, platform-specific clients, or backend proxies. bussin removes that friction with a browser-first, protocol-native Service Bus experience.</p>
+          <p>Traditional Service Bus tools often need installs, desktop runtimes, or a proxy layer. bussin removes that friction by making the browser itself the Service Bus client.</p>
         </article>
         <article>
           <h3>Who it is for</h3>
-          <p>Azure developers, cloud operators, and integration teams who need direct, low-latency access to Service Bus state and message workflows from any workstation.</p>
+          <p>Developer, SRE, and integration teams who need immediate access to live Service Bus entities and message workflows from any supported browser.</p>
         </article>
         <article>
           <h3>Why it exists</h3>
-          <p>Because inspecting Service Bus should be immediate and secure, with the same messaging semantics as native clients and the convenience of browser-local favorites, settings, and task tracking.</p>
+          <p>Because inspecting Service Bus should be fast, secure, and browser-native, with namespace discovery, message actions, and long-running operations all visible in the client UI.</p>
         </article>
         <article>
           <figure class="visual-card">
             <img src="/assets/media/advancedPeek.jpg" alt="Advanced message peek and search in bussin" />
-            <figcaption>Deep search and advanced message peek support direct Service Bus inspection.</figcaption>
+            <figcaption>Deep search, peek options, and live message inspection directly in the browser.</figcaption>
           </figure>
         </article>
       </div>
@@ -96,27 +96,27 @@
       <div class="feature-grid">
         <article>
           <h3>Queue, topic, and subscription browsing</h3>
-          <p>See entity metadata, message counts, filters, and routing state in a consolidated browser UI.</p>
+          <p>Inspect entity metadata, message counts, sessions, and dead-letter state with one browser-native explorer.</p>
         </article>
         <article>
           <h3>Deep search across messages</h3>
-          <p>Search message bodies, system properties, custom headers, and dead-letter reasons with quick filters.</p>
+          <p>Search message bodies, IDs, subjects, properties, and dead-letter reasons; large scans can run in the background over up to 1M messages.</p>
         </article>
         <article>
           <h3>Saved favorites and preferences</h3>
-          <p>Pin favorite namespaces, queues, and topics, and keep your browser UI preferences locally persisted.</p>
+          <p>Pin favorite namespaces, queues, and topics, organize them in folders, and store UI preferences in your browser using localStorage.</p>
         </article>
         <article>
           <h3>Background task visibility</h3>
-          <p>Start a long-running bulk operation or cleanup task and keep working while it stays visible in the UI.</p>
+          <p>Start background search or purge operations and keep them visible while you continue working in the app.</p>
         </article>
         <article>
-          <h3>Convenience actions</h3>
-          <p>Quickly resend, move to dead-letter, duplicate, or copy message metadata directly from the browser.</p>
+          <h3>Live message workflows</h3>
+          <p>Peek, send, receive/lock, complete, abandon, dead-letter, and resubmit messages directly from the browser UI.</p>
         </article>
         <article>
           <h3>Direct AMQP over WebSockets</h3>
-          <p>Connect using AMQP over secure WebSockets, preserving Service Bus semantics and avoiding backend relays.</p>
+          <p>Connect directly to Azure Service Bus with protocol-native AMQP over secure WebSocket transport, with no backend proxy.</p>
         </article>
       </div>
     </section>
