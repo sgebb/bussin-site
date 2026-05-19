@@ -48,13 +48,13 @@
     <article>
       <p class="eyebrow">Feature overview</p>
       <h1>Browser-native Azure Service Bus access</h1>
-      <p>bussin.dev is built as a browser-native client for Azure Service Bus. It uses AMQP over WebSockets to connect directly from the browser without a backend proxy or desktop runtime.</p>
+      <p>bussin.dev is built as a browser-native client for Azure Service Bus. It uses AMQP over WebSockets to connect directly from the browser, offering live queue, topic, subscription, and dead-letter workflows without a backend proxy or desktop runtime.</p>
       <a class="button primary" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
     </article>
 
     <section>
       <h2>What browser-native means</h2>
-      <p>The application runs entirely in the browser and connects directly to Azure Service Bus using supported web transport. This eliminates install friction and keeps the tool lightweight for teams.</p>
+      <p>The application runs entirely in the browser and connects directly to Azure Service Bus using supported web transport. This eliminates install friction and keeps the tool lightweight for teams, while still supporting deep search, favorites, and message workflows.</p>
     </section>
 
     <section>
@@ -62,15 +62,19 @@
       <div class="feature-grid">
         <article>
           <h3>AMQP over WebSockets</h3>
-          <p>Preserve messaging semantics in a browser environment.</p>
+          <p>Preserve messaging semantics in a browser environment and connect directly to Service Bus without a proxy.</p>
         </article>
         <article>
-          <h3>Queue and topic navigation</h3>
-          <p>Browse entity metadata, subscriptions, and dead-letter entries without switching tools.</p>
+          <h3>Namespace discovery</h3>
+          <p>Sign in with Entra ID, consent once, and discover your available Service Bus namespaces from the browser.</p>
         </article>
         <article>
-          <h3>Safe message workflows</h3>
-          <p>Inspect, complete, abandon, or replay messages in a transparent UI flow.</p>
+          <h3>Message search and favorites</h3>
+          <p>Search payloads, properties, and dead-letter reasons, and pin frequently used namespaces and queues.</p>
+        </article>
+        <article>
+          <h3>Message workflows</h3>
+          <p>Inspect, peek, complete, abandon, dead-letter, or resend messages with direct browser-native controls.</p>
         </article>
       </div>
     </section>

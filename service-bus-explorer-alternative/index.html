@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Azure Service Bus Explorer Alternative | Browser-based Service Bus tool</title>
-  <meta name="description" content="bussin is an Azure Service Bus Explorer alternative that runs in the browser. Inspect Service Bus queues, topics, and dead-letter queues with AMQP over WebSockets and Entra ID authentication.">
+  <meta name="description" content="bussin is an Azure Service Bus Explorer alternative that runs in the browser. Inspect live queues, topics, subscriptions, and dead-letter messages directly over AMQP WebSockets with Entra ID, deep search, and browser-local favorites.">
   <link rel="canonical" href="https://bussin.dev/service-bus-explorer-alternative/">
   <meta property="og:title" content="Azure Service Bus Explorer Alternative | Browser-based Service Bus tool">
-  <meta property="og:description" content="bussin is an Azure Service Bus Explorer alternative that runs in the browser. Inspect Service Bus queues, topics, and dead-letter queues with AMQP over WebSockets and Entra ID authentication.">
+  <meta property="og:description" content="bussin is an Azure Service Bus Explorer alternative that runs in the browser. Inspect live queues, topics, subscriptions, and dead-letter messages directly over AMQP WebSockets with Entra ID, deep search, and browser-local favorites.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://bussin.dev/service-bus-explorer-alternative/">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
@@ -49,17 +49,17 @@
       <div>
         <p class="eyebrow">Service Bus Explorer alternative</p>
         <h1>Azure Service Bus Explorer Alternative (Browser-based)</h1>
-        <p>bussin is a browser-native tool for inspecting Azure Service Bus using AMQP over WebSockets with no installation and no backend proxy.</p>
+        <p>bussin is a browser-native tool for inspecting Azure Service Bus using AMQP over secure WebSockets. It works without installation, without a backend proxy, and with live namespace discovery after Entra ID sign-in and consent.</p>
         <div class="hero-actions">
           <a class="button primary" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
           <a class="button secondary" href="/docs/">View Docs</a>
         </div>
-        <p class="hero-subtext">Works with Azure Service Bus namespaces using Entra ID authentication.</p>
+        <p class="hero-subtext">Discover namespaces, pin favorites, and run deep searches across queues, topics, and dead-letter messages.</p>
       </div>
       <div class="hero-visual">
         <figure class="hero-card">
-          <img src="/assets/media/namespace-filter-and-folder-organize.gif" alt="Namespace filter and folder organize in bussin" />
-          <figcaption>Inspect queues directly in the browser.</figcaption>
+          <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Service Bus queue overview in bussin" />
+          <figcaption>Inspect queues, topics, and dead-letter state directly in the browser.</figcaption>
         </figure>
       </div>
     </section>
@@ -105,16 +105,16 @@
         </article>
         <article>
           <h3>Direct AMQP over WebSockets</h3>
-          <p>Connections are made over standard AMQP WebSockets instead of requiring a proxy or desktop transport.</p>
+          <p>Connections are made over standard AMQP WebSockets instead of requiring a proxy or desktop transport. This preserves Service Bus workflows and message semantics in the browser.</p>
         </article>
         <article>
           <h3>No backend relay</h3>
-          <p>Messages and metadata flow directly between the browser and Azure Service Bus.</p>
+          <p>Messages and metadata flow directly between the browser and Azure Service Bus, with authentication and consent handled through Entra ID.</p>
         </article>
         <article>
           <figure class="visual-card">
-            <img src="/assets/media/peak-filter-deepsearch.gif" alt="Peek filter deep search in bussin" />
-            <figcaption>Inspect message headers, body, and dead-letter details.</figcaption>
+            <img src="/assets/media/advancedPeek.jpg" alt="Deep search and message preview in bussin" />
+            <figcaption>Inspect message headers, body, and dead-letter details with deep search.</figcaption>
           </figure>
         </article>
       </div>

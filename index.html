@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>bussin.dev — Browser-native Azure Service Bus Explorer</title>
-  <meta name="description" content="bussin.dev is a browser-native Azure Service Bus explorer that connects directly to Azure Service Bus over AMQP WebSockets. No install, no backend proxy, and fast queue, topic, and dead-letter inspection from the browser.">
+  <meta name="description" content="bussin.dev is a browser-native Azure Service Bus explorer that connects directly to Azure Service Bus over AMQP WebSockets. Discover namespaces with Entra ID, save favorites, run deep searches, and manage queues, topics, and dead-letter messages in the browser.">
   <link rel="canonical" href="https://bussin.dev/">
   <meta property="og:title" content="bussin.dev — Browser-native Azure Service Bus Explorer">
-  <meta property="og:description" content="bussin.dev is a browser-native Azure Service Bus explorer that connects directly to Azure Service Bus over AMQP WebSockets. No install, no backend proxy, and fast queue, topic, and dead-letter inspection from the browser.">
+  <meta property="og:description" content="bussin.dev is a browser-native Azure Service Bus explorer that connects directly to Azure Service Bus over AMQP WebSockets. Discover namespaces with Entra ID, save favorites, run deep searches, and manage queues, topics, and dead-letter messages in the browser.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://bussin.dev/">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
@@ -49,12 +49,12 @@
       <div>
         <p class="eyebrow">Azure Service Bus explorer</p>
         <h1>Browser-native Azure Service Bus Explorer</h1>
-        <p>Inspect queues, topics, and dead-letter messages directly from your browser using AMQP over WebSockets. No installation. No backend proxy.</p>
+        <p>Inspect queues, topics, subscriptions, and dead-letter messages directly from your browser using AMQP over secure WebSockets. Connect with Entra ID, consent once, and discover namespaces and resources without a backend proxy.</p>
         <div class="hero-actions">
           <a class="button primary" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
           <a class="button secondary" href="/docs/">View Docs</a>
         </div>
-        <p class="hero-subtext">Works with existing Azure Service Bus namespaces via Entra ID authentication.</p>
+        <p class="hero-subtext">Supports Entra ID sign-in, consent flows, namespace discovery, and browser-local preferences.</p>
       </div>
       <div class="hero-visual">
         <figure class="hero-card">
@@ -67,25 +67,25 @@
     <section>
       <header>
         <h2>What is bussin?</h2>
-        <p>bussin is a browser-native Azure Service Bus explorer for Azure developers and cloud engineers. It provides direct AMQP WebSocket connectivity so you can inspect queues, subscriptions, and dead-letter queues without a native desktop client.</p>
+        <p>bussin is a browser-native Azure Service Bus explorer that gives developers and operations teams fast access to queues, topics, subscriptions, and dead-letter queues. It connects directly over AMQP WebSockets and brings discovery, search, and browser-local conveniences to production debugging.</p>
       </header>
       <div class="section-grid">
         <article>
           <h3>Problem it solves</h3>
-          <p>Desktop and portal tools can be slow, platform-dependent, or require extra setup. bussin gives you a fast, browser-first path to inspect Service Bus state and messages.</p>
+          <p>Traditional tools require installs, platform-specific clients, or backend proxies. bussin removes that friction with a browser-first, protocol-native Service Bus experience.</p>
         </article>
         <article>
           <h3>Who it is for</h3>
-          <p>Azure developers, SREs, and cloud engineers who need direct access to Service Bus queues, topics, subscriptions, and dead-letter workflows.</p>
+          <p>Azure developers, cloud operators, and integration teams who need direct, low-latency access to Service Bus state and message workflows from any workstation.</p>
         </article>
         <article>
           <h3>Why it exists</h3>
-          <p>Because message inspection should not require a local install, Electron app, or backend relay. bussin keeps the tooling lightweight and browser-native.</p>
+          <p>Because inspecting Service Bus should be immediate and secure, with the same messaging semantics as native clients and the convenience of browser-local favorites, settings, and task tracking.</p>
         </article>
         <article>
           <figure class="visual-card">
-            <img src="/assets/media/peak-filter-deepsearch.gif" alt="Peek filter deep search in bussin" />
-            <figcaption>Inspect messages and entity details directly in the browser.</figcaption>
+            <img src="/assets/media/advancedPeek.jpg" alt="Advanced message peek and search in bussin" />
+            <figcaption>Deep search and advanced message peek support direct Service Bus inspection.</figcaption>
           </figure>
         </article>
       </div>
@@ -95,28 +95,28 @@
       <h2>Key features</h2>
       <div class="feature-grid">
         <article>
-          <h3>Browse queues and topics</h3>
-          <p>View queue metrics, subscription state, and topic routing in a straightforward browser UI.</p>
+          <h3>Queue, topic, and subscription browsing</h3>
+          <p>See entity metadata, message counts, filters, and routing state in a consolidated browser UI.</p>
         </article>
         <article>
-          <h3>Inspect dead-letter queues</h3>
-          <p>Read dead-letter reasons, message headers, and payloads before replaying or archiving them.</p>
+          <h3>Deep search across messages</h3>
+          <p>Search message bodies, system properties, custom headers, and dead-letter reasons with quick filters.</p>
         </article>
         <article>
-          <h3>Peek-lock workflows</h3>
-          <p>Peek at messages safely, then choose complete, abandon, or replay while preserving lock state.</p>
+          <h3>Saved favorites and preferences</h3>
+          <p>Pin favorite namespaces, queues, and topics, and keep your browser UI preferences locally persisted.</p>
         </article>
         <article>
-          <h3>Cross-platform browser access</h3>
-          <p>Available on Windows, macOS, and Linux in supported browsers without installing a client.</p>
+          <h3>Background task visibility</h3>
+          <p>Start a long-running bulk operation or cleanup task and keep working while it stays visible in the UI.</p>
         </article>
         <article>
-          <h3>No installation required</h3>
-          <p>Open bussin in the browser and connect immediately without native setup or runtime dependencies.</p>
+          <h3>Convenience actions</h3>
+          <p>Quickly resend, move to dead-letter, duplicate, or copy message metadata directly from the browser.</p>
         </article>
         <article>
-          <h3>Direct Azure Service Bus connection</h3>
-          <p>Connect using AMQP over WebSockets so your browser speaks the same protocol as Service Bus.</p>
+          <h3>Direct AMQP over WebSockets</h3>
+          <p>Connect using AMQP over secure WebSockets, preserving Service Bus semantics and avoiding backend relays.</p>
         </article>
       </div>
     </section>
@@ -247,19 +247,19 @@
       <h2>Product walkthrough</h2>
       <div class="feature-grid">
         <figure class="visual-card">
-          <img src="/assets/media/namespace-filter-and-folder-organize.gif" alt="Namespace filter and folder organize in bussin" />
-          <figcaption>Queue list and entity overview in the browser.</figcaption>
+          <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Service Bus queue and topic overview in bussin" />
+          <figcaption>Browse namespaces, queues, topics, and subscriptions from the browser.</figcaption>
         </figure>
         <figure class="visual-card">
-          <img src="/assets/media/peak-filter-deepsearch.gif" alt="Peek filter deep search in bussin" />
-          <figcaption>Inspect message payloads, properties, and metadata.</figcaption>
+          <img src="/assets/media/advancedPeek.jpg" alt="Deep search and advanced peek in bussin" />
+          <figcaption>Search messages across payloads, headers, and annotations.</figcaption>
         </figure>
         <figure class="visual-card">
-          <img src="/assets/media/peak-filter-deepsearch.gif" alt="Peek-lock workflow animation in bussin" />
-          <figcaption>Peek-lock message review without completing.</figcaption>
+          <img src="/assets/media/confirmPurge.jpg" alt="Background task and purge confirmation in bussin" />
+          <figcaption>Start background operations and keep task progress visible while you continue working.</figcaption>
         </figure>
         <figure class="visual-card">
-          <img src="/assets/media/bulk-operations-movetodlq-resubmit.gif" alt="Dead-letter queue view and recovery actions in bussin" />
+          <img src="/assets/media/confirmPurge.jpg" alt="Dead-letter queue view and recovery actions in bussin" />
           <figcaption>Dead-letter queue inspection with retry options.</figcaption>
         </figure>
       </div>
