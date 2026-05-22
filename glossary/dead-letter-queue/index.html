@@ -3,13 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dead-letter queue glossary | bussin.dev</title>
-  <meta name="description" content="Dead-letter queue explained for Azure Service Bus. Learn what dead-letter queues are and how bussin.dev helps inspect and recover dead-lettered messages.">
+  <title>What is an Azure Service Bus Dead-Letter Queue (DLQ)? | bussin.dev Glossary</title>
+  <meta name="description" content="Technical explanation of the Azure Service Bus Dead-Letter Queue (DLQ) sub-entity. Learn about MaxDeliveryCount limits, TTL expirations, custom dead-letter reasons, and browser-native resubmission workflows.">
+  <meta name="keywords" content="Azure Service Bus DLQ, dead-letter sub-queue, MaxDeliveryCountExceeded, TTLExpiredException, dead-letter reason header, message resubmission, repair queue messages">
   <link rel="canonical" href="https://bussin.dev/glossary/dead-letter-queue/">
-  <meta property="og:title" content="Dead-letter queue glossary | bussin.dev">
-  <meta property="og:description" content="Dead-letter queue explained for Azure Service Bus. Learn what dead-letter queues are, why they matter, and how bussin.dev helps inspect and recover dead-lettered messages.">
+  
+  <!-- OpenGraph Metadata -->
+  <meta property="og:title" content="What is an Azure Service Bus Dead-Letter Queue (DLQ)? | bussin.dev Glossary">
+  <meta property="og:description" content="Technical explanation of the Azure Service Bus Dead-Letter Queue (DLQ) sub-entity. MaxDeliveryCount limits, TTL expirations, and browser-native resubmission workflows.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://bussin.dev/glossary/dead-letter-queue/">
+  <meta property="og:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
+  <meta property="og:site_name" content="Bussin">
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/styles.css">
 </head>
 <body>
@@ -25,6 +32,7 @@
             <a href="/browser-based-service-bus-explorer/">How it works</a>
             <span class="menu-heading">COMPARE</span>
             <a href="/service-bus-explorer-alternative/">Service Bus Explorer alternative</a>
+            <a href="/service-bus-linux-mac/">Mac & Linux Explorer</a>
             <span class="menu-heading">LEARN</span>
             <a href="/glossary/">What is Service Bus</a>
             <a href="/glossary/dead-letter-queue/">Dead-letter queues</a>
@@ -44,50 +52,77 @@
   </header>
 
   <main class="container page-content">
-    
     <article>
-      <p class="eyebrow">Glossary</p>
-      <h1>Dead-letter queue</h1>
-      <p>A dead-letter queue holds Azure Service Bus messages that could not be processed normally. bussin.dev exposes dead-letter inspection and recovery directly in the browser.</p>
+      <p class="eyebrow">Enterprise Messaging Semantics</p>
+      <h1>Understanding Dead-Letter Sub-Queues (DLQ)</h1>
+      <p class="lead-text">In Azure Service Bus, a Dead-Letter Queue (DLQ) is not a standalone queue entity. Instead, it is a system-managed secondary sub-queue automatically attached to every queue, topic, or subscription endpoint, specifically created to store messages that cannot be processed successfully.</p>
+      <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+        <a class="button primary" href="https://app.bussin.dev" target="_blank" rel="noopener">Launch DLQ Diagnostics Workspace</a>
+        <a class="button" href="/docs/dead-letter-queues/">Read DLQ Recovery Workflows</a>
+      </div>
     </article>
 
     <section>
-      <h2>Why messages go to the dead-letter queue</h2>
-      <p>Messages are dead-lettered in Azure Service Bus when:</p>
-      <ul>
-        <li>Max delivery count exceeded (message abandoned too many times)</li>
-        <li>Message expiration (TTL) exceeded</li>
-        <li>Filter mismatch on topic subscriptions</li>
-        <li>Explicit dead-letter operation (programmatic or manual)</li>
-        <li>Processing errors that trigger abandonment</li>
-      </ul>
-      <p>The dead-letter queue preserves the original message body and metadata, plus system annotations like <code>DeadLetterReason</code> and <code>DeadLetterErrorDescription</code>, for investigation and recovery.</p>
+      <h2>Common Broker-Level Dead-Letter Triggers</h2>
+      <p>The Service Bus broker automatically routes messages to the dead-letter sub-queue when specific constraints are violated. Every dead-letter event appends two vital system properties to the message: <code>DeadLetterReason</code> and <code>DeadLetterErrorDescription</code>. Typical triggers include:</p>
+
+      <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1.5rem;">
+        <div>
+          <h3>1. <code>MaxDeliveryCountExceeded</code></h3>
+          <p>Each queue has a configured maximum retry threshold (default is 10). If a consumer client locks a message, encounters an unhandled exception, and abandons the lock (or the lock lease expires) repeatedly until the delivery count exceeds this threshold, the broker moves the message to the DLQ to prevent infinite loops.</p>
+        </div>
+
+        <div>
+          <h3>2. <code>TTLExpiredException</code> (Time-To-Live Expiration)</h3>
+          <p>If <code>EnableDeadLetteringOnMessageExpiration</code> is set to <code>true</code> on the entity, any active message that remains unretrieved by consumers past its configured Time-To-Live (TTL) limit is transferred to the dead-letter sub-queue.</p>
+        </div>
+
+        <div>
+          <h3>3. <code>HeaderSizeExceeded</code> & <code>SubscriptionFilterMismatch</code></h3>
+          <p>Messages with headers exceeding total protocol limits or those matching strict subscription rules that force dead-lettering upon routing failures are instantly sequestered.</p>
+        </div>
+      </div>
     </section>
 
     <section>
-      <h2>How to inspect dead-lettered messages</h2>
-      <p>Dead-letter queues in Azure Service Bus are accessed via a special path: <code>queueName/$DeadLetterQueue</code> or <code>topicName/subscriptions/subscriptionName/$DeadLetterQueue</code>. You can:</p>
+      <h2>Protocol Path Routing</h2>
+      <p>Because dead-letter queues are sub-entities, consumer clients address them using specialized AMQP 1.0 entity path decorators:</p>
       <ul>
-        <li>View the dead-letter reason and exception details</li>
-        <li>Inspect the original message body and all properties</li>
-        <li>Check custom user properties and message annotations</li>
-        <li>Replay the message by re-sending it to the active queue</li>
-        <li>Archive or purge messages for cleanup</li>
+        <li><strong>Standard Queue DLQ Path:</strong> <code>&lt;queue-name&gt;/$DeadLetterQueue</code></li>
+        <li><strong>Topic Subscription DLQ Path:</strong> <code>&lt;topic-name&gt;/subscriptions/&lt;subscription-name&gt;/$DeadLetterQueue</code></li>
       </ul>
+      <p>Bussin encapsulates this routing path formatting behind a clean, graphical workspace hierarchy. Clicking the DLQ folder icon on any active entity tells the Rhea engine to open an AMQP receiver link pointing directly to the broker's dead-letter channel.</p>
     </section>
 
     <section>
-      <h2>Why bussin helps</h2>
-      <p>bussin.dev lets you open dead-letter queues directly in the browser using AMQP, eliminating the need for desktop tools or scripting. With bussin, you can browse, peek, and manage dead-lettered messages with full visibility into why they were dead-lettered, all while keeping your credentials secure in the browser.</p>
+      <h2>Bussin-Native Dead-Letter Recovery Workflows</h2>
+      <p>Standard developer utilities make inspecting and recovering from dead-letter states difficult, often requiring complex PowerShell scripts or third-party desktop tools. Bussin transforms DLQ triage into a fast, visual, secure workflow inside your browser:</p>
+      
+      <div class="feature-grid">
+        <article class="interactive-card">
+          <h3>Local Exception Inspection</h3>
+          <p>Instantly browse dead-lettered payloads. Bussin parses the <code>DeadLetterReason</code> and custom exception headers, highlighting the precise root cause (e.g., validation failures or consumer timeout logs).</p>
+        </article>
+        
+        <article class="interactive-card">
+          <h3>In-Browser Payload Mutation</h3>
+          <p>Correct data formatting issues on the fly. Repair malformed JSON or XML payload strings, modify custom routing keys or application headers, and validate schemas directly inside our secure inline editor.</p>
+        </article>
+
+        <article class="interactive-card">
+          <h3>Bulk Resubmission & Purging</h3>
+          <p>Execute bulk recovery streams. The client can resubmit corrected payloads back to their source active queue or route them to alternative destinations while keeping your operational logs completely clear.</p>
+        </article>
+      </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
       <div>
-        <p><strong>More:</strong> <a href="/docs/dead-letter-queues/">Dead-letter queue docs</a> · <a href="/service-bus-explorer-alternative/">Compare</a></p>
+        <p><strong>Quick Navigation:</strong> <a href="/docs/dead-letter-queues/">DLQ User Guide</a> · <a href="/glossary/amqp/">AMQP Standard</a> · <a href="/docs/peek-lock/">Lock Settlement Guide</a></p>
       </div>
-      <p>Glossary content for practical Azure Service Bus terms and search intent.</p>
+      <p>Direct browser-native Azure Service Bus Explorer built for modern developer and SRE diagnostics.</p>
     </div>
   </footer>
 </body>

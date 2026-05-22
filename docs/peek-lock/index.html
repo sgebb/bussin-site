@@ -3,13 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Peek-lock workflows | bussin.dev Docs</title>
-  <meta name="description" content="Inspect Azure Service Bus messages with peek-lock workflows in bussin.dev. Practical browser-native guidance for safe message browsing and handling.">
+  <title>Azure Service Bus Peek-Lock Workflows | Technical Docs | bussin.dev</title>
+  <meta name="description" content="Master Peek-Lock and messaging settlement states in Azure Service Bus. Read a technical guide on complete, abandon, dead-letter, and defer workflows using browser-native AMQP links.">
+  <meta name="keywords" content="Azure Service Bus Peek-Lock, Service Bus lock duration, message settlement AMQP, Service Bus complete message, Service Bus abandon, Service Bus defer, browser native Service Bus">
   <link rel="canonical" href="https://bussin.dev/docs/peek-lock/">
-  <meta property="og:title" content="Peek-lock workflows | bussin.dev Docs">
-  <meta property="og:description" content="Learn how to inspect Azure Service Bus messages with peek-lock workflows in bussin.dev. Practical browser-native guidance for safe message browsing and handling.">
+  
+  <!-- OpenGraph Metadata -->
+  <meta property="og:title" content="Azure Service Bus Peek-Lock Workflows | Technical Docs | bussin.dev">
+  <meta property="og:description" content="Technical documentation detailing AMQP 1.0 receiver settlement modes, message locking mechanics, lock renewals, and manual message disposal workflows in the browser.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://bussin.dev/docs/peek-lock/">
+  <meta property="og:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
+  <meta property="og:site_name" content="Bussin">
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/styles.css">
 </head>
 <body>
@@ -25,6 +32,7 @@
             <a href="/browser-based-service-bus-explorer/">How it works</a>
             <span class="menu-heading">COMPARE</span>
             <a href="/service-bus-explorer-alternative/">Service Bus Explorer alternative</a>
+            <a href="/service-bus-linux-mac/">Mac & Linux Explorer</a>
             <span class="menu-heading">LEARN</span>
             <a href="/glossary/">What is Service Bus</a>
             <a href="/glossary/dead-letter-queue/">Dead-letter queues</a>
@@ -44,44 +52,72 @@
   </header>
 
   <main class="container page-content">
-    
     <article>
-      <p class="eyebrow">Workflow guide</p>
-      <h1>Peek-lock inspection for Azure Service Bus</h1>
-      <p>Peek-lock is the safest pattern for reading messages without committing them. bussin.dev exposes this workflow with clear inspection controls and explicit completion steps.</p>
+      <p class="eyebrow">Technical Reference Guide</p>
+      <h1>Peek-Lock and Message Settlement Workflows</h1>
+      <p>In enterprise messaging architectures, message processing integrity is paramount. Azure Service Bus implements two distinct consumption modes: **Receive-and-Delete** (destructive, single-settled read) and **Peek-Lock** (non-destructive, double-settled read). This guide explores the technical details of the Peek-Lock state machine, lock renewal dynamics, and manual message disposal behaviors implemented in the Bussin browser-native console.</p>
     </article>
 
     <section>
-      <h2>Step 1: Open a queue or subscription</h2>
-      <p>Select a queue or topic subscription from the namespace explorer. The UI shows active locks, delivery counts, and dead-letter availability.</p>
-      <p class="note">Screenshot example: queue state panel and message preview.</p>
+      <h2>Peek-Lock vs. Receive-and-Delete</h2>
+      <p>The standard connection configuration dictates how the broker and the client settle transfer frames under the AMQP 1.0 specification:</p>
+      <ul>
+        <li><strong>Receive-and-Delete (At-Most-Once):</strong> The broker immediately settles the message transfer upon dispatch. The message is deleted from the broker before the client begins execution, risking data loss if the consumer crashes mid-transaction.</li>
+        <li><strong>Peek-Lock (At-Least-Once):</strong> The broker locks the message for exclusive consumption by the client link for a specified duration (default is 30 seconds). The message remains on the broker but is hidden from other consumers, allowing safe, transactional settlement once processing is successfully verified.</li>
+      </ul>
     </section>
 
     <section>
-      <h2>Step 2: Peek messages</h2>
-      <p>Use the peek mode to inspect payloads, system properties, and metadata without removing the message from the broker.</p>
-      <pre><code>1. Select peek mode
-2. Review message body and properties
-3. Confirm before completing or abandoning the message</code></pre>
+      <h2>Understanding AMQP Message Settlement States</h2>
+      <p>When you lock and retrieve a message using Bussin's interactive console, you can manually trigger explicit disposal actions. Each maps directly to standard AMQP frame settlement states:</p>
+      
+      <h3>1. Complete (`Accepted`)</h3>
+      <p>Acknowledges successful message processing. The browser client sends an `Accepted` disposition frame to the broker, which permanently deletes the message from the queue or subscription partition.</p>
+
+      <h3>2. Abandon (`Released`)</h3>
+      <p>Indicates a processing failure where the message should be re-attempted. The client sends a `Released` disposition frame. The broker immediately unlocks the message, making it visible to other active consumers. The message's `DeliveryCount` is incremented. If it exceeds the entity's `MaxDeliveryCount` limit, the broker automatically dead-letters the message.</p>
+
+      <h3>3. Dead-Letter (`Rejected`)</h3>
+      <p>Signals a permanent, unrecoverable failure (e.g., custom payload schema violations). The client sends a `Rejected` disposition frame containing custom error detail headers (`DeadLetterReason` and `DeadLetterErrorDescription`). The broker relocates the message to the entity's dead-letter sub-queue (`$DefaultDeadLetterQueue`) for isolated audit.</p>
+
+      <h3>4. Defer (`Modified` with `undeliverable-here`)</h3>
+      <p>Suspends immediate message delivery without processing or rejecting it. The broker preserves the message in the queue but holds it aside. It cannot be consumed by standard lock loops and must be retrieved explicitly by its `SequenceNumber` via a direct management-plane call.</p>
+
+      <pre><code>// Conceptual AMQP Message Settlement State Transition
+[Active Queue] ──(Receive & Lock)──> [Locked State (In Flight)]
+                                           │
+         ┌───────────────┬─────────────────┼────────────────┐
+         ▼               ▼                 ▼                ▼
+     Accepted        Released           Rejected         Modified
+    (Complete)      (Abandon)        (Dead-Letter)       (Defer)
+         │               │                 │                │
+         ▼               ▼                 ▼                ▼
+     [Deleted]     [Re-queued]         [To DLQ]        [Held Aside]</code></pre>
     </section>
 
     <section>
-      <h2>Step 3: Complete, abandon, or dead-letter</h2>
-      <p>After verifying the message, choose the action that matches your workflow. bussin.dev keeps it explicit so you can audit every state change.</p>
+      <h2>Lock Duration and Lock Renewal Mechanics</h2>
+      <p>Every Peek-Lock transaction is bound by the queue or subscription's configured `LockDuration`. If the lock expires before the client settles the message, the broker automatically releases the message back to the active queue. This is a critical safeguard against consumer crashes.</p>
+      <p>In Bussin, lock parameters are managed via protocol-native variables:</p>
+      <ul>
+        <li><strong>Lock Expiry Tracking:</strong> The browser UI actively displays the remaining lock lease time, calculated directly from the AMQP message's `LockedUntilUtc` system property.</li>
+        <li><strong>Lock Duration Extension:</strong> For extensive manual diagnostics, developers can trigger lock renewals. Bussin leverages management-plane links to execute `RenewMessageLockAsync` updates, renewing the lock lease without losing current sequence offsets.</li>
+      </ul>
+      <p class="note"><strong>Aesthetic Tip:</strong> When using the Bussin active explorer, utilize the message preview blade to review the absolute system timestamp values of `LockedUntilUtc`, `SequenceNumber`, and `PartitionKey` in real-time.</p>
     </section>
 
     <section>
-      <h2>Why browser-native peek-lock works</h2>
-      <p>bussin.dev maintains an AMQP session over WebSockets so the browser can manage message locks and delivery state directly, without a backend proxy.</p>
+      <h2>Next Steps</h2>
+      <p>Continue exploring browser-native workflows by reviewing our guide on <a href="/docs/dead-letter-queues/">Dead-letter queue inspection and recovery</a>, validate routing rules in <a href="/docs/topic-subscriptions/">Topic and subscription monitoring</a>, or examine our <a href="/glossary/amqp/">AMQP protocol glossary</a>.</p>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
       <div>
-        <p><strong>Next:</strong> <a href="/docs/dead-letter-queues/">Dead-letter queues</a> · <a href="/glossary/amqp/">AMQP definition</a></p>
+        <p><strong>Quick Navigation:</strong> <a href="/docs/">Technical Docs</a> · <a href="/service-bus-explorer-alternative/">Alternative Guide</a> · <a href="/browser-based-service-bus-explorer/">How It Works</a> · <a href="/">Home</a></p>
       </div>
-      <p>Practical guidance for safe Service Bus message inspection.</p>
+      <p>Direct browser-native Azure Service Bus Explorer built for modern developer and SRE diagnostics.</p>
     </div>
   </footer>
 </body>

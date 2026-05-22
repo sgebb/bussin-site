@@ -3,13 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Privacy Policy — bussin.dev</title>
-  <meta name="description" content="Privacy details for bussin.dev marketing site and browser-native Azure Service Bus explorer. Learn what data is collected and how the app behaves.">
+  <title>Privacy & Security Architecture Policy | bussin.dev</title>
+  <meta name="description" content="Technical breakdown of Bussin's privacy and security boundaries. Read how our zero-proxy architecture, MSAL.js isolation, and direct TLS tunnels protect your Azure credentials and payload streams.">
+  <meta name="keywords" content="privacy policy, security architecture, SOC 2 compliance, zero proxy transit, local storage sandbox, Entra ID security, safe Azure explorer">
   <link rel="canonical" href="https://bussin.dev/privacy/">
-  <meta property="og:title" content="Privacy Policy — bussin.dev">
-  <meta property="og:description" content="Privacy details for bussin.dev marketing site and browser-native Azure Service Bus explorer. Learn what data is collected and how the app behaves.">
-  <meta property="og:type" content="website">
+  
+  <!-- OpenGraph Metadata -->
+  <meta property="og:title" content="Privacy & Security Architecture Policy | bussin.dev">
+  <meta property="og:description" content="Technical breakdown of Bussin's privacy and security boundaries. Our zero-proxy architecture, MSAL.js isolation, and direct TLS tunnels protect your data.">
+  <meta property="og:type" content="article">
   <meta property="og:url" content="https://bussin.dev/privacy/">
+  <meta property="og:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
+  <meta property="og:site_name" content="Bussin">
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/styles.css">
 </head>
 <body>
@@ -25,6 +32,7 @@
             <a href="/browser-based-service-bus-explorer/">How it works</a>
             <span class="menu-heading">COMPARE</span>
             <a href="/service-bus-explorer-alternative/">Service Bus Explorer alternative</a>
+            <a href="/service-bus-linux-mac/">Mac & Linux Explorer</a>
             <span class="menu-heading">LEARN</span>
             <a href="/glossary/">What is Service Bus</a>
             <a href="/glossary/dead-letter-queue/">Dead-letter queues</a>
@@ -45,39 +53,67 @@
 
   <main class="container page-content">
     <article>
-      <p class="eyebrow">Privacy</p>
-      <h1>Privacy policy for bussin.dev</h1>
-      <p>This marketing site is a static product and documentation hub for <strong>app.bussin.dev</strong>. It does not collect personal data directly, and browser-based Service Bus access is only performed with explicit user consent in the app.</p>
+      <p class="eyebrow">Data Isolation Spec</p>
+      <h1>Security & Privacy Architecture</h1>
+      <p class="lead-text">Bussin is built from the ground up as a zero-proxy, static application. This document details the architectural boundaries, sandbox configurations, and network isolation models that keep your Azure credentials and payload streams completely secure.</p>
     </article>
 
     <section>
-      <h2>Information collection</h2>
-      <p>We currently do not collect personal information through this static marketing site. Any analytics or external tools added later will be disclosed here.</p>
+      <h2>The Zero-Transit Architecture Policy</h2>
+      <p>Traditional cloud explorers act as middle-tier servers: they receive your access keys, connect to your cloud infrastructure, and parse your payloads on their own hardware. This introduces a major security risk, creating a single point of failure where a database leak or server compromise exposes your enterprise connections.</p>
+      <p><strong>Bussin is different. We enforce an absolute Zero-Transit policy:</strong></p>
+      <ul>
+        <li><strong>No server relays:</strong> There are no backend application servers, databases, or API proxies in the Bussin pipeline. The application is distributed as a set of static files (HTML, CSS, WebAssembly) served directly to your browser via a Content Delivery Network (CDN).</li>
+        <li><strong>Direct-to-Broker Data Path:</strong> All network traffic—including management calls and AMQP message streams—travels strictly between your local browser process and Microsoft's Azure endpoints. Your data never touches any third-party infrastructure.</li>
+        <li><strong>No tracking or telemetry:</strong> To prevent accidental data leaks, Bussin does not employ analytics platforms, tracking cookies, or diagnostic log collection engines.</li>
+      </ul>
     </section>
 
     <section>
-      <h2>Cookies and tracking</h2>
-      <p>No cookies are set by this site itself. If third-party analytics are added later, they will be documented in this policy.</p>
+      <h2>Credential & Access Token Isolation</h2>
+      <p>Bussin utilizes the official Microsoft Authentication Library (MSAL.js) to manage identity flows with Entra ID (Azure Active Directory):</p>
+      
+      <h3>1. Authentication Scopes & JWTs</h3>
+      <p>When you log in, the Entra ID authorization server returns an ephemeral OAuth 2.0 JSON Web Token (JWT) directly to the browser. The token is assigned delegated scopes for <code>https://servicebus.azure.net/user_impersonation</code> and <code>https://management.azure.com/user_impersonation</code>.</p>
+
+      <h3>2. Volatile Memory Caching</h3>
+      <p>Bussin stores active access tokens strictly within volatile browser memory (session state). Tokens are never written to disk or sent across the internet to anything other than standard Microsoft Azure API gateways.</p>
     </section>
 
     <section>
-      <h2>App behavior and data</h2>
-      <p>app.bussin.dev connects to Azure Service Bus directly from the browser after you sign in and consent. The app does not act autonomously or store Service Bus message content outside of the browser session unless otherwise disclosed.</p>
-      <p>Preferences like theme, favorite namespaces, and folder organization are stored locally in your browser's storage.</p>
+      <h2>Browser Sandbox Boundaries</h2>
+      <p>By executing inside a modern browser engine (such as V8 or WebKit), Bussin inherits robust, industry-standard security boundaries enforced by the operating system:</p>
+      
+      <div class="feature-grid">
+        <article class="interactive-card">
+          <h3>Same-Origin Isolation</h3>
+          <p>The browser's Same-Origin Policy (SOP) prevents external sites or scripts from accessing Bussin's memory space, local storage databases, or active WebSocket instances.</p>
+        </article>
+        
+        <article class="interactive-card">
+          <h3>Local Storage Caching</h3>
+          <p>Favorite namespaces, folder groupings, and interface configurations are persisted inside your browser's sandboxed <code>localStorage</code>. This data remains under your exclusive control and is never synchronized to external servers.</p>
+        </article>
+
+        <article class="interactive-card">
+          <h3>TLS Encrypted Tunnels</h3>
+          <p>Every connection is encapsulated within Transport Layer Security (TLS 1.2 or 1.3), preventing interception or man-in-the-middle exploits on public or private networks.</p>
+        </article>
+      </div>
     </section>
 
     <section>
-      <h2>Contact</h2>
-      <p>Questions about this policy can be directed to the bussin team through the app or via public project channels.</p>
+      <h2>Enterprise Compliance Alignment</h2>
+      <p>Because Bussin does not capture, store, or process any customer data, utilizing this tool does not expand your organizational data boundaries or introduce new compliance liabilities. It integrates cleanly with standard SOC 2, ISO 27001, and HIPAA compliance policies, acting as a secure diagnostic lens for your existing Azure infrastructure.</p>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
       <div>
-        <p><strong>See also:</strong> <a href="/docs/">Docs</a> · <a href="/privacy/">Privacy</a> · <a href="/browser-based-service-bus-explorer/">Browser-based</a></p>
+        <p><strong>Quick Navigation:</strong> <a href="/about/">About Bussin</a> · <a href="/browser-based-service-bus-explorer/">WebSocket Spec</a> · <a href="/docs/">Technical Documentation</a></p>
       </div>
-      <p>© 2026 bussin.dev</p>
+      <p>Direct browser-native Azure Service Bus Explorer built for modern developer and SRE diagnostics.</p>
     </div>
   </footer>
 </body>

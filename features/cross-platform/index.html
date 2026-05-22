@@ -3,13 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Cross-platform Azure Service Bus tooling | bussin.dev Features</title>
-  <meta name="description" content="Cross-platform Service Bus tooling for Mac, Linux, and Windows. See how bussin.dev delivers a consistent browser-native Azure Service Bus experience.">
+  <title>Cross-Platform Azure Service Bus Client | macOS, Linux, Windows | bussin.dev</title>
+  <meta name="description" content="Technical details of the cross-platform rendering engine and browser integration of bussin.dev. Learn how we deliver absolute platform parity across macOS, Linux, and Windows with zero native installers.">
+  <meta name="keywords" content="cross platform service bus explorer, macOS Service Bus tool, Linux Service Bus explorer, Azure Service Bus client, browser native cloud client, zero install Azure tool">
   <link rel="canonical" href="https://bussin.dev/features/cross-platform/">
-  <meta property="og:title" content="Cross-platform Azure Service Bus tooling | bussin.dev Features">
-  <meta property="og:description" content="Cross-platform Service Bus tooling for Mac, Linux, and Windows. See how bussin.dev delivers a consistent browser-native Azure Service Bus experience.">
-  <meta property="og:type" content="website">
+  
+  <!-- OpenGraph Metadata -->
+  <meta property="og:title" content="Cross-Platform Azure Service Bus Client | macOS, Linux, Windows | bussin.dev">
+  <meta property="og:description" content="Technical details of the cross-platform rendering engine and browser integration of bussin.dev. absolute platform parity across macOS, Linux, and Windows with zero native installers.">
+  <meta property="og:type" content="article">
   <meta property="og:url" content="https://bussin.dev/features/cross-platform/">
+  <meta property="og:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
+  <meta property="og:site_name" content="Bussin">
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/styles.css">
 </head>
 <body>
@@ -25,6 +32,7 @@
             <a href="/browser-based-service-bus-explorer/">How it works</a>
             <span class="menu-heading">COMPARE</span>
             <a href="/service-bus-explorer-alternative/">Service Bus Explorer alternative</a>
+            <a href="/service-bus-linux-mac/">Mac & Linux Explorer</a>
             <span class="menu-heading">LEARN</span>
             <a href="/glossary/">What is Service Bus</a>
             <a href="/glossary/dead-letter-queue/">Dead-letter queues</a>
@@ -44,34 +52,59 @@
   </header>
 
   <main class="container page-content">
-    
     <article>
-      <p class="eyebrow">Feature overview</p>
-      <h1>Cross-platform Azure Service Bus client</h1>
-      <p>bussin.dev delivers a consistent Service Bus experience on Mac, Linux, and Windows through the browser. No installation, no native runtime, and no platform-specific distribution.</p>
-      <a class="button primary" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+      <p class="eyebrow">Operating System Equality</p>
+      <h1>True Cross-Platform Azure Service Bus Tooling</h1>
+      <p class="lead-text">Bussin provides a high-fidelity, consistent administrative interface across macOS, Linux, and Windows. By utilizing standard browser runtime engines, developers bypass platform compilation gaps, virtual machines, and emulator compatibility layers.</p>
+      <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+        <a class="button primary" href="https://app.bussin.dev" target="_blank" rel="noopener">Launch Application</a>
+        <a class="button" href="/service-bus-linux-mac/">Read OS Support Details</a>
+      </div>
     </article>
 
     <section>
-      <h2>Platform-neutral architecture</h2>
-      <p>Using browser-native APIs and AMQP over WebSockets, bussin.dev avoids the compatibility gaps of native desktop tools, while preserving the capabilities needed for Service Bus workflows.</p>
+      <h2>Unified Runtime Engine Execution</h2>
+      <p>Traditional desktop clients suffer from OS-specific rendering issues, file-system access blocks, and complex runtime installation requirements (such as .NET Framework versions, Wine/Mono layers, or Java VM paths). Bussin resolves these inconsistencies by leveraging the universal runtime platform: the modern browser engine (V8, WebKit, or Gecko).</p>
+
+      <div class="feature-grid">
+        <article class="interactive-card">
+          <h3>Absolute UI Consistency</h3>
+          <p>Whether you run Safari on macOS, Chrome on Windows, or Firefox on Ubuntu, our responsive CSS grid and WebAssembly core perform identically. You get the same rendering, keyboard short-cuts, and diagnostic speed everywhere.</p>
+        </article>
+        
+        <article class="interactive-card">
+          <h3>No Mono, Wine, or VM Overhead</h3>
+          <p>Linux and Mac developers no longer need to configure winePrefix or boot resource-heavy Windows virtual machines to run administrative interfaces. Bussin loads in milliseconds inside standard browser processes.</p>
+        </article>
+
+        <article class="interactive-card">
+          <h3>Zero native installers</h3>
+          <p>Eliminate security review bottlenecks associated with installing local native executables or PKG files. Bussin runs in standard user-space browser sandboxes, conforming directly to corporate IT security rules.</p>
+        </article>
+      </div>
     </section>
 
     <section>
-      <h2>Developer workflows</h2>
-      <ul>
-        <li>Inspect queues and subscriptions from any supported browser on Mac, Linux, or Windows.</li>
-        <li>Keep the same Service Bus debugging workflow across teams and devices.</li>
-        <li>Use browser-local favorites and UI preferences without platform-specific installs.</li>
-      </ul>
+      <h2>Enterprise Diagnostic Parity</h2>
+      <p>Operating in a browser client does not mean compromising on professional capabilities. Bussin matches or exceeds traditional desktop tools across every crucial administrative operation:</p>
+      
+      <h3>1. Live AMQP Subscriptions & Topic Auditing</h3>
+      <p>Subscribe to topic endpoints directly from any platform. The client renders live message streams using direct WebSockets, showing lock durations, delivery counts, and custom headers in a highly legible tabular view.</p>
+
+      <h3>2. Cross-Tenant Workspace Mapping</h3>
+      <p>Organize namespaces from distinct Entra ID tenants into a single, unified workspace sidebar. This feature is particularly powerful for cross-platform cloud SRE teams managing complex dev, staging, and production environments across multiple subscriptions.</p>
+
+      <h3>3. Transactional Dead-Letter Remediation</h3>
+      <p>Peek dead-letter queues, inspect message headers to diagnose system exceptions, repair payload strings using the inline JSON editor, and resubmit them safely to active queues—available uniformly on macOS, Linux, and Windows.</p>
     </section>
 
     <section>
-      <h2>Screenshots and examples</h2>
-      <p>Because bussin is browser-based, it delivers the same UI and auth flow on every platform. Modern browser auth, Entra ID consent, and direct AMQP connectivity work consistently across operating systems.</p>
+      <h2>Zero-Friction Team Alignment</h2>
+      <p>By standardizing on a browser-native portal, software teams eliminate the "works on my machine" friction. Every engineer, QA analyst, and operator accesses the exact same diagnostic features, auth behaviors, and UI dashboards, streamlining collaborative debugging sessions during critical live-site incidents.</p>
+
       <figure class="visual-card">
-        <img src="/assets/media/lightmode.jpg" alt="Browser-native Service Bus UI on Linux and Mac" />
-        <figcaption>Consistent browser-native Service Bus tooling for any operating system.</figcaption>
+        <img src="/assets/media/lightmode.jpg" alt="Bussin workspace interface showing the consistent responsive sidebar on macOS and Linux" />
+        <figcaption>Consistent responsive sidebar and queue navigation panel across macOS, Linux, and Windows.</figcaption>
       </figure>
     </section>
   </main>
@@ -79,9 +112,9 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div>
-        <p><strong>Explore:</strong> <a href="/features/browser-native/">Browser-native</a> · <a href="/service-bus-explorer-alternative/">Alternative</a></p>
+        <p><strong>Quick Navigation:</strong> <a href="/features/browser-native/">Browser-Native Tech</a> · <a href="/service-bus-linux-mac/">Mac & Linux Guide</a> · <a href="/docs/dead-letter-queues/">DLQ Remediation</a></p>
       </div>
-      <p>Cross-platform tooling built for real Azure Service Bus teams.</p>
+      <p>Direct browser-native Azure Service Bus Explorer built for modern developer and SRE diagnostics.</p>
     </div>
   </footer>
 </body>

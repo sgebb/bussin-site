@@ -3,13 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Documentation for bussin.dev | Azure Service Bus workflows</title>
-  <meta name="description" content="bussin.dev docs for browser-native Azure Service Bus workflows, including Entra ID, namespace discovery, message search, favorites, and dead-letter recovery.">
+  <title>Documentation Home | Azure Service Bus Workflows | bussin.dev</title>
+  <meta name="description" content="Technical documentation portal for bussin.dev. Learn the prerequisites, RBAC roles, connection models, and diagnostics workflows for browser-native Service Bus management.">
+  <meta name="keywords" content="Azure Service Bus documentation, Service Bus Explorer help, Service Bus RBAC roles, Entra ID Service Bus permission, browser native Service Bus, troubleshooting Service Bus">
   <link rel="canonical" href="https://bussin.dev/docs/">
-  <meta property="og:title" content="Documentation for bussin.dev | Azure Service Bus workflows">
-  <meta property="og:description" content="bussin.dev documentation for browser-native Azure Service Bus workflows, including Entra ID connection, namespace discovery, deep message search, favorites, and dead-letter recovery.">
-  <meta property="og:type" content="website">
+  
+  <!-- OpenGraph Metadata -->
+  <meta property="og:title" content="Documentation Home | Azure Service Bus Workflows | bussin.dev">
+  <meta property="og:description" content="Technical guides and workflows for secure, browser-native Azure Service Bus administration. Covers Entra ID authentication, RBAC roles, peek-lock settlement, and dead-letter recovery.">
+  <meta property="og:type" content="article">
   <meta property="og:url" content="https://bussin.dev/docs/">
+  <meta property="og:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
+  <meta property="og:site_name" content="Bussin">
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/styles.css">
 </head>
 <body>
@@ -25,6 +32,7 @@
             <a href="/browser-based-service-bus-explorer/">How it works</a>
             <span class="menu-heading">COMPARE</span>
             <a href="/service-bus-explorer-alternative/">Service Bus Explorer alternative</a>
+            <a href="/service-bus-linux-mac/">Mac & Linux Explorer</a>
             <span class="menu-heading">LEARN</span>
             <a href="/glossary/">What is Service Bus</a>
             <a href="/glossary/dead-letter-queue/">Dead-letter queues</a>
@@ -45,49 +53,71 @@
 
   <main class="container page-content">
     <article>
-      <p class="eyebrow">Documentation</p>
-      <h1>Practical Azure Service Bus workflows for browser-native inspection</h1>
-      <p>Find workflow-driven docs for bussin.dev, including Entra ID sign-in, namespace discovery, deep message search, favorites, background tasks, and browser-native queue and dead-letter workflows.</p>
+      <p class="eyebrow">Technical Reference Portal</p>
+      <h1>Azure Service Bus Diagnostics Documentation</h1>
+      <p>Welcome to the Bussin documentation library. Bussin operates on a zero-proxy, WebAssembly architecture, allowing developers and SREs to run safe, protocol-native diagnostics directly inside their web browsers. This guide acts as a starting point, covering connectivity prerequisites, Entra ID delegated scopes, and core troubleshooting paths.</p>
     </article>
 
-    <section class="docs-grid">
+    <section>
+      <h2>Connection Prerequisites & RBAC Roles</h2>
+      <p>Because Bussin communicates directly from your browser network stack to Azure API endpoints without an intermediate proxy, it respects standard Azure Active Directory (Entra ID) Role-Based Access Control (RBAC) boundaries. To connect, your corporate identity requires specific configurations:</p>
+      
+      <h3>1. Directory Access Scopes</h3>
+      <p>During Entra ID sign-in, MSAL.js requests two primary OAuth 2.0 delegated permissions:</p>
+      <ul>
+        <li><strong>Azure Service Bus Data Plane:</strong> `https://servicebus.azure.net/user_impersonation` (enables peeking, sending, locking, and completing messages).</li>
+        <li><strong>Azure Resource Manager (ARM) Management Plane:</strong> `https://management.azure.com/user_impersonation` (enables listing subscriptions, active directories, namespaces, queues, and topics).</li>
+      </ul>
+
+      <h3>2. Essential RBAC Roles</h3>
+      <p>Ensure your user profile or security group is assigned one of the following standard Azure RBAC roles on the target Service Bus Namespace or Entity level:</p>
+      <ul>
+        <li><strong>Azure Service Bus Data Owner:</strong> Complete control over all entities and message streams (required for full Send, Lock, Complete, and Purge workflows).</li>
+        <li><strong>Azure Service Bus Data Receiver:</strong> Permission to receive and peek active messages.</li>
+        <li><strong>Azure Service Bus Data Sender:</strong> Permission to publish payloads to queues and topics.</li>
+      </ul>
+      <p class="note"><strong>Security Enforcement:</strong> If your identity is only assigned standard management roles (like *Contributor* or *Owner*), the broker will reject active AMQP WebSocket connections. You **must** possess data-plane roles to inspect payloads.</p>
+    </section>
+
+    <section class="docs-grid" style="margin-top: 3rem;">
       <article>
-        <h2><a href="/docs/">Documentation home</a></h2>
-        <p>Start here to understand the browser-native Service Bus workflow and how bussin fits into your diagnostics process.</p>
+        <h2><a href="/docs/peek-lock/">Peek-Lock Workflows</a></h2>
+        <p>Explore AMQP 1.0 receiver settlement modes, lock lease duration limits, and lock renewal protocols for safe, transactional message diagnostics.</p>
       </article>
       <article>
-        <h2><a href="/docs/peek-lock/">Peek-lock workflows</a></h2>
-        <p>Inspect messages safely without removing them from the broker and complete them only after review.</p>
+        <h2><a href="/docs/dead-letter-queues/">Dead-Letter Queues (DLQ)</a></h2>
+        <p>Analyze broker-level triggers (delivery count limits, TTLExpiredException), edit payloads, and execute safe background resubmissions.</p>
       </article>
       <article>
-        <h2><a href="/docs/dead-letter-queues/">Dead-letter queues</a></h2>
-        <p>Recover failed messages and review dead-letter metadata before replaying or archiving.</p>
-      </article>
-      <article>
-        <h2><a href="/docs/topic-subscriptions/">Topic subscriptions</a></h2>
-        <p>Validate subscription filters, message delivery, and routing behavior for topic-based architectures.</p>
+        <h2><a href="/docs/topic-subscriptions/">Topic & Subscription Routing</a></h2>
+        <p>Auditing the broker's publish-subscribe distribution engine. Technical breakdowns of TrueFilters, SqlFilters, and CorrelationFilters.</p>
       </article>
     </section>
 
     <section>
-      <h2>Documentation workflow</h2>
-      <p>Use these pages as a guided reference for browser-native Service Bus troubleshooting. The docs explain how to connect with Entra ID, discover namespaces, debug subscriptions, recover dead-letter messages, and use search and favorites effectively.</p>
+      <h2>Diagnostic Troubleshooting Workflows</h2>
+      <p>Bussin organizes messaging diagnostics into high-fidelity browser workflows, resolving standard cloud troubleshooting friction:</p>
+      <ul>
+        <li><strong>Multi-Tenant Workspace Organization:</strong> Bookmark target namespaces across separate Entra ID tenants, group them into nested directories, and filter active entities from a single sidebar.</li>
+        <li><strong>Deep index Scanning:</strong> Execute high-speed searches across up to 1,000,000 message bodies or custom headers in local sandboxed memory.</li>
+        <li><strong>Safe Bulk Operations:</strong> Start background purges or destination moves and monitor progress meters in the console while continuing diagnostic peeks on distinct blades.</li>
+      </ul>
     </section>
 
     <section>
-      <h2>Jump to</h2>
+      <h2>Deep Dive Reference Sheets</h2>
       <div class="feature-grid">
         <article>
-          <h3><a href="/glossary/amqp/">AMQP</a></h3>
-          <p>Learn the protocol behind browser-native Service Bus connections.</p>
+          <h3><a href="/glossary/amqp/">AMQP 1.0 Protocol</a></h3>
+          <p>Learn why native AMQP over WebSockets outperforms REST APIs in diagnostic sessions.</p>
         </article>
         <article>
-          <h3><a href="/glossary/dead-letter-queue/">Dead-letter queue</a></h3>
-          <p>Understand why messages are dead-lettered and how to recover them.</p>
+          <h3><a href="/glossary/dead-letter-queue/">Dead-Letter Sub-Queues</a></h3>
+          <p>Examine why the broker appends failure details and how DLQs differ from standard active entities.</p>
         </article>
         <article>
-          <h3><a href="/browser-based-service-bus-explorer/">Browser-based explorer</a></h3>
-          <p>See why browser-native tooling is useful for modern Azure Service Bus workflows.</p>
+          <h3><a href="/browser-based-service-bus-explorer/">WebSocket Transport</a></h3>
+          <p>Review the end-to-end security boundary mapping of a zero-proxy, static browser client architecture.</p>
         </article>
       </div>
     </section>
@@ -96,9 +126,9 @@
   <footer class="site-footer">
     <div class="container footer-inner">
       <div>
-        <p><strong>Documentation:</strong> <a href="/docs/">Overview</a> · <a href="/docs/peek-lock/">Peek-lock</a> · <a href="/docs/dead-letter-queues/">Dead-letter queues</a></p>
+        <p><strong>Quick Navigation:</strong> <a href="/docs/peek-lock/">Peek-lock</a> · <a href="/docs/dead-letter-queues/">Dead-letter queues</a> · <a href="/service-bus-explorer-alternative/">Alternative Guide</a> · <a href="/">Home</a></p>
       </div>
-      <p>Workflow-first docs for browser-native Azure Service Bus inspection.</p>
+      <p>Direct browser-native Azure Service Bus Explorer built for modern developer and SRE diagnostics.</p>
     </div>
   </footer>
 </body>

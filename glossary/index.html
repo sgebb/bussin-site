@@ -3,13 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Glossary | bussin.dev</title>
-  <meta name="description" content="Glossary for bussin.dev explaining key Azure Service Bus terms like AMQP and dead-letter queue.">
+  <title>Azure Service Bus Glossary & Terminology | bussin.dev</title>
+  <meta name="description" content="Technical dictionary and glossary of terms for Azure Service Bus. Deep explanations of AMQP 1.0 protocols, dead-letter sub-queues, peek-lock lease settlement, and filter rule routing models.">
+  <meta name="keywords" content="Azure Service Bus glossary, AMQP 1.0 dictionary, dead-letter queue definitions, peek-lock lease terms, service bus topics and filters, cloud integration terminology">
   <link rel="canonical" href="https://bussin.dev/glossary/">
-  <meta property="og:title" content="Glossary | bussin.dev">
-  <meta property="og:description" content="Glossary for bussin.dev explaining key Azure Service Bus terms like AMQP and dead-letter queue.">
-  <meta property="og:type" content="website">
+  
+  <!-- OpenGraph Metadata -->
+  <meta property="og:title" content="Azure Service Bus Glossary & Terminology | bussin.dev">
+  <meta property="og:description" content="Technical dictionary and glossary of terms for Azure Service Bus. AMQP 1.0, dead-letter sub-queues, peek-lock lease settlement, and filter rules.">
+  <meta property="og:type" content="article">
   <meta property="og:url" content="https://bussin.dev/glossary/">
+  <meta property="og:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
+  <meta property="og:site_name" content="Bussin">
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/styles.css">
 </head>
 <body>
@@ -25,6 +32,7 @@
             <a href="/browser-based-service-bus-explorer/">How it works</a>
             <span class="menu-heading">COMPARE</span>
             <a href="/service-bus-explorer-alternative/">Service Bus Explorer alternative</a>
+            <a href="/service-bus-linux-mac/">Mac & Linux Explorer</a>
             <span class="menu-heading">LEARN</span>
             <a href="/glossary/">What is Service Bus</a>
             <a href="/glossary/dead-letter-queue/">Dead-letter queues</a>
@@ -45,34 +53,62 @@
 
   <main class="container page-content">
     <article>
-      <p class="eyebrow">Glossary</p>
-      <h1>Azure Service Bus terms</h1>
-      <p>Definitions for the key messaging concepts used throughout bussin.dev and Azure Service Bus documentation.</p>
+      <p class="eyebrow">Technical Reference Hub</p>
+      <h1>Azure Service Bus Technical Glossary</h1>
+      <p class="lead-text">Welcome to the technical terminology library for enterprise messaging diagnostics. Use this index to master core architecture standards, protocol layouts, and debugging workflows within Azure Service Bus.</p>
     </article>
 
-    <section class="docs-grid">
-      <article>
-        <h2><a href="/glossary/amqp/">AMQP</a></h2>
-        <p>Learn the protocol behind browser-native Service Bus connections.</p>
+    <section class="docs-grid" style="margin-top: 2rem;">
+      <article class="interactive-card">
+        <h2><a href="/glossary/amqp/">AMQP 1.0 Wire Protocol</a></h2>
+        <p>A binary, peer-to-peer transport protocol that defines the frame structures, credit flows, and state transfers governing direct Service Bus message exchanges.</p>
       </article>
-      <article>
-        <h2><a href="/glossary/dead-letter-queue/">Dead-letter queue</a></h2>
-        <p>Understand why messages are dead-lettered and how to inspect them.</p>
+      
+      <article class="interactive-card">
+        <h2><a href="/glossary/dead-letter-queue/">Dead-Letter Sub-Queues (DLQ)</a></h2>
+        <p>A system-managed secondary storage channel where expired, corrupted, or delivery-failed payloads are isolated by the broker for audit and recovery.</p>
       </article>
     </section>
 
     <section>
-      <h2>Use these terms in your workflow</h2>
-      <p>These glossary entries support the docs pages and landing content, so you can understand the underlying messaging concepts as you use bussin.dev.</p>
+      <h2>Alphabetical Reference Index</h2>
+      <p>Use these definitions to align team terminology during architectural design phases or live-site triage sessions:</p>
+      
+      <div style="display: flex; flex-direction: column; gap: 2rem; margin-top: 2rem;">
+        <div>
+          <h3>AMQP 1.0 (Advanced Message Queuing Protocol)</h3>
+          <p>The standard binary messaging protocol specified by ISO/IEC 19464. Unlike HTTP-based REST, it operates long-lived TCP connections, optimizing telemetry throughput and tracking message states seamlessly. Learn more on the <a href="/glossary/amqp/">AMQP Protocol Page</a>.</p>
+        </div>
+
+        <div>
+          <h3>Dead-Letter Sub-Queue (DLQ)</h3>
+          <p>An auxiliary queue automatically attached to every standard queue and topic subscription. When a message fails validation or exceeds limits, the broker routes it here with diagnostics headers. Learn more on the <a href="/glossary/dead-letter-queue/">Dead-Letter Sub-Queue Page</a>.</p>
+        </div>
+
+        <div>
+          <h3>Lock Duration & Lease Renewals</h3>
+          <p>The temporal window during which a receiver gains exclusive lock rights over a message. If processing outlasts the lease limit and no renewal occurs, the message is released back to active status, which can lead to duplicate processing.</p>
+        </div>
+
+        <div>
+          <h3>Message Settlement (Complete, Abandon, Defer)</h3>
+          <p>The protocol hand-shake that signals to the broker how to treat a locked message. <code>Complete</code> permanently purges it, <code>Abandon</code> unlocks it for retry, and <code>Defer</code> moves it to a sub-state requiring direct sequence number recall.</p>
+        </div>
+
+        <div>
+          <h3>Topic Subscriptions & Filters</h3>
+          <p>The publish-subscribe routing model. Topics publish messages to multiple concurrent subscriptions. The broker evaluates SQL, Correlation, or Boolean filters in real-time to selectively route payloads to active endpoints.</p>
+        </div>
+      </div>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
       <div>
-        <p><strong>Related pages:</strong> <a href="/docs/">Documentation</a> · <a href="/browser-based-service-bus-explorer/">Browser-based explorer</a></p>
+        <p><strong>Quick Navigation:</strong> <a href="/docs/">Technical Docs</a> · <a href="/docs/peek-lock/">Peek-Lock Spec</a> · <a href="/features/browser-native/">Zero-Proxy Tech</a></p>
       </div>
-      <p>Glossary content for developer search and technical reference.</p>
+      <p>Direct browser-native Azure Service Bus Explorer built for modern developer and SRE diagnostics.</p>
     </div>
   </footer>
 </body>

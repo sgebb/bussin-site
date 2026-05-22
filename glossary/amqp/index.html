@@ -3,13 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AMQP glossary | bussin.dev</title>
-  <meta name="description" content="What is AMQP? A bussin.dev glossary entry explaining how Advanced Message Queuing Protocol works with Azure Service Bus over WebSockets.">
+  <title>What is AMQP 1.0? Azure Service Bus Protocol | bussin.dev Glossary</title>
+  <meta name="description" content="Technical deep-dive into AMQP 1.0 (Advanced Message Queuing Protocol) for Azure Service Bus. Learn about binary wire framing, CBS authentication, credit-based flow control, and WebSocket encapsulation.">
+  <meta name="keywords" content="AMQP 1.0 protocol, Advanced Message Queuing Protocol, AMQP over WebSockets, CBS claims based security, credit based flow control, service bus wire protocol, ISO IEC 19464">
   <link rel="canonical" href="https://bussin.dev/glossary/amqp/">
-  <meta property="og:title" content="AMQP glossary | bussin.dev">
-  <meta property="og:description" content="What is AMQP? A bussin.dev glossary entry explaining how Advanced Message Queuing Protocol works with Azure Service Bus over WebSockets.">
+  
+  <!-- OpenGraph Metadata -->
+  <meta property="og:title" content="What is AMQP 1.0? Azure Service Bus Protocol | bussin.dev Glossary">
+  <meta property="og:description" content="Technical deep-dive into AMQP 1.0 (Advanced Message Queuing Protocol) for Azure Service Bus. Binary wire framing, CBS authentication, and WebSocket encapsulation.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://bussin.dev/glossary/amqp/">
+  <meta property="og:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
+  <meta property="og:site_name" content="Bussin">
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/styles.css">
 </head>
 <body>
@@ -25,6 +32,7 @@
             <a href="/browser-based-service-bus-explorer/">How it works</a>
             <span class="menu-heading">COMPARE</span>
             <a href="/service-bus-explorer-alternative/">Service Bus Explorer alternative</a>
+            <a href="/service-bus-linux-mac/">Mac & Linux Explorer</a>
             <span class="menu-heading">LEARN</span>
             <a href="/glossary/">What is Service Bus</a>
             <a href="/glossary/dead-letter-queue/">Dead-letter queues</a>
@@ -44,48 +52,75 @@
   </header>
 
   <main class="container page-content">
-    
     <article>
-      <p class="eyebrow">Glossary</p>
-      <h1>AMQP</h1>
-      <p>AMQP stands for Advanced Message Queuing Protocol. It is the core wire protocol used by Azure Service Bus, and bussin.dev supports it directly over WebSockets from the browser.</p>
+      <p class="eyebrow">Industry Standard Messaging</p>
+      <h1>AMQP 1.0 (Advanced Message Queuing Protocol)</h1>
+      <p class="lead-text">AMQP 1.0 (standardized as ISO/IEC 19464) is an open, binary wire protocol designed for high-performance, secure, and transactional message transfer. Azure Service Bus uses AMQP 1.0 as its primary high-fidelity data-plane protocol.</p>
+      <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+        <a class="button primary" href="https://app.bussin.dev" target="_blank" rel="noopener">Launch Protocol Client Workspace</a>
+        <a class="button" href="/browser-based-service-bus-explorer/">Review WebSocket Specs</a>
+      </div>
     </article>
 
     <section>
-      <h2>Why AMQP matters for Service Bus</h2>
-      <p>Azure Service Bus uses AMQP 1.0, the standardized Advanced Message Queuing Protocol, to transport message body, properties, annotations, and delivery semantics. It's a binary wire protocol that enables reliable, transactional message exchange—including features like message locking, settlement (complete/abandon/dead-letter), and session-based correlation.</p>
-      <p>Supporting AMQP 1.0 over WebSockets lets a browser client connect directly to Azure Service Bus without a backend proxy, accessing queues, topics, subscriptions, and dead-letter queues with full protocol fidelity.</p>
+      <h2>Core Architecture of AMQP 1.0</h2>
+      <p>Unlike HTTP/1.1 or HTTP/2, which operate on a rigid request-response cycle, AMQP 1.0 is a symmetrical, asynchronous protocol. Connections contain sessions, which in turn contain unidirectional links (senders and receivers) that exchange binary frames. Crucial structural details include:</p>
+
+      <div class="feature-grid">
+        <article class="interactive-card">
+          <h3>Binary Framing Efficiency</h3>
+          <p>Payloads and headers are serialized into compact binary streams. This eliminates the text-parsing overhead of JSON or SOAP, saving CPU cycles on message brokers and client engines alike.</p>
+        </article>
+        
+        <article class="interactive-card">
+          <h3>Link-Attach and Credits</h3>
+          <p>Flow control is strictly credit-based. A receiver issues a set number of "credits" to the sender. The sender can only transmit frames until its credit allocation is consumed, protecting receivers from buffer overflows.</p>
+        </article>
+
+        <article class="interactive-card">
+          <h3>Symmetric State Settlement</h3>
+          <p>Both client and broker track delivery states (e.g., <code>Accepted</code>, <code>Released</code>, <code>Rejected</code>, or <code>Modified</code>) synchronously. This enables strong transactional guarantees like at-least-once or exactly-once message deliveries.</p>
+        </article>
+      </div>
     </section>
 
     <section>
-      <h2>Browser-native AMQP over WebSockets</h2>
-      <p>bussin.dev uses the <strong>rhea</strong> JavaScript AMQP 1.0 client library to establish and manage AMQP sessions through a secure WebSocket channel (<code>wss://</code>). Once connected, your browser can:</p>
-      <ul>
-        <li>Authenticate using AMQP CBS (Claims-Based Security) with OAuth JWT tokens</li>
-        <li>Send and receive messages with full AMQP message properties and annotations</li>
-        <li>Lock messages for transactional processing (peek-lock mode)</li>
-        <li>Settle message disposition (complete, abandon, or dead-letter)</li>
-        <li>Query entity metadata and dead-letter queues via the Service Bus management client</li>
-      </ul>
-      <p>All of this happens directly in your browser—no backend intermediary, no credential exposure.</p>
+      <h2>Direct-to-Browser Encapsulation</h2>
+      <p>Historically, AMQP 1.0 connections ran over raw TCP port 5671 or 5672, which is frequently blocked by restrictive enterprise firewalls. Microsoft solved this by standardizing an AMQP tunnel within the secure WebSocket protocol (running on standard HTTPS port 443):</p>
+      <div class="highlight-box">
+        <h3>AMQP WebSocket Handshake</h3>
+        <p>Bussin initializes connections over standard ports using the sub-protocol <code>amqp</code>:</p>
+        <pre><code>GET wss://&lt;namespace&gt;.servicebus.windows.net:443/$servicebus/websocket HTTP/1.1
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Protocol: amqp</code></pre>
+      </div>
+      <p>This allows the browser network stack to establish direct, bi-directional AMQP 1.0 paths without any client-side installs or server-side relays, keeping message pathways completely isolated.</p>
     </section>
 
     <section>
-      <h2>See also</h2>
-      <ul>
-        <li><a href="/docs/peek-lock/">Peek-lock workflows</a></li>
-        <li><a href="/browser-based-service-bus-explorer/">How bussin.dev works</a></li>
-        <li><a href="/service-bus-explorer-alternative/">Browser-native alternative</a></li>
-      </ul>
+      <h2>CBS (Claims-Based Security) Authentication</h2>
+      <p>Because AMQP does not natively enforce HTTP authorization headers, it leverages the Claims-Based Security (CBS) specification. Bussin uses MSAL.js to retrieve a standard OAuth 2.0 JSON Web Token (JWT) from Microsoft Entra ID. The Rhea protocol stack then establishes a dedicated AMQP link pointing to the broker's <code>$cbs</code> node:</p>
+      <ol>
+        <li>An AMQP sender link attaches to the <code>$cbs</code> address.</li>
+        <li>Bussin publishes a CBS message containing the active Entra ID JWT payload to the <code>$cbs</code> endpoint.</li>
+        <li>The broker validates the token and returns an AMQP response frame indicating authentication success.</li>
+        <li>Subsequent AMQP links attach to active queues or topics, authenticated under the user's delegated identity.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Why AMQP Exceeds REST in Diagnostics</h2>
+      <p>While REST endpoints are convenient, they lack key enterprise messaging capabilities. The REST interface of Azure Service Bus cannot handle active peek-lock state tracking, lock leases, or target sequence number recoveries. AMQP 1.0 remains the only protocol capable of exposing the complete diagnostic control plane required for enterprise SRE workflows.</p>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
       <div>
-        <p><strong>Related topics:</strong> <a href="/glossary/dead-letter-queue/">Dead-letter queue</a> · <a href="/docs/peek-lock/">Peek-lock</a></p>
+        <p><strong>Quick Navigation:</strong> <a href="/docs/peek-lock/">Peek-Lock Spec</a> · <a href="/glossary/dead-letter-queue/">Dead-Letter Sub-Queues</a> · <a href="/service-bus-linux-mac/">Mac & Linux Explorer</a></p>
       </div>
-      <p>Glossary content designed for “what is” search intent and quick technical reference.</p>
+      <p>Direct browser-native Azure Service Bus Explorer built for modern developer and SRE diagnostics.</p>
     </div>
   </footer>
 </body>

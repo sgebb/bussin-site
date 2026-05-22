@@ -3,16 +3,48 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>bussin.dev — Browser-native Azure Service Bus Explorer</title>
-  <meta name="description" content="bussin.dev is a browser-native Azure Service Bus explorer. Sign in with Entra ID and inspect queues, topics, subscriptions, and dead-letter messages.">
+  <title>Azure Service Bus Explorer | Browser-Native PWA Tool | bussin.dev</title>
+  <meta name="description" content="bussin.dev is a secure, browser-native Azure Service Bus Explorer. Connect directly over AMQP WebSockets using Entra ID, inspect queues and topics, recover dead-letter messages, and perform deep searches with zero backend proxy servers.">
+  <meta name="keywords" content="Azure Service Bus, Service Bus Explorer, Service Bus client, Service Bus Explorer alternative, Service Bus Mac, Service Bus Linux, browser native Service Bus, Dead-letter queue recovery, AMQP WebSockets, Entra ID Service Bus">
   <link rel="canonical" href="https://bussin.dev/">
-  <meta property="og:title" content="bussin.dev — Browser-native Azure Service Bus Explorer">
-  <meta property="og:description" content="bussin.dev is a browser-native Azure Service Bus explorer that runs as a PWA in your browser. Sign in with Entra ID, discover namespaces, and inspect queues, topics, subscriptions, and dead-letter queues directly over AMQP WebSockets.">
+  
+  <!-- OpenGraph Metadata -->
+  <meta property="og:title" content="bussin.dev — Browser-Native Azure Service Bus Explorer">
+  <meta property="og:description" content="A zero-install, browser-native Azure Service Bus explorer. Sign in with Entra ID, discover multi-tenant namespaces, and manage queues, topics, subscriptions, and dead-letter queues directly over AMQP WebSockets.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://bussin.dev/">
+  <meta property="og:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
+  <meta property="og:site_name" content="Bussin">
+
+  <!-- Twitter Card Metadata -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="bussin.dev — Browser-Native Azure Service Bus Explorer">
+  <meta name="twitter:description" content="Secure, direct client-side Azure Service Bus Explorer running in the browser. Zero server-side proxy, native AMQP 1.0 WebSockets, Entra ID integration.">
+  <meta name="twitter:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
+
   <meta name="msvalidate.01" content="215C76BE0E727C4B79CAC7367AD2A516">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/styles.css">
+
+  <!-- SoftwareApplication Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "Bussin",
+    "operatingSystem": "Windows, macOS, Linux",
+    "applicationCategory": "DeveloperApplication",
+    "browserRequirements": "Requires HTML5 WebSockets and ES6 support",
+    "offers": {
+      "@type": "Offer",
+      "price": "0.00",
+      "priceCurrency": "USD"
+    },
+    "description": "A high-performance, client-side Azure Service Bus explorer that runs entirely in your browser as a Progressive Web App (PWA). Employs direct AMQP-over-WebSockets connections for zero-proxy secure data management.",
+    "softwareVersion": "1.0.0",
+    "aggregateRating": null
+  }
+  </script>
 </head>
 <body>
   <header class="topbar">
@@ -27,6 +59,7 @@
             <a href="/browser-based-service-bus-explorer/">How it works</a>
             <span class="menu-heading">COMPARE</span>
             <a href="/service-bus-explorer-alternative/">Service Bus Explorer alternative</a>
+            <a href="/service-bus-linux-mac/">Mac & Linux Explorer</a>
             <span class="menu-heading">LEARN</span>
             <a href="/glossary/">What is Service Bus</a>
             <a href="/glossary/dead-letter-queue/">Dead-letter queues</a>
@@ -48,279 +81,235 @@
   <main class="container page-content">
     <section class="hero-grid">
       <div>
-        <p class="eyebrow">Azure Service Bus explorer</p>
-        <h1>Browser-native Azure Service Bus Explorer</h1>
-        <p>Open app.bussin.dev to inspect Service Bus queues, topics, subscriptions, and dead-letter messages in a browser session. The app uses Azure identity and secure WebSockets so the browser itself becomes the Service Bus client.</p>
+        <p class="eyebrow">Enterprise-Grade Messaging Tooling</p>
+        <h1>Direct, Browser-Native Azure Service Bus Explorer</h1>
+        <p>Manage, debug, and inspect Azure Service Bus queues, topics, subscriptions, and dead-letter queues (DLQ) with protocol fidelity. bussin runs entirely in your browser using MSAL-delegated Entra ID authentication and direct AMQP-over-WebSockets connections—ensuring strict security with zero intermediary servers or backend proxies.</p>
         <div class="hero-actions">
-          <a class="button primary" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
-          <a class="button secondary" href="/docs/">View Docs</a>
+          <a class="button primary" href="https://app.bussin.dev" target="_blank" rel="noopener">Launch App</a>
+          <a class="button secondary" href="/docs/">Read Technical Docs</a>
         </div>
-        <p class="hero-subtext">Fast browser access for Service Bus inspection, with local preferences and saved entity shortcuts.</p>
+        <p class="hero-subtext">Instant, zero-install diagnostic console. Save namespace bookmarks and UI preferences in isolated local storage.</p>
       </div>
       <div class="hero-visual">
         <figure class="hero-card">
-          <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="bussin web dashboard showing queues and message details" />
-          <figcaption>Browser-native dashboard for Azure Service Bus entities.</figcaption>
+          <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Bussin web dashboard showcasing multi-tenant namespace folders, active entity filters, and message detail blade" />
+          <figcaption>Direct AMQP explorer for Azure Service Bus entities running in a standard browser container.</figcaption>
         </figure>
       </div>
     </section>
 
     <section>
       <header>
-        <h2>What is bussin?</h2>
-        <p>bussin is a browser-native Azure Service Bus explorer that runs as a Progressive Web App. It opens direct AMQP 1.0 sessions over secure WebSockets, discovers namespaces after Entra ID sign-in, and lets you inspect queues, topics, subscriptions, and dead-letter queues without a backend relay.</p>
+        <h2>Zero-Proxy Web-Native Architecture</h2>
+        <p>Bussin is a specialized client-side Azure Service Bus Explorer built as a Progressive Web App (PWA). It compiles a high-performance .NET WebAssembly runtime paired with a custom TypeScript AMQP 1.0 engine (powered by Rhea). By connecting directly to the Azure Service Bus WebSockets endpoint (`wss://`), it guarantees absolute security boundary integrity.</p>
       </header>
       <div class="section-grid">
         <article>
-          <h3>Problem it solves</h3>
-          <p>Traditional Service Bus tools often need installs, desktop runtimes, or a proxy layer. bussin removes that friction by making the browser itself the Service Bus client.</p>
+          <h3>Decoupled Client Engine</h3>
+          <p>Traditional Service Bus clients rely on heavy desktop runtimes (like .NET WinForms or Electron wrappers) or compromise security with backend HTTP-to-AMQP proxy servers. Bussin resolves this by executing all AMQP connections directly in your browser's sandboxed network layer.</p>
         </article>
         <article>
-          <h3>Who it is for</h3>
-          <p>Developer, SRE, and integration teams who need immediate access to live Service Bus entities and message workflows from any supported browser.</p>
+          <h3>Built for Developers & SREs</h3>
+          <p>Whether debugging live message flows, analyzing message properties, or performing dead-letter triage across multiple environments, Bussin provides a zero-onboarding console for modern DevOps teams.</p>
         </article>
         <article>
-          <h3>Why it exists</h3>
-          <p>Because inspecting Service Bus should be fast, secure, and browser-native, with namespace discovery, message actions, and long-running operations all visible in the client UI.</p>
+          <h3>Zero-Trust Data Boundaries</h3>
+          <p>Because your credentials, Entra ID OAuth tokens, and messaging payloads are processed purely in client-side memory, your telemetry and business data never transit a third-party relay—satisfying compliance and enterprise security policies.</p>
         </article>
         <article>
           <figure class="visual-card">
-            <img src="/assets/media/advancedPeek.jpg" alt="Advanced message peek and search in bussin" />
-            <figcaption>Deep search, peek options, and live message inspection directly in the browser.</figcaption>
+            <img src="/assets/media/advancedPeek.jpg" alt="Bussin search drawer demonstrating advanced filter criteria including system property filters, custom user property matches, and message body regex matching" />
+            <figcaption>Perform deep, multi-criteria peeks and filter-driven scans in real-time.</figcaption>
           </figure>
         </article>
       </div>
     </section>
 
     <section>
-      <h2>Key features</h2>
+      <h2>Professional Service Bus Administration Features</h2>
       <div class="feature-grid">
         <article>
-          <h3>Queue, topic, and subscription browsing</h3>
-          <p>Inspect entity metadata, message counts, sessions, and dead-letter state with one browser-native explorer.</p>
+          <h3>Entity Metadata & State Browsing</h3>
+          <p>Inspect comprehensive queue, topic, and subscription metadata, current active/dead-letter message counters, active locks, and partition configurations at a glance.</p>
         </article>
         <article>
-          <h3>Deep search across messages</h3>
-          <p>Search message bodies, IDs, subjects, properties, and dead-letter reasons; large scans can run in the background over up to 1M messages.</p>
+          <h3>Deep Message Pattern Search</h3>
+          <p>Scan up to 1,000,000 messages by executing fast, client-side pattern matching across message bodies, sequence numbers, session IDs, custom headers, and dead-letter reasons.</p>
         </article>
         <article>
-          <h3>Saved favorites and preferences</h3>
-          <p>Pin favorite namespaces, queues, and topics, organize them in folders, and store UI preferences in your browser using localStorage.</p>
+          <h3>Multi-Tenant & Cross-Tenant Favorites</h3>
+          <p>Pin favorite namespaces across multiple Entra ID tenants, organize them into custom nested folders, and customize UI themes—all stored locally and securely in isolated browser storage.</p>
         </article>
         <article>
-          <h3>Background task visibility</h3>
-          <p>Start background search or purge operations and keep them visible while you continue working in the app.</p>
+          <h3>Non-Blocking Background Workers</h3>
+          <p>Execute massive batch actions, including background purges or deep index scans, utilizing non-blocking worker services that keep the main UI fluid and highly responsive.</p>
         </article>
         <article>
-          <h3>Live message workflows</h3>
-          <p>Peek, send, receive/lock, complete, abandon, dead-letter, and resubmit messages directly from the browser UI.</p>
+          <h3>Interactive Message Workflows</h3>
+          <p>Peek, publish, receive-and-lock, complete, abandon, defer, and resubmit messages. Manipulate system and user-defined custom properties during manual dead-letter replays.</p>
         </article>
         <article>
-          <h3>Direct AMQP over WebSockets</h3>
-          <p>Connect directly to Azure Service Bus with protocol-native AMQP over secure WebSocket transport, with no backend proxy.</p>
+          <h3>Direct AMQP 1.0 WebSockets</h3>
+          <p>Bypasses REST API bottlenecks. Establishes native AMQP 1.0 links directly to the Azure Service Bus endpoint over secure WebSockets, supporting transactional locks and credit allocations.</p>
         </article>
       </div>
     </section>
 
     <section class="split-section">
       <div>
-        <h2>Why browser-native matters</h2>
-        <p>bussin runs as a static browser client and opens AMQP sessions directly to Azure Service Bus. That means no desktop client, no Electron wrapper, and no backend relay to manage.</p>
+        <h2>Why Browser-Native Matters</h2>
+        <p>Shifting Azure Service Bus management to a client-side web sandbox provides significant advantages for secure and cross-platform enterprise environments.</p>
         <ul>
-          <li>No desktop client or Electron app.</li>
-          <li>No backend proxy required to reach Service Bus.</li>
-          <li>Works from any supported browser on Windows, macOS, or Linux.</li>
+          <li><strong>No Installation Friction:</strong> Avoid local dependency cycles, native package installations, or administrative approvals. Just navigate to the URL and connect.</li>
+          <li><strong>True Cross-Platform Equality:</strong> Achieve uniform performance and UI rendering across Windows, macOS, and Linux without native emulation layers or heavy wrappers.</li>
+          <li><strong>Entra ID and RBAC Compliance:</strong> Respect existing Azure roles (e.g., Azure Service Bus Data Owner, Receiver, Sender) via secure delegated access tokens.</li>
+          <li><strong>Enhanced Remote Security:</strong> Eliminate connection string dispersion. The app functions entirely as a secure client, storing nothing on external systems.</li>
         </ul>
       </div>
-      </section>
+    </section>
 
     <section>
-      <h2>Comparison</h2>
-      <p style="color: #a7d5ea; margin-bottom: 1.5rem;">How bussin compares to existing Azure Service Bus tools</p>
+      <h2>Azure Service Bus Tooling Comparison</h2>
+      <p style="color: #a7d5ea; margin-bottom: 1.5rem;">An objective comparison of core developer-facing features across common Service Bus administrative clients.</p>
       <div style="overflow-x: auto;">
         <table>
           <thead>
             <tr>
-              <th>Characteristic</th>
+              <th>Feature Capability</th>
               <th>bussin.dev</th>
-              <th>Azure Service Bus Explorer</th>
-              <th>Azure Portal</th>
+              <th>Azure Portal UI</th>
+              <th>Service Bus Explorer (WinForms)</th>
               <th>VS Code Extensions</th>
               <th>Cerebrata Service Bus</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>Runs in browser</strong></td>
-              <td><span class="checkmark">✓</span></td>
-              <td><span class="no-mark" aria-hidden="true">✖</span><span class="sr-only">No</span></td>
-              <td><span class="checkmark">✓</span></td>
-              <td><span class="no-mark" aria-hidden="true">✖</span><span class="sr-only">No</span></td>
-              <td><span class="no-mark" aria-hidden="true">✖</span><span class="sr-only">No</span></td>
+              <td><strong>Cross-Tenant Folder Bookmarks</strong></td>
+              <td><span class="checkmark">✓</span> Organized local directories across any Entra tenant</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Flat navigation; requires directory switching</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Flat configuration list</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Flat configuration files</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Flat profile lists</td>
             </tr>
             <tr>
-              <td><strong>No install required</strong></td>
-              <td><span class="checkmark" aria-hidden="true">✓</span><span class="sr-only">Yes</span></td>
-              <td><span class="no-mark" aria-hidden="true">✖</span><span class="sr-only">No</span></td>
-              <td><span class="checkmark" aria-hidden="true">✓</span><span class="sr-only">Yes</span></td>
-              <td><span class="no-mark" aria-hidden="true">✖</span><span class="sr-only">No</span></td>
-              <td><span class="no-mark" aria-hidden="true">✖</span><span class="sr-only">No</span></td>
+              <td><strong>DLQ Payload Mutation & Resubmit</strong></td>
+              <td><span class="checkmark">✓</span> Inline JSON/XML editor with single-click active replay</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Send new messages only; no inline DLQ edits</td>
+              <td><span class="checkmark">✓</span> Supported (requires custom deserializer setup)</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Read-only peeks or simple sends</td>
+              <td><span class="checkmark">✓</span> Supported via desktop dialog forms</td>
             </tr>
             <tr>
-              <td><strong>Cross-platform (Mac/Linux/Windows)</strong></td>
-              <td><span class="checkmark">✓</span></td>
-              <td>Varies</td>
-              <td><span class="checkmark">✓</span></td>
-              <td><span class="checkmark">✓</span></td>
-              <td>Varies</td>
+              <td><strong>Deep-Index Local Message Search</strong></td>
+              <td><span class="checkmark">✓</span> High-speed body, custom header & error search in memory</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Limited to small top-of-queue peeks</td>
+              <td><span class="checkmark">✓</span> Supported (filters client buffer)</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Requires custom query scripts</td>
+              <td><span class="checkmark">✓</span> Supported (filters client buffer)</td>
             </tr>
             <tr>
-              <td><strong>Direct AMQP connection (no proxy)</strong></td>
-              <td><span class="checkmark">✓</span></td>
-              <td><span class="checkmark">✓</span></td>
-              <td>REST/Management API</td>
-              <td>Varies</td>
-              <td><span class="checkmark">✓</span></td>
+              <td><strong>Queue Purging Methods</strong></td>
+              <td><strong>Flexible</strong> (High-speed admin deletes + selective client background completes)</td>
+              <td><strong>Fast</strong> (Direct administrative bulk delete only)</td>
+              <td><strong>Client-side only</strong> (Downloads & completes sequentially)</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Lacks robust bulk operations</td>
+              <td><strong>Client-side only</strong> (Downloads & completes sequentially)</td>
             </tr>
             <tr>
-              <td><strong>Dead-letter queue inspection</strong></td>
-              <td><span class="checkmark">✓</span></td>
-              <td><span class="checkmark">✓</span></td>
-              <td><span class="checkmark">✓</span></td>
-              <td>Limited</td>
-              <td><span class="checkmark">✓</span></td>
+              <td><strong>Lock Lease Diagnostics & Renewals</strong></td>
+              <td><span class="checkmark">✓</span> Visual lease timelines & automated background lock renewals</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> No lease tracking or automated renewals</td>
+              <td><span class="checkmark">✓</span> Shows lock metrics; manual lease renewal</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Static peeks only; no lease renewals</td>
+              <td><span class="checkmark">✓</span> Shows lock metrics; desktop lease renewals</td>
             </tr>
             <tr>
-              <td><strong>Topic & subscription browsing</strong></td>
-              <td><span class="checkmark">✓</span></td>
-              <td><span class="checkmark">✓</span></td>
-              <td><span class="checkmark">✓</span></td>
-              <td>Limited</td>
-              <td><span class="checkmark">✓</span></td>
-            </tr>
-            <tr>
-              <td><strong>Peek-lock message workflows</strong></td>
-              <td><span class="checkmark">✓</span></td>
-              <td><span class="checkmark">✓</span></td>
-              <td>Peek-only</td>
-              <td>Limited</td>
-              <td><span class="checkmark">✓</span></td>
-            </tr>
-            <tr>
-              <td><strong>Time to start debugging</strong></td>
-              <td><strong>Seconds</strong> (URL)</td>
-              <td>Minutes (download/install)</td>
-              <td>Seconds (portal UI)</td>
-              <td>Minutes (install/config)</td>
-              <td>Minutes (install/config)</td>
-            </tr>
-            <tr>
-              <td><strong>Authentication via Entra ID</strong></td>
-              <td><span class="checkmark">✓</span></td>
-              <td>Connection string/keys</td>
-              <td><span class="checkmark">✓</span></td>
-              <td>Varies</td>
-              <td>Connection string/keys</td>
-            </tr>
-            <tr>
-              <td><strong>Discover available namespaces</strong></td>
-              <td><span class="checkmark">✓</span></td>
-              <td><span class="no-mark" aria-hidden="true">✖</span><span class="sr-only">No</span></td>
-              <td><span class="checkmark">✓</span></td>
-              <td><span class="no-mark" aria-hidden="true">✖</span><span class="sr-only">No</span></td>
-              <td><span class="no-mark" aria-hidden="true">✖</span><span class="sr-only">No</span></td>
-            </tr>
-            <tr>
-              <td><strong>Message-level actions</strong></td>
-              <td><span class="checkmark">✓</span> Easy</td>
-              <td><span class="checkmark">✓</span></td>
-              <td>Limited</td>
-              <td>Limited</td>
-              <td><span class="checkmark">✓</span></td>
+              <td><strong>Parallel Workspace Blade Tabs</strong></td>
+              <td><span class="checkmark">✓</span> High-density multi-tab blades; retains scroll & session state</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Single active pane; loses state on back navigation</td>
+              <td><span class="checkmark">✓</span> Multi-window desktop frames</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Single active editor file focus</td>
+              <td><span class="checkmark">✓</span> Desktop interface tabs</td>
             </tr>
           </tbody>
         </table>
       </div>
-      <p style="color: #93b7c6; font-size: 0.9rem; margin-top: 1rem;"><em>Comparison is based on publicly available functionality and typical usage patterns as of May 2026. Each tool excels in different scenarios — this table highlights architectural differences, not overall quality.</em></p>
+      <p style="color: #93b7c6; font-size: 0.9rem; margin-top: 1rem;"><em>Comparison is based on typical developer usage profiles and public specifications. Standard features are continually updated; evaluate tools according to your enterprise security boundaries.</em></p>
     </section>
 
     <section>
-      <h2>Product walkthrough</h2>
+      <h2>Product Walkthrough</h2>
       <div class="feature-grid">
         <figure class="visual-card">
-          <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Service Bus queue and topic overview in bussin" />
-          <figcaption>Browse namespaces, queues, topics, and subscriptions from the browser.</figcaption>
+          <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Screenshot demonstrating multi-tenant navigation sidebar and nested folders in Bussin" />
+          <figcaption>Organize multiple environments into folders and quickly search across namespaces.</figcaption>
         </figure>
         <figure class="visual-card">
-          <img src="/assets/media/advancedPeek.jpg" alt="Deep search and advanced peek in bussin" />
-          <figcaption>Search messages across payloads, headers, and annotations.</figcaption>
+          <img src="/assets/media/advancedPeek.jpg" alt="Screenshot displaying advanced message search filter options in Bussin" />
+          <figcaption>Run deep property and body matching queries safely inside client-side memory.</figcaption>
         </figure>
         <figure class="visual-card">
-          <img src="/assets/media/confirmPurge.jpg" alt="Background task and purge confirmation in bussin" />
-          <figcaption>Start background operations and keep task progress visible while you continue working.</figcaption>
+          <img src="/assets/media/confirmPurge.jpg" alt="Modal window confirming safe bulk purge parameters in Bussin" />
+          <figcaption>Start extensive, safe background purges or moves using non-blocking workers.</figcaption>
         </figure>
         <figure class="visual-card">
-          <img src="/assets/media/confirmPurge.jpg" alt="Dead-letter queue view and recovery actions in bussin" />
-          <figcaption>Dead-letter queue inspection with retry options.</figcaption>
+          <img src="/assets/media/deadLetterInspect.jpg" alt="Screenshot showing dead-letter queue message inspection details and resubmit operations" />
+          <figcaption>Inspect dead-letter messages and replay or edit system headers during resubmissions.</figcaption>
         </figure>
       </div>
     </section>
 
     <section>
-      <h2>Use cases</h2>
+      <h2>Primary Use Cases</h2>
       <ul>
-        <li>Debug production Service Bus issues from the browser.</li>
-        <li>Inspect dead-letter queues and failed messages.</li>
-        <li>Monitor message flow for queues, topics, and subscriptions.</li>
-        <li>Use browser-based tooling during local development.</li>
-        <li>Support cross-platform cloud debugging without install.</li>
+        <li><strong>Secure Hot-Fix Triage:</strong> Safely inspect and edit problematic messages in production queues using client-side Entra ID permissions.</li>
+        <li><strong>Dead-Letter Analysis & Replay:</strong> Browse failed messages in the DLQ, isolate failure reasons, edit headers, and resubmit them safely with background concurrency limits.</li>
+        <li><strong>Cross-Platform Infrastructure Diagnostics:</strong> Ensure Linux, Mac, and Windows engineering environments share identical access to diagnostic tooling.</li>
+        <li><strong>Namespace Subscription Audit:</strong> Validate active topic filters, verify SQL/correlation routing behaviors, and confirm message arrival on topic subscriptions.</li>
       </ul>
     </section>
 
     <section>
-      <h2>FAQ</h2>
+      <h2>Frequently Asked Questions</h2>
       <div class="faq-item">
-        <h3>Does bussin store my messages?</h3>
-        <p>No. bussin displays messages in the browser and does not persist them on a backend service.</p>
+        <h3>Does bussin transit or persist my message data?</h3>
+        <p>Absolutely not. Bussin operates strictly on a zero-proxy, zero-trust architecture. There are no intermediate servers or backend relays. MSAL.js secures delegated tokens inside your browser sandbox, and the TypeScript AMQP client opens WebSocket tunnels directly to standard Azure endpoints. Your messages, SAS keys, and credentials never leave your browser context.</p>
       </div>
       <div class="faq-item">
-        <h3>Do I need a backend?</h3>
-        <p>No. bussin uses AMQP over WebSockets directly from the browser to Azure Service Bus, so no backend proxy is required.</p>
+        <h3>Do I need to deploy server components or agents?</h3>
+        <p>No. Bussin is compiled to run as a static Single Page Application (SPA). The app can be accessed directly online or cached as a local Progressive Web App (PWA) for completely offline load capabilities.</p>
       </div>
       <div class="faq-item">
-        <h3>Is this secure?</h3>
-        <p>Yes. bussin uses secure WebSockets and Azure Service Bus authentication and avoids extra server-side relays.</p>
+        <h3>How does authentication integrate with Entra ID?</h3>
+        <p>Bussin integrates directly with standard Microsoft identity providers via PKCE-flow OAuth 2.0. It acquires delegated scopes (specifically `https://servicebus.azure.net/user_impersonation` and ARM directory management), respecting your native Azure RBAC roles. If you do not have permission in Azure Active Directory, the browser connection is rejected at the broker plane.</p>
       </div>
       <div class="faq-item">
-        <h3>Does it work on Mac/Linux?</h3>
-        <p>Yes. The browser-native design works across macOS, Linux, and Windows.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Does it support production Service Bus namespaces?</h3>
-        <p>Yes. bussin is designed for real Azure Service Bus namespaces and production message inspection workflows.</p>
+        <h3>Does this support macOS and Linux environments?</h3>
+        <p>Yes. By utilizing standard HTML5 WebSockets and WebAssembly, Bussin runs perfectly on standard browser engines across macOS, Linux, and Windows, offering an instant cross-platform solution to traditional desktop tool fragmentation.</p>
       </div>
     </section>
 
     <section class="hero-grid">
       <div>
-        <h2>Open bussin App</h2>
-        <p>Inspect Azure Service Bus directly from your browser in seconds.</p>
+        <h2>Open Bussin App</h2>
+        <p>Inspect and manage your Azure Service Bus namespaces immediately, secure in your browser environment.</p>
         <div class="hero-actions">
           <a class="button primary" href="https://app.bussin.dev" target="_blank" rel="noopener">Open bussin App</a>
-          <a class="button secondary" href="/docs/">Go to docs</a>
+          <a class="button secondary" href="/docs/">Go to Docs</a>
         </div>
       </div>
       <figure class="visual-card">
-        <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Browser-native Service Bus inspector ready to connect" />
-        <figcaption>Ready to connect to Azure Service Bus from the browser.</figcaption>
+        <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="A screenshot showing the Bussin app ready for login" />
+        <figcaption>Launch the console and log in safely using standard Entra ID profiles.</figcaption>
       </figure>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p><strong>Docs:</strong> <a href="/docs/">Docs</a> · <a href="/features/browser-native/">Features</a> · <a href="/privacy/">Privacy</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">GitHub</a></p>
-      <p>Browser-native Azure Service Bus explorer for developers who need direct, protocol-native access.</p>
+      <p><strong>bussin.dev</strong> · <a href="/docs/">Technical Docs</a> · <a href="/features/browser-native/">Features</a> · <a href="/privacy/">Privacy & Security</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">GitHub</a></p>
+      <p>A secure, browser-native client for developers and SREs requiring direct, protocol-native Azure Service Bus explorer capability.</p>
     </div>
   </footer>
 </body>
