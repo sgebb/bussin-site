@@ -495,3 +495,18 @@ svg {
   border: none;
 }
 
+/* Highlight column styles for bussin */
+.page-content td.highlight-bussin {
+  background: rgba(34, 194, 183, 0.05);
+  border-left: 1px dashed rgba(34, 194, 183, 0.15);
+  border-right: 1px dashed rgba(34, 194, 183, 0.15);
+}
+.page-content th.highlight-bussin {
+  background: rgba(14, 26, 45, 0.96) linear-gradient(180deg, rgba(34, 194, 183, 0.08) 0%, rgba(34, 194, 183, 0.03) 100%) !important;
+  border-left: 1px dashed rgba(34, 194, 183, 0.15);
+  border-right: 1px dashed rgba(34, 194, 183, 0.15);
+  font-weight: 700;
+  color: #7ff4e1 !important;
+}
+
+
