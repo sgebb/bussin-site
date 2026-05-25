@@ -140,46 +140,53 @@
           </thead>
           <tbody>
             <tr>
+              <td><strong>Microsoft Entra ID / RBAC</strong></td>
+              <td><span class="checkmark">✓</span> Native MSAL</td>
+              <td><span class="checkmark">✓</span> Supported</td>
+              <td><span class="checkmark">✓</span> Native</td>
+              <td><span class="checkmark">✓</span> Supported</td>
+            </tr>
+            <tr>
               <td><strong>Cross-Tenant Folder Bookmarks</strong></td>
-              <td><span class="checkmark">✓</span> Group & filter namespaces across any Entra tenant in one view</td>
-              <td><span class="no-mark" aria-hidden="true">✖</span> Flat tree representation of local endpoints</td>
-              <td><span class="no-mark" aria-hidden="true">✖</span> Single active directory; flat portal resource list</td>
-              <td><span class="no-mark" aria-hidden="true">✖</span> Flat local JSON config lists</td>
+              <td><span class="checkmark">✓</span> Organized folders</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Not supported</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Not supported</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Not supported</td>
             </tr>
             <tr>
               <td><strong>DLQ Payload Mutation & Resubmit</strong></td>
-              <td><span class="checkmark">✓</span> Inline JSON/XML editor with one-click active queue replays</td>
-              <td><span class="checkmark">✓</span> Supported (requires configuration of C# formatting rules)</td>
-              <td><span class="no-mark" aria-hidden="true">✖</span> Send new messages only; no inline DLQ payload edits</td>
-              <td><span class="no-mark" aria-hidden="true">✖</span> Read-only peeks or simple message pushes</td>
+              <td><span class="checkmark">✓</span> Inline editor</td>
+              <td><span class="checkmark">✓</span> Setup required</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Send new only</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Read-only peeks</td>
             </tr>
             <tr>
               <td><strong>Deep-Index Local Search</strong></td>
-              <td><span class="checkmark">✓</span> Local index scanning across body, system headers & DLQ reasons</td>
-              <td><span class="checkmark">✓</span> Filter queries across fetched client buffer</td>
-              <td><span class="no-mark" aria-hidden="true">✖</span> Simple string search on a small set of peeked headers</td>
-              <td><span class="no-mark" aria-hidden="true">✖</span> Requires writing custom data-plane scripts</td>
+              <td><span class="checkmark">✓</span> High-speed in memory</td>
+              <td><span class="checkmark">✓</span> Client buffer only</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Limited peek search</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Not supported</td>
             </tr>
             <tr>
               <td><strong>Queue Purging Methods</strong></td>
-              <td><strong>Flexible</strong> (High-speed administrative delete + selective completes in background threads)</td>
-              <td><strong>Client-side only</strong> (Downloads & completes each message sequentially)</td>
-              <td><strong>Fast</strong> (Direct administrative bulk delete only; no selective option)</td>
-              <td><span class="no-mark" aria-hidden="true">✖</span> Lacks reliable bulk batch operations</td>
+              <td><span class="checkmark">✓</span> Selective & admin bulk</td>
+              <td><span class="checkmark">✓</span> Client sequential</td>
+              <td><span class="checkmark">✓</span> Admin bulk only</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Not supported</td>
             </tr>
             <tr>
               <td><strong>Lock Lease Diagnostics & Renewals</strong></td>
-              <td><span class="checkmark">✓</span> Visual lock lifetime tracking & automated background lease renewals</td>
-              <td><span class="checkmark">✓</span> Displays lock expiration metrics; manual lease renewals</td>
-              <td><span class="no-mark" aria-hidden="true">✖</span> No lock tracking; unable to renew locked message leases</td>
-              <td><span class="no-mark" aria-hidden="true">✖</span> Static message peeks only</td>
+              <td><span class="checkmark">✓</span> Automated auto-renew</td>
+              <td><span class="checkmark">✓</span> Manual renew only</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Not supported</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Not supported</td>
             </tr>
             <tr>
               <td><strong>Parallel Workspace Tabs</strong></td>
-              <td><span class="checkmark">✓</span> High-density multi-tab blades; retains scroll & session state</td>
-              <td><span class="checkmark">✓</span> Multi-window desktop panels</td>
-              <td><span class="no-mark" aria-hidden="true">✖</span> Single active pane; loses state on back navigation</td>
-              <td><span class="no-mark" aria-hidden="true">✖</span> Single active editor file focus</td>
+              <td><span class="checkmark">✓</span> Stateful browser tabs</td>
+              <td><span class="checkmark">✓</span> Desktop windows</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Single active pane</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Single active file</td>
             </tr>
           </tbody>
         </table>

@@ -185,52 +185,60 @@
           </thead>
           <tbody>
             <tr>
+              <td><strong>Microsoft Entra ID / RBAC</strong></td>
+              <td><span class="checkmark">✓</span> Native MSAL</td>
+              <td><span class="checkmark">✓</span> Native</td>
+              <td><span class="checkmark">✓</span> Supported</td>
+              <td><span class="checkmark">✓</span> Supported</td>
+              <td><span class="checkmark">✓</span> Supported</td>
+            </tr>
+            <tr>
               <td><strong>Cross-Tenant Folder Bookmarks</strong></td>
-              <td><span class="checkmark">✓</span> Organized local directories across any Entra tenant</td>
-              <td><span class="no-mark" aria-hidden="true">✖</span> Flat navigation; requires directory switching</td>
-              <td><span class="no-mark" aria-hidden="true">✖</span> Flat configuration list</td>
-              <td><span class="no-mark" aria-hidden="true">✖</span> Flat configuration files</td>
-              <td><span class="no-mark" aria-hidden="true">✖</span> Flat profile lists</td>
+              <td><span class="checkmark">✓</span> Organized folders</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Not supported</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Not supported</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Not supported</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Not supported</td>
             </tr>
             <tr>
               <td><strong>DLQ Payload Mutation & Resubmit</strong></td>
-              <td><span class="checkmark">✓</span> Inline JSON/XML editor with single-click active replay</td>
-              <td><span class="no-mark" aria-hidden="true">✖</span> Send new messages only; no inline DLQ edits</td>
-              <td><span class="checkmark">✓</span> Supported (requires custom deserializer setup)</td>
-              <td><span class="no-mark" aria-hidden="true">✖</span> Read-only peeks or simple sends</td>
-              <td><span class="checkmark">✓</span> Supported via desktop dialog forms</td>
+              <td><span class="checkmark">✓</span> Inline editor</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Send new only</td>
+              <td><span class="checkmark">✓</span> Setup required</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Read-only peeks</td>
+              <td><span class="checkmark">✓</span> Supported</td>
             </tr>
             <tr>
               <td><strong>Deep-Index Local Message Search</strong></td>
-              <td><span class="checkmark">✓</span> High-speed body, custom header & error search in memory</td>
-              <td><span class="no-mark" aria-hidden="true">✖</span> Limited to small top-of-queue peeks</td>
-              <td><span class="checkmark">✓</span> Supported (filters client buffer)</td>
-              <td><span class="no-mark" aria-hidden="true">✖</span> Requires custom query scripts</td>
-              <td><span class="checkmark">✓</span> Supported (filters client buffer)</td>
+              <td><span class="checkmark">✓</span> High-speed in memory</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Limited peek search</td>
+              <td><span class="checkmark">✓</span> Client buffer only</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Not supported</td>
+              <td><span class="checkmark">✓</span> Client buffer only</td>
             </tr>
             <tr>
               <td><strong>Queue Purging Methods</strong></td>
-              <td><strong>Flexible</strong> (High-speed admin deletes + selective client background completes)</td>
-              <td><strong>Fast</strong> (Direct administrative bulk delete only)</td>
-              <td><strong>Client-side only</strong> (Downloads & completes sequentially)</td>
-              <td><span class="no-mark" aria-hidden="true">✖</span> Lacks robust bulk operations</td>
-              <td><strong>Client-side only</strong> (Downloads & completes sequentially)</td>
+              <td><span class="checkmark">✓</span> Selective & admin bulk</td>
+              <td><span class="checkmark">✓</span> Admin bulk only</td>
+              <td><span class="checkmark">✓</span> Client sequential</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Not supported</td>
+              <td><span class="checkmark">✓</span> Client sequential</td>
             </tr>
             <tr>
               <td><strong>Lock Lease Diagnostics & Renewals</strong></td>
-              <td><span class="checkmark">✓</span> Visual lease timelines & automated background lock renewals</td>
-              <td><span class="no-mark" aria-hidden="true">✖</span> No lease tracking or automated renewals</td>
-              <td><span class="checkmark">✓</span> Shows lock metrics; manual lease renewal</td>
-              <td><span class="no-mark" aria-hidden="true">✖</span> Static peeks only; no lease renewals</td>
-              <td><span class="checkmark">✓</span> Shows lock metrics; desktop lease renewals</td>
+              <td><span class="checkmark">✓</span> Automated auto-renew</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Not supported</td>
+              <td><span class="checkmark">✓</span> Manual renew only</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Not supported</td>
+              <td><span class="checkmark">✓</span> Manual renew only</td>
             </tr>
             <tr>
               <td><strong>Parallel Workspace Blade Tabs</strong></td>
-              <td><span class="checkmark">✓</span> High-density multi-tab blades; retains scroll & session state</td>
-              <td><span class="no-mark" aria-hidden="true">✖</span> Single active pane; loses state on back navigation</td>
-              <td><span class="checkmark">✓</span> Multi-window desktop frames</td>
-              <td><span class="no-mark" aria-hidden="true">✖</span> Single active editor file focus</td>
-              <td><span class="checkmark">✓</span> Desktop interface tabs</td>
+              <td><span class="checkmark">✓</span> Stateful browser tabs</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Single active pane</td>
+              <td><span class="checkmark">✓</span> Desktop windows</td>
+              <td><span class="no-mark" aria-hidden="true">✖</span> Single active file</td>
+              <td><span class="checkmark">✓</span> Desktop tabs</td>
             </tr>
           </tbody>
         </table>
