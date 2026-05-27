@@ -65,7 +65,7 @@
       <ul>
         <li><strong>No server relays:</strong> There are no backend application servers, databases, or API proxies in the Bussin pipeline. The application is distributed as a set of static files (HTML, CSS, WebAssembly) served directly to your browser via a Content Delivery Network (CDN).</li>
         <li><strong>Direct-to-Broker Data Path:</strong> All network traffic—including management calls and AMQP message streams—travels strictly between your local browser process and Microsoft's Azure endpoints. Your data never touches any third-party infrastructure.</li>
-        <li><strong>No tracking or telemetry:</strong> To prevent accidental data leaks, Bussin does not employ analytics platforms, tracking cookies, or diagnostic log collection engines.</li>
+        <li><strong>No Data Telemetry:</strong> To prevent accidental data leaks, Bussin does not employ third-party analytics platforms, tracking cookies, or diagnostic payload log collection engines. Active logins are logged transparently solely for adoption tracking (see below).</li>
       </ul>
     </section>
 
@@ -78,6 +78,16 @@
 
       <h3>2. Volatile Memory Caching</h3>
       <p>Bussin stores active access tokens strictly within volatile browser memory (session state). Tokens are never written to disk or sent across the internet to anything other than standard Microsoft Azure API gateways.</p>
+    </section>
+
+    <section>
+      <h2>Transparent User Authentication Auditing</h2>
+      <p>Bussin is built with complete transparency regarding network traffic and analytics. To track active adoption and tool usage, we maintain a lightweight, open-source serverless database:</p>
+      <ul>
+        <li><strong>Adoption Metrics:</strong> Upon successful Microsoft Entra ID authentication, the client logs a basic profile entry (consisting of the user's ID, email address, display name, and login timestamp) to our serverless backend. This is used solely to evaluate usage and guide our roadmap.</li>
+        <li><strong>Complete Payload Sandbox:</strong> Absolutely zero Service Bus resource data, connection strings, entity names, namespace configurations, or message payload bytes are <em>ever</em> captured, logged, or transmitted outside of your browser.</li>
+        <li><strong>Self-Hostable and Open-Source:</strong> The entire backend tracking infrastructure—including the Bicep IaC script and the .NET 10.0 Native AOT C# source code—is fully open-source and included in the codebase. Enterprise organizations can easily self-host this auditable backend within their own secure Azure boundaries to monitor active logins.</li>
+      </ul>
     </section>
 
     <section>
