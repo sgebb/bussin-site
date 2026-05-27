@@ -57,6 +57,7 @@ svg {
   width: 28px;
   height: 28px;
   border-radius: 4px;
+  filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(34, 194, 183, 0.4));
 }
 .brand {
   display: inline-flex;
@@ -507,6 +508,26 @@ svg {
   border-right: 1px dashed rgba(34, 194, 183, 0.15);
   font-weight: 700;
   color: #7ff4e1 !important;
+}
+
+/* Mobile-friendly frozen first column for comparison tables */
+@media (max-width: 860px) {
+  .page-content table th:first-child,
+  .page-content table td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    box-shadow: 3px 0 6px rgba(0, 0, 0, 0.3);
+  }
+  .page-content th:first-child {
+    background: #0e1a2d !important;
+  }
+  .page-content td:first-child {
+    background: #060a12 !important;
+  }
+  .page-content tr:nth-child(even) td:first-child {
+    background: #090f1a !important;
+  }
 }
 
 
