@@ -213,7 +213,6 @@ details.topbar-menu[open] + .menu-panel {
     grid-template-columns: 1fr;
   }
 }
-.hero-card,
 .visual-card,
 .feature-grid article,
 .docs-grid article,
@@ -224,7 +223,31 @@ details.topbar-menu[open] + .menu-panel {
   border: 1px solid rgba(34, 194, 183, 0.12);
   padding: 1.8rem;
 }
-.hero-card,
+.hero-card {
+  border-radius: 28px;
+  background: rgba(8, 14, 25, 0.95);
+  border: 1px solid rgba(34, 194, 183, 0.18);
+  padding: 0.8rem;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(34, 194, 183, 0.05);
+  margin-top: 2.5rem;
+  width: 100%;
+  max-width: 840px;
+  margin-left: auto;
+  margin-right: auto;
+  color: #c7effb;
+  text-align: center;
+}
+.hero-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  object-fit: contain;
+}
+.hero-card figcaption {
+  padding: 1rem 1.8rem 0.5rem;
+  font-size: 0.95rem;
+  color: #a7d5ea;
+}
 .visual-card {
   min-height: 320px;
   display: grid;
@@ -232,7 +255,6 @@ details.topbar-menu[open] + .menu-panel {
   text-align: center;
   color: #c7effb;
 }
-.hero-card img,
 .visual-card img {
   width: 100%;
   height: auto;
@@ -246,7 +268,7 @@ details.topbar-menu[open] + .menu-panel {
 }
 .page-content {
   margin: 2rem auto;
-  padding: 3rem;
+  padding: 2rem 3rem 3rem;
   background: rgba(6, 10, 18, 0.96);
   border-radius: 32px;
   box-shadow: 0 24px 65px rgba(0, 0, 0, 0.3);
@@ -264,6 +286,7 @@ details.topbar-menu[open] + .menu-panel {
   color: #d1e2f2;
 }
 .page-content h1 {
+  margin-top: 0;
   font-size: clamp(2rem, 4vw, 3rem);
   margin-bottom: 1rem;
 }

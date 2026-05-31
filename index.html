@@ -80,23 +80,20 @@
   </header>
 
   <main class="container page-content">
-    <section class="hero-grid">
-      <div>
-        <h1>Direct, Browser-Native Azure Service Bus Explorer</h1>
-        <p>Manage, debug, and inspect Azure Service Bus queues, topics, subscriptions, and dead-letter queues (DLQ) with protocol fidelity. bussin runs entirely in your browser using MSAL-delegated Entra ID authentication and direct AMQP-over-WebSockets connections—ensuring strict security with zero intermediary servers or backend proxies.</p>
-        <div class="hero-actions">
-          <a class="button primary" href="https://app.bussin.dev" target="_blank" rel="noopener">Launch App</a>
-          <a class="button secondary" href="/docs/">Read Technical Docs</a>
-        </div>
-        <p class="hero-subtext">Instant, zero-install diagnostic console. Save namespace bookmarks and UI preferences in isolated local storage.</p>
+    <section style="text-align: center; max-width: 800px; margin: 0 auto 2.5rem;">
+      <h1>An easy, fast, in-browser Azure Service Bus Explorer</h1>
+      <p style="font-size: 1.15rem; line-height: 1.6; color: #d1e2f2;">Bussin is a secure, direct-client tool for Azure Service Bus running entirely in your browser. It lets you explore your namespaces and instantly interact with topics, queues, and subscriptions through operations like peek, resubmit, send, and moving messages to dead-letter queues. Because your messages and credentials are never relayed through a backend proxy or API, you have full control and total data privacy.</p>
+      <div class="hero-actions" style="justify-content: center; margin-top: 2rem;">
+        <a class="button primary" href="https://app.bussin.dev" target="_blank" rel="noopener">Launch App</a>
+        <a class="button secondary" href="/docs/">Read Technical Docs</a>
       </div>
-      <div class="hero-visual">
-        <figure class="hero-card">
-          <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Bussin web dashboard showcasing multi-tenant namespace folders, active entity filters, and message detail blade" />
-          <figcaption>Direct AMQP explorer for Azure Service Bus entities running in a standard browser container.</figcaption>
-        </figure>
-      </div>
+      <p class="hero-subtext" style="margin-top: 1.2rem;">Instant, zero-install diagnostic console. Save namespace bookmarks and UI preferences in isolated local storage.</p>
     </section>
+
+    <figure class="hero-card">
+      <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Bussin web dashboard showcasing multi-tenant namespace folders, active entity filters, and message detail blade" />
+      <figcaption>Direct AMQP explorer for Azure Service Bus entities running in a standard browser container.</figcaption>
+    </figure>
 
     <section>
       <header>
