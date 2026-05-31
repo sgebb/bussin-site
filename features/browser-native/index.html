@@ -26,7 +26,7 @@
         <details class="topbar-menu menu-left">
           <summary class="hamburger-icon" aria-label="Menu">☰</summary>
         </details>
-                <nav class="menu-panel">
+                                <nav class="menu-panel">
             <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
             <span class="menu-heading">BUSSIN</span>
             <a href="/features/browser-native/">Features</a>
@@ -35,15 +35,12 @@
             <span class="menu-heading">LEARN</span>
             <a href="/glossary/">Azure Service Bus</a>
             <a href="/glossary/dead-letter-queue/">DLQ</a>
-            <a href="/glossary/autoforwarding/">Autoforwarding</a>
+            <a href="/glossary/autoforwarding/">Auto-forwarding</a>
             <span class="menu-heading">DOCS</span>
             <a href="/browser-based-service-bus-explorer/">Architecture</a>
             <a href="/docs/">Security & RBAC</a>
-            <a href="/docs/peek-lock/">Convenience Features</a>
+            <a href="/docs/peek-lock/">Convenience Functions</a>
             <a href="/privacy/">Privacy & Security</a>
-            <span class="menu-heading">GITHUB</span>
-            <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a>
-            <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a>
           </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
       </div>
@@ -56,21 +53,26 @@
     </article>
 
     <section style="margin-top: 2rem;">
-      <h2>Developer Joy & Diagnostic Speed</h2>
+      <h2>Core Service Bus Features</h2>
       <div class="feature-grid">
         <article class="interactive-card">
-          <h3>High-Density Data Grid</h3>
-          <p>Stream and inspect hundreds of active or dead-letter messages inline. Sort by sequence number, filter by custom property keys, and preview JSON or XML payloads instantly without opening multiple modal tabs.</p>
+          <h3>Namespace Discovery</h3>
+          <p>Query Azure Resource Manager (ARM) APIs directly using your Entra ID login to automatically discover and list subscriptions, active namespaces, queues, and topics in seconds.</p>
         </article>
         
         <article class="interactive-card">
-          <h3>Offline Bookmarks & Folders</h3>
-          <p>Organize numerous namespaces across different Azure subscriptions and tenants into custom nested directories. Your workspace structure and bookmarks are stored safely inside your browser's sandboxed <code>localStorage</code>.</p>
+          <h3>Favorites and Folders</h3>
+          <p>Organize your namespaces into custom nested directories saved securely in your browser's local storage. Great for grouping dev, staging, and production assets.</p>
         </article>
 
         <article class="interactive-card">
-          <h3>Direct AMQP over WebSockets</h3>
-          <p>Bussin compiles the Rhea AMQP 1.0 messaging library to establish direct data-plane tunnels over WebSockets (Port 443) directly from your machine to Microsoft's gateways. No proxy servers, REST gateways, or intermediary nodes involved.</p>
+          <h3>Instant Switcher</h3>
+          <p>Context-switch between distinct entities or namespaces in milliseconds. The tabbed workspace lets you pivot instantly without losing your active connection context or view state.</p>
+        </article>
+
+        <article class="interactive-card">
+          <h3>Inline Peeks and Actions</h3>
+          <p>Stream active and dead-letter message lists, filter payload bodies, and settle message locks (complete, abandon, dead-letter) in batches directly from the grid view.</p>
         </article>
       </div>
     </section>
@@ -98,9 +100,9 @@
     </section>
   </main>
 
-  <footer class="site-footer">
+    <footer class="site-footer">
     <div class="container footer-inner">
-      <p>&copy; 2026 Bussin. MIT License. Open source on <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">GitHub</a>.</p>
+      <p>&copy; 2026 Bussin. MIT License. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a></p>
     </div>
   </footer>
 

@@ -26,7 +26,7 @@
         <details class="topbar-menu menu-left">
           <summary class="hamburger-icon" aria-label="Menu">☰</summary>
         </details>
-                <nav class="menu-panel">
+                                <nav class="menu-panel">
             <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
             <span class="menu-heading">BUSSIN</span>
             <a href="/features/browser-native/">Features</a>
@@ -35,15 +35,12 @@
             <span class="menu-heading">LEARN</span>
             <a href="/glossary/">Azure Service Bus</a>
             <a href="/glossary/dead-letter-queue/">DLQ</a>
-            <a href="/glossary/autoforwarding/">Autoforwarding</a>
+            <a href="/glossary/autoforwarding/">Auto-forwarding</a>
             <span class="menu-heading">DOCS</span>
             <a href="/browser-based-service-bus-explorer/">Architecture</a>
             <a href="/docs/">Security & RBAC</a>
-            <a href="/docs/peek-lock/">Convenience Features</a>
+            <a href="/docs/peek-lock/">Convenience Functions</a>
             <a href="/privacy/">Privacy & Security</a>
-            <span class="menu-heading">GITHUB</span>
-            <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a>
-            <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a>
           </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
       </div>
@@ -51,12 +48,12 @@
     </div>
   </header>  <main class="container page-content">
     <article>
-      <h1>Convenience Features & Developer Experience</h1>
+      <h1>Convenience Functions</h1>
       <p class="lead-text">Managing message locking, payload inspections, and dead-letter settlements inside the standard Azure Portal is often a slow, high-friction process. Bussin is built specifically to address these portal gaps, offering direct, fast, and convenient control over message life cycles.</p>
     </article>
 
     <section style="margin-top: 2rem;">
-      <h2>Portal Friction vs. Bussin DevX</h2>
+      <h2>Portal Comparison</h2>
       <table>
         <thead>
           <tr>
@@ -101,7 +98,7 @@
     </section>
 
     <section>
-      <h2>Lease Expiry Countdown & Renewals</h2>
+      <h2>Lease Expiry Countdown and Renewals</h2>
       <p>When you lock messages using Peek-Lock, the broker hides them from other consumers for a configured duration (default is 30 seconds). If your manual inspection takes longer than this window, the lock expires and the message is released back to active status, which can lead to duplicate processing.</p>
       <p>Bussin actively tracks lock leases using the message's <code>LockedUntilUtc</code> property, displaying a live countdown in the preview panel. If you need more time, a single click triggers an on-the-fly lock renewal, extending the lease directly from your browser.</p>
     </section>
@@ -112,9 +109,9 @@
     </section>
   </main>
 
-  <footer class="site-footer">
+    <footer class="site-footer">
     <div class="container footer-inner">
-      <p>&copy; 2026 Bussin. MIT License. Open source on <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">GitHub</a>.</p>
+      <p>&copy; 2026 Bussin. MIT License. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a></p>
     </div>
   </footer>
 </body>

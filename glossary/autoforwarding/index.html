@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Autoforwarding in Azure Service Bus (Queue Ownership Pattern) | bussin.dev Glossary</title>
-  <meta name="description" content="Autoforwarding in Azure Service Bus explained. How the queue ownership pattern gives each consumer its own retry policy, DLQ, and scaling boundary.">
+  <title>Auto-forwarding in Azure Service Bus (Queue Ownership Pattern) | bussin.dev Glossary</title>
+  <meta name="description" content="Auto-forwarding in Azure Service Bus explained. How the queue ownership pattern gives each consumer its own retry policy, DLQ, and scaling boundary.">
   <meta name="keywords" content="Azure Service Bus autoforwarding, queue ownership pattern, subscription forwardTo, decoupled routing, service bus architecture">
   <link rel="canonical" href="https://bussin.dev/glossary/autoforwarding/">
   
   <!-- OpenGraph Metadata -->
-  <meta property="og:title" content="Autoforwarding in Azure Service Bus (Queue Ownership Pattern) | bussin.dev Glossary">
-  <meta property="og:description" content="Autoforwarding in Azure Service Bus explained. How the queue ownership pattern gives each consumer its own retry policy, DLQ, and scaling boundary.">
+  <meta property="og:title" content="Auto-forwarding in Azure Service Bus (Queue Ownership Pattern) | bussin.dev Glossary">
+  <meta property="og:description" content="Auto-forwarding in Azure Service Bus explained. How the queue ownership pattern gives each consumer its own retry policy, DLQ, and scaling boundary.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://bussin.dev/glossary/autoforwarding/">
   <meta property="og:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
@@ -26,7 +26,7 @@
         <details class="topbar-menu menu-left">
           <summary class="hamburger-icon" aria-label="Menu">☰</summary>
         </details>
-                <nav class="menu-panel">
+                                <nav class="menu-panel">
             <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
             <span class="menu-heading">BUSSIN</span>
             <a href="/features/browser-native/">Features</a>
@@ -35,15 +35,12 @@
             <span class="menu-heading">LEARN</span>
             <a href="/glossary/">Azure Service Bus</a>
             <a href="/glossary/dead-letter-queue/">DLQ</a>
-            <a href="/glossary/autoforwarding/">Autoforwarding</a>
+            <a href="/glossary/autoforwarding/">Auto-forwarding</a>
             <span class="menu-heading">DOCS</span>
             <a href="/browser-based-service-bus-explorer/">Architecture</a>
             <a href="/docs/">Security & RBAC</a>
-            <a href="/docs/peek-lock/">Convenience Features</a>
+            <a href="/docs/peek-lock/">Convenience Functions</a>
             <a href="/privacy/">Privacy & Security</a>
-            <span class="menu-heading">GITHUB</span>
-            <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a>
-            <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a>
           </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
       </div>
@@ -53,26 +50,26 @@
 
   <main class="container page-content">
     <article>
-      <h1>Autoforwarding in Azure Service Bus (Queue Ownership Pattern)</h1>
-      <p class="lead-text">Autoforwarding is a Service Bus broker feature that automatically transfers messages from one entity (a topic subscription or a queue) directly into another queue or topic within the same namespace. It is a powerful structural tool that separates message routing mechanics from message processing ownership.</p>
+      <h1>Auto-forwarding in Azure Service Bus (Queue Ownership Pattern)</h1>
+      <p class="lead-text">Auto-forwarding is a Service Bus broker feature that automatically transfers messages from one entity (a topic subscription or a queue) directly into another queue or topic within the same namespace. It is a powerful structural tool that separates message routing mechanics from message processing ownership.</p>
 
     </article>
 
     <section>
-      <h2>What is Autoforwarding?</h2>
+      <h2>What is Auto-forwarding?</h2>
       <p>By enabling autoforwarding, the Service Bus broker handles the mechanical movement of messages between entities natively. The most common topology utilizes this feature to forward messages from a **Topic Subscription** to a dedicated **Consumer Queue**.</p>
       <div class="note" style="margin: 1.5rem 0;">
-        Autoforwarding lets you decouple message routing from message processing ownership.
+        Auto-forwarding lets you decouple message routing from message processing ownership.
       </div>
       <p>Instead of having consumer apps connect directly to topic subscriptions (which are bound to the publisher's namespace configuration), consumers pull from their own dedicated queue. The broker transparently handles the transition behind the scenes.</p>
     </section>
 
     <section>
-      <h2>Why Use Autoforwarding?</h2>
+      <h2>Why Use Auto-forwarding?</h2>
       <p>In distributed microservices, a single shared topic often distributes messages to multiple downstream teams. When teams attempt to consume messages by connecting directly to topic subscriptions, several operational challenges surface:</p>
       
       <ul>
-        <li><strong>Shared Queue & Subscription Abuse:</strong> When multiple instances of different consumer apps connect to the same subscription or queue, they compete for the same messages, blurring the lines of processing ownership.</li>
+        <li><strong>Shared Queue and Subscription Abuse:</strong> When multiple instances of different consumer apps connect to the same subscription or queue, they compete for the same messages, blurring the lines of processing ownership.</li>
         <li><strong>Unclear Processing Ownership:</strong> Without distinct queues, it is difficult to determine which team's consumer service is lagging, failing, or misbehaving.</li>
         <li><strong>Global Retry Complications:</strong> If one subscription fails and triggers a broker-level retry or backoff, it affects the message stream. Deferring or abandoning messages on a shared subscription creates high coordination overhead.</li>
         <li><strong>Dead-Letter Queue (DLQ) Confusion:</strong> When a message is dead-lettered on a topic subscription, it goes to that subscription's DLQ. Finding and auditing failures requires downstream teams to request access and manage connections to the topic itself.</li>
@@ -158,7 +155,7 @@
         </thead>
         <tbody>
           <tr>
-            <td><strong>Retry & Lock Configuration</strong></td>
+            <td><strong>Retry and Lock Configuration</strong></td>
             <td>Coupled. All consumer instances must share the same Max Delivery Count, Lock Duration, and Default TTL.</td>
             <td class="highlight-bussin">Decoupled. Each consumer team can customize lock durations and max retries on their private queue.</td>
           </tr>
@@ -168,12 +165,12 @@
             <td class="highlight-bussin">Isolated. Failed messages land in the consumer's dedicated DLQ, separating team failure analysis.</td>
           </tr>
           <tr>
-            <td><strong>Alerting & Monitoring</strong></td>
+            <td><strong>Alerting and Monitoring</strong></td>
             <td>Complex. Distinguishing queue lag between different services requires looking into specific subscription runtime metrics.</td>
             <td class="highlight-bussin">Simple. Standard metric alerts (e.g. QueueLength) can be applied directly to each team's dedicated queue.</td>
           </tr>
           <tr>
-            <td><strong>Scaling & Throttling</strong></td>
+            <td><strong>Scaling and Throttling</strong></td>
             <td>Shared. Large volumes consumed by one subscription can starve others or hit total namespace throughput limits.</td>
             <td class="highlight-bussin">Isolated. Queues provide a natural buffer, allowing each consumer to process and scale independently.</td>
           </tr>
@@ -187,8 +184,8 @@
     </section>
 
     <section>
-      <h2>How to Configure Autoforwarding</h2>
-      <p>Autoforwarding must be set up at entity creation time or by modifying an existing subscription's properties. The destination queue must exist <em>before</em> configuring the forward path.</p>
+      <h2>How to Configure Auto-forwarding</h2>
+      <p>Auto-forwarding must be set up at entity creation time or by modifying an existing subscription's properties. The destination queue must exist <em>before</em> configuring the forward path.</p>
 
       <h3>Infrastructure as Code Configuration</h3>
       <p>For production environments, configure the forwarding path natively via your Bicep templates or Terraform resource definitions:</p>
@@ -228,8 +225,8 @@ resource "azurerm_servicebus_subscription" "billing" {
       <ol>
         <li>Navigate to your Azure Service Bus Namespace.</li>
         <li>Select your **Topic**, and click on the **Subscription** you want to forward.</li>
-        <li>In the **Settings** or **Properties** blade, locate the **Autoforwarding** section.</li>
-        <li>Check **Enable Autoforwarding**, select your destination type (typically a Queue), and choose the target entity.</li>
+        <li>In the **Settings** or **Properties** blade, locate the **Auto-forwarding** section.</li>
+        <li>Check **Enable Auto-forwarding**, select your destination type (typically a Queue), and choose the target entity.</li>
         <li>Save the changes.</li>
       </ol>
     </section>
@@ -242,8 +239,8 @@ resource "azurerm_servicebus_subscription" "billing" {
         <li><strong>Destination Queue Full Behavior:</strong> If the destination queue reaches its maximum size quota, the forwarding operation will fail. In this scenario, the source subscription will retain the messages, and they will eventually be routed to the <em>source subscription's</em> DLQ once delivery attempt limits are reached.</li>
         <li><strong>DLQ Locality:</strong> When autoforwarding is active, successful message transfers happen immediately on arrival. Therefore, normal consumer processing failures happen on the destination queue. This means the dead-lettered messages will live in the <strong>destination queue's DLQ</strong>, not the subscription's DLQ.</li>
         <li><strong>Message Ordering:</strong> Service Bus guarantees message ordering within a session. When autoforwarding is enabled, ordered delivery is maintained during transit to the target queue, provided that the destination queue itself is session-aware.</li>
-        <li><strong>Throughput & Latency:</strong> The forwarding step is executed internally by the Service Bus broker. It is highly optimized and introduces negligible latency (typically sub-millisecond) and has no impact on external network performance.</li>
-        <li><strong>Cost & Operations:</strong> The autoforwarding action counts as an internal operation. In Azure Service Bus, operations are billed, meaning a forwarded message incurs one write operation on the subscription and one write operation on the target queue.</li>
+        <li><strong>Throughput and Latency:</strong> The forwarding step is executed internally by the Service Bus broker. It is highly optimized and introduces negligible latency (typically sub-millisecond) and has no impact on external network performance.</li>
+        <li><strong>Cost and Operations:</strong> The autoforwarding action counts as an internal operation. In Azure Service Bus, operations are billed, meaning a forwarded message incurs one write operation on the subscription and one write operation on the target queue.</li>
       </ul>
     </section>
 
@@ -253,7 +250,7 @@ resource "azurerm_servicebus_subscription" "billing" {
       
       <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1.5rem;">
         <div>
-          <h3>Using Autoforwarding as a Complex Routing Engine</h3>
+          <h3>Using Auto-forwarding as a Complex Routing Engine</h3>
           <p>Avoid chaining multiple forward hops (e.g. Subscription A → Queue B → Queue C). Chaining makes message tracing extremely difficult and increases operational complexity without providing architecture benefits.</p>
         </div>
         
@@ -280,14 +277,14 @@ resource "azurerm_servicebus_subscription" "billing" {
       </ul>
 
       <div class="note" style="border-left-color: #7ff4e1; background: rgba(127, 244, 225, 0.05); font-size: 1.1rem; padding: 1.5rem; margin-top: 2rem;">
-        "Autoforwarding is not a routing feature. It is an ownership isolation tool disguised as a messaging feature."
+        "Auto-forwarding is not a routing feature. It is an ownership isolation tool disguised as a messaging feature."
       </div>
     </section>
   </main>
 
-  <footer class="site-footer">
+    <footer class="site-footer">
     <div class="container footer-inner">
-      <p>&copy; 2026 Bussin. MIT License. Open source on <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">GitHub</a>.</p>
+      <p>&copy; 2026 Bussin. MIT License. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a></p>
     </div>
   </footer>
 </body>

@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Azure Service Bus Glossary & Terminology | bussin.dev</title>
+  <title>Azure Service Bus Glossary and Terminology | bussin.dev</title>
   <meta name="description" content="Azure Service Bus terminology — AMQP 1.0, dead-letter queues, peek-lock settlement, topic subscriptions, and message routing concepts explained.">
   <meta name="keywords" content="Azure Service Bus glossary, AMQP 1.0 dictionary, dead-letter queue definitions, peek-lock lease terms, service bus topics and filters, cloud integration terminology">
   <link rel="canonical" href="https://bussin.dev/glossary/">
   
   <!-- OpenGraph Metadata -->
-  <meta property="og:title" content="Azure Service Bus Glossary & Terminology | bussin.dev">
+  <meta property="og:title" content="Azure Service Bus Glossary and Terminology | bussin.dev">
   <meta property="og:description" content="Technical dictionary and glossary of terms for Azure Service Bus. AMQP 1.0, dead-letter sub-queues, peek-lock lease settlement, and filter rules.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://bussin.dev/glossary/">
@@ -26,7 +26,7 @@
         <details class="topbar-menu menu-left">
           <summary class="hamburger-icon" aria-label="Menu">☰</summary>
         </details>
-                <nav class="menu-panel">
+                                <nav class="menu-panel">
             <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
             <span class="menu-heading">BUSSIN</span>
             <a href="/features/browser-native/">Features</a>
@@ -35,15 +35,12 @@
             <span class="menu-heading">LEARN</span>
             <a href="/glossary/">Azure Service Bus</a>
             <a href="/glossary/dead-letter-queue/">DLQ</a>
-            <a href="/glossary/autoforwarding/">Autoforwarding</a>
+            <a href="/glossary/autoforwarding/">Auto-forwarding</a>
             <span class="menu-heading">DOCS</span>
             <a href="/browser-based-service-bus-explorer/">Architecture</a>
             <a href="/docs/">Security & RBAC</a>
-            <a href="/docs/peek-lock/">Convenience Features</a>
+            <a href="/docs/peek-lock/">Convenience Functions</a>
             <a href="/privacy/">Privacy & Security</a>
-            <span class="menu-heading">GITHUB</span>
-            <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a>
-            <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a>
           </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
       </div>
@@ -59,7 +56,7 @@
       <h2>Core Topologies</h2>
       <ul>
         <li><strong>Queues (Point-to-Point):</strong> Messages are sent to and stored in a queue. A single consumer retrieves and processes each message, ensuring FIFO (first-in, first-out) order within partitions.</li>
-        <li><strong>Topics & Subscriptions (Publish-Subscribe):</strong> Messages are published to a topic, which immediately fans them out to multiple subscriptions. Each subscription acts as an independent virtual queue and can evaluate custom SQL or Correlation filter rules to selectively capture specific messages.</li>
+        <li><strong>Topics and Subscriptions (Publish-Subscribe):</strong> Messages are published to a topic, which immediately fans them out to multiple subscriptions. Each subscription acts as an independent virtual queue and can evaluate custom SQL or Correlation filter rules to selectively capture specific messages.</li>
       </ul>
     </section>
 
@@ -70,7 +67,7 @@
           <tr>
             <th>Feature</th>
             <th>Azure Service Bus</th>
-            <th>AWS SQS & SNS</th>
+            <th>AWS SQS and SNS</th>
             <th>RabbitMQ</th>
           </tr>
         </thead>
@@ -89,9 +86,9 @@
           </tr>
           <tr>
             <td><strong>Pub/Sub Filter Rules</strong></td>
-            <td>Native SQL & Correlation filters per subscription</td>
-            <td>Requires SNS-to-SQS mapping & SNS policies</td>
-            <td>Native exchange routing keys & bindings</td>
+            <td>Native SQL and Correlation filters per subscription</td>
+            <td>Requires SNS-to-SQS mapping and SNS policies</td>
+            <td>Native exchange routing keys and bindings</td>
           </tr>
           <tr>
             <td><strong>Transactional Leases</strong></td>
@@ -113,9 +110,9 @@
     </section>
   </main>
 
-  <footer class="site-footer">
+    <footer class="site-footer">
     <div class="container footer-inner">
-      <p>&copy; 2026 Bussin. MIT License. Open source on <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">GitHub</a>.</p>
+      <p>&copy; 2026 Bussin. MIT License. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a></p>
     </div>
   </footer>
 </body>
