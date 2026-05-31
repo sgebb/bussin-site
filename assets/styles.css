@@ -266,6 +266,11 @@ details.topbar-menu[open] + .menu-panel {
 .docs-grid {
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 }
+.walkthrough-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+}
 .page-content {
   margin: 2rem auto;
   padding: 2rem 3rem 3rem;
