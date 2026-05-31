@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -58,8 +58,7 @@
       <h1>AMQP 1.0 (Advanced Message Queuing Protocol)</h1>
       <p class="lead-text">AMQP 1.0 (standardized as ISO/IEC 19464) is an open, binary wire protocol designed for high-performance, secure, and transactional message transfer. Azure Service Bus uses AMQP 1.0 as its primary high-fidelity data-plane protocol.</p>
       <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-        <a class="button primary" href="https://app.bussin.dev" target="_blank" rel="noopener">Launch Protocol Client Workspace</a>
-        <a class="button" href="/browser-based-service-bus-explorer/">Review WebSocket Specs</a>
+        <a class="button primary" href="/docs/">Read Connection Guides</a>
       </div>
     </article>
 
@@ -87,7 +86,7 @@
 
     <section>
       <h2>Direct-to-Browser Encapsulation</h2>
-      <p>Historically, AMQP 1.0 connections ran over raw TCP port 5671 or 5672, which is frequently blocked by restrictive enterprise firewalls. Microsoft solved this by standardizing an AMQP tunnel within the secure WebSocket protocol (running on standard HTTPS port 443):</p>
+      <p>Historically, AMQP 1.0 connections ran over raw TCP port 5671 or 5672, which is frequently blocked by restrictive corporate firewalls. Microsoft solved this by standardizing an AMQP tunnel within the secure WebSocket protocol (running on standard HTTPS port 443):</p>
       <div class="highlight-box">
         <h3>AMQP WebSocket Handshake</h3>
         <p>Bussin initializes connections over standard ports using the sub-protocol <code>amqp</code>:</p>
@@ -112,7 +111,7 @@ Sec-WebSocket-Protocol: amqp</code></pre>
 
     <section>
       <h2>Why AMQP Exceeds REST in Diagnostics</h2>
-      <p>While REST endpoints are convenient, they lack key enterprise messaging capabilities. The REST interface of Azure Service Bus cannot handle active peek-lock state tracking, lock leases, or target sequence number recoveries. AMQP 1.0 remains the only protocol capable of exposing the complete diagnostic control plane required for enterprise SRE workflows.</p>
+      <p>While REST endpoints are convenient, they lack key messaging capabilities. The REST interface of Azure Service Bus cannot handle active peek-lock state tracking, lock leases, or target sequence number recoveries. AMQP 1.0 remains the only protocol capable of exposing the complete diagnostic control plane required for standard SRE workflows.</p>
     </section>
   </main>
 

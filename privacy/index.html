@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -56,12 +56,12 @@
     <article>
       <p class="eyebrow">Data Isolation Spec</p>
       <h1>Security & Privacy Architecture</h1>
-      <p class="lead-text">Bussin is built from the ground up as a zero-proxy, static application. This document details the architectural boundaries, sandbox configurations, and network isolation models that keep your Azure credentials and payload streams completely secure.</p>
+      <p class="lead-text">Bussin is built from the ground up as a zero-proxy, static application. This document details the architecture, sandbox configurations, and network isolation models that keep your Azure credentials and payload streams completely secure.</p>
     </article>
 
     <section>
       <h2>The Zero-Transit Architecture Policy</h2>
-      <p>Traditional cloud explorers act as middle-tier servers: they receive your access keys, connect to your cloud infrastructure, and parse your payloads on their own hardware. This introduces a major security risk, creating a single point of failure where a database leak or server compromise exposes your enterprise connections.</p>
+      <p>Traditional cloud explorers act as middle-tier servers: they receive your access keys, connect to your cloud infrastructure, and parse your payloads on their own hardware. This introduces a major security risk, creating a single point of failure where a database leak or server compromise exposes your connection keys.</p>
       <p><strong>Bussin is different. We enforce an absolute Zero-Transit policy:</strong></p>
       <ul>
         <li><strong>No server relays:</strong> There are no backend application servers, databases, or API proxies in the Bussin pipeline. The application is distributed as a set of static files (HTML, CSS, WebAssembly) served directly to your browser via a Content Delivery Network (CDN).</li>
@@ -87,7 +87,7 @@
       <ul>
         <li><strong>Adoption Metrics:</strong> Upon successful Microsoft Entra ID authentication, the client logs a basic profile entry (consisting of the user's ID, email address, display name, and login timestamp) to our serverless backend. This is used solely to evaluate usage and guide our roadmap.</li>
         <li><strong>Complete Payload Sandbox:</strong> Absolutely zero Service Bus resource data, connection strings, entity names, namespace configurations, or message payload bytes are <em>ever</em> captured, logged, or transmitted outside of your browser.</li>
-        <li><strong>Self-Hostable and Open-Source:</strong> The entire backend tracking infrastructure—including the Bicep IaC script and the .NET 10.0 Native AOT C# source code—is fully open-source and included in the codebase. Enterprise organizations can easily self-host this auditable backend within their own secure Azure boundaries to monitor active logins.</li>
+        <li><strong>Self-Hostable and Open-Source:</strong> The entire backend tracking infrastructure—including the Bicep IaC script and the .NET 10.0 Native AOT C# source code—is fully open-source and included in the codebase. Teams can easily self-host this auditable backend within their own Azure subscriptions to monitor active logins.</li>
       </ul>
     </section>
 
@@ -114,8 +114,8 @@
     </section>
 
     <section>
-      <h2>Enterprise Compliance Alignment</h2>
-      <p>Because Bussin does not capture, store, or process any customer data, utilizing this tool does not expand your organizational data boundaries or introduce new compliance liabilities. It integrates cleanly with standard SOC 2, ISO 27001, and HIPAA compliance policies, acting as a secure diagnostic lens for your existing Azure infrastructure.</p>
+      <h2>Compliance Alignment</h2>
+      <p>Because Bussin does not capture, store, or process any message data, utilizing this tool does not expand your organizational data scope or introduce new compliance liabilities. It integrates cleanly with standard security policies, acting as a secure client for your existing Azure infrastructure.</p>
     </section>
   </main>
 

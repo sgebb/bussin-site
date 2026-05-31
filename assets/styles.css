@@ -558,28 +558,32 @@ details.topbar-menu[open] + .menu-panel {
   /* Force the menu panel to display as a persistent left sidebar */
   .menu-panel {
     display: flex !important;
-    position: fixed;
-    left: max(1.5rem, calc((100vw - 1180px) / 2 + 1.5rem));
-    top: 7.5rem;
-    width: 240px;
-    bottom: 2rem;
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    padding: 0;
-    max-height: none;
-    overflow-y: auto;
-    z-index: 10;
+    position: fixed !important;
+    left: 2rem !important;
+    top: 7.5rem !important;
+    width: 220px !important;
+    height: calc(100vh - 9.5rem) !important;
+    bottom: auto !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    max-height: none !important;
+    overflow-y: auto !important;
+    z-index: 100 !important;
   }
 
   /* Create margin space on the left of main page content for the sidebar */
   main.page-content {
-    margin-left: 272px !important; /* 240px sidebar width + 32px gap */
+    margin-left: 280px !important;
+    margin-right: 2rem !important;
+    width: auto !important;
+    max-width: none !important;
   }
 
   /* Shift the footer content to align with the main content */
   .site-footer .footer-inner {
-    margin-left: 272px !important;
+    margin-left: 280px !important;
   }
 }
 

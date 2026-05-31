@@ -58,8 +58,7 @@
       <h1>Autoforwarding in Azure Service Bus (Queue Ownership Pattern)</h1>
       <p class="lead-text">Autoforwarding is a Service Bus broker feature that automatically transfers messages from one entity (a topic subscription or a queue) directly into another queue or topic within the same namespace. It is a powerful structural tool that separates message routing mechanics from message processing ownership.</p>
       <div style="display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;">
-        <a class="button primary" href="https://app.bussin.dev" target="_blank" rel="noopener">Launch active workspace</a>
-        <a class="button" href="/glossary/">View Glossary Index</a>
+        <a class="button primary" href="/glossary/">View Glossary Index</a>
       </div>
     </article>
 
@@ -168,7 +167,7 @@
             <td class="highlight-bussin">Decoupled. Each consumer team can customize lock durations and max retries on their private queue.</td>
           </tr>
           <tr>
-            <td><strong>DLQ Boundaries</strong></td>
+            <td><strong>DLQ Isolation</strong></td>
             <td>Global. Failed messages land in the subscription's DLQ. Multiple teams may have to sort through a single shared DLQ.</td>
             <td class="highlight-bussin">Isolated. Failed messages land in the consumer's dedicated DLQ, separating team failure analysis.</td>
           </tr>
@@ -180,10 +179,10 @@
           <tr>
             <td><strong>Scaling & Throttling</strong></td>
             <td>Shared. Large volumes consumed by one subscription can starve others or hit total namespace throughput limits.</td>
-            <td class="highlight-bussin">Sovereign. Queues provide a natural buffer, allowing each consumer to process and scale independently.</td>
+            <td class="highlight-bussin">Isolated. Queues provide a natural buffer, allowing each consumer to process and scale independently.</td>
           </tr>
           <tr>
-            <td><strong>Failure Blast Radius</strong></td>
+            <td><strong>Failure Isolation</strong></td>
             <td>Wide. A single consumer app misbehaving can block or back up the entire shared subscription pipeline.</td>
             <td class="highlight-bussin">Narrow. Operational issues on a consumer's queue are entirely isolated and have no impact on other subscribers.</td>
           </tr>
@@ -285,7 +284,7 @@ resource "azurerm_servicebus_subscription" "billing" {
       </ul>
 
       <div class="note" style="border-left-color: #7ff4e1; background: rgba(127, 244, 225, 0.05); font-size: 1.1rem; padding: 1.5rem; margin-top: 2rem;">
-        "Autoforwarding is not a routing feature. It is an ownership boundary tool disguised as a messaging feature."
+        "Autoforwarding is not a routing feature. It is an ownership isolation tool disguised as a messaging feature."
       </div>
     </section>
   </main>

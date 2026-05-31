@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -56,7 +56,7 @@
     <article>
       <p class="eyebrow">The Design Vision</p>
       <h1>About Bussin</h1>
-      <p class="lead-text">Bussin was founded on a simple premise: cloud developers and SREs deserve professional-grade diagnostic tools that prioritize security, speed, and beautiful design. We believe that managing enterprise-scale queue architectures shouldn't require clunky desktop runtimes or compromising on data isolation.</p>
+      <p class="lead-text">Bussin was founded on a simple premise: cloud developers and SREs deserve professional-grade diagnostic tools that prioritize security, speed, and beautiful design. We believe that managing large-scale queue architectures shouldn't require clunky desktop runtimes or compromising on data isolation.</p>
     </article>
 
     <section>
@@ -66,7 +66,7 @@
       <div style="display: flex; flex-direction: column; gap: 2rem; margin-top: 2rem;">
         <div>
           <h3>1. Zero-Proxy Architecture (Complete Security)</h3>
-          <p>Traditional web-based cloud managers act as intermediaries, routing your sensitive credentials and message data through third-party servers. We reject this pattern. By utilizing browser-native WebSockets and client-side MSAL.js, Bussin enforces an absolute direct-to-broker connection path. Your enterprise data plane remains strictly inside your local browser sandbox.</p>
+          <p>Traditional web-based cloud managers act as intermediaries, routing your sensitive credentials and message data through third-party servers. We reject this pattern. By utilizing browser-native WebSockets and client-side MSAL.js, Bussin enforces an absolute direct-to-broker connection path. Your data plane remains strictly inside your local browser sandbox.</p>
         </div>
 
         <div>
@@ -76,7 +76,7 @@
 
         <div>
           <h3>3. Protocol Fidelity</h3>
-          <p>We do not rely on slow REST API wrappers that drop vital broker state. Bussin connects using the standard AMQP 1.0 binary wire protocol. This guarantees deep session lock tracking, transactional message settlement (complete, abandon, defer), and reliable dead-letter queue recoveries, mirroring the behavior of native cloud clusters.</p>
+          <p>We do not rely on slow REST API wrappers that drop vital broker state. Bussin connects using the standard AMQP 1.0 binary wire protocol. This guarantees deep session lock tracking, transactional message settlement (complete, abandon, dead-letter), and reliable dead-letter queue recoveries, mirroring the behavior of native cloud clusters.</p>
         </div>
       </div>
     </section>
@@ -87,8 +87,7 @@
     </section>
 
     <div class="hero-actions" style="margin-top: 3rem;">
-      <a class="button primary" href="https://app.bussin.dev" target="_blank" rel="noopener">Open Workspace App</a>
-      <a class="button" href="/privacy/">Read Security Policy</a>
+      <a class="button primary" href="/privacy/">Read Security Policy</a>
     </div>
   </main>
 

@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -82,7 +82,7 @@
   <main class="container page-content">
     <section class="hero-grid">
       <div>
-        <p class="eyebrow">Enterprise-Grade Messaging Tooling</p>
+        <p class="eyebrow">Service Bus Diagnostics Client</p>
         <h1>Direct, Browser-Native Azure Service Bus Explorer</h1>
         <p>Manage, debug, and inspect Azure Service Bus queues, topics, subscriptions, and dead-letter queues (DLQ) with protocol fidelity. bussin runs entirely in your browser using MSAL-delegated Entra ID authentication and direct AMQP-over-WebSockets connections—ensuring strict security with zero intermediary servers or backend proxies.</p>
         <div class="hero-actions">
@@ -102,7 +102,7 @@
     <section>
       <header>
         <h2>Zero-Proxy Web-Native Architecture</h2>
-        <p>Bussin is a specialized client-side Azure Service Bus Explorer built as a Progressive Web App (PWA). It compiles a high-performance .NET WebAssembly runtime paired with a custom TypeScript AMQP 1.0 engine (powered by Rhea). By connecting directly to the Azure Service Bus WebSockets endpoint (`wss://`), it guarantees absolute security boundary integrity.</p>
+        <p>Bussin is a specialized client-side Azure Service Bus Explorer built as a Progressive Web App (PWA). It compiles a high-performance .NET WebAssembly runtime paired with a custom C# and JavaScript AMQP 1.0 engine (powered by Rhea). By connecting directly to the Azure Service Bus WebSockets endpoint (`wss://`), it keeps your connection strictly client-side and secure.</p>
       </header>
       <div class="section-grid">
         <article>
@@ -111,11 +111,11 @@
         </article>
         <article>
           <h3>Built for Developers & SREs</h3>
-          <p>Whether debugging live message flows, analyzing message properties, or performing dead-letter triage across multiple environments, Bussin provides a zero-onboarding console for modern DevOps teams.</p>
+          <p>Whether debugging live message flows, analyzing message properties, or performing dead-letter troubleshooting across multiple environments, Bussin provides a zero-onboarding console for modern DevOps teams.</p>
         </article>
         <article>
-          <h3>Zero-Trust Data Boundaries</h3>
-          <p>Because your credentials, Entra ID OAuth tokens, and messaging payloads are processed purely in client-side memory, your telemetry and business data never transit a third-party relay—satisfying compliance and enterprise security policies.</p>
+          <h3>Zero-Trust Data Security</h3>
+          <p>Because your credentials, Entra ID OAuth tokens, and messaging payloads are processed purely in client-side memory, your telemetry and business data never transit a third-party relay—satisfying strict security requirements.</p>
         </article>
         <article>
           <figure class="visual-card">
@@ -159,7 +159,7 @@
     <section class="split-section">
       <div>
         <h2>Why Browser-Native Matters</h2>
-        <p>Shifting Azure Service Bus management to a client-side web sandbox provides significant advantages for secure and cross-platform enterprise environments.</p>
+        <p>Shifting Azure Service Bus management to a client-side web sandbox provides significant advantages for secure and cross-platform teams.</p>
         <ul>
           <li><strong>No Installation Friction:</strong> Avoid local dependency cycles, native package installations, or administrative approvals. Just navigate to the URL and connect.</li>
           <li><strong>True Cross-Platform Equality:</strong> Achieve uniform performance and UI rendering across Windows, macOS, and Linux without native emulation layers or heavy wrappers.</li>
@@ -331,7 +331,7 @@
         </table>
       </div>
       <p style="color: #93b7c6; font-size: 0.9rem; margin-top: 1rem;"><em>Bussin has no backend API, proxy server, or autonomous access to your Service Bus. All permissions are delegated via <code>user_impersonation</code> scopes — the app can only do what your Entra ID identity is already authorized to do. Your messages never leave your browser.</em></p>
-      <p style="color: #93b7c6; font-size: 0.9rem; margin-top: 0.5rem;"><em>Comparison is based on typical developer usage profiles and public specifications. Standard features are continually updated; evaluate tools according to your enterprise security boundaries.</em></p>
+      <p style="color: #93b7c6; font-size: 0.9rem; margin-top: 0.5rem;"><em>Comparison is based on typical developer usage profiles and public specifications. Standard features are continually updated; evaluate tools according to your organization's security guidelines.</em></p>
     </section>
 
     <section>
