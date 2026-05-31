@@ -54,7 +54,6 @@
 
   <main class="container page-content">
     <article>
-      <p class="eyebrow">Technical Reference Hub</p>
       <h1>Azure Service Bus Technical Glossary</h1>
       <p class="lead-text">Use this technical terminology library to master core architecture standards, protocol layouts, and debugging workflows within Azure Service Bus.</p>
     </article>
@@ -102,8 +101,8 @@
         </div>
 
         <div>
-          <h3>Message Settlement (Complete, Abandon, Defer)</h3>
-          <p>The protocol hand-shake that signals to the broker how to treat a locked message. <code>Complete</code> permanently purges it, <code>Abandon</code> unlocks it for retry, and <code>Defer</code> moves it to a sub-state requiring direct sequence number recall.</p>
+          <h3>Message States & Actions (Complete, Abandon, Defer)</h3>
+          <p>The action that tells the broker how to treat a locked message. <code>Complete</code> deletes it permanently, <code>Abandon</code> unlocks it so it can be retried, and <code>Defer</code> holds it aside in a state that requires direct sequence number lookup.</p>
         </div>
 
         <div>

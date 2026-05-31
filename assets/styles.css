@@ -573,18 +573,31 @@ details.topbar-menu[open] + .menu-panel {
     z-index: 100 !important;
   }
 
-  /* Create margin space on the left of main page content for the sidebar */
+  /* Align topbar content with left sidebar on desktop */
+  .topbar-inner {
+    margin-left: 2rem !important;
+    margin-right: 2rem !important;
+    max-width: none !important;
+    width: auto !important;
+  }
+
+  /* Create margin space on the left of main page content for the sidebar and bound width to prevent horizontal bleeding */
   main.page-content {
     margin-left: 280px !important;
-    margin-right: 2rem !important;
+    margin-right: auto !important;
     width: auto !important;
-    max-width: none !important;
+    max-width: 900px !important;
   }
 
   /* Shift the footer content to align with the main content */
   .site-footer .footer-inner {
     margin-left: 280px !important;
   }
+}
+
+/* Hide Open App button in the navigation panel globally since it is always in the header */
+.menu-panel a.header-cta {
+  display: none !important;
 }
 
 

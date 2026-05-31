@@ -54,7 +54,6 @@
 
   <main class="container page-content">
     <article>
-      <p class="eyebrow">Industry Standard Messaging</p>
       <h1>AMQP 1.0 (Advanced Message Queuing Protocol)</h1>
       <p class="lead-text">AMQP 1.0 (standardized as ISO/IEC 19464) is an open, binary wire protocol designed for high-performance, secure, and transactional message transfer. Azure Service Bus uses AMQP 1.0 as its primary high-fidelity data-plane protocol.</p>
       <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
@@ -78,8 +77,8 @@
         </article>
 
         <article class="interactive-card">
-          <h3>Symmetric State Settlement</h3>
-          <p>Both client and broker track delivery states (e.g., <code>Accepted</code>, <code>Released</code>, <code>Rejected</code>, or <code>Modified</code>) synchronously. This enables strong transactional guarantees like at-least-once or exactly-once message deliveries.</p>
+          <h3>Synchronous Message Tracking</h3>
+          <p>Both client and broker track message delivery states (like <code>Accepted</code>, <code>Released</code>, or <code>Rejected</code>) together. This guarantees that messages are never lost during transfer.</p>
         </article>
       </div>
     </section>

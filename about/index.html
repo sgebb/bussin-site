@@ -54,29 +54,26 @@
 
   <main class="container page-content">
     <article>
-      <p class="eyebrow">The Design Vision</p>
       <h1>About Bussin</h1>
       <p class="lead-text">Bussin was founded on a simple premise: cloud developers and SREs deserve professional-grade diagnostic tools that prioritize security, speed, and beautiful design. We believe that managing large-scale queue architectures shouldn't require clunky desktop runtimes or compromising on data isolation.</p>
     </article>
 
     <section>
       <h2>Our Core Philosophies</h2>
-      <p>Every line of code written for Bussin is aligned with three foundational principles:</p>
-
-      <div style="display: flex; flex-direction: column; gap: 2rem; margin-top: 2rem;">
+      <div class="split-section">
         <div>
-          <h3>1. Zero-Proxy Architecture (Complete Security)</h3>
-          <p>Traditional web-based cloud managers act as intermediaries, routing your sensitive credentials and message data through third-party servers. We reject this pattern. By utilizing browser-native WebSockets and client-side MSAL.js, Bussin enforces an absolute direct-to-broker connection path. Your data plane remains strictly inside your local browser sandbox.</p>
-        </div>
-
-        <div>
-          <h3>2. High-Density, Professional Design</h3>
+          <h3>1. Beautiful and Fast</h3>
           <p>Diagnostics can be stressful. We design our workspaces to be highly responsive, featuring a beautiful dark-mode theme, smooth micro-animations, clear telemetry representations, and customizable multi-tenant directory folders. We build interfaces that are highly functional and pleasant to use for hours of troubleshooting sessions.</p>
         </div>
 
         <div>
+          <h3>2. Zero-Trust Security</h3>
+          <p>We do not capture your data or track your queues. Because your credentials and message payloads are processed purely in client-side memory, your telemetry and business data never transit a third-party relay—satisfying strict security requirements.</p>
+        </div>
+
+        <div>
           <h3>3. Protocol Fidelity</h3>
-          <p>We do not rely on slow REST API wrappers that drop vital broker state. Bussin connects using the standard AMQP 1.0 binary wire protocol. This guarantees deep session lock tracking, transactional message settlement (complete, abandon, dead-letter), and reliable dead-letter queue recoveries, mirroring the behavior of native cloud clusters.</p>
+          <p>We do not rely on slow REST API wrappers that drop vital broker state. Bussin connects using the standard AMQP 1.0 binary wire protocol. This guarantees deep session lock tracking, standard message actions (complete, abandon, dead-letter), and reliable dead-letter queue recoveries, mirroring the behavior of native cloud clusters.</p>
         </div>
       </div>
     </section>

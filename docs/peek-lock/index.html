@@ -54,9 +54,8 @@
 
   <main class="container page-content">
     <article>
-      <p class="eyebrow">Technical Reference Guide</p>
-      <h1>Peek-Lock and Message Settlement Workflows</h1>
-      <p>Reliable message processing is a core requirement for distributed systems. Azure Service Bus implements two distinct consumption modes: **Receive-and-Delete** (destructive, single-settled read) and **Peek-Lock** (non-destructive, double-settled read). This guide explores the technical details of the Peek-Lock state machine, lock renewal dynamics, and manual message disposal behaviors implemented in the Bussin browser-native console.</p>
+      <h1>How Peek-Lock and Message Actions Work</h1>
+      <p>Azure Service Bus supports two ways to read messages: **Receive-and-Delete** (which deletes the message as soon as it's dispatched) and **Peek-Lock** (which locks the message temporarily so you can complete, abandon, or dead-letter it). This guide covers how Peek-Lock handles locks, lock renewals, and manual message actions within Bussin.</p>
     </article>
 
     <section>
@@ -69,8 +68,8 @@
     </section>
 
     <section>
-      <h2>Understanding AMQP Message Settlement States</h2>
-      <p>When you lock and retrieve a message using Bussin's interactive console, you can manually trigger explicit disposal actions. Each maps directly to standard AMQP frame settlement states (Note: Bussin currently supports Complete, Abandon, and Dead-Letter settlement actions; Defer is explained here as an architectural concept):</p>
+      <h2>Complete, Abandon, and Dead-Letter States</h2>
+      <p>When you retrieve and lock a message using Bussin, you can manually decide what to do with it. Each action changes the message's state directly on the Azure Service Bus broker (Note: Bussin supports Complete, Abandon, and Dead-Letter actions; Defer is explained below as a concept):</p>
       
       <h3>1. Complete (`Accepted`)</h3>
       <p>Acknowledges successful message processing. The browser client sends an `Accepted` disposition frame to the broker, which permanently deletes the message from the queue or subscription partition.</p>
@@ -84,7 +83,7 @@
       <h3>4. Defer (`Modified` with `undeliverable-here`)</h3>
       <p>Suspends immediate message delivery without processing or rejecting it. The broker preserves the message in the queue but holds it aside. It cannot be consumed by standard lock loops and must be retrieved explicitly by its `SequenceNumber` via a direct management-plane call.</p>
 
-      <pre><code>// Conceptual AMQP Message Settlement State Transition
+      <pre><code>// Message Lock and State Transitions
 [Active Queue] ──(Receive & Lock)──> [Locked State (In Flight)]
                                            │
          ┌───────────────┬─────────────────┼────────────────┐
