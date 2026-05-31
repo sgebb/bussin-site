@@ -107,9 +107,14 @@ svg {
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.04);
   z-index: 40;
-  display: flex;
+  display: none;
   flex-direction: column;
   gap: 0.25rem;
+}
+/* When details is open, show the sibling menu panel */
+details.topbar-menu[open] ~ .menu-panel,
+details.topbar-menu[open] + .menu-panel {
+  display: flex;
 }
 .menu-panel a {
   color: #a7d5ea;
@@ -551,7 +556,7 @@ svg {
   }
 
   /* Force the menu panel to display as a persistent left sidebar */
-  details.topbar-menu > nav.menu-panel {
+  .menu-panel {
     display: flex !important;
     position: fixed;
     left: max(1.5rem, calc((100vw - 1180px) / 2 + 1.5rem));

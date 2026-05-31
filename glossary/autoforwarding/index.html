@@ -25,7 +25,8 @@
       <div class="header-brand">
         <details class="topbar-menu menu-left">
           <summary class="hamburger-icon" aria-label="Menu">☰</summary>
-          <nav class="menu-panel">
+        </details>
+        <nav class="menu-panel">
             <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
             <span class="menu-heading">PRODUCT</span>
             <a href="/features/browser-native/">Features</a>
@@ -45,7 +46,6 @@
             <span class="menu-heading">Legal</span>
             <a href="/privacy/">Privacy & security</a>
           </nav>
-        </details>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
       </div>
       <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
@@ -58,22 +58,22 @@
       <h1>Autoforwarding in Azure Service Bus (Queue Ownership Pattern)</h1>
       <p class="lead-text">Autoforwarding is a Service Bus broker feature that automatically transfers messages from one entity (a topic subscription or a queue) directly into another queue or topic within the same namespace. It is a powerful structural tool that separates message routing mechanics from message processing ownership.</p>
       <div style="display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap;">
-        <a class="button primary" href="https://app.bussin.dev" target="_blank" rel="noopener">Launch Diagnostics Workspace</a>
+        <a class="button primary" href="https://app.bussin.dev" target="_blank" rel="noopener">Launch active workspace</a>
         <a class="button" href="/glossary/">View Glossary Index</a>
       </div>
     </article>
 
     <section>
-      <h2>1. What is Autoforwarding?</h2>
+      <h2>What is Autoforwarding?</h2>
       <p>By enabling autoforwarding, the Service Bus broker handles the mechanical movement of messages between entities natively. The most common topology utilizes this feature to forward messages from a **Topic Subscription** to a dedicated **Consumer Queue**.</p>
       <div class="note" style="margin: 1.5rem 0;">
-        <strong>The One-Liner:</strong> Autoforwarding lets you decouple message routing from message processing ownership.
+        Autoforwarding lets you decouple message routing from message processing ownership.
       </div>
       <p>Instead of having consumer apps connect directly to topic subscriptions (which are bound to the publisher's namespace configuration), consumers pull from their own dedicated queue. The broker transparently handles the transition behind the scenes.</p>
     </section>
 
     <section>
-      <h2>2. Why Use Autoforwarding?</h2>
+      <h2>Why Use Autoforwarding?</h2>
       <p>In distributed microservices, a single shared topic often distributes messages to multiple downstream teams. When teams attempt to consume messages by connecting directly to topic subscriptions, several operational challenges surface:</p>
       
       <ul>
@@ -87,7 +87,7 @@
     </section>
 
     <section>
-      <h2>3. Architecture Pattern</h2>
+      <h2>Architecture Pattern</h2>
       <p>The following diagram illustrates the Queue Ownership Pattern. Producers publish to a shared Topic. Subscription filters route specific messages, which are then natively autoforwarded by the broker to the consumer's private Queue for retrieval.</p>
       
       <div style="margin: 2rem 0; background: rgba(12, 20, 34, 0.6); padding: 2rem; border-radius: 20px; border: 1px solid rgba(34, 194, 183, 0.15); display: flex; justify-content: center;">
@@ -150,7 +150,7 @@
     </section>
 
     <section>
-      <h2>4. Ownership Model Comparison</h2>
+      <h2>Ownership Model Comparison</h2>
       <p>Moving from a shared topic subscription connection model to a dedicated autoforwarding queue model shifts responsibilities significantly. The table below outlines how operational capabilities differ between these two models:</p>
 
       <table>
@@ -192,8 +192,42 @@
     </section>
 
     <section>
-      <h2>5. How to Configure Autoforwarding</h2>
+      <h2>How to Configure Autoforwarding</h2>
       <p>Autoforwarding must be set up at entity creation time or by modifying an existing subscription's properties. The destination queue must exist <em>before</em> configuring the forward path.</p>
+
+      <h3>Infrastructure as Code Configuration</h3>
+      <p>For production environments, configure the forwarding path natively via your Bicep templates or Terraform resource definitions:</p>
+
+      <h4>Bicep Configuration</h4>
+      <pre><code>// Private billing queue serving as the forwarding destination
+resource billingQueue 'Microsoft.ServiceBus/namespaces/queues@2021-11-01' = {
+  name: 'my-servicebus-namespace/consumer-billing-queue'
+  properties: {
+    maxSizeInMegabytes: 5120
+  }
+}
+
+// Topic subscription with autoforwarding configured via forwardTo
+resource billingSubscription 'Microsoft.ServiceBus/namespaces/topics/subscriptions@2021-11-01' = {
+  name: 'my-servicebus-namespace/order-events/billing-subscription'
+  properties: {
+    forwardTo: 'consumer-billing-queue'
+  }
+  dependsOn: [
+    billingQueue
+  ]
+}</code></pre>
+
+      <h4>Terraform Configuration</h4>
+      <pre><code># Topic subscription with direct queue forwarding configured
+resource "azurerm_servicebus_subscription" "billing" {
+  name               = "billing-subscription"
+  topic_id           = azurerm_servicebus_topic.orders.id
+  max_delivery_count = 10
+  
+  # Forward natively to private consumer queue
+  forward_to_queue_name = "consumer-billing-queue"
+}</code></pre>
 
       <h3>Via Azure Portal</h3>
       <ol>
@@ -203,26 +237,10 @@
         <li>Check **Enable Autoforwarding**, select your destination type (typically a Queue), and choose the target entity.</li>
         <li>Save the changes.</li>
       </ol>
-
-      <h3>Via Azure CLI</h3>
-      <p>Configure autoforwarding using the Azure CLI by passing the destination queue's path to the <code>--forward-to</code> property:</p>
-      <pre><code># Create the private destination queue first
-az servicebus queue create \
-  --resource-group my-resource-group \
-  --namespace-name my-namespace \
-  --name consumer-billing-queue
-
-# Create the subscription and forward all routed messages to the queue
-az servicebus topic subscription create \
-  --resource-group my-resource-group \
-  --namespace-name my-namespace \
-  --topic-name order-events \
-  --name billing-subscription \
-  --forward-to consumer-billing-queue</code></pre>
     </section>
 
     <section>
-      <h2>6. Operational Considerations</h2>
+      <h2>Operational Considerations</h2>
       <p>While autoforwarding simplifies architecture, it introduces key runtime behaviors that system designers must accommodate:</p>
       
       <ul>
@@ -235,29 +253,29 @@ az servicebus topic subscription create \
     </section>
 
     <section>
-      <h2>7. Common Architectural Mistakes</h2>
+      <h2>Common Architectural Mistakes</h2>
       <p>To avoid common pitfalls when designing systems with autoforwarding, keep these best practices in mind:</p>
       
       <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1.5rem;">
         <div>
-          <h3>Mistake 1: Using Autoforwarding as a Complex Routing Engine</h3>
+          <h3>Using Autoforwarding as a Complex Routing Engine</h3>
           <p>Avoid chaining multiple forward hops (e.g. Subscription A → Queue B → Queue C). Chaining makes message tracing extremely difficult and increases operational complexity without providing architecture benefits.</p>
         </div>
         
         <div>
-          <h3>Mistake 2: Neglecting Destination Queue Quotas</h3>
+          <h3>Neglecting Destination Queue Quotas</h3>
           <p>Always align the storage quotas of the target queue with the expected publisher volume. If the target queue fills up, the autoforwarding fails, and messages will silently back up on the source topic subscription.</p>
         </div>
 
         <div>
-          <h3>Mistake 3: Centralizing the Dead-Letter Queue (DLQ)</h3>
-          <p>Do not forward multiple independent consumer queues into a single global DLQ queue. This defeats the isolated ownership model, bringing back the exact same retry, access control, and triage coordination problems you sought to solve.</p>
+          <h3>Centralizing the Dead-Letter Queue (DLQ)</h3>
+          <p>Do not forward multiple independent consumer queues into a single global DLQ queue. This defeats the isolated ownership model, bringing back the exact same retry, access control, and troubleshooting coordination problems you sought to solve.</p>
         </div>
       </div>
     </section>
 
     <section>
-      <h2>8. How Bussin Helps</h2>
+      <h2>How Bussin Helps</h2>
       <p>Auditing message paths that utilize autoforwarding can be challenging because messages traverse entity boundaries automatically. Bussin provides a clear, visual perspective on these workflows:</p>
       
       <ul>
@@ -265,12 +283,9 @@ az servicebus topic subscription create \
         <li><strong>Unified DLQ Monitoring:</strong> Access the destination queue's dead-letter sub-queue instantly without having to context-switch between different Azure Portal views or reconnect client tools.</li>
         <li><strong>Delegated Security:</strong> Securely view message flows using your Entra ID credentials without requiring shared, long-lived SAS keys, keeping compliance audits completely clean.</li>
       </ul>
-    </section>
 
-    <section>
-      <h2>9. Summary</h2>
-      <div class="note" style="border-left-color: #7ff4e1; background: rgba(127, 244, 225, 0.05); font-size: 1.1rem; padding: 1.5rem;">
-        <strong>Key Takeaway:</strong> "Autoforwarding is not a routing feature. It is an ownership boundary tool disguised as a messaging feature."
+      <div class="note" style="border-left-color: #7ff4e1; background: rgba(127, 244, 225, 0.05); font-size: 1.1rem; padding: 1.5rem; margin-top: 2rem;">
+        "Autoforwarding is not a routing feature. It is an ownership boundary tool disguised as a messaging feature."
       </div>
     </section>
   </main>
