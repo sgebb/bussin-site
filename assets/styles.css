@@ -555,11 +555,19 @@ details.topbar-menu[open] + .menu-panel {
     display: none !important;
   }
 
-  /* Force the menu panel to display as a persistent left sidebar */
+  /* Align topbar content with left sidebar on desktop and center it */
+  .topbar-inner {
+    margin-left: max(2rem, calc(50vw - 600px)) !important;
+    margin-right: max(2rem, calc(50vw - 600px)) !important;
+    max-width: none !important;
+    width: auto !important;
+  }
+
+  /* Force the menu panel to display as a persistent left sidebar and center it relative to the layout */
   .menu-panel {
     display: flex !important;
     position: fixed !important;
-    left: 2rem !important;
+    left: max(2rem, calc(50vw - 600px)) !important;
     top: 7.5rem !important;
     width: 220px !important;
     height: calc(100vh - 9.5rem) !important;
@@ -573,17 +581,9 @@ details.topbar-menu[open] + .menu-panel {
     z-index: 100 !important;
   }
 
-  /* Align topbar content with left sidebar on desktop */
-  .topbar-inner {
-    margin-left: 2rem !important;
-    margin-right: 2rem !important;
-    max-width: none !important;
-    width: auto !important;
-  }
-
-  /* Create margin space on the left of main page content for the sidebar and bound width to prevent horizontal bleeding */
+  /* Create margin space on the left of main page content for the sidebar and bound width to center the entire layout on wide screens */
   main.page-content {
-    margin-left: 280px !important;
+    margin-left: max(280px, calc(50vw - 300px)) !important;
     margin-right: auto !important;
     width: auto !important;
     max-width: 900px !important;
@@ -591,7 +591,8 @@ details.topbar-menu[open] + .menu-panel {
 
   /* Shift the footer content to align with the main content */
   .site-footer .footer-inner {
-    margin-left: 280px !important;
+    margin-left: max(280px, calc(50vw - 300px)) !important;
+    margin-right: max(2rem, calc(50vw - 600px)) !important;
   }
 }
 
