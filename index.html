@@ -91,7 +91,9 @@
     </section>
 
     <figure class="hero-card">
-      <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Bussin web dashboard showcasing multi-tenant namespace folders, active entity filters, and message detail blade" />
+      <a href="#zoom-hero">
+        <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Bussin web dashboard showcasing multi-tenant namespace folders, active entity filters, and message detail blade" />
+      </a>
       <figcaption>Direct AMQP explorer for Azure Service Bus entities running in a standard browser container.</figcaption>
     </figure>
 
@@ -112,12 +114,6 @@
         <article>
           <h3>Zero-Trust Data Security</h3>
           <p>Because your credentials, Entra ID OAuth tokens, and messaging payloads are processed purely in client-side memory, your telemetry and business data never transit a third-party relay—satisfying strict security requirements.</p>
-        </article>
-        <article>
-          <figure class="visual-card">
-            <img src="/assets/media/advancedPeek.jpg" alt="Bussin search drawer demonstrating advanced filter criteria including system property filters, custom user property matches, and message body regex matching" />
-            <figcaption>Perform deep, multi-criteria peeks and filter-driven scans in real-time.</figcaption>
-          </figure>
         </article>
       </div>
     </section>
@@ -334,20 +330,28 @@
       <h2>Product Walkthrough</h2>
       <div class="feature-grid">
         <figure class="visual-card">
-          <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Screenshot demonstrating multi-tenant navigation sidebar and nested folders in Bussin" />
+          <a href="#zoom-wt1">
+            <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Screenshot demonstrating multi-tenant navigation sidebar and nested folders in Bussin" />
+          </a>
           <figcaption>Organize multiple environments into folders and quickly search across namespaces.</figcaption>
         </figure>
         <figure class="visual-card">
-          <img src="/assets/media/advancedPeek.jpg" alt="Screenshot displaying advanced message search filter options in Bussin" />
+          <a href="#zoom-wt2">
+            <img src="/assets/media/advancedPeek.jpg" alt="Screenshot displaying advanced message search filter options in Bussin" />
+          </a>
           <figcaption>Run deep property and body matching queries safely inside client-side memory.</figcaption>
         </figure>
         <figure class="visual-card">
-          <img src="/assets/media/confirmPurge.jpg" alt="Modal window confirming safe bulk purge parameters in Bussin" />
+          <a href="#zoom-wt3">
+            <img src="/assets/media/confirmPurge.jpg" alt="Modal window confirming safe bulk purge parameters in Bussin" />
+          </a>
           <figcaption>Start extensive, safe background purges or moves using non-blocking workers.</figcaption>
         </figure>
         <figure class="visual-card">
-          <img src="/assets/media/deadLetterInspect.jpg" alt="Screenshot showing dead-letter queue message inspection details and resubmit operations" />
-          <figcaption>Inspect dead-letter messages and replay or edit system headers during resubmissions.</figcaption>
+          <a href="#zoom-wt4">
+            <img src="/assets/media/deadLetterInspect.jpg" alt="Screenshot showing dead-letter queue message inspection details and resubmit operations" />
+          </a>
+          <figcaption>Inspect dead-letter messages and replay them to their original queue.</figcaption>
         </figure>
       </div>
     </section>
@@ -392,7 +396,9 @@
         </div>
       </div>
       <figure class="visual-card">
-        <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="A screenshot showing the Bussin app ready for login" />
+        <a href="#zoom-bottom">
+          <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="A screenshot showing the Bussin app ready for login" />
+        </a>
         <figcaption>Launch the console and log in safely using standard Entra ID profiles.</figcaption>
       </figure>
     </section>
@@ -404,5 +410,60 @@
       <p>A secure, browser-native client for developers and SREs requiring direct, protocol-native Azure Service Bus explorer capability.</p>
     </div>
   </footer>
+
+  <!-- Lightbox Zoom Modals -->
+  <div id="zoom-hero" class="lightbox">
+    <a href="#" class="lightbox-close-overlay" aria-label="Close zoom"></a>
+    <div class="lightbox-content">
+      <a href="#" class="lightbox-close">&times;</a>
+      <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Bussin web dashboard showcasing multi-tenant namespace folders, active entity filters, and message detail blade" />
+      <p class="lightbox-caption">Direct AMQP explorer for Azure Service Bus entities running in a standard browser container.</p>
+    </div>
+  </div>
+
+  <div id="zoom-wt1" class="lightbox">
+    <a href="#" class="lightbox-close-overlay" aria-label="Close zoom"></a>
+    <div class="lightbox-content">
+      <a href="#" class="lightbox-close">&times;</a>
+      <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Screenshot demonstrating multi-tenant navigation sidebar and nested folders in Bussin" />
+      <p class="lightbox-caption">Organize multiple environments into folders and quickly search across namespaces.</p>
+    </div>
+  </div>
+
+  <div id="zoom-wt2" class="lightbox">
+    <a href="#" class="lightbox-close-overlay" aria-label="Close zoom"></a>
+    <div class="lightbox-content">
+      <a href="#" class="lightbox-close">&times;</a>
+      <img src="/assets/media/advancedPeek.jpg" alt="Screenshot displaying advanced message search filter options in Bussin" />
+      <p class="lightbox-caption">Run deep property and body matching queries safely inside client-side memory.</p>
+    </div>
+  </div>
+
+  <div id="zoom-wt3" class="lightbox">
+    <a href="#" class="lightbox-close-overlay" aria-label="Close zoom"></a>
+    <div class="lightbox-content">
+      <a href="#" class="lightbox-close">&times;</a>
+      <img src="/assets/media/confirmPurge.jpg" alt="Modal window confirming safe bulk purge parameters in Bussin" />
+      <p class="lightbox-caption">Start extensive, safe background purges or moves using non-blocking workers.</p>
+    </div>
+  </div>
+
+  <div id="zoom-wt4" class="lightbox">
+    <a href="#" class="lightbox-close-overlay" aria-label="Close zoom"></a>
+    <div class="lightbox-content">
+      <a href="#" class="lightbox-close">&times;</a>
+      <img src="/assets/media/deadLetterInspect.jpg" alt="Screenshot showing dead-letter queue message inspection details and resubmit operations" />
+      <p class="lightbox-caption">Inspect dead-letter messages and replay them to their original queue.</p>
+    </div>
+  </div>
+
+  <div id="zoom-bottom" class="lightbox">
+    <a href="#" class="lightbox-close-overlay" aria-label="Close zoom"></a>
+    <div class="lightbox-content">
+      <a href="#" class="lightbox-close">&times;</a>
+      <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="A screenshot showing the Bussin app ready for login" />
+      <p class="lightbox-caption">Launch the console and log in safely using standard Entra ID profiles.</p>
+    </div>
+  </div>
 </body>
 </html>
