@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Azure Service Bus Peek-Lock Workflows | Technical Docs | bussin.dev</title>
-  <meta name="description" content="Master Peek-Lock and messaging settlement states in Azure Service Bus. Read a technical guide on complete, abandon, dead-letter, and defer workflows using browser-native AMQP links.">
+  <meta name="description" content="Understand peek-lock and message settlement in Azure Service Bus. Complete, abandon, and dead-letter workflows explained with AMQP protocol details.">
   <meta name="keywords" content="Azure Service Bus Peek-Lock, Service Bus lock duration, message settlement AMQP, Service Bus complete message, Service Bus abandon, Service Bus defer, browser native Service Bus">
   <link rel="canonical" href="https://bussin.dev/docs/peek-lock/">
   
@@ -36,6 +36,7 @@
             <span class="menu-heading">LEARN</span>
             <a href="/glossary/">What is Service Bus</a>
             <a href="/glossary/dead-letter-queue/">Dead-letter queues</a>
+            <a href="/glossary/autoforwarding/">Autoforwarding</a>
             <a href="/docs/peek-lock/">Peek-lock</a>
             <span class="menu-heading">DOCS</span>
             <a href="/docs/">Getting started</a>
@@ -69,7 +70,7 @@
 
     <section>
       <h2>Understanding AMQP Message Settlement States</h2>
-      <p>When you lock and retrieve a message using Bussin's interactive console, you can manually trigger explicit disposal actions. Each maps directly to standard AMQP frame settlement states:</p>
+      <p>When you lock and retrieve a message using Bussin's interactive console, you can manually trigger explicit disposal actions. Each maps directly to standard AMQP frame settlement states (Note: Bussin currently supports Complete, Abandon, and Dead-Letter settlement actions; Defer is explained here as an architectural concept):</p>
       
       <h3>1. Complete (`Accepted`)</h3>
       <p>Acknowledges successful message processing. The browser client sends an `Accepted` disposition frame to the broker, which permanently deletes the message from the queue or subscription partition.</p>

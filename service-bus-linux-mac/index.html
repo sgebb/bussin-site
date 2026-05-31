@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Azure Service Bus Explorer for Mac & Linux | PWA Client | bussin.dev</title>
-  <meta name="description" content="Looking for an Azure Service Bus Explorer for macOS or Linux? bussin.dev is a secure, browser-native PWA client. Manage active queues, dead-letters, and topic subscriptions instantly with zero native installers.">
+  <meta name="description" content="Azure Service Bus Explorer for macOS and Linux. Manage queues, topics, and dead-letter messages in any browser — no Windows dependency required.">
   <meta name="keywords" content="Service Bus Explorer Mac, Service Bus Explorer Linux, Azure Service Bus macOS, Azure Service Bus Linux, Service Bus client Mac, cross-platform Service Bus explorer, online Service Bus client">
   <link rel="canonical" href="https://bussin.dev/service-bus-linux-mac/">
   
@@ -36,6 +36,7 @@
             <span class="menu-heading">LEARN</span>
             <a href="/glossary/">What is Service Bus</a>
             <a href="/glossary/dead-letter-queue/">Dead-letter queues</a>
+            <a href="/glossary/autoforwarding/">Autoforwarding</a>
             <a href="/docs/peek-lock/">Peek-lock</a>
             <span class="menu-heading">DOCS</span>
             <a href="/docs/">Getting started</a>
@@ -92,7 +93,7 @@
       <div class="feature-grid">
         <article>
           <h3>Dead-Letter Queue (DLQ) Recovery</h3>
-          <p>Examine failed messages, isolate delivery failures via custom headers (`DeadLetterReason`), modify bodies, and resubmit them safely with background worker control.</p>
+          <p>Examine failed messages, isolate delivery failures via custom headers (`DeadLetterReason`), and resubmit them safely back to the source queue with background worker control.</p>
         </article>
         <article>
           <h3>Multi-Tenant Folder Hierarchy</h3>
@@ -104,7 +105,7 @@
         </article>
         <article>
           <h3>Flexible Authentication</h3>
-          <p>Switch between corporate Entra ID identity logins and secure, locally-scoped SAS connection strings instantly depending on environment requirements.</p>
+          <p>Authenticate using corporate Entra ID identity logins with delegated `user_impersonation` scopes. Support for the local Azure Service Bus Emulator (which includes connection string authentication) is planned.</p>
         </article>
       </div>
     </section>

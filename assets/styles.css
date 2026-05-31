@@ -530,4 +530,53 @@ svg {
   }
 }
 
+/* Style for category headings in the menu panel */
+.menu-heading {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #557b93;
+  letter-spacing: 0.12em;
+  margin-top: 1.2rem;
+  margin-bottom: 0.3rem;
+  padding-left: 0.85rem;
+  display: block;
+}
+
+/* Responsive sidebar design for larger screens */
+@media (min-width: 960px) {
+  /* Hide the hamburger icon since menu is always visible */
+  details.topbar-menu > summary.hamburger-icon {
+    display: none !important;
+  }
+
+  /* Force the menu panel to display as a persistent left sidebar */
+  details.topbar-menu > nav.menu-panel {
+    display: flex !important;
+    position: fixed;
+    left: max(1.5rem, calc((100vw - 1180px) / 2 + 1.5rem));
+    top: 7.5rem;
+    width: 240px;
+    bottom: 2rem;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    max-height: none;
+    overflow-y: auto;
+    z-index: 10;
+  }
+
+  /* Create margin space on the left of main page content for the sidebar */
+  main.page-content {
+    margin-left: 272px !important; /* 240px sidebar width + 32px gap */
+  }
+
+  /* Shift the footer content to align with the main content */
+  .site-footer .footer-inner {
+    margin-left: 272px !important;
+  }
+}
+
+
 

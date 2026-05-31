@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Browser-Based Azure Service Bus Explorer | Secure PWA | bussin.dev</title>
-  <meta name="description" content="Discover how bussin.dev connects your browser directly to Azure Service Bus over secure WebSockets using Entra ID, completely eliminating backend proxies and security MITM risks.">
+  <meta name="description" content="How bussin.dev connects directly to Azure Service Bus over AMQP WebSockets — no backend proxy, no install. Your messages never leave your browser.">
   <meta name="keywords" content="browser based Service Bus, browser native Service Bus, online Service Bus client, AMQP WebSockets, secure Service Bus Explorer, zero proxy architecture">
   <link rel="canonical" href="https://bussin.dev/browser-based-service-bus-explorer/">
   
@@ -36,6 +36,7 @@
             <span class="menu-heading">LEARN</span>
             <a href="/glossary/">What is Service Bus</a>
             <a href="/glossary/dead-letter-queue/">Dead-letter queues</a>
+            <a href="/glossary/autoforwarding/">Autoforwarding</a>
             <a href="/docs/peek-lock/">Peek-lock</a>
             <span class="menu-heading">DOCS</span>
             <a href="/docs/">Getting started</a>
@@ -158,8 +159,8 @@
       <ul>
         <li><strong>Resource Discovery:</strong> Automatically queries Azure Resource Manager (ARM) APIs using your delegated tokens to index all accessible subscriptions, queues, and topics across multiple tenants.</li>
         <li><strong>Non-Destructive Peeks:</strong> Browse, filter, and inspect messages without locking them or altering their delivery states.</li>
-        <li><strong>Transactional Peek-Lock Workflows:</strong> Lock active messages, perform inspection or modification, and explicitly choose to `Complete`, `Abandon`, `Defer`, or `Dead-Letter` them with full protocol compliance.</li>
-        <li><strong>Dead-Letter Recovery (DLQ):</strong> Access failed messages, read target failure reasons, edit headers or user-defined properties, and resubmit them safely utilizing non-blocking background workers.</li>
+        <li><strong>Transactional Peek-Lock Workflows:</strong> Lock active messages, perform inspection, and explicitly choose to `Complete`, `Abandon`, or `Dead-Letter` them with full protocol compliance.</li>
+        <li><strong>Dead-Letter Recovery (DLQ):</strong> Access failed messages, read target failure reasons, inspect failure headers, and resubmit messages as-is utilizing non-blocking background workers.</li>
         <li><strong>High-Throughput Concurrent Batching:</strong> Stream thousands of messages efficiently without UI stuttering, utilizing background task queues and dynamic credit allocations.</li>
       </ul>
     </section>

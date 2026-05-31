@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Azure Service Bus Dead-Letter Queue (DLQ) Recovery | Technical Docs | bussin.dev</title>
-  <meta name="description" content="Master dead-letter queue (DLQ) inspection and message recovery in Azure Service Bus. Discover how to inspect error headers, modify payloads, and execute safe background resubmissions.">
+  <meta name="description" content="Inspect and recover dead-letter queue messages in Azure Service Bus. DLQ triggers, resubmit workflows, and background batch operations explained.">
   <meta name="keywords" content="Azure Service Bus Dead-letter queue, DLQ recovery, Service Bus resubmit message, MaxDeliveryCountExceeded, TTLExpiredException, Service Bus purge, browser native Service Bus">
   <link rel="canonical" href="https://bussin.dev/docs/dead-letter-queues/">
   
@@ -36,6 +36,7 @@
             <span class="menu-heading">LEARN</span>
             <a href="/glossary/">What is Service Bus</a>
             <a href="/glossary/dead-letter-queue/">Dead-letter queues</a>
+            <a href="/glossary/autoforwarding/">Autoforwarding</a>
             <a href="/docs/peek-lock/">Peek-lock</a>
             <span class="menu-heading">DOCS</span>
             <a href="/docs/">Getting started</a>
@@ -99,7 +100,7 @@
       <p>When executing mass message transfers or purges from a DLQ, traditional administrative utilities run risks of timing out, locking UI threads, or suffering data loss due to lock expiration. Bussin implements a specialized, multi-stage recovery architecture:</p>
       <ul>
         <li><strong>Automated Dynamic Depth-Locking:</strong> To guarantee that no messages are dropped during a move, Bussin evaluates queue metrics and dynamically updates consumer lock allocations in real-time. This prevents lock timeouts on active transfers even when network speeds fluctuate.</li>
-        <li><strong>Payload and Metadata Mutation:</strong> Developers can inspect failed messages, edit JSON or XML bodies directly in the browser editor, and alter system or user headers (e.g., removing the `DeadLetterReason` keys) to prevent re-triggered failures downstream.</li>
+        <li><strong>As-Is Resubmission with Markers:</strong> Messages are resubmitted back to their original queue as-is. To aid in traceability, Bussin automatically appends <code>x-bussin-resubmitted</code> and <code>x-bussin-resubmitted-at</code> marker properties to the resubmitted message headers.</li>
         <li><strong>Non-Blocking AMQP Pipelining:</strong> Safe background workers execute concurrent send-and-complete processes. You can monitor progress meters in the console while continuing other diagnostic operations in distinct browser blades.</li>
       </ul>
       
@@ -116,10 +117,10 @@
 2. Execute peek to populate active dashboard with failed messages
 3. Open target message to analyze `DeadLetterReason` and `DeadLetterErrorDescription`
 4. Choose "Resubmit":
-   a. Modify JSON payload payload body if required
-   b. Reset, edit, or append user-defined properties
-   c. Select target active queue or custom destination
-5. Execute: Background worker publishes to target, then issues complete to DLQ</code></pre>
+   a. Message is re-sent as-is to the original entity
+   b. Bussin adds x-bussin-resubmitted and x-bussin-resubmitted-at markers
+   c. Optionally delete the original from DLQ
+5. Execute: Background worker publishes to target, and optionally completes the message in the DLQ</code></pre>
     </section>
 
     <section>

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Azure Service Bus Explorer | Browser-Native PWA Tool | bussin.dev</title>
-  <meta name="description" content="bussin.dev is a secure, browser-native Azure Service Bus Explorer. Connect directly over AMQP WebSockets using Entra ID, inspect queues and topics, recover dead-letter messages, and perform deep searches with zero backend proxy servers.">
+  <meta name="description" content="Browse Azure Service Bus queues, topics, and dead-letter messages directly in your browser. Connects over AMQP WebSockets with Entra ID. No install required.">
   <meta name="keywords" content="Azure Service Bus, Service Bus Explorer, Service Bus client, Service Bus Explorer alternative, Service Bus Mac, Service Bus Linux, browser native Service Bus, Dead-letter queue recovery, AMQP WebSockets, Entra ID Service Bus">
   <link rel="canonical" href="https://bussin.dev/">
   
@@ -63,6 +63,7 @@
             <span class="menu-heading">LEARN</span>
             <a href="/glossary/">What is Service Bus</a>
             <a href="/glossary/dead-letter-queue/">Dead-letter queues</a>
+            <a href="/glossary/autoforwarding/">Autoforwarding</a>
             <a href="/docs/peek-lock/">Peek-lock</a>
             <span class="menu-heading">DOCS</span>
             <a href="/docs/">Getting started</a>
@@ -146,7 +147,7 @@
         </article>
         <article>
           <h3>Interactive Message Workflows</h3>
-          <p>Peek, publish, receive-and-lock, complete, abandon, defer, and resubmit messages. Manipulate system and user-defined custom properties during manual dead-letter replays.</p>
+          <p>Peek, send, receive-and-lock, complete, abandon, dead-letter, and resubmit messages. View full system and user-defined properties, and resubmit dead-letter messages back to their source queue.</p>
         </article>
         <article>
           <h3>Direct AMQP 1.0 WebSockets</h3>
@@ -197,7 +198,7 @@
               <td><span class="checkmark">✓</span></td>
             </tr>
             <tr>
-              <td><strong>Zero Backend Architecture</strong></td>
+              <td><strong>No Third-Party Data Access</strong></td>
               <td class="highlight-bussin"><span class="checkmark">✓</span></td>
               <td><span class="no-mark" aria-hidden="true">✖</span></td>
               <td><span class="checkmark">✓</span></td>
@@ -329,7 +330,8 @@
           </tbody>
         </table>
       </div>
-      <p style="color: #93b7c6; font-size: 0.9rem; margin-top: 1rem;"><em>Comparison is based on typical developer usage profiles and public specifications. Standard features are continually updated; evaluate tools according to your enterprise security boundaries.</em></p>
+      <p style="color: #93b7c6; font-size: 0.9rem; margin-top: 1rem;"><em>Bussin has no backend API, proxy server, or autonomous access to your Service Bus. All permissions are delegated via <code>user_impersonation</code> scopes — the app can only do what your Entra ID identity is already authorized to do. Your messages never leave your browser.</em></p>
+      <p style="color: #93b7c6; font-size: 0.9rem; margin-top: 0.5rem;"><em>Comparison is based on typical developer usage profiles and public specifications. Standard features are continually updated; evaluate tools according to your enterprise security boundaries.</em></p>
     </section>
 
     <section>
@@ -357,8 +359,8 @@
     <section>
       <h2>Primary Use Cases</h2>
       <ul>
-        <li><strong>Secure Hot-Fix Triage:</strong> Safely inspect and edit problematic messages in production queues using client-side Entra ID permissions.</li>
-        <li><strong>Dead-Letter Analysis & Replay:</strong> Browse failed messages in the DLQ, isolate failure reasons, edit headers, and resubmit them safely with background concurrency limits.</li>
+        <li><strong>Production Message Inspection:</strong> Peek and search messages in production queues directly from your browser using delegated Entra ID permissions.</li>
+        <li><strong>Dead-Letter Recovery:</strong> Browse failed messages in the DLQ, inspect failure reasons, and resubmit them back to the active queue — individually, in batches, or all at once using background workers.</li>
         <li><strong>Cross-Platform Infrastructure Diagnostics:</strong> Ensure Linux, Mac, and Windows engineering environments share identical access to diagnostic tooling.</li>
         <li><strong>Namespace Subscription Audit:</strong> Validate active topic filters, verify SQL/correlation routing behaviors, and confirm message arrival on topic subscriptions.</li>
       </ul>
@@ -368,7 +370,7 @@
       <h2>Frequently Asked Questions</h2>
       <div class="faq-item">
         <h3>Does bussin transit or persist my message data?</h3>
-        <p>Absolutely not. Bussin operates strictly on a zero-proxy, zero-trust architecture. There are no intermediate servers or backend relays. MSAL.js secures delegated tokens inside your browser sandbox, and the TypeScript AMQP client opens WebSocket tunnels directly to standard Azure endpoints. Your messages, SAS keys, and credentials never leave your browser context.</p>
+        <p>Absolutely not. Bussin operates strictly on a zero-proxy, zero-trust architecture. There are no intermediate servers or backend relays. MSAL.js secures delegated tokens inside your browser sandbox, and the JavaScript AMQP client opens WebSocket tunnels directly to standard Azure endpoints. All connections use delegated <code>user_impersonation</code> tokens from your Entra ID session — Bussin can only act on your behalf with your existing permissions. Messages are processed in your browser's memory and never leave it.</p>
       </div>
       <div class="faq-item">
         <h3>Do I need to deploy server components or agents?</h3>

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Azure Service Bus Glossary & Terminology | bussin.dev</title>
-  <meta name="description" content="Technical dictionary and glossary of terms for Azure Service Bus. Deep explanations of AMQP 1.0 protocols, dead-letter sub-queues, peek-lock lease settlement, and filter rule routing models.">
+  <meta name="description" content="Azure Service Bus terminology — AMQP 1.0, dead-letter queues, peek-lock settlement, topic subscriptions, and message routing concepts explained.">
   <meta name="keywords" content="Azure Service Bus glossary, AMQP 1.0 dictionary, dead-letter queue definitions, peek-lock lease terms, service bus topics and filters, cloud integration terminology">
   <link rel="canonical" href="https://bussin.dev/glossary/">
   
@@ -36,6 +36,7 @@
             <span class="menu-heading">LEARN</span>
             <a href="/glossary/">What is Service Bus</a>
             <a href="/glossary/dead-letter-queue/">Dead-letter queues</a>
+            <a href="/glossary/autoforwarding/">Autoforwarding</a>
             <a href="/docs/peek-lock/">Peek-lock</a>
             <span class="menu-heading">DOCS</span>
             <a href="/docs/">Getting started</a>
@@ -68,6 +69,11 @@
         <h2><a href="/glossary/dead-letter-queue/">Dead-Letter Sub-Queues (DLQ)</a></h2>
         <p>A system-managed secondary storage channel where expired, corrupted, or delivery-failed payloads are isolated by the broker for audit and recovery.</p>
       </article>
+      
+      <article class="interactive-card">
+        <h2><a href="/glossary/autoforwarding/">Autoforwarding & Queue Ownership</a></h2>
+        <p>A native broker feature that routes messages from a topic subscription directly into a dedicated queue, isolating processing retry boundaries, DLQs, and alerts per consumer.</p>
+      </article>
     </section>
 
     <section>
@@ -78,6 +84,11 @@
         <div>
           <h3>AMQP 1.0 (Advanced Message Queuing Protocol)</h3>
           <p>The standard binary messaging protocol specified by ISO/IEC 19464. Unlike HTTP-based REST, it operates long-lived TCP connections, optimizing telemetry throughput and tracking message states seamlessly. Learn more on the <a href="/glossary/amqp/">AMQP Protocol Page</a>.</p>
+        </div>
+
+        <div>
+          <h3>Autoforwarding & Queue Ownership Pattern</h3>
+          <p>A native Service Bus configuration where messages arriving on one entity are immediately forwarded to another. Typically used to route from a topic subscription to a dedicated consumer queue, giving each consumer independent retry policies and isolated Dead-Letter Queues. Learn more on the <a href="/glossary/autoforwarding/">Autoforwarding Page</a>.</p>
         </div>
 
         <div>

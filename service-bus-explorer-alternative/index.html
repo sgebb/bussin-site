@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Azure Service Bus Explorer Web Alternative | Direct PWA Client | bussin.dev</title>
-  <meta name="description" content="Compare bussin to traditional Azure Service Bus tools. Discover a browser-native Service Bus Explorer alternative that connects directly over secure WebSockets with Entra ID, offering a zero-install, zero-proxy cross-platform workflow.">
+  <meta name="description" content="Compare bussin to traditional Service Bus Explorer tools. Browser-native, cross-platform, zero-install — with direct Entra ID authentication.">
   <meta name="keywords" content="Azure Service Bus Explorer, Service Bus Explorer alternative, Service Bus Explorer online, Service Bus Explorer Mac, Service Bus Explorer Linux, browser native Service Bus, Entra ID Service Bus">
   <link rel="canonical" href="https://bussin.dev/service-bus-explorer-alternative/">
   
@@ -36,6 +36,7 @@
             <span class="menu-heading">LEARN</span>
             <a href="/glossary/">What is Service Bus</a>
             <a href="/glossary/dead-letter-queue/">Dead-letter queues</a>
+            <a href="/glossary/autoforwarding/">Autoforwarding</a>
             <a href="/docs/peek-lock/">Peek-lock</a>
             <span class="menu-heading">DOCS</span>
             <a href="/docs/">Getting started</a>
@@ -113,7 +114,7 @@
         </article>
         <article>
           <h3>Dynamic Depth-Locked Replays</h3>
-          <p>Resolve dead-letter spikes with dynamic, concurrent batching. Safely move, complete, or modify system and custom headers during message replays without UI lockups.</p>
+          <p>Resolve dead-letter spikes with dynamic, concurrent batching. Safely replay dead-letter messages using concurrent batching without UI lockups.</p>
         </article>
         <article>
           <figure class="visual-card">
@@ -153,7 +154,7 @@
               <td><span class="checkmark">✓</span></td>
             </tr>
             <tr>
-              <td><strong>Zero Backend Architecture</strong></td>
+              <td><strong>No Third-Party Data Access</strong></td>
               <td class="highlight-bussin"><span class="checkmark">✓</span></td>
               <td><span class="no-mark" aria-hidden="true">✖</span></td>
               <td><span class="checkmark">✓</span></td>
@@ -327,7 +328,7 @@
         <dt>Does Bussin replace the original Service Bus Explorer?</dt>
         <dd>No. The WinForms Service Bus Explorer remains a highly robust, feature-rich tool for advanced administration, particularly in local isolated TCP networks. Bussin serves as a modern, zero-install, cross-platform alternative that fits seamlessly into cloud-native browser workflows.</dd>
         <dt>Can I use Bussin with SAS Connection Strings?</dt>
-        <dd>Yes. Bussin supports connecting via standard SAS connection strings in addition to delegated Entra ID authentication. All entered keys are held purely in local browser memory and never uploaded to any backend server.</dd>
+        <dd>Bussin currently supports Entra ID (Azure AD) authentication. Support for the local Azure Service Bus Emulator (which includes connection string authentication) is planned. All tokens remain in your browser's volatile memory.</dd>
         <dt>How does Bussin handle large message streams?</dt>
         <dd>Bussin utilizes concurrent AMQP pipelining and dynamic credit allocation, enabling developers to stream, peek, or purge thousands of messages efficiently without UI blocking or thread exhaustion.</dd>
       </dl>

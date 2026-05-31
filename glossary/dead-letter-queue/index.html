@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>What is an Azure Service Bus Dead-Letter Queue (DLQ)? | bussin.dev Glossary</title>
-  <meta name="description" content="Technical explanation of the Azure Service Bus Dead-Letter Queue (DLQ) sub-entity. Learn about MaxDeliveryCount limits, TTL expirations, custom dead-letter reasons, and browser-native resubmission workflows.">
+  <meta name="description" content="What is a dead-letter queue in Azure Service Bus? MaxDeliveryCount, TTL expiration triggers, and browser-native resubmission workflows explained.">
   <meta name="keywords" content="Azure Service Bus DLQ, dead-letter sub-queue, MaxDeliveryCountExceeded, TTLExpiredException, dead-letter reason header, message resubmission, repair queue messages">
   <link rel="canonical" href="https://bussin.dev/glossary/dead-letter-queue/">
   
@@ -36,6 +36,7 @@
             <span class="menu-heading">LEARN</span>
             <a href="/glossary/">What is Service Bus</a>
             <a href="/glossary/dead-letter-queue/">Dead-letter queues</a>
+            <a href="/glossary/autoforwarding/">Autoforwarding</a>
             <a href="/docs/peek-lock/">Peek-lock</a>
             <span class="menu-heading">DOCS</span>
             <a href="/docs/">Getting started</a>
@@ -105,13 +106,13 @@
         </article>
         
         <article class="interactive-card">
-          <h3>In-Browser Payload Mutation</h3>
-          <p>Correct data formatting issues on the fly. Repair malformed JSON or XML payload strings, modify custom routing keys or application headers, and validate schemas directly inside our secure inline editor.</p>
+          <h3>Resubmit from DLQ</h3>
+          <p>Select individual messages or use bulk resubmit to send dead-letter messages back to their original queue. Messages are resubmitted as-is with a <code>x-bussin-resubmitted</code> marker property for traceability.</p>
         </article>
 
         <article class="interactive-card">
           <h3>Bulk Resubmission & Purging</h3>
-          <p>Execute bulk recovery streams. The client can resubmit corrected payloads back to their source active queue or route them to alternative destinations while keeping your operational logs completely clear.</p>
+          <p>Execute bulk recovery streams. The client can resubmit messages back to their source active queue or purge the dead-letter queue to keep operational storage clear.</p>
         </article>
       </div>
     </section>
