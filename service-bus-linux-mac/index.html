@@ -26,25 +26,24 @@
         <details class="topbar-menu menu-left">
           <summary class="hamburger-icon" aria-label="Menu">☰</summary>
         </details>
-        <nav class="menu-panel">
+                <nav class="menu-panel">
             <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
-            <span class="menu-heading">PRODUCT</span>
+            <span class="menu-heading">BUSSIN</span>
             <a href="/features/browser-native/">Features</a>
-            <a href="/browser-based-service-bus-explorer/">How it works</a>
-            <span class="menu-heading">COMPARE</span>
-            <a href="/service-bus-explorer-alternative/">Service Bus Explorer alternative</a>
-            <a href="/service-bus-linux-mac/">Mac & Linux Explorer</a>
+            <a href="/service-bus-linux-mac/">Cross-Platform</a>
+            <a href="/service-bus-explorer-alternative/">Alternatives</a>
             <span class="menu-heading">LEARN</span>
-            <a href="/glossary/">What is Service Bus</a>
-            <a href="/glossary/dead-letter-queue/">Dead-letter queues</a>
+            <a href="/glossary/">Azure Service Bus</a>
+            <a href="/glossary/dead-letter-queue/">DLQ</a>
             <a href="/glossary/autoforwarding/">Autoforwarding</a>
-            <a href="/docs/peek-lock/">Peek-lock</a>
             <span class="menu-heading">DOCS</span>
-            <a href="/docs/">Getting started</a>
-            <a href="/browser-based-service-bus-explorer/">Connecting</a>
-            <a href="/docs/peek-lock/">Debugging workflows</a>
-            <span class="menu-heading">Legal</span>
-            <a href="/privacy/">Privacy & security</a>
+            <a href="/browser-based-service-bus-explorer/">Architecture</a>
+            <a href="/docs/">Security & RBAC</a>
+            <a href="/docs/peek-lock/">Convenience Features</a>
+            <a href="/privacy/">Privacy & Security</a>
+            <span class="menu-heading">GITHUB</span>
+            <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a>
+            <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a>
           </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
       </div>
@@ -54,73 +53,57 @@
 
   <main class="container page-content">
     <article>
-      <h1>Azure Service Bus Explorer for Mac and Linux</h1>
-      <p>Modern cloud development is inherently multi-platform. While traditional Service Bus administration tools are historically bound to Windows desktop runtimes, Bussin offers a direct, protocol-native administration experience in the browser—providing macOS and Linux engineers with instant, native-speed queue and topic access with zero dependencies.</p>
-      <div class="hero-actions">
-        <a class="button primary" href="/docs/">Read Technical Docs</a>
-      </div>
+      <h1>Cross-Platform Azure Service Bus Explorer</h1>
+      <p class="lead-text">Bussin provides an identical, native-speed management interface across macOS, Linux, and Windows. By running directly in your browser, it eliminates the dependency barriers and native compilation gaps associated with traditional desktop clients.</p>
     </article>
 
-    <section>
-      <h2>Solving the Mac and Linux Tooling Gap</h2>
-      <p>Developers using macOS or Linux frequently encounter friction when trying to administer Azure Service Bus namespaces. Traditional tools present distinct barriers:</p>
+    <section style="margin-top: 2rem;">
+      <h2>The Cross-Platform Tooling Gap</h2>
+      <p>Multi-platform DevOps and SRE teams historically encounter significant friction when administering Azure Service Bus queues and topics:</p>
       <ul>
-        <li><strong>Windows Dependency Legacy:</strong> The standard open-source desktop <em>Service Bus Explorer</em> is built on Windows Forms. Running it on macOS or Linux requires complex Wine configurations, Mono setups, or dedicated Windows Virtual Machines.</li>
-        <li><strong>Heavy Desktop Packaging:</strong> Cross-platform Electron utilities resolve the OS barrier but introduce substantial memory profiles, slow start times, and separate administrative update cycles.</li>
-        <li><strong>Portal API Constraints:</strong> The Azure Portal's Web UI is cross-platform but relies on slow HTTP REST management plane APIs, lacks support for high-throughput background operations (like background purges), and does not support organizing custom namespace folder structures.</li>
+        <li><strong>Wine & Mono Emulation Overhead:</strong> The classic Windows-based <em>Service Bus Explorer</em> requires Wine configurations or Mono runtimes on macOS and Linux. These emulators frequently suffer from slow startup times, font rendering glitches, and UI crashes.</li>
+        <li><strong>Heavy virtual Machines:</strong> Booting up entire Windows virtual machines just to check a message body is incredibly resource-heavy and slow.</li>
+        <li><strong>Security Review Bottlenecks:</strong> Corporate IT security policies often restrict or delay the installation of native local executables (.exe, .dmg, or .deb packages).</li>
       </ul>
     </section>
 
     <section>
-      <h2>Direct AMQP Tunneling on standard Browser Engines</h2>
-      <p>Bussin achieves platform parity by using standard HTML5 and web APIs to run directly in any browser engine (V8, WebKit, Gecko). By combining delegated Entra ID authentication with Rhea AMQP connections tunneled over WebSockets (`wss://`), Bussin gives macOS and Linux users a secure, fast, and feature-rich console:</p>
+      <h2>Zero-Install Progressive Web App (PWA)</h2>
+      <p>Bussin runs instantly in Safari, Chrome, Firefox, or Edge. However, for a true desktop experience, you can install it as a Progressive Web App (PWA) with a single click in your browser's address bar:</p>
       <ul>
-        <li><strong>Zero Package Installations:</strong> Eliminate local dependency loops, package manager overhead, and system access constraints. Just open the browser tab and begin debugging.</li>
-        <li><strong>MSAL-Driven Session Security:</strong> Seamlessly integrate with Entra ID multi-tenant profiles. Acquire delegated tokens through standard browser sessions, avoiding connection string scatter in local configurations.</li>
-        <li><strong>Safe Concurrent Batching:</strong> Move, delete, or replay thousands of active and dead-letter messages utilizing concurrent AMQP pipelining running in non-blocking background workers.</li>
+        <li><strong>Standalone Window:</strong> Runs in a dedicated app container, completely stripping away browser address bars and clutter.</li>
+        <li><strong>OS Dock & Taskbar Integration:</strong> Places the Bussin logo directly in your macOS Dock or Linux application drawer.</li>
+        <li><strong>Keyboard Parity:</strong> Supports standard system shortcuts and starts up instantly with zero local packages.</li>
       </ul>
       
       <figure class="visual-card" style="margin-top: 2rem;">
-        <img src="/assets/media/lightmode.jpg" alt="Bussin administrative workspace displaying active message peeks, system headers, custom JSON body payload, and connection settings" />
-        <figcaption>A clean, premium browser UI that operates with protocol fidelity across macOS, Linux, and Windows.</figcaption>
+        <a href="#zoom-lightmode" class="zoom-trigger" title="Click to zoom screenshot">
+          <img src="/assets/media/lightmode.jpg" alt="Bussin administrative workspace displaying active message peeks, system headers, custom JSON body payload, and connection settings" />
+        </a>
+        <figcaption>A clean, premium browser UI that operates with protocol fidelity across macOS, Linux, and Windows. (Click to zoom)</figcaption>
       </figure>
     </section>
 
     <section>
-      <h2>Deep Diagnostic Features</h2>
-      <div class="feature-grid">
-        <article>
-          <h3>Dead-Letter Queue (DLQ) Recovery</h3>
-          <p>Examine failed messages, isolate delivery failures via custom headers (`DeadLetterReason`), and resubmit them safely back to the source queue with background worker control.</p>
-        </article>
-        <article>
-          <h3>Multi-Tenant Folder Hierarchy</h3>
-          <p>Organize numerous dev, staging, and production namespaces across separate directories. Instantly locate entities via active search—stored in browser localStorage.</p>
-        </article>
-        <article>
-          <h3>Deep Index Payload Scans</h3>
-          <p>Perform multi-criteria client-side indexing. Search up to 1,000,000 active message bodies, session IDs, and sequence numbers using flexible pattern filters.</p>
-        </article>
-        <article>
-          <h3>Flexible Authentication</h3>
-          <p>Authenticate using corporate Entra ID identity logins with delegated `user_impersonation` scopes. Support for the local Azure Service Bus Emulator (which includes connection string authentication) is planned.</p>
-        </article>
-      </div>
-    </section>
-
-    <section>
-      <h2>Related Resources</h2>
-      <p>To learn more about advanced messaging architectures and browser-native patterns, explore our guide on <a href="/docs/peek-lock/">Peek-lock state management</a>, review <a href="/docs/dead-letter-queues/">Dead-letter recovery procedures</a>, or see how our <a href="/browser-based-service-bus-explorer/">WebSocket transport layer</a> functions under the hood.</p>
+      <h2>Mobile & On-Call Responsive Design</h2>
+      <p>Alerts don't wait for you to open a laptop. Bussin is designed from the ground up with a fluid, responsive CSS grid. On-call engineers can securely authenticate via Microsoft Entra ID, peek active partitions, check dead-letter reasons, or resubmit backlogged messages directly from a mobile phone or tablet.</p>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div>
-        <p><strong>Quick Links:</strong> <a href="/browser-based-service-bus-explorer/">How It Works</a> · <a href="/service-bus-explorer-alternative/">Alternative Guide</a> · <a href="/docs/">Technical Docs</a> · <a href="/">Home</a></p>
-      </div>
-      <p>Secure, browser-native Azure Service Bus Explorer built for modern cross-platform DevOps teams.</p>
+      <p>&copy; 2026 Bussin. MIT License. Open source on <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">GitHub</a>.</p>
     </div>
   </footer>
+
+  <!-- Click-to-zoom Modals -->
+  <div id="zoom-lightmode" class="lightbox">
+    <a href="#_" class="lightbox-close-overlay" aria-label="Close zoom"></a>
+    <div class="lightbox-content">
+      <a href="#_" class="lightbox-close">&times;</a>
+      <img src="/assets/media/lightmode.jpg" alt="Bussin administrative workspace displaying active message peeks, system headers, custom JSON body payload, and connection settings" />
+      <p class="lightbox-caption">A clean, premium browser UI that operates with protocol fidelity across macOS, Linux, and Windows.</p>
+    </div>
+  </div>
 </body>
 </html>

@@ -26,98 +26,95 @@
         <details class="topbar-menu menu-left">
           <summary class="hamburger-icon" aria-label="Menu">☰</summary>
         </details>
-        <nav class="menu-panel">
+                <nav class="menu-panel">
             <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
-            <span class="menu-heading">PRODUCT</span>
+            <span class="menu-heading">BUSSIN</span>
             <a href="/features/browser-native/">Features</a>
-            <a href="/browser-based-service-bus-explorer/">How it works</a>
-            <span class="menu-heading">COMPARE</span>
-            <a href="/service-bus-explorer-alternative/">Service Bus Explorer alternative</a>
-            <a href="/service-bus-linux-mac/">Mac & Linux Explorer</a>
+            <a href="/service-bus-linux-mac/">Cross-Platform</a>
+            <a href="/service-bus-explorer-alternative/">Alternatives</a>
             <span class="menu-heading">LEARN</span>
-            <a href="/glossary/">What is Service Bus</a>
-            <a href="/glossary/dead-letter-queue/">Dead-letter queues</a>
+            <a href="/glossary/">Azure Service Bus</a>
+            <a href="/glossary/dead-letter-queue/">DLQ</a>
             <a href="/glossary/autoforwarding/">Autoforwarding</a>
-            <a href="/docs/peek-lock/">Peek-lock</a>
             <span class="menu-heading">DOCS</span>
-            <a href="/docs/">Getting started</a>
-            <a href="/browser-based-service-bus-explorer/">Connecting</a>
-            <a href="/docs/peek-lock/">Debugging workflows</a>
-            <span class="menu-heading">Legal</span>
-            <a href="/privacy/">Privacy & security</a>
+            <a href="/browser-based-service-bus-explorer/">Architecture</a>
+            <a href="/docs/">Security & RBAC</a>
+            <a href="/docs/peek-lock/">Convenience Features</a>
+            <a href="/privacy/">Privacy & Security</a>
+            <span class="menu-heading">GITHUB</span>
+            <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a>
+            <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a>
           </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
       </div>
       <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
     </div>
-  </header>
-
-  <main class="container page-content">
+  </header>  <main class="container page-content">
     <article>
-      <h1>How Peek-Lock and Message Actions Work</h1>
-      <p>Azure Service Bus supports two ways to read messages: **Receive-and-Delete** (which deletes the message as soon as it's dispatched) and **Peek-Lock** (which locks the message temporarily so you can complete, abandon, or dead-letter it). This guide covers how Peek-Lock handles locks, lock renewals, and manual message actions within Bussin.</p>
+      <h1>Convenience Features & Developer Experience</h1>
+      <p class="lead-text">Managing message locking, payload inspections, and dead-letter settlements inside the standard Azure Portal is often a slow, high-friction process. Bussin is built specifically to address these portal gaps, offering direct, fast, and convenient control over message life cycles.</p>
     </article>
 
+    <section style="margin-top: 2rem;">
+      <h2>Portal Friction vs. Bussin DevX</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Diagnostic Capability</th>
+            <th>Standard Azure Portal Experience</th>
+            <th>Bussin Web Console Experience</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Multi-Message Peeks</strong></td>
+            <td>Slow, single-page peeks with limited sorting or column configuration.</td>
+            <td>High-speed, responsive data grids. Sort and inspect hundreds of active payloads inline.</td>
+          </tr>
+          <tr>
+            <td><strong>Lock Settlement Actions</strong></td>
+            <td>Tedious multi-click dialogs to Complete or Abandon messages.</td>
+            <td>Unified action bar. Complete, Abandon, or Dead-Letter multiple checked messages in one click.</td>
+          </tr>
+          <tr>
+            <td><strong>Custom Dead-Letter Reasons</strong></td>
+            <td>No ability to manually inject custom failure metadata when dead-lettering.</td>
+            <td>Provide custom <code>DeadLetterReason</code> and <code>ErrorDescription</code> strings on-the-fly.</td>
+          </tr>
+          <tr>
+            <td><strong>Lock Lease Management</strong></td>
+            <td>No visibility or warnings for lock expiration times.</td>
+            <td>Active visual lease countdowns with one-click lock extensions (lock renewals).</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
     <section>
-      <h2>Peek-Lock vs. Receive-and-Delete</h2>
-      <p>The standard connection configuration dictates how the broker and the client settle transfer frames under the AMQP 1.0 specification:</p>
+      <h2>Peek-Lock Message Actions</h2>
+      <p>Bussin exposes standard AMQP 1.0 settlement states behind a clean, visual console interface:</p>
       <ul>
-        <li><strong>Receive-and-Delete (At-Most-Once):</strong> The broker immediately settles the message transfer upon dispatch. The message is deleted from the broker before the client begins execution, risking data loss if the consumer crashes mid-transaction.</li>
-        <li><strong>Peek-Lock (At-Least-Once):</strong> The broker locks the message for exclusive consumption by the client link for a specified duration (default is 30 seconds). The message remains on the broker but is hidden from other consumers, allowing safe, transactional settlement once processing is successfully verified.</li>
+        <li><strong>Complete (Accepted):</strong> Confirms successful processing. Dispatches an <code>Accepted</code> settlement frame to immediately delete the message from the queue or subscription.</li>
+        <li><strong>Abandon (Released):</strong> Rejects the current processing attempt. Dispatches a <code>Released</code> frame to immediately unlock the message so other active consumers can retry it.</li>
+        <li><strong>Dead-Letter (Rejected):</strong> Moves malformed payloads to secondary DLQ storage. Dispatches a <code>Rejected</code> frame containing your custom diagnostic details.</li>
       </ul>
     </section>
 
     <section>
-      <h2>Complete, Abandon, and Dead-Letter States</h2>
-      <p>When you retrieve and lock a message using Bussin, you can manually decide what to do with it. Each action changes the message's state directly on the Azure Service Bus broker (Note: Bussin supports Complete, Abandon, and Dead-Letter actions; Defer is explained below as a concept):</p>
-      
-      <h3>1. Complete (`Accepted`)</h3>
-      <p>Acknowledges successful message processing. The browser client sends an `Accepted` disposition frame to the broker, which permanently deletes the message from the queue or subscription partition.</p>
-
-      <h3>2. Abandon (`Released`)</h3>
-      <p>Indicates a processing failure where the message should be re-attempted. The client sends a `Released` disposition frame. The broker immediately unlocks the message, making it visible to other active consumers. The message's `DeliveryCount` is incremented. If it exceeds the entity's `MaxDeliveryCount` limit, the broker automatically dead-letters the message.</p>
-
-      <h3>3. Dead-Letter (`Rejected`)</h3>
-      <p>Signals a permanent, unrecoverable failure (e.g., custom payload schema violations). The client sends a `Rejected` disposition frame containing custom error detail headers (`DeadLetterReason` and `DeadLetterErrorDescription`). The broker relocates the message to the entity's dead-letter sub-queue (`$DefaultDeadLetterQueue`) for isolated audit.</p>
-
-      <h3>4. Defer (`Modified` with `undeliverable-here`)</h3>
-      <p>Suspends immediate message delivery without processing or rejecting it. The broker preserves the message in the queue but holds it aside. It cannot be consumed by standard lock loops and must be retrieved explicitly by its `SequenceNumber` via a direct management-plane call.</p>
-
-      <pre><code>// Message Lock and State Transitions
-[Active Queue] ──(Receive & Lock)──> [Locked State (In Flight)]
-                                           │
-         ┌───────────────┬─────────────────┼────────────────┐
-         ▼               ▼                 ▼                ▼
-     Accepted        Released           Rejected         Modified
-    (Complete)      (Abandon)        (Dead-Letter)       (Defer)
-         │               │                 │                │
-         ▼               ▼                 ▼                ▼
-     [Deleted]     [Re-queued]         [To DLQ]        [Held Aside]</code></pre>
+      <h2>Lease Expiry Countdown & Renewals</h2>
+      <p>When you lock messages using Peek-Lock, the broker hides them from other consumers for a configured duration (default is 30 seconds). If your manual inspection takes longer than this window, the lock expires and the message is released back to active status, which can lead to duplicate processing.</p>
+      <p>Bussin actively tracks lock leases using the message's <code>LockedUntilUtc</code> property, displaying a live countdown in the preview panel. If you need more time, a single click triggers an on-the-fly lock renewal, extending the lease directly from your browser.</p>
     </section>
 
     <section>
-      <h2>Lock Duration and Lock Renewal Mechanics</h2>
-      <p>Every Peek-Lock transaction is bound by the queue or subscription's configured `LockDuration`. If the lock expires before the client settles the message, the broker automatically releases the message back to the active queue. This is a critical safeguard against consumer crashes.</p>
-      <p>In Bussin, lock parameters are managed via protocol-native variables:</p>
-      <ul>
-        <li><strong>Lock Expiry Tracking:</strong> The browser UI actively displays the remaining lock lease time, calculated directly from the AMQP message's `LockedUntilUtc` system property.</li>
-        <li><strong>Lock Duration Extension:</strong> For extensive manual diagnostics, developers can trigger lock renewals. Bussin leverages management-plane links to execute `RenewMessageLockAsync` updates, renewing the lock lease without losing current sequence offsets.</li>
-      </ul>
-      <p class="note"><strong>Aesthetic Tip:</strong> When using the Bussin active explorer, utilize the message preview blade to review the absolute system timestamp values of `LockedUntilUtc`, `SequenceNumber`, and `PartitionKey` in real-time.</p>
-    </section>
-
-    <section>
-      <h2>Next Steps</h2>
-      <p>Continue exploring browser-native workflows by reviewing our guide on <a href="/docs/dead-letter-queues/">Dead-letter queue inspection and recovery</a>, validate routing rules in <a href="/docs/topic-subscriptions/">Topic and subscription monitoring</a>, or examine our <a href="/glossary/amqp/">AMQP protocol glossary</a>.</p>
+      <h2>Safe Bulk Operations</h2>
+      <p>Rather than writing complex PowerShell scripts to manage queue backlogs, Bussin provides built-in, non-blocking bulk operations. Move thousands of dead-lettered payloads back to the parent queue, or safely purge backlogs while keeping track of real-time progress meters.</p>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div>
-        <p><strong>Quick Navigation:</strong> <a href="/docs/">Technical Docs</a> · <a href="/service-bus-explorer-alternative/">Alternative Guide</a> · <a href="/browser-based-service-bus-explorer/">How It Works</a> · <a href="/">Home</a></p>
-      </div>
-      <p>Direct browser-native Azure Service Bus Explorer built for modern developer and SRE diagnostics.</p>
+      <p>&copy; 2026 Bussin. MIT License. Open source on <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">GitHub</a>.</p>
     </div>
   </footer>
 </body>

@@ -26,102 +26,69 @@
         <details class="topbar-menu menu-left">
           <summary class="hamburger-icon" aria-label="Menu">☰</summary>
         </details>
-        <nav class="menu-panel">
+                <nav class="menu-panel">
             <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
-            <span class="menu-heading">PRODUCT</span>
+            <span class="menu-heading">BUSSIN</span>
             <a href="/features/browser-native/">Features</a>
-            <a href="/browser-based-service-bus-explorer/">How it works</a>
-            <span class="menu-heading">COMPARE</span>
-            <a href="/service-bus-explorer-alternative/">Service Bus Explorer alternative</a>
-            <a href="/service-bus-linux-mac/">Mac & Linux Explorer</a>
+            <a href="/service-bus-linux-mac/">Cross-Platform</a>
+            <a href="/service-bus-explorer-alternative/">Alternatives</a>
             <span class="menu-heading">LEARN</span>
-            <a href="/glossary/">What is Service Bus</a>
-            <a href="/glossary/dead-letter-queue/">Dead-letter queues</a>
+            <a href="/glossary/">Azure Service Bus</a>
+            <a href="/glossary/dead-letter-queue/">DLQ</a>
             <a href="/glossary/autoforwarding/">Autoforwarding</a>
-            <a href="/docs/peek-lock/">Peek-lock</a>
             <span class="menu-heading">DOCS</span>
-            <a href="/docs/">Getting started</a>
-            <a href="/browser-based-service-bus-explorer/">Connecting</a>
-            <a href="/docs/peek-lock/">Debugging workflows</a>
-            <span class="menu-heading">Legal</span>
-            <a href="/privacy/">Privacy & security</a>
+            <a href="/browser-based-service-bus-explorer/">Architecture</a>
+            <a href="/docs/">Security & RBAC</a>
+            <a href="/docs/peek-lock/">Convenience Features</a>
+            <a href="/privacy/">Privacy & Security</a>
+            <span class="menu-heading">GITHUB</span>
+            <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a>
+            <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a>
           </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
       </div>
       <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
     </div>
   </header>
-
   <main class="container page-content">
     <article>
-      <h1>Understanding Dead-Letter Sub-Queues (DLQ)</h1>
-      <p class="lead-text">In Azure Service Bus, a Dead-Letter Queue (DLQ) is not a standalone queue entity. Instead, it is a system-managed secondary sub-queue automatically attached to every queue, topic, or subscription endpoint, specifically created to store messages that cannot be processed successfully.</p>
-      <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-        <a class="button primary" href="/docs/dead-letter-queues/">Read DLQ Recovery Workflows</a>
-      </div>
+      <h1>Dead-Letter Queues (DLQ)</h1>
+      <p class="lead-text">In Azure Service Bus, a Dead-Letter Queue (DLQ) is not a separate queue entity. It is a system-managed secondary sub-queue automatically attached to every queue or topic subscription to isolate unprocessable or expired messages.</p>
     </article>
 
-    <section>
-      <h2>Common Broker-Level Dead-Letter Triggers</h2>
-      <p>The Service Bus broker automatically routes messages to the dead-letter sub-queue when specific constraints are violated. Every dead-letter event appends two vital system properties to the message: <code>DeadLetterReason</code> and <code>DeadLetterErrorDescription</code>. Typical triggers include:</p>
-
-      <div style="display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1.5rem;">
-        <div>
-          <h3>1. <code>MaxDeliveryCountExceeded</code></h3>
-          <p>Each queue has a configured maximum retry threshold (default is 10). If a consumer client locks a message, encounters an unhandled exception, and abandons the lock (or the lock lease expires) repeatedly until the delivery count exceeds this threshold, the broker moves the message to the DLQ to prevent infinite loops.</p>
-        </div>
-
-        <div>
-          <h3>2. <code>TTLExpiredException</code> (Time-To-Live Expiration)</h3>
-          <p>If <code>EnableDeadLetteringOnMessageExpiration</code> is set to <code>true</code> on the entity, any active message that remains unretrieved by consumers past its configured Time-To-Live (TTL) limit is transferred to the dead-letter sub-queue.</p>
-        </div>
-
-        <div>
-          <h3>3. <code>HeaderSizeExceeded</code> & <code>SubscriptionFilterMismatch</code></h3>
-          <p>Messages with headers exceeding total protocol limits or those matching strict subscription rules that force dead-lettering upon routing failures are instantly sequestered.</p>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <h2>Protocol Path Routing</h2>
-      <p>Because dead-letter queues are sub-entities, consumer clients address them using specialized AMQP 1.0 entity path decorators:</p>
+    <section style="margin-top: 2rem;">
+      <h2>Why Messages Get Dead-Lettered</h2>
+      <p>The Service Bus broker automatically routes messages to the DLQ sub-queue when specific constraints are violated, appending two diagnostic properties: <code>DeadLetterReason</code> and <code>DeadLetterErrorDescription</code>.</p>
       <ul>
-        <li><strong>Standard Queue DLQ Path:</strong> <code>&lt;queue-name&gt;/$DeadLetterQueue</code></li>
-        <li><strong>Topic Subscription DLQ Path:</strong> <code>&lt;topic-name&gt;/subscriptions/&lt;subscription-name&gt;/$DeadLetterQueue</code></li>
+        <li><strong>MaxDeliveryCountExceeded:</strong> A consumer locked and abandoned (or crashed during) a message more times than the queue's configured <code>MaxDeliveryCount</code> (default is 10). The broker moves it to prevent infinite processing loops.</li>
+        <li><strong>TTLExpiredException:</strong> If <code>EnableDeadLetteringOnMessageExpiration</code> is enabled, messages that remain unretrieved past their Time-To-Live (TTL) limit are moved to the DLQ.</li>
+        <li><strong>HeaderSizeExceeded:</strong> The total byte footprint of custom user properties exceeds protocol limits.</li>
       </ul>
-      <p>Bussin encapsulates this routing path formatting behind a clean, graphical workspace hierarchy. Clicking the DLQ folder icon on any active entity tells the Rhea engine to open an AMQP receiver link pointing directly to the broker's dead-letter channel.</p>
     </section>
 
     <section>
-      <h2>Bussin-Native Dead-Letter Recovery Workflows</h2>
-      <p>Standard developer utilities make inspecting and recovering from dead-letter states difficult, often requiring complex PowerShell scripts or third-party desktop tools. Bussin transforms DLQ troubleshooting into a fast, visual, secure workflow inside your browser:</p>
-      
-      <div class="feature-grid">
-        <article class="interactive-card">
-          <h3>Local Exception Inspection</h3>
-          <p>Instantly browse dead-lettered payloads. Bussin parses the <code>DeadLetterReason</code> and custom exception headers, highlighting the precise root cause (e.g., validation failures or consumer timeout logs).</p>
-        </article>
-        
-        <article class="interactive-card">
-          <h3>Resubmit from DLQ</h3>
-          <p>Select individual messages or use bulk resubmit to send dead-letter messages back to their original queue. Messages are resubmitted as-is with a <code>x-bussin-resubmitted</code> marker property for traceability.</p>
-        </article>
+      <h2>The Topic Subscription Resubmission Gotcha</h2>
+      <p>A critical architectural limitation of Azure Service Bus involves topic subscriptions:</p>
+      <blockquote>
+        <strong>Important:</strong> You cannot send a message directly into a specific subscription or a subscription's active queue. To resubmit a dead-lettered message from a subscription's DLQ, the message must be sent back to the parent <em>topic</em>. 
+      </blockquote>
+      <p>This means the resubmitted message will be evaluated against all active subscription filter rules on that topic, potentially duplicating the message across other healthy subscriptions. When executing bulk replays in Bussin, keep this broker-level routing behavior in mind.</p>
+    </section>
 
-        <article class="interactive-card">
-          <h3>Bulk Resubmission & Purging</h3>
-          <p>Execute bulk recovery streams. The client can resubmit messages back to their source active queue or purge the dead-letter queue to keep operational storage clear.</p>
-        </article>
-      </div>
+    <section>
+      <h2>AMQP Sub-Queue Routing Paths</h2>
+      <p>Because DLQs are sub-entities, consumer clients address them using specialized AMQP 1.0 entity path decorators:</p>
+      <ul>
+        <li><strong>Queue DLQ:</strong> <code>&lt;queue-name&gt;/$DeadLetterQueue</code></li>
+        <li><strong>Topic Subscription DLQ:</strong> <code>&lt;topic-name&gt;/subscriptions/&lt;subscription-name&gt;/$DeadLetterQueue</code></li>
+      </ul>
+      <p>Bussin handles this path formatting automatically under the hood, utilizing direct Rhea AMQP receiver links to stream or purge your DLQ messages directly from your browser container.</p>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div>
-        <p><strong>Quick Navigation:</strong> <a href="/docs/dead-letter-queues/">DLQ User Guide</a> · <a href="/glossary/amqp/">AMQP Standard</a> · <a href="/docs/peek-lock/">Lock Settlement Guide</a></p>
-      </div>
-      <p>Direct browser-native Azure Service Bus Explorer built for modern developer and SRE diagnostics.</p>
+      <p>&copy; 2026 Bussin. MIT License. Open source on <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">GitHub</a>.</p>
     </div>
   </footer>
 </body>

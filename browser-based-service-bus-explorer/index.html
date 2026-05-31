@@ -26,25 +26,24 @@
         <details class="topbar-menu menu-left">
           <summary class="hamburger-icon" aria-label="Menu">☰</summary>
         </details>
-        <nav class="menu-panel">
+                <nav class="menu-panel">
             <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
-            <span class="menu-heading">PRODUCT</span>
+            <span class="menu-heading">BUSSIN</span>
             <a href="/features/browser-native/">Features</a>
-            <a href="/browser-based-service-bus-explorer/">How it works</a>
-            <span class="menu-heading">COMPARE</span>
-            <a href="/service-bus-explorer-alternative/">Service Bus Explorer alternative</a>
-            <a href="/service-bus-linux-mac/">Mac & Linux Explorer</a>
+            <a href="/service-bus-linux-mac/">Cross-Platform</a>
+            <a href="/service-bus-explorer-alternative/">Alternatives</a>
             <span class="menu-heading">LEARN</span>
-            <a href="/glossary/">What is Service Bus</a>
-            <a href="/glossary/dead-letter-queue/">Dead-letter queues</a>
+            <a href="/glossary/">Azure Service Bus</a>
+            <a href="/glossary/dead-letter-queue/">DLQ</a>
             <a href="/glossary/autoforwarding/">Autoforwarding</a>
-            <a href="/docs/peek-lock/">Peek-lock</a>
             <span class="menu-heading">DOCS</span>
-            <a href="/docs/">Getting started</a>
-            <a href="/browser-based-service-bus-explorer/">Connecting</a>
-            <a href="/docs/peek-lock/">Debugging workflows</a>
-            <span class="menu-heading">Legal</span>
-            <a href="/privacy/">Privacy & security</a>
+            <a href="/browser-based-service-bus-explorer/">Architecture</a>
+            <a href="/docs/">Security & RBAC</a>
+            <a href="/docs/peek-lock/">Convenience Features</a>
+            <a href="/privacy/">Privacy & Security</a>
+            <span class="menu-heading">GITHUB</span>
+            <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a>
+            <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a>
           </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
       </div>
@@ -77,7 +76,7 @@
       <p>Bussin's security model is enforced natively by your browser's sandbox. Because direct data-plane REST endpoints on Azure Service Bus completely lack CORS headers (making direct HTTP requests from the browser impossible), Bussin opens a direct WebSocket tunnel to pipe raw AMQP 1.0 frames safely without intermediate server proxies:</p>
       
       <div class="architecture-container" style="margin: 2.5rem 0; width: 100%; display: flex; justify-content: center;">
-        <svg viewBox="0 0 800 420" width="100%" height="auto" class="architecture-diagram" style="background: #03060D; border: 1px solid rgba(34, 194, 183, 0.12); border-radius: 12px; padding: 20px; font-family: 'Inter', system-ui, sans-serif; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);">
+        <svg viewBox="0 0 840 380" width="100%" height="auto" class="architecture-diagram" style="background: #03060D; border: 1px solid rgba(34, 194, 183, 0.12); border-radius: 12px; padding: 20px; font-family: 'Inter', system-ui, sans-serif; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);">
           <!-- Defs for markers and gradients -->
           <defs>
             <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
@@ -90,63 +89,57 @@
           </defs>
 
           <!-- BROWSER SANDBOX BOUNDS -->
-          <rect x="20" y="20" width="320" height="380" rx="12" fill="#0C1422" stroke="url(#glow)" stroke-width="2" />
-          <text x="40" y="50" fill="#FFFFFF" font-weight="800" font-size="15">Browser Sandbox (100% Client)</text>
+          <rect x="20" y="20" width="340" height="340" rx="12" fill="#0C1422" stroke="url(#glow)" stroke-width="2" />
+          <text x="40" y="50" fill="#FFFFFF" font-weight="800" font-size="15">Browser Sandbox (100% Client-Side)</text>
           
           <!-- Browser Inside components -->
-          <!-- Blazor UI -->
-          <rect x="40" y="80" width="280" height="60" rx="8" fill="#141E30" stroke="rgba(34, 194, 183, 0.3)" stroke-width="1" />
-          <text x="60" y="115" fill="#FFFFFF" font-weight="600" font-size="13">Blazor WASM UI / Blades</text>
-          
           <!-- MSAL.js -->
-          <rect x="40" y="160" width="280" height="60" rx="8" fill="#141E30" stroke="rgba(34, 194, 183, 0.3)" stroke-width="1" />
-          <text x="60" y="195" fill="#FFFFFF" font-weight="600" font-size="13">MSAL.js Authentication</text>
+          <rect x="40" y="75" width="300" height="65" rx="8" fill="#141E30" stroke="rgba(34, 194, 183, 0.3)" stroke-width="1" />
+          <text x="60" y="100" fill="#FFFFFF" font-weight="600" font-size="13">MSAL.js Engine</text>
+          <text x="60" y="120" fill="#94A3B8" font-size="11">Manages user identities & token caches</text>
+          
+          <!-- Blazor WASM UI -->
+          <rect x="40" y="170" width="300" height="65" rx="8" fill="#141E30" stroke="rgba(34, 194, 183, 0.3)" stroke-width="1" />
+          <text x="60" y="195" fill="#FFFFFF" font-weight="600" font-size="13">Blazor WebAssembly UI</text>
+          <text x="60" y="215" fill="#94A3B8" font-size="11">Renders admin panel & namespace blades</text>
           
           <!-- Rhea AMQP Engine -->
-          <rect x="40" y="240" width="280" height="60" rx="8" fill="#141E30" stroke="rgba(34, 194, 183, 0.3)" stroke-width="1" />
-          <text x="60" y="275" fill="#FFFFFF" font-weight="600" font-size="13">Rhea AMQP (Wasm/JS)</text>
+          <rect x="40" y="265" width="300" height="65" rx="8" fill="#141E30" stroke="rgba(34, 194, 183, 0.3)" stroke-width="1" />
+          <text x="60" y="290" fill="#FFFFFF" font-weight="600" font-size="13">Rhea AMQP Wire Engine</text>
+          <text x="60" y="310" fill="#94A3B8" font-size="11">Pipes raw AMQP 1.0 frames</text>
 
-          <!-- LocalStorage -->
-          <rect x="40" y="320" width="280" height="50" rx="8" fill="#141E30" stroke="rgba(34, 194, 183, 0.3)" stroke-width="1" />
-          <text x="60" y="350" fill="#94A3B8" font-size="12">Saved Workspaces (LocalStorage)</text>
-
-          <!-- AZURE CLOUD BOUNDS -->
+          <!-- AZURE CLOUD CLUSTER -->
           <!-- Entra ID -->
-          <rect x="480" y="20" width="300" height="80" rx="12" fill="#0C1422" stroke="rgba(255, 255, 255, 0.1)" stroke-width="1.5" />
-          <text x="500" y="50" fill="#FFFFFF" font-weight="800" font-size="14">Entra ID (Azure AD)</text>
-          <text x="500" y="70" fill="#94A3B8" font-size="11">OAuth 2.0 PKCE Auth Provider</text>
+          <rect x="480" y="70" width="320" height="75" rx="8" fill="#0C1422" stroke="rgba(255, 255, 255, 0.1)" stroke-width="1.5" />
+          <text x="500" y="98" fill="#FFFFFF" font-weight="800" font-size="14">Entra ID (Azure AD)</text>
+          <text x="500" y="120" fill="#94A3B8" font-size="11">OAuth 2.0 PKCE Auth Provider</text>
 
           <!-- Azure Resource Manager (ARM) -->
-          <rect x="480" y="140" width="300" height="100" rx="12" fill="#0C1422" stroke="rgba(255, 255, 255, 0.1)" stroke-width="1.5" />
-          <text x="500" y="170" fill="#FFFFFF" font-weight="800" font-size="14">Azure Resource Manager (ARM)</text>
-          <text x="500" y="195" fill="#22C2B7" font-weight="600" font-size="11">CORS-Enabled REST APIs</text>
-          <text x="500" y="218" fill="#94A3B8" font-size="11">management.azure.com (List namespaces/queues)</text>
+          <rect x="480" y="165" width="320" height="75" rx="8" fill="#0C1422" stroke="rgba(255, 255, 255, 0.1)" stroke-width="1.5" />
+          <text x="500" y="193" fill="#FFFFFF" font-weight="800" font-size="14">Azure Resource Manager (ARM)</text>
+          <text x="500" y="215" fill="#94A3B8" font-size="11">management.azure.com (CORS-REST)</text>
 
           <!-- Service Bus Data Plane -->
-          <rect x="480" y="280" width="300" height="120" rx="12" fill="#0C1422" stroke="rgba(255, 255, 255, 0.1)" stroke-width="1.5" />
-          <text x="500" y="310" fill="#FFFFFF" font-weight="800" font-size="14">Azure Service Bus Data Plane</text>
-          <text x="500" y="335" fill="#EF4444" font-weight="600" font-size="11">NO CORS SUPPORT ON REST API</text>
-          <text x="500" y="358" fill="#22C2B7" font-weight="600" font-size="11">WSS AMQP Connection Port 443</text>
-          <text x="500" y="380" fill="#94A3B8" font-size="11">Direct Peek/Send/Lock (Rhea Connection)</text>
+          <rect x="480" y="260" width="320" height="75" rx="8" fill="#0C1422" stroke="rgba(255, 255, 255, 0.1)" stroke-width="1.5" />
+          <text x="500" y="288" fill="#FFFFFF" font-weight="800" font-size="14">Azure Service Bus Data Plane</text>
+          <text x="500" y="310" fill="#22C2B7" font-weight="600" font-size="11">Direct AMQP over WebSockets (Port 443)</text>
 
           <!-- PATHS & ARROWS -->
-          <!-- Auth flow -->
-          <path d="M 320 180 Q 400 150 480 80" fill="none" stroke="#22C2B7" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow)" />
-          <text x="365" y="125" fill="#22C2B7" font-size="10" text-anchor="middle" font-weight="600">1. Authenticate (MSAL)</text>
+          <!-- Flow 1: MSAL.js -> Entra ID -->
+          <path d="M 340 93 L 480 93" fill="none" stroke="#22C2B7" stroke-width="2" marker-end="url(#arrow)" />
+          <text x="410" y="86" fill="#22C2B7" font-size="10" text-anchor="middle" font-weight="700">1. Acquire Token</text>
 
-          <path d="M 480 90 Q 400 200 320 200" fill="none" stroke="#22C2B7" stroke-width="2" stroke-dasharray="4,4" marker-end="url(#arrow)" />
-          <text x="405" y="222" fill="#22C2B7" font-size="10" text-anchor="middle" font-weight="600">2. Deliver Access Tokens</text>
+          <!-- Flow 2: Entra ID -> MSAL.js -->
+          <path d="M 480 118 L 340 118" fill="none" stroke="#22C2B7" stroke-width="2" marker-end="url(#arrow)" />
+          <text x="410" y="132" fill="#22C2B7" font-size="10" text-anchor="middle" font-weight="700">2. Return Access Token</text>
 
-          <!-- Discovery flow -->
-          <path d="M 320 170 H 480" fill="none" stroke="#22C2B7" stroke-width="2" marker-end="url(#arrow)" />
-          <text x="400" y="162" fill="#22C2B7" font-size="10" text-anchor="middle" font-weight="600">3. Discover Resources (CORS REST)</text>
+          <!-- Flow 3: Blazor WASM -> ARM -->
+          <path d="M 340 202 L 480 202" fill="none" stroke="#22C2B7" stroke-width="2" marker-end="url(#arrow)" />
+          <text x="410" y="195" fill="#22C2B7" font-size="10" text-anchor="middle" font-weight="700">3. List Resources (CORS REST)</text>
 
-          <!-- Active Messaging flow -->
-          <path d="M 320 270 Q 400 310 480 320" fill="none" stroke="#22C2B7" stroke-width="2" marker-end="url(#arrow)" />
-          <text x="400" y="295" fill="#22C2B7" font-size="10" text-anchor="middle" font-weight="600">4. AMQP over WSS (Bypasses CORS)</text>
-
-          <path d="M 320 290 Q 400 350 480 370" fill="none" stroke="#22C2B7" stroke-width="2" marker-end="url(#arrow)" />
-          <text x="400" y="358" fill="#22C2B7" font-size="10" text-anchor="middle" font-weight="600">5. CBS AMQP Handshake</text>
+          <!-- Flow 4: Rhea -> Service Bus Data Plane -->
+          <path d="M 340 297 L 480 297" fill="none" stroke="#22C2B7" stroke-width="2" marker-end="url(#arrow)" />
+          <text x="410" y="290" fill="#22C2B7" font-size="10" text-anchor="middle" font-weight="700">4. AMQP over WebSockets (WSS)</text>
         </svg>
       </div>
     </section>

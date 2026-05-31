@@ -26,99 +26,96 @@
         <details class="topbar-menu menu-left">
           <summary class="hamburger-icon" aria-label="Menu">☰</summary>
         </details>
-        <nav class="menu-panel">
+                <nav class="menu-panel">
             <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
-            <span class="menu-heading">PRODUCT</span>
+            <span class="menu-heading">BUSSIN</span>
             <a href="/features/browser-native/">Features</a>
-            <a href="/browser-based-service-bus-explorer/">How it works</a>
-            <span class="menu-heading">COMPARE</span>
-            <a href="/service-bus-explorer-alternative/">Service Bus Explorer alternative</a>
-            <a href="/service-bus-linux-mac/">Mac & Linux Explorer</a>
+            <a href="/service-bus-linux-mac/">Cross-Platform</a>
+            <a href="/service-bus-explorer-alternative/">Alternatives</a>
             <span class="menu-heading">LEARN</span>
-            <a href="/glossary/">What is Service Bus</a>
-            <a href="/glossary/dead-letter-queue/">Dead-letter queues</a>
+            <a href="/glossary/">Azure Service Bus</a>
+            <a href="/glossary/dead-letter-queue/">DLQ</a>
             <a href="/glossary/autoforwarding/">Autoforwarding</a>
-            <a href="/docs/peek-lock/">Peek-lock</a>
             <span class="menu-heading">DOCS</span>
-            <a href="/docs/">Getting started</a>
-            <a href="/browser-based-service-bus-explorer/">Connecting</a>
-            <a href="/docs/peek-lock/">Debugging workflows</a>
-            <span class="menu-heading">Legal</span>
-            <a href="/privacy/">Privacy & security</a>
+            <a href="/browser-based-service-bus-explorer/">Architecture</a>
+            <a href="/docs/">Security & RBAC</a>
+            <a href="/docs/peek-lock/">Convenience Features</a>
+            <a href="/privacy/">Privacy & Security</a>
+            <span class="menu-heading">GITHUB</span>
+            <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a>
+            <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a>
           </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
       </div>
       <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
     </div>
-  </header>
-
-  <main class="container page-content">
+  </header>  <main class="container page-content">
     <article>
-      <h1>Azure Service Bus Technical Glossary</h1>
-      <p class="lead-text">Use this technical terminology library to master core architecture standards, protocol layouts, and debugging workflows within Azure Service Bus.</p>
+      <h1>Azure Service Bus</h1>
+      <p class="lead-text">Azure Service Bus is a fully managed enterprise message broker. It supports standard messaging topologies (point-to-point queues and publish-subscribe topics) and communicates natively using the binary AMQP 1.0 wire protocol.</p>
     </article>
 
-    <section class="docs-grid" style="margin-top: 2rem;">
-      <article class="interactive-card">
-        <h2><a href="/glossary/amqp/">AMQP 1.0 Wire Protocol</a></h2>
-        <p>A binary, peer-to-peer transport protocol that defines the frame structures, credit flows, and state transfers governing direct Service Bus message exchanges.</p>
-      </article>
-      
-      <article class="interactive-card">
-        <h2><a href="/glossary/dead-letter-queue/">Dead-Letter Sub-Queues (DLQ)</a></h2>
-        <p>A system-managed secondary storage channel where expired, corrupted, or delivery-failed payloads are isolated by the broker for audit and recovery.</p>
-      </article>
-      
-      <article class="interactive-card">
-        <h2><a href="/glossary/autoforwarding/">Autoforwarding & Queue Ownership</a></h2>
-        <p>A native broker feature that routes messages from a topic subscription directly into a dedicated queue, isolating processing retry boundaries, DLQs, and alerts per consumer.</p>
-      </article>
+    <section style="margin-top: 2rem;">
+      <h2>Core Topologies</h2>
+      <ul>
+        <li><strong>Queues (Point-to-Point):</strong> Messages are sent to and stored in a queue. A single consumer retrieves and processes each message, ensuring FIFO (first-in, first-out) order within partitions.</li>
+        <li><strong>Topics & Subscriptions (Publish-Subscribe):</strong> Messages are published to a topic, which immediately fans them out to multiple subscriptions. Each subscription acts as an independent virtual queue and can evaluate custom SQL or Correlation filter rules to selectively capture specific messages.</li>
+      </ul>
     </section>
 
     <section>
-      <h2>Alphabetical Reference Index</h2>
-      <p>Use these definitions to align team terminology during architectural design phases or live-site debugging sessions:</p>
-      
-      <div style="display: flex; flex-direction: column; gap: 2rem; margin-top: 2rem;">
-        <div>
-          <h3>AMQP 1.0 (Advanced Message Queuing Protocol)</h3>
-          <p>The standard binary messaging protocol specified by ISO/IEC 19464. Unlike HTTP-based REST, it operates long-lived TCP connections, optimizing telemetry throughput and tracking message states seamlessly. Learn more on the <a href="/glossary/amqp/">AMQP Protocol Page</a>.</p>
-        </div>
+      <h2>Azure Service Bus vs. Other Brokers</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Azure Service Bus</th>
+            <th>AWS SQS & SNS</th>
+            <th>RabbitMQ</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Hosting Model</strong></td>
+            <td>Fully managed cloud service (PaaS)</td>
+            <td>Fully managed cloud service (PaaS)</td>
+            <td>Self-hosted or managed service</td>
+          </tr>
+          <tr>
+            <td><strong>Wire Protocol</strong></td>
+            <td>AMQP 1.0 (Native)</td>
+            <td>Custom HTTP REST JSON APIs</td>
+            <td>AMQP 0-9-1 / AMQP 1.0 / MQTT</td>
+          </tr>
+          <tr>
+            <td><strong>Pub/Sub Filter Rules</strong></td>
+            <td>Native SQL & Correlation filters per subscription</td>
+            <td>Requires SNS-to-SQS mapping & SNS policies</td>
+            <td>Native exchange routing keys & bindings</td>
+          </tr>
+          <tr>
+            <td><strong>Transactional Leases</strong></td>
+            <td>Supported (Peek-Lock state models)</td>
+            <td>Supported (Visibility Timeout limits)</td>
+            <td>Supported (Channel Acknowledgements)</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
 
-        <div>
-          <h3>Autoforwarding & Queue Ownership Pattern</h3>
-          <p>A native Service Bus configuration where messages arriving on one entity are immediately forwarded to another. Typically used to route from a topic subscription to a dedicated consumer queue, giving each consumer independent retry policies and isolated Dead-Letter Queues. Learn more on the <a href="/glossary/autoforwarding/">Autoforwarding Page</a>.</p>
-        </div>
-
-        <div>
-          <h3>Dead-Letter Sub-Queue (DLQ)</h3>
-          <p>An auxiliary queue automatically attached to every standard queue and topic subscription. When a message fails validation or exceeds limits, the broker routes it here with diagnostics headers. Learn more on the <a href="/glossary/dead-letter-queue/">Dead-Letter Sub-Queue Page</a>.</p>
-        </div>
-
-        <div>
-          <h3>Lock Duration & Lease Renewals</h3>
-          <p>The temporal window during which a receiver gains exclusive lock rights over a message. If processing outlasts the lease limit and no renewal occurs, the message is released back to active status, which can lead to duplicate processing.</p>
-        </div>
-
-        <div>
-          <h3>Message States & Actions (Complete, Abandon, Defer)</h3>
-          <p>The action that tells the broker how to treat a locked message. <code>Complete</code> deletes it permanently, <code>Abandon</code> unlocks it so it can be retried, and <code>Defer</code> holds it aside in a state that requires direct sequence number lookup.</p>
-        </div>
-
-        <div>
-          <h3>Topic Subscriptions & Filters</h3>
-          <p>The publish-subscribe routing model. Topics publish messages to multiple concurrent subscriptions. The broker evaluates SQL, Correlation, or Boolean filters in real-time to selectively route payloads to active endpoints.</p>
-        </div>
-      </div>
+    <section>
+      <h2>Deep Architectural Concepts</h2>
+      <p>For deep technical specifications on specific entities, explore the official Microsoft documentation directly:</p>
+      <ul>
+        <li><a href="https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview" target="_blank" rel="noopener">Microsoft Learn: Service Bus Overview</a></li>
+        <li><a href="https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-queues-topics-subscriptions" target="_blank" rel="noopener">Microsoft Learn: Queues, Topics, and Subscriptions</a></li>
+      </ul>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <div>
-        <p><strong>Quick Navigation:</strong> <a href="/docs/">Technical Docs</a> · <a href="/docs/peek-lock/">Peek-Lock Spec</a> · <a href="/features/browser-native/">Zero-Proxy Tech</a></p>
-      </div>
-      <p>Direct browser-native Azure Service Bus Explorer built for modern developer and SRE diagnostics.</p>
+      <p>&copy; 2026 Bussin. MIT License. Open source on <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">GitHub</a>.</p>
     </div>
   </footer>
 </body>
