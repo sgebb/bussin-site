@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Documentation Home | Azure Service Bus Workflows | bussin.dev</title>
-  <meta name="description" content="Technical documentation for bussin.dev. Learn prerequisites, RBAC roles, connection models, and diagnostics workflows for browser-native Service Bus management.">
-  <meta name="keywords" content="Azure Service Bus documentation, Service Bus Explorer help, Service Bus RBAC roles, Entra ID Service Bus permission, browser native Service Bus, troubleshooting Service Bus">
+  <meta name="description" content="Technical documentation for bussin.dev. Learn prerequisites, Entra ID setup, connection models, and diagnostic workflows for browser-native Service Bus management.">
+  <meta name="keywords" content="Azure Service Bus documentation, Service Bus Explorer help, Service Bus roles, Entra ID Service Bus permission, browser native Service Bus, troubleshooting Service Bus">
   <link rel="canonical" href="https://bussin.dev/docs/">
   
   <!-- OpenGraph Metadata -->
   <meta property="og:title" content="Documentation Home | Azure Service Bus Workflows | bussin.dev">
-  <meta property="og:description" content="Technical guides and workflows for secure, browser-native Azure Service Bus administration. Covers Entra ID authentication, RBAC roles, peek-lock settlement, and dead-letter recovery.">
+  <meta property="og:description" content="Guides for secure, browser-native Azure Service Bus administration. Covers Entra ID authentication, roles, peek-lock, and dead-letter recovery.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://bussin.dev/docs/">
   <meta property="og:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
@@ -26,62 +26,64 @@
         <details class="topbar-menu menu-left">
           <summary class="hamburger-icon" aria-label="Menu">☰</summary>
         </details>
-                                <nav class="menu-panel">
-            <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
-            <span class="menu-heading">BUSSIN</span>
-            <a href="/features/browser-native/">Features</a>
-            <a href="/service-bus-explorer-alternative/">Explorer Alternative</a>
-            <span class="menu-heading">RESOURCES</span>
-            <a href="/docs/">Documentation</a>
-            <a href="/glossary/">Glossary</a>
-            <a href="/privacy/">Privacy & Security</a>
-          </nav>
+        <nav class="menu-panel">
+          <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+          <a href="/" class="menu-heading" style="text-decoration: none; color: inherit; display: block;">BUSSIN</a>
+          <a href="/features/browser-native/">Features</a>
+          <a href="/service-bus-explorer-alternative/">Alternatives</a>
+          <span class="menu-heading">RESOURCES</span>
+          <a href="/docs/">Documentation</a>
+          <a href="/glossary/">Glossary</a>
+          <a href="/privacy/">Privacy & Security</a>
+        </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
       </div>
       <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
     </div>
-  </header>  <main class="container page-content">
+  </header>
+
+  <main class="container page-content">
     <article>
-      <h1>Security and RBAC Configuration</h1>
-      <p class="lead-text">Bussin is a static, zero-proxy client application. Because all API connections originate directly from your browser, access is governed entirely by standard Microsoft Entra ID (Azure Active Directory) App Registrations and Role-Based Access Control (RBAC) roles.</p>
+      <h1>Security and Access Configuration</h1>
+      <p class="lead-text">Bussin is a static web application with no backend server. Because all connections are made directly from your browser to Azure, access is managed entirely by standard Microsoft Entra ID (Azure Active Directory) registrations and Role-Based Access Control (RBAC) roles.</p>
     </article>
 
     <section style="margin-top: 2rem;">
-      <h2>1. Entra ID App Registration Settings</h2>
+      <h2>1. Entra ID App Registration</h2>
       <p>To authorize Bussin, register a standard application within your Microsoft Entra ID tenant:</p>
       <ul>
-        <li><strong>Application Type:</strong> Single Page Application (SPA). Web or Public Client platforms will fail during CORS or PKCE handshakes.</li>
+        <li><strong>Application Type:</strong> Single Page Application (SPA). Other types will fail due to security checks (CORS or PKCE).</li>
         <li><strong>Redirect URIs:</strong>
           <ul>
-            <li><code>https://app.bussin.dev</code> (for active production console usage)</li>
-            <li><code>https://app.bussin.dev/demo</code> (for testing with pre-mapped configurations)</li>
+            <li><code>https://app.bussin.dev</code> (for using the tool)</li>
+            <li><code>https://app.bussin.dev/demo</code> (for testing the demo mode)</li>
           </ul>
         </li>
-        <li><strong>Delegated API Permissions:</strong>
+        <li><strong>API Permissions:</strong>
           <ul>
-            <li><strong>Azure Service Bus:</strong> <code>user_impersonation</code> (access URL: <code>https://servicebus.azure.net/user_impersonation</code>). This scope is required to open direct AMQP data streams.</li>
-            <li><strong>Azure Resource Manager:</strong> <code>user_impersonation</code> (access URL: <code>https://management.azure.com/user_impersonation</code>). This scope allows Bussin to list subscriptions, namespaces, and entities.</li>
+            <li><strong>Azure Service Bus:</strong> <code>user_impersonation</code>. This permission is required to open direct AMQP data streams.</li>
+            <li><strong>Azure Resource Manager:</strong> <code>user_impersonation</code>. This allows Bussin to list your subscriptions, namespaces, and messaging entities.</li>
           </ul>
         </li>
       </ul>
     </section>
 
     <section>
-      <h2>2. Required Built-in Azure RBAC Roles</h2>
-      <p>Ensure that your active user account or Entra ID security group is assigned appropriate RBAC roles on your Azure Service Bus Namespace or target entity level:</p>
+      <h2>2. Required Azure Service Bus Roles</h2>
+      <p>Ensure that your Azure account is assigned the appropriate roles on your Azure Service Bus namespace or entity:</p>
       <ul>
-        <li><strong>Azure Service Bus Data Owner:</strong> Full administrative privileges. Grants absolute data-plane access to send, peek, lock, complete, or dead-letter messages.</li>
-        <li><strong>Azure Service Bus Data Receiver:</strong> Read-only data-plane access. Grants permissions to peek and receive messages.</li>
-        <li><strong>Azure Service Bus Data Sender:</strong> Write-only data-plane access. Grants permissions to publish payloads to queues and topics.</li>
+        <li><strong>Azure Service Bus Data Owner:</strong> Full access to send, peek, lock, complete, or dead-letter messages.</li>
+        <li><strong>Azure Service Bus Data Receiver:</strong> Read-only access to peek and receive messages.</li>
+        <li><strong>Azure Service Bus Data Sender:</strong> Write-only access to publish messages.</li>
       </ul>
       <blockquote>
-        <strong>Important:</strong> Traditional management roles (such as <em>Owner</em>, <em>Contributor</em>, or <em>Reader</em>) only apply to the Azure Resource Manager (ARM) plane. They do **not** grant data-plane access. You must explicitly assign one of the <strong>Azure Service Bus Data</strong> roles listed above to inspect and transit messages.
+        <strong>Note:</strong> Standard management roles (such as <em>Owner</em>, <em>Contributor</em>, or <em>Reader</em>) only apply to the Azure management plane. They do not grant permission to read or write messages. You must assign one of the <strong>Azure Service Bus Data</strong> roles listed above.
       </blockquote>
     </section>
 
     <section>
       <h2>Visual Architecture and Network Flow</h2>
-      <p>Bussin's security model is enforced natively by your browser's sandbox. Because direct data-plane REST endpoints on Azure Service Bus completely lack CORS headers (making direct HTTP requests from the browser impossible), Bussin opens a direct WebSocket tunnel to pipe raw AMQP 1.0 frames safely without intermediate server proxies:</p>
+      <p>Bussin's security model is enforced by your browser's sandbox. Because direct REST endpoints on Azure Service Bus lack CORS headers (making direct browser REST requests impossible), Bussin opens a direct WebSocket tunnel to send standard AMQP messaging frames safely to Azure:</p>
       
       <div class="architecture-container" style="margin: 2.5rem 0; width: 100%; display: flex; justify-content: center;">
         <svg viewBox="0 0 840 380" width="100%" height="auto" class="architecture-diagram" style="background: #03060D; border: 1px solid rgba(34, 194, 183, 0.12); border-radius: 12px; padding: 20px; font-family: 'Inter', system-ui, sans-serif; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);">
@@ -153,23 +155,24 @@
     </section>
 
     <section>
-      <h2>Documentation Sections & Reference Concepts</h2>
-      <p>Continue exploring our technical documentation and glossary definitions to master Azure Service Bus mechanics:</p>
-      <ul style="line-height: 1.6;">
-        <li><strong>Peek Lock & Settlement:</strong> Learn how to manage message locks, complete or abandon messages, and handle lock renewals. See the <a href="/docs/peek-lock/">Peek Lock Convenience Functions Guide</a>.</li>
-        <li><strong>Dead-Letter Queues (DLQ):</strong> Understand why messages fail, what headers are appended, and how to recover them. Read the <a href="/glossary/dead-letter-queue/">Dead-Letter Queue Glossary Entry</a>.</li>
-        <li><strong>Autoforwarding:</strong> Learn how to decouple message consumption and handle retries without side effects. Read the <a href="/glossary/autoforwarding/">Autoforwarding Glossary Entry</a>.</li>
-        <li><strong>Product Overview:</strong> Review the core features and how Bussin compares to other client applications. Visit the <a href="/service-bus-explorer-alternative/">Bussin Explorer Alternative Guide</a> or return to the <a href="/">Homepage</a>.</li>
+      <h2>Documentation and Glossary Reference</h2>
+      <p>Explore our guides and glossary terms to learn more about Azure Service Bus management:</p>
+      <ul style="line-height: 1.8;">
+        <li><strong>Peek Lock & Settlement:</strong> How message locking works, settlement operations (complete, abandon, dead-letter), and managing lock durations. Read the <a href="/docs/peek-lock/">Peek Lock Guide</a>.</li>
+        <li><strong>Connection Architecture:</strong> Technical details on how Bussin runs in your browser and talks directly to Azure. Read the <a href="/browser-based-service-bus-explorer/">Connection Architecture Guide</a>.</li>
+        <li><strong>Dead-Letter Queues (DLQ):</strong> What they are, why messages get dead-lettered, and how to recover them. Read the <a href="/glossary/dead-letter-queue/">Dead-Letter Queue Glossary Entry</a>.</li>
+        <li><strong>Autoforwarding:</strong> Learn how to forward messages from a subscription to a queue to isolate retries and failures. Read the <a href="/glossary/autoforwarding/">Autoforwarding Glossary Entry</a>.</li>
+        <li><strong>Alternative Guide:</strong> Compare Bussin's features to traditional desktop explorers. View the <a href="/service-bus-explorer-alternative/">Alternatives Guide</a>.</li>
       </ul>
     </section>
 
     <section>
-      <h2>Local Storage Isolation</h2>
-      <p>Favorite namespaces, folder groupings, and interface configurations are persisted inside your browser's sandboxed <code>localStorage</code>. This data remains under your exclusive control and is never synchronized to external servers.</p>
+      <h2>Local Storage</h2>
+      <p>Your folders, bookmarks, and settings are saved locally inside your browser's <code>localStorage</code>. This data stays under your control and is never uploaded to any external server.</p>
     </section>
   </main>
 
-    <footer class="site-footer">
+  <footer class="site-footer">
     <div class="container footer-inner">
       <p>&copy; 2026 Bussin. MIT License. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a></p>
     </div>

@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Azure Service Bus Explorer Web Alternative | Direct PWA Client | bussin.dev</title>
-  <meta name="description" content="Compare bussin to traditional Service Bus Explorer tools. Browser-native, cross-platform, zero-install — with direct Entra ID authentication.">
+  <title>Azure Service Bus Explorer Web Alternative | Direct Client | bussin.dev</title>
+  <meta name="description" content="Compare bussin to traditional Service Bus Explorer tools. Browser-native, cross-platform, no install — with direct Entra ID authentication.">
   <meta name="keywords" content="Azure Service Bus Explorer, Service Bus Explorer alternative, Service Bus Explorer online, Service Bus Explorer Mac, Service Bus Explorer Linux, browser native Service Bus, Entra ID Service Bus">
   <link rel="canonical" href="https://bussin.dev/service-bus-explorer-alternative/">
   
   <!-- OpenGraph Metadata -->
-  <meta property="og:title" content="Azure Service Bus Explorer Web Alternative | Direct PWA Client | bussin.dev">
-  <meta property="og:description" content="An objective comparison of traditional desktop clients to a browser-native Service Bus explorer. Inspect active and dead-letter queues over secure WebSockets with zero install and delegated Entra ID security.">
+  <meta property="og:title" content="Azure Service Bus Explorer Web Alternative | Direct Client | bussin.dev">
+  <meta property="og:description" content="Comparison of traditional desktop clients to a browser-native Service Bus explorer. Inspect active and dead-letter queues over secure WebSockets with no install and delegated Entra ID security.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://bussin.dev/service-bus-explorer-alternative/">
   <meta property="og:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
@@ -26,16 +26,16 @@
         <details class="topbar-menu menu-left">
           <summary class="hamburger-icon" aria-label="Menu">☰</summary>
         </details>
-                                <nav class="menu-panel">
-            <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
-            <span class="menu-heading">BUSSIN</span>
-            <a href="/features/browser-native/">Features</a>
-            <a href="/service-bus-explorer-alternative/">Explorer Alternative</a>
-            <span class="menu-heading">RESOURCES</span>
-            <a href="/docs/">Documentation</a>
-            <a href="/glossary/">Glossary</a>
-            <a href="/privacy/">Privacy & Security</a>
-          </nav>
+        <nav class="menu-panel">
+          <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+          <a href="/" class="menu-heading" style="text-decoration: none; color: inherit; display: block;">BUSSIN</a>
+          <a href="/features/browser-native/">Features</a>
+          <a href="/service-bus-explorer-alternative/">Alternatives</a>
+          <span class="menu-heading">RESOURCES</span>
+          <a href="/docs/">Documentation</a>
+          <a href="/glossary/">Glossary</a>
+          <a href="/privacy/">Privacy & Security</a>
+        </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
       </div>
       <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
@@ -45,14 +45,14 @@
   <main class="container page-content">
     <section class="hero-grid">
       <div>
-        <h1>A Browser-Native Service Bus Explorer Alternative</h1>
-        <p>Bussin is a secure, zero-install alternative to traditional desktop messaging consoles. By combining a client-side .NET WebAssembly runtime with AMQP-over-WebSockets protocol links, Bussin provides a direct, highly responsive administration client that respects existing Entra ID RBAC boundaries.</p>
-        <p class="hero-subtext" style="margin-top: 1.5rem;">Run peeks, safe dead-letter replays, and non-blocking background purges instantly without downloading client executables.</p>
+        <h1>A Web-Native Service Bus Explorer Alternative</h1>
+        <p>Bussin is a secure alternative to traditional desktop messaging tools. By running directly in your browser, Bussin provides a direct, responsive client that respects your existing Entra ID permissions and role configurations.</p>
+        <p class="hero-subtext" style="margin-top: 1.5rem;">Run message peeks, dead-letter replays, and bulk purges instantly without downloading client executables.</p>
       </div>
       <div class="hero-visual">
         <figure class="hero-card">
           <a href="#zoom-single-blade" class="zoom-trigger" title="Click to zoom screenshot">
-            <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Bussin multi-tenant folder organization and active search bar dashboard view" />
+            <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Bussin folder organization and active search bar dashboard view" />
           </a>
           <figcaption>Direct browser-native messaging console operating inside a secure web container. (Click to zoom)</figcaption>
         </figure>
@@ -61,12 +61,12 @@
 
     <section>
       <h2>Traditional Desktop Messaging Tools</h2>
-      <p>For years, the open-source Windows-based <em>Service Bus Explorer</em> (pioneered by Paolo Salvatori and maintained by the community) has been the gold standard for Azure Service Bus administration. It is a highly robust, rich client application. However, modern cloud setups introduce specific requirements where a browser-native tool provides complementary advantages.</p>
+      <p>For years, the open-source Windows-based <em>Service Bus Explorer</em> (pioneered by Paolo Salvatori and maintained by the community) has been the standard for Azure Service Bus administration. It is a highly robust, rich client application. However, modern cloud environments introduce specific requirements where a browser-native tool provides complementary advantages.</p>
       
       <div class="walkthrough-grid" style="margin-top: 2rem;">
         <article class="interactive-card">
           <h3>Dependency on Local Runtimes</h3>
-          <p>Traditional desktop clients require manual installation of target runtimes (like .NET Framework or heavy Electron containers), introducing update latency and startup friction for new engineers.</p>
+          <p>Traditional desktop clients require manual installation of target runtimes (like .NET Framework), introducing update latency and startup friction for new developers.</p>
         </article>
         <article class="interactive-card">
           <h3>Platform and OS Boundaries</h3>
@@ -77,15 +77,15 @@
           <p>Desktop utilities often rely on manual configuration files or connection strings, lacking direct integration with standard corporate browser-session OAuth flows for namespace discovery.</p>
         </article>
         <article class="interactive-card">
-          <h3>Credential Scatter Risks</h3>
-          <p>Persisting Shared Access Signature (SAS) connection strings locally on desktop drives increases risk surfaces, diverging from clean, browser-scoped Entra ID RBAC identity sandboxes.</p>
+          <h3>Credential Security Risks</h3>
+          <p>Persisting Shared Access Signature (SAS) connection strings locally on desktop drives increases risk surfaces, diverging from clean, browser-scoped Entra ID identity sandboxes.</p>
         </article>
       </div>
     </section>
 
     <section>
       <h2>Using Bussin for Messaging Inspections</h2>
-      <p>Bussin is designed specifically to simplify inspecting queues and tracking messages across namespaces. It transitions client actions directly to WebAssembly, ensuring maximum performance and complete data privacy.</p>
+      <p>Bussin is designed to simplify inspecting queues and tracking messages across namespaces. It runs entirely inside your browser's memory, ensuring performance and data privacy.</p>
       
       <div class="feature-grid" style="margin-top: 2rem;">
         <article class="interactive-card">
@@ -94,7 +94,7 @@
         </article>
         <article class="interactive-card">
           <h3>Entra ID Single Sign-On</h3>
-          <p>Integrates natively with Entra ID delegated scopes using standard MSAL browser flows, respecting your existing Azure RBAC permissions.</p>
+          <p>Integrates natively with Entra ID delegated scopes using standard MSAL browser flows, respecting your existing Azure permissions.</p>
         </article>
         <article class="interactive-card">
           <h3>Safe DLQ Moves</h3>
@@ -111,8 +111,8 @@
     </section>
 
     <section>
-      <h2>Comprehensive Feature Comparison</h2>
-      <p>An objective evaluation of key developer-facing diagnostics and administrative capabilities across common Azure Service Bus interfaces.</p>
+      <h2>Feature Comparison</h2>
+      <p style="color: #a7d5ea; margin-bottom: 1.5rem;">An objective comparison of core developer-facing features across common Service Bus administrative clients.</p>
       <div style="overflow-x:auto;">
         <table>
           <thead>
@@ -259,7 +259,7 @@
               <td><span class="checkmark">✓</span></td>
             </tr>
             <tr>
-              <td><strong>Free to Use</strong></td>
+              <td><strong>100% Free & Open Source</strong></td>
               <td class="highlight-bussin"><span class="checkmark">✓</span></td>
               <td><span class="checkmark">✓</span></td>
               <td><span class="checkmark">✓</span></td>
@@ -271,13 +271,15 @@
           </tbody>
         </table>
       </div>
+      <p style="color: #93b7c6; font-size: 0.9rem; margin-top: 1rem;"><em>Bussin has no backend API, proxy server, or autonomous access to your Service Bus. All permissions are managed via user delegated access—the app can only do what your identity is authorized to do. Your messages never leave your browser.</em></p>
+      <p style="color: #93b7c6; font-size: 0.9rem; margin-top: 0.5rem;"><em>Comparison is based on typical developer usage profiles and public specifications. Standard features are continually updated; evaluate tools according to your organization's guidelines.</em></p>
     </section>
 
     <section>
-      <h2>Zero-Proxy Security Framework</h2>
-      <p>Bussin functions purely as a static application container. All operations execute inside the sandboxed web engine, establishing direct connections to your Azure resources.</p>
+      <h2>Direct Connection Security</h2>
+      <p>Bussin functions purely as a static client application. All operations execute inside your browser's sandbox, establishing direct connections to your Azure resources.</p>
       <ul>
-        <li><strong>No Intermediate Nodes:</strong> Communication occurs exclusively between the browser and <code>&lt;namespace&gt;.servicebus.windows.net</code>. There are no intermediate servers.</li>
+        <li><strong>No Intermediate Nodes:</strong> Communication occurs exclusively between the browser and your Service Bus namespaces. There are no intermediate servers.</li>
         <li><strong>Delegated Token Security:</strong> Uses industry-standard MSAL authentication, guaranteeing that keys are never stored on external endpoints.</li>
         <li><strong>Ephemeral Data Lifecycle:</strong> Message payloads and metadata are parsed in local volatile memory, disappearing completely upon tab closure.</li>
       </ul>
@@ -289,11 +291,11 @@
       <div class="walkthrough-grid" style="margin-top: 2rem;">
         <article class="interactive-card">
           <h3>Quick On-Call Inspections</h3>
-          <p>Peek messages, check dead-letter reasons, or track queue depths instantly from any machine (including mobile) when you get an alert, without booting up heavy setups.</p>
+          <p>Peek messages, check dead-letter reasons, or track queue depths instantly from any machine (including mobile) when you get an alert, without booting up desktop environments.</p>
         </article>
         <article class="interactive-card">
           <h3>Cross-Tenant Management</h3>
-          <p>Switch easily between different environments, directories, or directories across different Entra ID tenants from a single workspace view.</p>
+          <p>Switch easily between different environments or directories across different Entra ID tenants from a single workspace view.</p>
         </article>
         <article class="interactive-card">
           <h3>Safe DLQ Replays</h3>
@@ -301,7 +303,7 @@
         </article>
         <article class="interactive-card">
           <h3>Dynamic Filter Audits</h3>
-          <p>Run client-side regex matches across hundreds of thousands of active queue payloads without interrupting consumer operations.</p>
+          <p>Run client-side regex matches across active queue payloads without interrupting consumer operations.</p>
         </article>
       </div>
     </section>
@@ -310,21 +312,21 @@
       <h2>Frequently Asked Questions</h2>
       <div class="faq-item">
         <h3>Does Bussin replace the original Service Bus Explorer?</h3>
-        <p>No. The WinForms Service Bus Explorer remains a highly robust, feature-rich tool for advanced administration, particularly in local isolated TCP networks. Bussin serves as a modern, zero-install, cross-platform alternative that fits seamlessly into cloud-native browser workflows.</p>
+        <p>No. The WinForms Service Bus Explorer remains a robust, feature-rich tool for advanced administration, particularly in local isolated TCP networks. Bussin serves as a modern, zero-install, cross-platform alternative that fits into cloud-native browser workflows.</p>
       </div>
       <div class="faq-item">
         <h3>Can I use Bussin with SAS Connection Strings?</h3>
-        <p>Bussin currently supports Entra ID (Azure AD) authentication. Support for the local Azure Service Bus Emulator (which includes connection string authentication) is planned. All tokens remain in your browser's volatile memory.</p>
+        <p>Bussin currently supports Entra ID (Azure AD) authentication. Support for the local Azure Service Bus Emulator (which includes connection string authentication) is planned. All tokens remain in your browser's memory.</p>
       </div>
       <div class="faq-item">
         <h3>How does Bussin handle large message streams?</h3>
-        <p>Bussin utilizes concurrent AMQP pipelining and dynamic credit allocation, enabling developers to stream, peek, or purge thousands of messages efficiently without UI blocking or thread exhaustion.</p>
+        <p>Bussin utilizes concurrent AMQP pipelining and dynamic credit allocation, enabling developers to stream, peek, or purge thousands of messages efficiently without UI blocking.</p>
       </div>
     </section>
 
   </main>
 
-    <footer class="site-footer">
+  <footer class="site-footer">
     <div class="container footer-inner">
       <p>&copy; 2026 Bussin. MIT License. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a></p>
     </div>

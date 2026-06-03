@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Browser-Native Azure Service Bus Explorer Architecture | bussin.dev</title>
-  <meta name="description" content="How bussin.dev runs entirely in your browser — MSAL.js authentication, AMQP over WebSockets, and zero-proxy architecture with no data access by the app.">
-  <meta name="keywords" content="browser native Service Bus, MSAL.js delegated scope, AMQP over WebSockets, WebAssembly Service Bus explorer, local sandboxed memory, zero trust cloud explorer, Azure Service Bus web tool">
+  <title>Browser-Native Azure Service Bus Explorer Features | bussin.dev</title>
+  <meta name="description" content="How bussin.dev runs entirely in your browser — Entra ID authentication, WebSockets, and direct client-side architecture.">
+  <meta name="keywords" content="browser native Service Bus, MSAL.js, WebSockets, WebAssembly Service Bus explorer, Azure Service Bus web tool">
   <link rel="canonical" href="https://bussin.dev/features/browser-native/">
   
   <!-- OpenGraph Metadata -->
-  <meta property="og:title" content="Browser-Native Azure Service Bus Explorer Architecture | bussin.dev">
-  <meta property="og:description" content="Technical deep-dive into the browser-native architecture of bussin.dev. MSAL.js, WebAssembly parsing, and raw AMQP-over-WebSockets tunnels directly to the Azure broker.">
+  <meta property="og:title" content="Browser-Native Azure Service Bus Explorer Features | bussin.dev">
+  <meta property="og:description" content="Features of the browser-native architecture of bussin.dev. MSAL.js and WebSockets connections directly to the Azure broker.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://bussin.dev/features/browser-native/">
   <meta property="og:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
@@ -26,64 +26,66 @@
         <details class="topbar-menu menu-left">
           <summary class="hamburger-icon" aria-label="Menu">☰</summary>
         </details>
-                                <nav class="menu-panel">
-            <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
-            <span class="menu-heading">BUSSIN</span>
-            <a href="/features/browser-native/">Features</a>
-            <a href="/service-bus-explorer-alternative/">Explorer Alternative</a>
-            <span class="menu-heading">RESOURCES</span>
-            <a href="/docs/">Documentation</a>
-            <a href="/glossary/">Glossary</a>
-            <a href="/privacy/">Privacy & Security</a>
-          </nav>
+        <nav class="menu-panel">
+          <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+          <a href="/" class="menu-heading" style="text-decoration: none; color: inherit; display: block;">BUSSIN</a>
+          <a href="/features/browser-native/">Features</a>
+          <a href="/service-bus-explorer-alternative/">Alternatives</a>
+          <span class="menu-heading">RESOURCES</span>
+          <a href="/docs/">Documentation</a>
+          <a href="/glossary/">Glossary</a>
+          <a href="/privacy/">Privacy & Security</a>
+        </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
       </div>
       <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
     </div>
-  </header>  <main class="container page-content">
+  </header>
+
+  <main class="container page-content">
     <article>
       <h1>Browser-Native Features</h1>
-      <p class="lead-text">Bussin is a 100% client-side web application. It runs entirely inside your browser's sandboxed container and talks directly to your Azure Service Bus namespace. No backend application servers, no credential transit, and zero installation friction.</p>
+      <p class="lead-text">Bussin is a 100% client-side web application. It runs entirely inside your browser's standard container and communicates directly with your Azure Service Bus namespace. No backend application servers, no credential transit, and no installation required.</p>
     </article>
 
     <section style="margin-top: 2rem;">
-      <h2>Core Service Bus Features</h2>
+      <h2>Messaging Features</h2>
       <div class="feature-grid">
         <article class="interactive-card">
           <h3>Namespace Discovery</h3>
-          <p>Query Azure Resource Manager (ARM) APIs directly using your Entra ID login to automatically discover and list subscriptions, active namespaces, queues, and topics in seconds.</p>
+          <p>Query Azure Resource Manager (ARM) APIs directly using your login to automatically discover and list your subscriptions, active namespaces, queues, and topics.</p>
         </article>
         
         <article class="interactive-card">
           <h3>Favorites and Folders</h3>
-          <p>Organize your namespaces into custom nested directories saved securely in your browser's local storage. Great for grouping dev, staging, and production assets.</p>
+          <p>Organize your namespaces into custom folders saved securely in your browser's local storage. This is useful for grouping dev, staging, and production environments.</p>
         </article>
 
         <article class="interactive-card">
-          <h3>Instant Switcher</h3>
-          <p>Context-switch between distinct entities or namespaces in milliseconds. The tabbed workspace lets you pivot instantly without losing your active connection context or view state.</p>
+          <h3>Workspace Switcher</h3>
+          <p>Context-switch between different entities or namespaces quickly. The tabbed workspace lets you switch views without losing your active connection context.</p>
         </article>
 
         <article class="interactive-card">
-          <h3>Inline Peeks and Actions</h3>
-          <p>Stream active and dead-letter message lists, filter payload bodies, and settle message locks (complete, abandon, dead-letter) in batches directly from the grid view.</p>
+          <h3>Inline Actions</h3>
+          <p>Stream active and dead-letter message lists, filter payload bodies, and settle message locks (complete, abandon, dead-letter) directly from the grid view.</p>
         </article>
       </div>
     </section>
 
     <section>
-      <h2>Zero-Proxy Security Sandbox</h2>
-      <p>Because Bussin runs as a static page served over a global CDN, it inherits robust browser sandbox protections:</p>
+      <h2>Direct Connection Security</h2>
+      <p>Because Bussin runs as a static page, it inherits standard browser security protections:</p>
       <ul>
         <li><strong>Credential Isolation:</strong> Microsoft Entra ID logins are handled via the official MSAL.js library. Tokens are held in volatile session memory and never sent to external servers.</li>
-        <li><strong>Same-Origin Protections:</strong> Standard browser Same-Origin Policy (SOP) boundaries isolate Bussin's memory space and local configurations from other active web tabs or scripts.</li>
-        <li><strong>Network Transparency:</strong> Inspect every management-plane REST call and AMQP WebSocket packet directly in your browser's Network Developer Tools. Absolute transparency, zero mystery traffic.</li>
+        <li><strong>Same-Origin Protection:</strong> Browser security boundaries isolate Bussin's memory space and local configurations from other active web tabs or scripts.</li>
+        <li><strong>Network Transparency:</strong> You can inspect every management-plane REST call and WebSocket packet directly in your browser's Network Developer Tools.</li>
       </ul>
     </section>
 
     <section>
-      <h2>Zero-Install Desktop Parity</h2>
-      <p>Bussin brings the power and safety of traditional desktop admin tools (like bulk message resubmission, live queue moves, and lock renewals) straight to a secure browser tab. It loads in milliseconds, updates automatically, and never requires native compilation, Mono, or administrator rights.</p>
+      <h2>Runs Anywhere Instantly</h2>
+      <p>Bussin brings the power of traditional desktop admin tools (like bulk message resubmission, queue moves, and lock renewals) straight to a secure browser tab. It loads quickly, updates automatically, and never requires compilation, native runtimes, or administrator rights.</p>
       
       <figure class="visual-card" style="margin-top: 2rem;">
         <a href="#zoom-lightmode" class="zoom-trigger" title="Click to zoom screenshot">
@@ -94,7 +96,7 @@
     </section>
   </main>
 
-    <footer class="site-footer">
+  <footer class="site-footer">
     <div class="container footer-inner">
       <p>&copy; 2026 Bussin. MIT License. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a></p>
     </div>

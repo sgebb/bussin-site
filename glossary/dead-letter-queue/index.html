@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>What is an Azure Service Bus Dead-Letter Queue (DLQ)? | bussin.dev Glossary</title>
-  <meta name="description" content="What is a dead-letter queue in Azure Service Bus? MaxDeliveryCount, TTL expiration triggers, and browser-native resubmission workflows explained.">
-  <meta name="keywords" content="Azure Service Bus DLQ, dead-letter sub-queue, MaxDeliveryCountExceeded, TTLExpiredException, dead-letter reason header, message resubmission, repair queue messages">
+  <meta name="description" content="What is a dead-letter queue in Azure Service Bus? MaxDeliveryCount, TTL expiration, and resubmission workflows explained.">
+  <meta name="keywords" content="Azure Service Bus DLQ, dead-letter sub-queue, MaxDeliveryCount, message resubmission, repair queue messages">
   <link rel="canonical" href="https://bussin.dev/glossary/dead-letter-queue/">
   
   <!-- OpenGraph Metadata -->
   <meta property="og:title" content="What is an Azure Service Bus Dead-Letter Queue (DLQ)? | bussin.dev Glossary">
-  <meta property="og:description" content="Technical explanation of the Azure Service Bus Dead-Letter Queue (DLQ) sub-entity. MaxDeliveryCount limits, TTL expirations, and browser-native resubmission workflows.">
+  <meta property="og:description" content="Explanation of the Azure Service Bus Dead-Letter Queue (DLQ) sub-entity, limits, expirations, and resubmission.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://bussin.dev/glossary/dead-letter-queue/">
   <meta property="og:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
@@ -26,68 +26,69 @@
         <details class="topbar-menu menu-left">
           <summary class="hamburger-icon" aria-label="Menu">☰</summary>
         </details>
-                                <nav class="menu-panel">
-            <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
-            <span class="menu-heading">BUSSIN</span>
-            <a href="/features/browser-native/">Features</a>
-            <a href="/service-bus-explorer-alternative/">Explorer Alternative</a>
-            <span class="menu-heading">RESOURCES</span>
-            <a href="/docs/">Documentation</a>
-            <a href="/glossary/">Glossary</a>
-            <a href="/privacy/">Privacy & Security</a>
-          </nav>
+        <nav class="menu-panel">
+          <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+          <a href="/" class="menu-heading" style="text-decoration: none; color: inherit; display: block;">BUSSIN</a>
+          <a href="/features/browser-native/">Features</a>
+          <a href="/service-bus-explorer-alternative/">Alternatives</a>
+          <span class="menu-heading">RESOURCES</span>
+          <a href="/docs/">Documentation</a>
+          <a href="/glossary/">Glossary</a>
+          <a href="/privacy/">Privacy & Security</a>
+        </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
       </div>
       <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
     </div>
   </header>
+  
   <main class="container page-content">
     <article>
       <h1>Dead-Letter Queues (DLQ)</h1>
-      <p class="lead-text">In Azure Service Bus, a Dead-Letter Queue (DLQ) is not a separate queue entity. It is a system-managed secondary sub-queue automatically attached to every queue or topic subscription to isolate unprocessable or expired messages.</p>
+      <p class="lead-text">In Azure Service Bus, a Dead-Letter Queue (DLQ) is not a separate queue. It is a secondary sub-queue automatically attached to every queue or topic subscription to isolate messages that cannot be processed or have expired.</p>
     </article>
 
     <section style="margin-top: 2rem;">
       <h2>Why Messages Get Dead-Lettered</h2>
-      <p>The Service Bus broker automatically routes messages to the DLQ sub-queue when specific constraints are violated, appending two diagnostic properties: <code>DeadLetterReason</code> and <code>DeadLetterErrorDescription</code>.</p>
+      <p>The broker automatically moves messages to the DLQ when specific conditions are met, attaching two details: <code>DeadLetterReason</code> and <code>DeadLetterErrorDescription</code>.</p>
       <ul>
-        <li><strong>MaxDeliveryCountExceeded:</strong> A consumer locked and abandoned (or crashed during) a message more times than the queue's configured <code>MaxDeliveryCount</code> (default is 10). The broker moves it to prevent infinite processing loops.</li>
-        <li><strong>TTLExpiredException:</strong> If <code>EnableDeadLetteringOnMessageExpiration</code> is enabled, messages that remain unretrieved past their Time-To-Live (TTL) limit are moved to the DLQ.</li>
-        <li><strong>HeaderSizeExceeded:</strong> The total byte footprint of custom user properties exceeds protocol limits.</li>
+        <li><strong>MaxDeliveryCountExceeded:</strong> A consumer locked and abandoned a message more times than the queue's configured <code>MaxDeliveryCount</code> (default is 10). The broker moves it to prevent infinite retry loops.</li>
+        <li><strong>TTLExpiredException:</strong> If <code>EnableDeadLetteringOnMessageExpiration</code> is turned on, messages that are not read before their Time-To-Live (TTL) expires are moved to the DLQ.</li>
+        <li><strong>HeaderSizeExceeded:</strong> The total size of custom user headers exceeds protocol limits.</li>
       </ul>
     </section>
 
     <section>
-      <h2>The Topic Subscription Resubmission Gotcha</h2>
-      <p>A critical architectural limitation of Azure Service Bus involves topic subscriptions:</p>
+      <h2>Topic Subscription Resubmission</h2>
+      <p>A limitation of Azure Service Bus involves topic subscriptions:</p>
       <blockquote>
-        <strong>Important:</strong> You cannot send a message directly into a specific subscription or a subscription's active queue. To resubmit a dead-lettered message from a subscription's DLQ, the message must be sent back to the parent <em>topic</em>. 
+        <strong>Note:</strong> You cannot send a message directly into a specific subscription's active queue. To resubmit a dead-lettered message from a subscription's DLQ, you must send it back to the parent <em>topic</em>. 
       </blockquote>
-      <p>This means the resubmitted message will be evaluated against all active subscription filter rules on that topic, potentially duplicating the message across other healthy subscriptions. When executing bulk replays in Bussin, keep this broker-level routing behavior in mind.</p>
+      <p>This means the resubmitted message will be evaluated against all active subscription filter rules on that topic, which can duplicate the message across other subscriptions. When running bulk replays in Bussin, keep this routing behavior in mind.</p>
     </section>
 
     <section>
-      <h2>AMQP Sub-Queue Routing Paths</h2>
-      <p>Because DLQs are sub-entities, consumer clients address them using specialized AMQP 1.0 entity path decorators:</p>
+      <h2>Sub-Queue Routing Paths</h2>
+      <p>Because DLQs are sub-entities, clients address them using specific path decorators:</p>
       <ul>
         <li><strong>Queue DLQ:</strong> <code>&lt;queue-name&gt;/$DeadLetterQueue</code></li>
         <li><strong>Topic Subscription DLQ:</strong> <code>&lt;topic-name&gt;/subscriptions/&lt;subscription-name&gt;/$DeadLetterQueue</code></li>
       </ul>
-      <p>Bussin handles this path formatting automatically under the hood, utilizing direct Rhea AMQP receiver links to stream or purge your DLQ messages directly from your browser container.</p>
+      <p>Bussin handles this path formatting automatically, opening connections to receive or purge your DLQ messages directly from your browser.</p>
     </section>
 
     <section class="related-links" style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(34, 194, 183, 0.15);">
       <h2>Related Resources</h2>
-      <p>Dive deeper into Azure Service Bus architecture and learn how to resolve queue backlogs:</p>
+      <p>Learn more about Service Bus concepts and documentation:</p>
       <ul style="line-height: 1.6;">
         <li><strong>Autoforwarding:</strong> Learn how to forward subscription messages to queues, isolating retries and failed message handling. Read the <a href="/glossary/autoforwarding/">Autoforwarding Glossary Entry</a>.</li>
-        <li><strong>Technical Documentation:</strong> Review security settings, required Azure RBAC roles, and browser-native connectivity mechanisms. Read our <a href="/docs/">Technical Documentation</a>.</li>
-        <li><strong>Bussin Explorer Alternative:</strong> Explore how Bussin serves as a cross-platform, zero-install alternative to traditional Service Bus Explorer clients. View the <a href="/service-bus-explorer-alternative/">Bussin Alternative Guide</a>.</li>
+        <li><strong>Technical Documentation:</strong> Review security settings, required Azure roles, and connectivity mechanisms. Read the <a href="/docs/">Technical Documentation</a>.</li>
+        <li><strong>Alternatives Guide:</strong> Explore how Bussin compares to traditional Service Bus Explorer clients. View the <a href="/service-bus-explorer-alternative/">Alternatives Guide</a>.</li>
       </ul>
     </section>
   </main>
 
-    <footer class="site-footer">
+  <footer class="site-footer">
     <div class="container footer-inner">
       <p>&copy; 2026 Bussin. MIT License. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a></p>
     </div>

@@ -10,7 +10,7 @@
   
   <!-- OpenGraph Metadata -->
   <meta property="og:title" content="Azure Service Bus Explorer for Mac and Linux | PWA Client | bussin.dev">
-  <meta property="og:description" content="A premium, browser-native Azure Service Bus client built for macOS and Linux environments. Inspect queues, recover dead-letter payloads, and search bodies over secure AMQP WebSockets with zero install.">
+  <meta property="og:description" content="A browser-native Azure Service Bus client built for macOS and Linux. Inspect queues, recover dead-letter payloads, and search bodies over secure WebSockets.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://bussin.dev/service-bus-linux-mac/">
   <meta property="og:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
@@ -26,16 +26,16 @@
         <details class="topbar-menu menu-left">
           <summary class="hamburger-icon" aria-label="Menu">☰</summary>
         </details>
-                                <nav class="menu-panel">
-            <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
-            <span class="menu-heading">BUSSIN</span>
-            <a href="/features/browser-native/">Features</a>
-            <a href="/service-bus-explorer-alternative/">Explorer Alternative</a>
-            <span class="menu-heading">RESOURCES</span>
-            <a href="/docs/">Documentation</a>
-            <a href="/glossary/">Glossary</a>
-            <a href="/privacy/">Privacy & Security</a>
-          </nav>
+        <nav class="menu-panel">
+          <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+          <a href="/" class="menu-heading" style="text-decoration: none; color: inherit; display: block;">BUSSIN</a>
+          <a href="/features/browser-native/">Features</a>
+          <a href="/service-bus-explorer-alternative/">Alternatives</a>
+          <span class="menu-heading">RESOURCES</span>
+          <a href="/docs/">Documentation</a>
+          <a href="/glossary/">Glossary</a>
+          <a href="/privacy/">Privacy & Security</a>
+        </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
       </div>
       <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
@@ -45,43 +45,43 @@
   <main class="container page-content">
     <article>
       <h1>Cross-Platform Azure Service Bus Explorer</h1>
-      <p class="lead-text">Bussin provides an identical, native-speed management interface across macOS, Linux, and Windows. By running directly in your browser, it eliminates the dependency barriers and native compilation gaps associated with traditional desktop clients.</p>
+      <p class="lead-text">Bussin provides a fast management interface across macOS, Linux, and Windows. By running directly in your browser, it eliminates the OS limitations and runtimes associated with traditional desktop clients.</p>
     </article>
 
     <section style="margin-top: 2rem;">
       <h2>The Cross-Platform Tooling Gap</h2>
-      <p>Multi-platform DevOps and SRE teams historically encounter significant friction when administering Azure Service Bus queues and topics:</p>
+      <p>Multi-platform development teams often face friction when administering Azure Service Bus queues and topics:</p>
       <ul>
-        <li><strong>Wine and Mono Emulation Overhead:</strong> The classic Windows-based <em>Service Bus Explorer</em> requires Wine configurations or Mono runtimes on macOS and Linux. These emulators frequently suffer from slow startup times, font rendering glitches, and UI crashes.</li>
-        <li><strong>Heavy virtual Machines:</strong> Booting up entire Windows virtual machines just to check a message body is incredibly resource-heavy and slow.</li>
-        <li><strong>Security Review Bottlenecks:</strong> Corporate IT security policies often restrict or delay the installation of native local executables (.exe, .dmg, or .deb packages).</li>
+        <li><strong>Emulation Overhead:</strong> The classic Windows-based <em>Service Bus Explorer</em> requires Wine configurations or Mono runtimes on macOS and Linux, which can suffer from slow startup times and UI glitches.</li>
+        <li><strong>Resource Usage:</strong> Booting up entire Windows virtual machines just to check a message body is slow and resource-heavy.</li>
+        <li><strong>Installation Approvals:</strong> Corporate security policies often restrict the installation of local executable packages (.exe, .dmg, or .deb).</li>
       </ul>
     </section>
 
     <section>
-      <h2>Zero-Install Progressive Web App (PWA)</h2>
-      <p>Bussin runs instantly in Safari, Chrome, Firefox, or Edge. However, for a true desktop experience, you can install it as a Progressive Web App (PWA) with a single click in your browser's address bar:</p>
+      <h2>Progressive Web App (PWA) Support</h2>
+      <p>Bussin runs in Safari, Chrome, Firefox, or Edge. You can also install it as a Progressive Web App (PWA) to run it as a standalone desktop application:</p>
       <ul>
-        <li><strong>Standalone Window:</strong> Runs in a dedicated app container, completely stripping away browser address bars and clutter.</li>
-        <li><strong>OS Dock and Taskbar Integration:</strong> Places the Bussin logo directly in your macOS Dock or Linux application drawer.</li>
-        <li><strong>Keyboard Parity:</strong> Supports standard system shortcuts and starts up instantly with zero local packages.</li>
+        <li><strong>Dedicated Window:</strong> Runs in its own app container without browser bars or tab controls.</li>
+        <li><strong>OS Integration:</strong> Places the Bussin icon directly in your macOS Dock or Linux application drawer.</li>
+        <li><strong>Instant Startup:</strong> Launches instantly with zero local dependencies or runtimes.</li>
       </ul>
       
       <figure class="visual-card" style="margin-top: 2rem;">
         <a href="#zoom-lightmode" class="zoom-trigger" title="Click to zoom screenshot">
-          <img src="/assets/media/lightmode.jpg" alt="Bussin administrative workspace displaying active message peeks, system headers, custom JSON body payload, and connection settings" />
+          <img src="/assets/media/lightmode.jpg" alt="Bussin workspace displaying message peeks, headers, JSON body payload, and connection settings" />
         </a>
-        <figcaption>A clean, premium browser UI that operates with protocol fidelity across macOS, Linux, and Windows. (Click to zoom)</figcaption>
+        <figcaption>A clean browser UI that operates with protocol fidelity across macOS, Linux, and Windows. (Click to zoom)</figcaption>
       </figure>
     </section>
 
     <section>
-      <h2>Mobile and On-Call Responsive Design</h2>
-      <p>Alerts don't wait for you to open a laptop. Bussin is designed from the ground up with a fluid, responsive CSS grid. On-call engineers can securely authenticate via Microsoft Entra ID, peek active partitions, check dead-letter reasons, or resubmit backlogged messages directly from a mobile phone or tablet.</p>
+      <h2>Mobile Friendly</h2>
+      <p>Bussin is designed with a responsive layout. If you get an alert while on-call, you can securely authenticate via Microsoft Entra ID, peek queues, check dead-letter reasons, or resubmit messages directly from a phone or tablet.</p>
     </section>
   </main>
 
-    <footer class="site-footer">
+  <footer class="site-footer">
     <div class="container footer-inner">
       <p>&copy; 2026 Bussin. MIT License. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a></p>
     </div>
@@ -92,8 +92,8 @@
     <a href="#_" class="lightbox-close-overlay" aria-label="Close zoom"></a>
     <div class="lightbox-content">
       <a href="#_" class="lightbox-close">&times;</a>
-      <img src="/assets/media/lightmode.jpg" alt="Bussin administrative workspace displaying active message peeks, system headers, custom JSON body payload, and connection settings" />
-      <p class="lightbox-caption">A clean, premium browser UI that operates with protocol fidelity across macOS, Linux, and Windows.</p>
+      <img src="/assets/media/lightmode.jpg" alt="Bussin workspace displaying message peeks, headers, JSON body payload, and connection settings" />
+      <p class="lightbox-caption">A clean browser UI that operates with protocol fidelity across macOS, Linux, and Windows.</p>
     </div>
   </div>
 </body>

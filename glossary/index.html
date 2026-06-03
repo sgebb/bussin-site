@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Azure Service Bus Glossary and Terminology | bussin.dev</title>
-  <meta name="description" content="Azure Service Bus terminology — AMQP 1.0, dead-letter queues, peek-lock settlement, topic subscriptions, and message routing concepts explained.">
-  <meta name="keywords" content="Azure Service Bus glossary, AMQP 1.0 dictionary, dead-letter queue definitions, peek-lock lease terms, service bus topics and filters, cloud integration terminology">
+  <meta name="description" content="Azure Service Bus terminology — dead-letter queues, peek-lock settlement, topic subscriptions, and message routing concepts explained.">
+  <meta name="keywords" content="Azure Service Bus glossary, dead-letter queue definitions, peek-lock lease terms, service bus topics and filters, cloud integration terminology">
   <link rel="canonical" href="https://bussin.dev/glossary/">
   
   <!-- OpenGraph Metadata -->
   <meta property="og:title" content="Azure Service Bus Glossary and Terminology | bussin.dev">
-  <meta property="og:description" content="Technical dictionary and glossary of terms for Azure Service Bus. AMQP 1.0, dead-letter sub-queues, peek-lock lease settlement, and filter rules.">
+  <meta property="og:description" content="Glossary of terms for Azure Service Bus. Dead-letter sub-queues, peek-lock lease settlement, and filter rules.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://bussin.dev/glossary/">
   <meta property="og:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
@@ -26,31 +26,48 @@
         <details class="topbar-menu menu-left">
           <summary class="hamburger-icon" aria-label="Menu">☰</summary>
         </details>
-                                <nav class="menu-panel">
-            <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
-            <span class="menu-heading">BUSSIN</span>
-            <a href="/features/browser-native/">Features</a>
-            <a href="/service-bus-explorer-alternative/">Explorer Alternative</a>
-            <span class="menu-heading">RESOURCES</span>
-            <a href="/docs/">Documentation</a>
-            <a href="/glossary/">Glossary</a>
-            <a href="/privacy/">Privacy & Security</a>
-          </nav>
+        <nav class="menu-panel">
+          <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+          <a href="/" class="menu-heading" style="text-decoration: none; color: inherit; display: block;">BUSSIN</a>
+          <a href="/features/browser-native/">Features</a>
+          <a href="/service-bus-explorer-alternative/">Alternatives</a>
+          <span class="menu-heading">RESOURCES</span>
+          <a href="/docs/">Documentation</a>
+          <a href="/glossary/">Glossary</a>
+          <a href="/privacy/">Privacy & Security</a>
+        </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
       </div>
       <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
     </div>
-  </header>  <main class="container page-content">
+  </header>
+
+  <main class="container page-content">
     <article>
       <h1>Azure Service Bus</h1>
-      <p class="lead-text">Azure Service Bus is a fully managed enterprise message broker. It supports standard messaging topologies (point-to-point queues and publish-subscribe topics) and communicates natively using the binary AMQP 1.0 wire protocol.</p>
+      <p class="lead-text">Azure Service Bus is a managed message broker. It supports standard point-to-point queues and publish-subscribe topics, using the binary AMQP 1.0 wire protocol natively.</p>
     </article>
 
     <section style="margin-top: 2rem;">
+      <h2>Glossary Directory</h2>
+      <p>Select a concept below to read a detailed guide on how it works and its operational implications:</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; margin-bottom: 2.5rem;">
+        <article style="background: rgba(12, 20, 34, 0.4); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(34, 194, 183, 0.15);">
+          <h3 style="margin-top: 0;"><a href="/glossary/dead-letter-queue/" style="color: #22C2B7; text-decoration: none;">Dead-Letter Queues (DLQ) →</a></h3>
+          <p style="font-size: 0.95rem; line-height: 1.5; margin-bottom: 0;">Learn about secondary DLQ sub-queues, why messages fail, and how to resubmit them.</p>
+        </article>
+        <article style="background: rgba(12, 20, 34, 0.4); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(34, 194, 183, 0.15);">
+          <h3 style="margin-top: 0;"><a href="/glossary/autoforwarding/" style="color: #22C2B7; text-decoration: none;">Autoforwarding →</a></h3>
+          <p style="font-size: 0.95rem; line-height: 1.5; margin-bottom: 0;">Learn how to turn a shared subscription model into a private consumer queue, isolating retries.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
       <h2>Core Topologies</h2>
       <ul>
-        <li><strong>Queues (Point-to-Point):</strong> Messages are sent to and stored in a queue. A single consumer retrieves and processes each message, ensuring FIFO (first-in, first-out) order within partitions.</li>
-        <li><strong>Topics and Subscriptions (Publish-Subscribe):</strong> Messages are published to a topic, which immediately fans them out to multiple subscriptions. Each subscription acts as an independent virtual queue and can evaluate custom SQL or Correlation filter rules to selectively capture specific messages.</li>
+        <li><strong>Queues:</strong> Messages are sent to and stored in a queue. A single consumer retrieves and processes each message, ensuring FIFO (first-in, first-out) order.</li>
+        <li><strong>Topics and Subscriptions:</strong> Messages are published to a topic, which copies them to multiple subscriptions. Each subscription acts as an independent virtual queue and can use SQL or Correlation filters to selectively capture specific messages.</li>
       </ul>
     </section>
 
@@ -68,8 +85,8 @@
         <tbody>
           <tr>
             <td><strong>Hosting Model</strong></td>
-            <td>Fully managed cloud service (PaaS)</td>
-            <td>Fully managed cloud service (PaaS)</td>
+            <td>Managed cloud service (PaaS)</td>
+            <td>Managed cloud service (PaaS)</td>
             <td>Self-hosted or managed service</td>
           </tr>
           <tr>
@@ -79,10 +96,10 @@
             <td>AMQP 0-9-1 / AMQP 1.0 / MQTT</td>
           </tr>
           <tr>
-            <td><strong>Pub/Sub Filter Rules</strong></td>
-            <td>Native SQL and Correlation filters per subscription</td>
-            <td>Requires SNS-to-SQS mapping and SNS policies</td>
-            <td>Native exchange routing keys and bindings</td>
+            <td><strong>Pub/Sub Filters</strong></td>
+            <td>SQL and Correlation filters per subscription</td>
+            <td>Requires SNS-to-SQS mapping policies</td>
+            <td>Exchange routing keys and bindings</td>
           </tr>
           <tr>
             <td><strong>Transactional Leases</strong></td>
@@ -95,8 +112,8 @@
     </section>
 
     <section>
-      <h2>Deep Architectural Concepts</h2>
-      <p>For deep technical specifications on specific entities, explore the official Microsoft documentation directly:</p>
+      <h2>External Documentation</h2>
+      <p>For official specifications on specific entities, explore Microsoft's documentation:</p>
       <ul>
         <li><a href="https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-messaging-overview" target="_blank" rel="noopener">Microsoft Learn: Service Bus Overview</a></li>
         <li><a href="https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-queues-topics-subscriptions" target="_blank" rel="noopener">Microsoft Learn: Queues, Topics, and Subscriptions</a></li>
@@ -104,7 +121,7 @@
     </section>
   </main>
 
-    <footer class="site-footer">
+  <footer class="site-footer">
     <div class="container footer-inner">
       <p>&copy; 2026 Bussin. MIT License. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a></p>
     </div>
