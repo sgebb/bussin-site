@@ -16,6 +16,12 @@
   <meta property="og:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
   <meta property="og:site_name" content="Bussin">
 
+  <!-- Twitter Card Metadata -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Azure Service Bus Explorer Web Alternative | bussin.dev">
+  <meta name="twitter:description" content="Compare Bussin to Azure Portal and Service Bus Explorer. Browser-native, cross-platform, no install.">
+  <meta name="twitter:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
+
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/styles.css">
 </head>
@@ -28,7 +34,7 @@
         </details>
         <nav class="menu-panel">
           <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
-          <a href="/" class="menu-heading" style="text-decoration: none; color: inherit; display: block;">BUSSIN</a>
+          <a href="/" class="menu-heading menu-heading-link">BUSSIN</a>
           <a href="/features/">Features</a>
           <a href="/how-it-works/">How It Works</a>
           <a href="/security/">Security</a>
@@ -80,82 +86,82 @@
     <section>
       <h2>Feature Comparison Table</h2>
       <p style="color: #a7d5ea; margin-bottom: 1.5rem;">A direct comparison of core features across the main administrative clients.</p>
-      <div style="overflow-x:auto;">
-        <table style="font-size: 0.95rem;">
+      <div style="overflow-x: auto;">
+        <table class="compare-table">
           <thead>
             <tr>
-              <th style="padding: 0.75rem 1rem;">Feature</th>
-              <th class="highlight-bussin" style="padding: 0.75rem 1rem;">Bussin</th>
-              <th style="padding: 0.75rem 1rem;">Azure Portal</th>
-              <th style="padding: 0.75rem 1rem;">Service Bus Explorer (Paolo)</th>
+              <th>Feature</th>
+              <th class="highlight-bussin">Bussin</th>
+              <th>Azure Portal</th>
+              <th>Service Bus Explorer (Paolo)</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td style="padding: 0.6rem 1rem;"><strong>No Installation Required</strong></td>
-              <td class="highlight-bussin" style="padding: 0.6rem 1rem; text-align: center;"><span class="checkmark">✓</span></td>
-              <td style="padding: 0.6rem 1rem; text-align: center;"><span class="checkmark">✓</span></td>
-              <td style="padding: 0.6rem 1rem; text-align: center;"><span class="no-mark" aria-hidden="true">✖</span></td>
+              <td><strong>No Installation Required</strong></td>
+              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
             </tr>
             <tr>
-              <td style="padding: 0.6rem 1rem;"><strong>macOS & Linux Support</strong></td>
-              <td class="highlight-bussin" style="padding: 0.6rem 1rem; text-align: center;"><span class="checkmark">✓</span></td>
-              <td style="padding: 0.6rem 1rem; text-align: center;"><span class="checkmark">✓</span></td>
-              <td style="padding: 0.6rem 1rem; text-align: center;"><span class="no-mark" aria-hidden="true">✖</span></td>
+              <td><strong>macOS & Linux Support</strong></td>
+              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
             </tr>
             <tr>
-              <td style="padding: 0.6rem 1rem;"><strong>Entra ID Sign-In & SSO</strong></td>
-              <td class="highlight-bussin" style="padding: 0.6rem 1rem; text-align: center;"><span class="checkmark">✓</span></td>
-              <td style="padding: 0.6rem 1rem; text-align: center;"><span class="checkmark">✓</span></td>
-              <td style="padding: 0.6rem 1rem; text-align: center;"><span class="checkmark">✓</span></td>
+              <td><strong>Entra ID Sign-In & SSO</strong></td>
+              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
             </tr>
             <tr>
-              <td style="padding: 0.6rem 1rem;"><strong>Namespace Discovery</strong></td>
-              <td class="highlight-bussin" style="padding: 0.6rem 1rem; text-align: center;"><span class="checkmark">✓</span></td>
-              <td style="padding: 0.6rem 1rem; text-align: center;"><span class="checkmark">✓</span></td>
-              <td style="padding: 0.6rem 1rem; text-align: center;"><span class="no-mark" aria-hidden="true">✖</span></td>
+              <td><strong>Namespace Discovery</strong></td>
+              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
             </tr>
             <tr>
-              <td style="padding: 0.6rem 1rem;"><strong>Mobile-Responsive UI</strong></td>
-              <td class="highlight-bussin" style="padding: 0.6rem 1rem; text-align: center;"><span class="checkmark">✓</span></td>
-              <td style="padding: 0.6rem 1rem; text-align: center;"><span class="no-mark" aria-hidden="true">✖</span></td>
-              <td style="padding: 0.6rem 1rem; text-align: center;"><span class="no-mark" aria-hidden="true">✖</span></td>
+              <td><strong>Mobile-Responsive UI</strong></td>
+              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
             </tr>
             <tr>
-              <td style="padding: 0.6rem 1rem;"><strong>Direct Connections (No Proxy Server)</strong></td>
-              <td class="highlight-bussin" style="padding: 0.6rem 1rem; text-align: center;"><span class="checkmark">✓</span></td>
-              <td style="padding: 0.6rem 1rem; text-align: center;"><span class="no-mark" aria-hidden="true">✖</span></td>
-              <td style="padding: 0.6rem 1rem; text-align: center;"><span class="checkmark">✓</span></td>
+              <td><strong>Direct Connections (No Proxy Server)</strong></td>
+              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
             </tr>
             <tr>
-              <td style="padding: 0.6rem 1rem;"><strong>Deep Message Search</strong></td>
-              <td class="highlight-bussin" style="padding: 0.6rem 1rem; text-align: center;"><span class="checkmark">✓</span></td>
-              <td style="padding: 0.6rem 1rem; text-align: center;"><span class="no-mark" aria-hidden="true">✖</span></td>
-              <td style="padding: 0.6rem 1rem; text-align: center;"><span class="checkmark">✓</span></td>
+              <td><strong>Deep Message Search</strong></td>
+              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
             </tr>
             <tr>
-              <td style="padding: 0.6rem 1rem;"><strong>Peek-Lock Settlements</strong></td>
-              <td class="highlight-bussin" style="padding: 0.6rem 1rem; text-align: center;"><span class="checkmark">✓</span></td>
-              <td style="padding: 0.6rem 1rem; text-align: center;"><span class="no-mark" aria-hidden="true">✖</span></td>
-              <td style="padding: 0.6rem 1rem; text-align: center;"><span class="checkmark">✓</span></td>
+              <td><strong>Peek-Lock Settlements</strong></td>
+              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
             </tr>
             <tr>
-              <td style="padding: 0.6rem 1rem;"><strong>Message Resubmission / Replay</strong></td>
-              <td class="highlight-bussin" style="padding: 0.6rem 1rem; text-align: center;"><span class="checkmark">✓</span></td>
-              <td style="padding: 0.6rem 1rem; text-align: center;"><span class="checkmark">✓</span></td>
-              <td style="padding: 0.6rem 1rem; text-align: center;"><span class="checkmark">✓</span></td>
+              <td><strong>Message Resubmission / Replay</strong></td>
+              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
             </tr>
             <tr>
-              <td style="padding: 0.6rem 1rem;"><strong>Namespace Custom Folders</strong></td>
-              <td class="highlight-bussin" style="padding: 0.6rem 1rem; text-align: center;"><span class="checkmark">✓</span></td>
-              <td style="padding: 0.6rem 1rem; text-align: center;"><span class="no-mark" aria-hidden="true">✖</span></td>
-              <td style="padding: 0.6rem 1rem; text-align: center;"><span class="no-mark" aria-hidden="true">✖</span></td>
+              <td><strong>Namespace Custom Folders</strong></td>
+              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
             </tr>
             <tr>
-              <td style="padding: 0.6rem 1rem;"><strong>100% Free & Open Source</strong></td>
-              <td class="highlight-bussin" style="padding: 0.6rem 1rem; text-align: center;"><span class="checkmark">✓</span></td>
-              <td style="padding: 0.6rem 1rem; text-align: center;"><span class="no-mark" aria-hidden="true">✖</span></td>
-              <td style="padding: 0.6rem 1rem; text-align: center;"><span class="checkmark">✓</span></td>
+              <td><strong>100% Free & Open Source</strong></td>
+              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
             </tr>
           </tbody>
         </table>
@@ -201,7 +207,7 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>&copy; 2026 Bussin. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a></p>
+      <p>&copy; 2026 Bussin. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a> · <a href="/security/">Security</a></p>
     </div>
   </footer>
 

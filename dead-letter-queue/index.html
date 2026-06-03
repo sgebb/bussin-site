@@ -16,6 +16,12 @@
   <meta property="og:image" content="https://bussin.dev/assets/media/deadLetterInspect.jpg">
   <meta property="og:site_name" content="Bussin">
 
+  <!-- Twitter Card Metadata -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Azure Service Bus Dead-Letter Queue (DLQ) Management | bussin.dev">
+  <meta name="twitter:description" content="Understand DLQs. Learn common causes for dead-lettering, inspect payloads, and resubmit messages.">
+  <meta name="twitter:image" content="https://bussin.dev/assets/media/deadLetterInspect.jpg">
+
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/styles.css">
 </head>
@@ -28,7 +34,7 @@
         </details>
         <nav class="menu-panel">
           <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
-          <a href="/" class="menu-heading" style="text-decoration: none; color: inherit; display: block;">BUSSIN</a>
+          <a href="/" class="menu-heading menu-heading-link">BUSSIN</a>
           <a href="/features/">Features</a>
           <a href="/how-it-works/">How It Works</a>
           <a href="/security/">Security</a>
@@ -46,7 +52,7 @@
       <p class="lead-text">Every queue and subscription in Azure Service Bus has a secondary, system-managed sub-queue called a dead-letter queue (DLQ). The DLQ stores messages that cannot be successfully delivered or processed by consumers. Understanding the root causes of dead-lettering helps you resolve pipeline failures.</p>
     </article>
 
-    <section style="margin-top: 2rem;">
+    <section class="mt-md">
       <h2>Common Causes of Dead-Lettering</h2>
       <p>Azure Service Bus automatically routes messages to the DLQ when certain conditions are met:</p>
       
@@ -86,9 +92,9 @@
       </ul>
     </section>
 
-    <section class="related-links" style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(34, 194, 183, 0.15);">
+    <section class="related-links">
       <h2>Related Resources</h2>
-      <ul style="line-height: 1.8;">
+      <ul>
         <li><a href="/docs/"><strong>Docs</strong></a> — Learn how to perform settlement operations or inspect queues.</li>
         <li><a href="/autoforwarding/"><strong>Autoforwarding</strong></a> — Read about moving messages between queues.</li>
         <li><a href="/"><strong>Homepage</strong></a> — Return to the product overview.</li>
@@ -98,7 +104,7 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>&copy; 2026 Bussin. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a></p>
+      <p>&copy; 2026 Bussin. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a> · <a href="/security/">Security</a></p>
     </div>
   </footer>
 

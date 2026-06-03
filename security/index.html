@@ -3,10 +3,24 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Security and Privacy Policy | bussin.dev</title>
-  <meta name="description" content="Bussin privacy and security details. Learn about direct browser connections, zero data transit, and Microsoft authentication.">
+  <title>Security | bussin.dev</title>
+  <meta name="description" content="How Bussin keeps your data private. Direct browser connections, zero server storage, delegated Entra ID tokens, and open source audit.">
   <meta name="keywords" content="privacy policy, security, no proxy, browser sandbox, Entra ID security, safe Azure explorer">
   <link rel="canonical" href="https://bussin.dev/security/">
+
+  <!-- OpenGraph Metadata -->
+  <meta property="og:title" content="Security | bussin.dev">
+  <meta property="og:description" content="How Bussin keeps your data private. Direct browser connections, zero server storage, and open source audit.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bussin.dev/security/">
+  <meta property="og:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
+  <meta property="og:site_name" content="Bussin">
+
+  <!-- Twitter Card Metadata -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Security | bussin.dev">
+  <meta name="twitter:description" content="How Bussin keeps your data private. Direct browser connections, zero server storage, and open source audit.">
+  <meta name="twitter:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
 
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/styles.css">
@@ -20,7 +34,7 @@
         </details>
         <nav class="menu-panel">
           <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
-          <a href="/" class="menu-heading" style="text-decoration: none; color: inherit; display: block;">BUSSIN</a>
+          <a href="/" class="menu-heading menu-heading-link">BUSSIN</a>
           <a href="/features/">Features</a>
           <a href="/how-it-works/">How It Works</a>
           <a href="/security/">Security</a>
@@ -67,9 +81,26 @@
       <p>MSAL.js handles sign-in directly within your browser's security context. The acquired OAuth 2.0 access token is used locally to connect to Azure. Your credentials never pass through external servers, and access rights conform strictly to your active Azure Role-Based Access Control (RBAC) permissions.</p>
     </section>
 
-    <section class="related-links" style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(34, 194, 183, 0.15);">
+    <section>
+      <h2>Data Caching</h2>
+      <ul>
+        <li><strong>Token Caching:</strong> Uses the Microsoft Authentication Library (MSAL.js) to request standard OAuth 2.0 tokens. Access tokens for Service Bus actions are stored only in temporary session memory.</li>
+        <li><strong>Local Caching:</strong> Saves your namespace bookmarks, workspace folder layouts, and settings inside your browser's local <code>localStorage</code>.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Open Source and Auditability</h2>
+      <p>Bussin is open source. Security teams and developers are encouraged to audit the codebase or self-host the static client:</p>
+      <ul>
+        <li><strong>Bussin App Core:</strong> Audit the client-side WebAssembly rendering, AMQP protocol logic, and local storage configurations: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">github.com/sgebb/bussin</a></li>
+        <li><strong>Bussin Static Site:</strong> Audit this documentation site and static landing pages: <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">github.com/sgebb/bussin-site</a></li>
+      </ul>
+    </section>
+
+    <section class="related-links">
       <h2>Related Resources</h2>
-      <ul style="line-height: 1.8;">
+      <ul>
         <li><a href="/how-it-works/"><strong>How It Works</strong></a> — Review the connection architecture and required permissions.</li>
         <li><a href="/docs/"><strong>Docs</strong></a> — Learn how to perform settlement operations or inspect queues.</li>
         <li><a href="/"><strong>Homepage</strong></a> — Return to the product overview.</li>
@@ -79,7 +110,7 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>&copy; 2026 Bussin. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a></p>
+      <p>&copy; 2026 Bussin. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a> · <a href="/security/">Security</a></p>
     </div>
   </footer>
 </body>

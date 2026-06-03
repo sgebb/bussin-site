@@ -8,6 +8,20 @@
   <meta name="keywords" content="browser native Service Bus, WebSockets, WebAssembly Service Bus explorer, Azure Service Bus features, peek-lock, dead-letter queue">
   <link rel="canonical" href="https://bussin.dev/features/">
 
+  <!-- OpenGraph Metadata -->
+  <meta property="og:title" content="Bussin Features | Azure Service Bus Web Client | bussin.dev">
+  <meta property="og:description" content="Core features of Bussin: browser-native execution, dead-letter queue browsing, message resubmission, peek-lock support, and namespace organization.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bussin.dev/features/">
+  <meta property="og:image" content="https://bussin.dev/assets/media/advancedPeek.jpg">
+  <meta property="og:site_name" content="Bussin">
+
+  <!-- Twitter Card Metadata -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Bussin Features | Azure Service Bus Web Client">
+  <meta name="twitter:description" content="Core features: browser-native execution, dead-letter queue browsing, message resubmission, and peek-lock support.">
+  <meta name="twitter:image" content="https://bussin.dev/assets/media/advancedPeek.jpg">
+
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/styles.css">
 </head>
@@ -20,7 +34,7 @@
         </details>
         <nav class="menu-panel">
           <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
-          <a href="/" class="menu-heading" style="text-decoration: none; color: inherit; display: block;">BUSSIN</a>
+          <a href="/" class="menu-heading menu-heading-link">BUSSIN</a>
           <a href="/features/">Features</a>
           <a href="/how-it-works/">How It Works</a>
           <a href="/security/">Security</a>
@@ -46,7 +60,7 @@
     <section>
       <h2>Message Search and Peeking</h2>
       <p>Read active or dead-letter messages without locking or deleting them from the broker. You can search through thousands of messages using property and body pattern matching inside your browser's memory.</p>
-      <figure class="visual-card" style="margin-top: 1.5rem;">
+      <figure class="visual-card mt-sm">
         <a href="#zoom-peek">
           <img src="/assets/media/advancedPeek.jpg" alt="Screenshot displaying message search filter options in Bussin" />
         </a>
@@ -62,7 +76,7 @@
     <section>
       <h2>Dead-Letter Queue Browsing & Recovery</h2>
       <p>Browse failed messages in the DLQ, read the failure reasons (like <code>MaxDeliveryCountExceeded</code> or <code>TTLExpiredException</code>), and resubmit them back to their active queue individually or in batches using background tasks.</p>
-      <figure class="visual-card" style="margin-top: 1.5rem;">
+      <figure class="visual-card mt-sm">
         <a href="#zoom-dlq">
           <img src="/assets/media/deadLetterInspect.jpg" alt="Screenshot showing dead-letter queue message inspection details and resubmit operations" />
         </a>
@@ -73,7 +87,7 @@
     <section>
       <h2>Background Operations</h2>
       <p>Start long-running actions (such as moving large message backlogs or purging queues) in the background. The user interface remains responsive while background tasks track and show progress.</p>
-      <figure class="visual-card" style="margin-top: 1.5rem;">
+      <figure class="visual-card mt-sm">
         <a href="#zoom-purge">
           <img src="/assets/media/confirmPurge.jpg" alt="Modal window confirming bulk purge parameters in Bussin" />
         </a>
@@ -84,7 +98,7 @@
     <section>
       <h2>Namespace Organization</h2>
       <p>Organize multiple Service Bus namespaces into nested folders. Pin favorite namespaces across different Microsoft Entra ID directories to switch contexts in milliseconds. All configurations are saved locally in your browser.</p>
-      <figure class="visual-card" style="margin-top: 1.5rem;">
+      <figure class="visual-card mt-sm">
         <a href="#zoom-namespace">
           <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Screenshot showing folders and navigation sidebar in Bussin" />
         </a>
@@ -92,9 +106,9 @@
       </figure>
     </section>
 
-    <section class="related-links" style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(34, 194, 183, 0.15);">
+    <section class="related-links">
       <h2>Related Resources</h2>
-      <ul style="line-height: 1.8;">
+      <ul>
         <li><a href="/"><strong>Homepage</strong></a> — Return to the main overview.</li>
         <li><a href="/docs/"><strong>Docs</strong></a> — Learn how to perform settlement operations or inspect queues.</li>
         <li><a href="/service-bus-explorer-alternative/"><strong>Alternatives</strong></a> — Compare Bussin's capabilities to other tools.</li>
@@ -104,7 +118,7 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>&copy; 2026 Bussin. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a></p>
+      <p>&copy; 2026 Bussin. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a> · <a href="/security/">Security</a></p>
     </div>
   </footer>
 
