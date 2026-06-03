@@ -57,16 +57,10 @@
             <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
             <span class="menu-heading">BUSSIN</span>
             <a href="/features/browser-native/">Features</a>
-            <a href="/service-bus-linux-mac/">Cross-Platform</a>
-            <a href="/service-bus-explorer-alternative/">Alternatives</a>
-            <span class="menu-heading">LEARN</span>
-            <a href="/glossary/">Azure Service Bus</a>
-            <a href="/glossary/dead-letter-queue/">DLQ</a>
-            <a href="/glossary/autoforwarding/">Auto-forwarding</a>
-            <span class="menu-heading">DOCS</span>
-            <a href="/browser-based-service-bus-explorer/">Architecture</a>
-            <a href="/docs/">Security & RBAC</a>
-            <a href="/docs/peek-lock/">Convenience Functions</a>
+            <a href="/service-bus-explorer-alternative/">Explorer Alternative</a>
+            <span class="menu-heading">RESOURCES</span>
+            <a href="/docs/">Documentation</a>
+            <a href="/glossary/">Glossary</a>
             <a href="/privacy/">Privacy & Security</a>
           </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
@@ -378,6 +372,29 @@
       <div class="faq-item">
         <h3>Does this support macOS and Linux environments?</h3>
         <p>Yes. By utilizing standard HTML5 WebSockets and WebAssembly, Bussin runs perfectly on standard browser engines across macOS, Linux, and Windows, offering an instant cross-platform solution to traditional desktop tool fragmentation.</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Learn & Explore Azure Service Bus</h2>
+      <p style="color: #a7d5ea; margin-bottom: 2rem;">Discover how Bussin simplifies messaging workflows and master core Service Bus concepts directly through our detailed guides:</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; margin-bottom: 2.5rem;">
+        <article style="background: rgba(12, 20, 34, 0.4); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(34, 194, 183, 0.15);">
+          <h3 style="margin-top: 0;"><a href="/docs/peek-lock/" style="color: #22C2B7; text-decoration: none;">Learn about Peek Lock →</a></h3>
+          <p style="font-size: 0.95rem; line-height: 1.5; margin-bottom: 0;">Understand message locking, settlement states (complete, abandon, dead-letter), and lease countdowns.</p>
+        </article>
+        <article style="background: rgba(12, 20, 34, 0.4); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(34, 194, 183, 0.15);">
+          <h3 style="margin-top: 0;"><a href="/glossary/dead-letter-queue/" style="color: #22C2B7; text-decoration: none;">Learn about Dead Letter Queues →</a></h3>
+          <p style="font-size: 0.95rem; line-height: 1.5; margin-bottom: 0;">Explore Azure Service Bus DLQs, MaxDeliveryCount thresholds, TTL expirations, and recovery rules.</p>
+        </article>
+        <article style="background: rgba(12, 20, 34, 0.4); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(34, 194, 183, 0.15);">
+          <h3 style="margin-top: 0;"><a href="/glossary/autoforwarding/" style="color: #22C2B7; text-decoration: none;">Learn about Autoforwarding →</a></h3>
+          <p style="font-size: 0.95rem; line-height: 1.5; margin-bottom: 0;">Learn how autoforwarding separates consumers and prevents duplicate retry side effects.</p>
+        </article>
+        <article style="background: rgba(12, 20, 34, 0.4); padding: 1.5rem; border-radius: 8px; border: 1px solid rgba(34, 194, 183, 0.15);">
+          <h3 style="margin-top: 0;"><a href="/docs/" style="color: #22C2B7; text-decoration: none;">Read the Documentation →</a></h3>
+          <p style="font-size: 0.95rem; line-height: 1.5; margin-bottom: 0;">Set up Microsoft Entra ID authentication and configure the required RBAC roles (Data Owner, Receiver, Sender).</p>
+        </article>
       </div>
     </section>
 

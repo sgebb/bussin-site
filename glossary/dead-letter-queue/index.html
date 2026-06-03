@@ -30,16 +30,10 @@
             <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
             <span class="menu-heading">BUSSIN</span>
             <a href="/features/browser-native/">Features</a>
-            <a href="/service-bus-linux-mac/">Cross-Platform</a>
-            <a href="/service-bus-explorer-alternative/">Alternatives</a>
-            <span class="menu-heading">LEARN</span>
-            <a href="/glossary/">Azure Service Bus</a>
-            <a href="/glossary/dead-letter-queue/">DLQ</a>
-            <a href="/glossary/autoforwarding/">Auto-forwarding</a>
-            <span class="menu-heading">DOCS</span>
-            <a href="/browser-based-service-bus-explorer/">Architecture</a>
-            <a href="/docs/">Security & RBAC</a>
-            <a href="/docs/peek-lock/">Convenience Functions</a>
+            <a href="/service-bus-explorer-alternative/">Explorer Alternative</a>
+            <span class="menu-heading">RESOURCES</span>
+            <a href="/docs/">Documentation</a>
+            <a href="/glossary/">Glossary</a>
             <a href="/privacy/">Privacy & Security</a>
           </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
@@ -80,6 +74,16 @@
         <li><strong>Topic Subscription DLQ:</strong> <code>&lt;topic-name&gt;/subscriptions/&lt;subscription-name&gt;/$DeadLetterQueue</code></li>
       </ul>
       <p>Bussin handles this path formatting automatically under the hood, utilizing direct Rhea AMQP receiver links to stream or purge your DLQ messages directly from your browser container.</p>
+    </section>
+
+    <section class="related-links" style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(34, 194, 183, 0.15);">
+      <h2>Related Resources</h2>
+      <p>Dive deeper into Azure Service Bus architecture and learn how to resolve queue backlogs:</p>
+      <ul style="line-height: 1.6;">
+        <li><strong>Autoforwarding:</strong> Learn how to forward subscription messages to queues, isolating retries and failed message handling. Read the <a href="/glossary/autoforwarding/">Autoforwarding Glossary Entry</a>.</li>
+        <li><strong>Technical Documentation:</strong> Review security settings, required Azure RBAC roles, and browser-native connectivity mechanisms. Read our <a href="/docs/">Technical Documentation</a>.</li>
+        <li><strong>Bussin Explorer Alternative:</strong> Explore how Bussin serves as a cross-platform, zero-install alternative to traditional Service Bus Explorer clients. View the <a href="/service-bus-explorer-alternative/">Bussin Alternative Guide</a>.</li>
+      </ul>
     </section>
   </main>
 
