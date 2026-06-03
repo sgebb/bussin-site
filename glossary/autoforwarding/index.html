@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Auto-forwarding in Azure Service Bus (Queue Ownership Pattern) | bussin.dev Glossary</title>
-  <meta name="description" content="Auto-forwarding in Azure Service Bus explained. How the queue ownership pattern gives each consumer its own retry policy, DLQ, and scaling boundary.">
+  <title>Autoforwarding (Azure Service Bus) | bussin.dev Glossary</title>
+  <meta name="description" content="Autoforwarding in Azure Service Bus explained. How autoforwarding turns a shared subscription model into a per-consumer queue model.">
   <meta name="keywords" content="Azure Service Bus autoforwarding, queue ownership pattern, subscription forwardTo, decoupled routing, service bus architecture">
   <link rel="canonical" href="https://bussin.dev/glossary/autoforwarding/">
   
   <!-- OpenGraph Metadata -->
-  <meta property="og:title" content="Auto-forwarding in Azure Service Bus (Queue Ownership Pattern) | bussin.dev Glossary">
-  <meta property="og:description" content="Auto-forwarding in Azure Service Bus explained. How the queue ownership pattern gives each consumer its own retry policy, DLQ, and scaling boundary.">
+  <meta property="og:title" content="Autoforwarding (Azure Service Bus) | bussin.dev Glossary">
+  <meta property="og:description" content="Autoforwarding in Azure Service Bus explained. How autoforwarding turns a shared subscription model into a per-consumer queue model.">
   <meta property="og:type" content="article">
   <meta property="og:url" content="https://bussin.dev/glossary/autoforwarding/">
   <meta property="og:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
@@ -50,45 +50,38 @@
 
   <main class="container page-content">
     <article>
-      <h1>Auto-forwarding in Azure Service Bus (Queue Ownership Pattern)</h1>
-      <p class="lead-text">Auto-forwarding is a Service Bus broker feature that automatically transfers messages from one entity (a topic subscription or a queue) directly into another queue or topic within the same namespace. It is a powerful structural tool that separates message routing mechanics from message processing ownership.</p>
-
+      <h1>Autoforwarding (Azure Service Bus)</h1>
+      <p class="lead-text">In Azure Service Bus pub/sub setups, it’s common to reprocess failed messages by sending them back through a topic.</p>
+      <p class="lead-text">In systems with multiple consumers, this can cause unintended side effects: a single retry can end up being processed by every subscriber that listens to that event.</p>
     </article>
 
     <section>
-      <h2>Why This Exists</h2>
-      <p>Although topics naturally broadcast messages to multiple subscribers, those subscribers are separate systems with completely different operational lifecycles. While topic subscriptions are shared resources, operational concerns—such as retries, lock durations, failure handling, and performance monitoring—must be managed per individual consumer. Auto-forwarding bridges this gap by natively separating routing concerns from processing concerns.</p>
+      <h2>What autoforwarding does</h2>
+      <p>Autoforwarding is a feature where a subscription automatically forwards messages into a queue.</p>
+      <p>Instead of consumers reading directly from a shared subscription on a topic, each consumer reads from its own queue.</p>
       
       <div class="note" style="margin: 1.5rem 0; border-left-color: #22c2b7; background: rgba(34, 194, 183, 0.05);">
-        <strong>Key Concept:</strong> This shifts operational responsibility from a shared, publisher-owned subscription to a dedicated queue that each consumer fully controls.
+        <strong>Model Shift:</strong> This changes the model from shared consumption to consumer-owned message handling.
       </div>
     </section>
 
     <section>
-      <h2>When You Should Use This</h2>
-      <p>Adopt the Queue Ownership Pattern when:</p>
+      <h2>Why this matters</h2>
+      <p>When each consumer has its own queue, a few operational concerns become easier to manage:</p>
       <ul>
-        <li><strong>Multiple consumers on the same topic:</strong> You have distinct applications processing the same published events.</li>
-        <li><strong>When each consumer needs its own retry behavior:</strong> Consumers can configure customized lock durations, maximum delivery counts, or custom time-to-live settings.</li>
-        <li><strong>When failure handling should not affect other consumers:</strong> A slowdown or crash in one consumer service must never block or delay others.</li>
-        <li><strong>When you want isolated monitoring / alarms per consumer:</strong> You get clean, dedicated metrics (like queue length) and alarms tailored to each consumer team's SLAs.</li>
-        <li><strong>When you need safe handling of failed messages without impacting others:</strong> You can isolate, inspect, and retry failed messages without any risk of affecting other active consumers.</li>
+        <li>Retries can be implemented per consumer</li>
+        <li>Monitoring and alerting can be scoped per consumer</li>
+        <li>Failures are isolated to a single consumer</li>
+        <li>Access control becomes clearer at the queue level</li>
+        <li>Reprocessing does not affect other consumers</li>
       </ul>
+      <p>The main shift is ownership: each consumer controls how it handles its messages.</p>
     </section>
 
-    <section>
-      <h2>Failed Message Handling</h2>
-      <p>The strongest argument for auto-forwarding is how failures and retries are contained. In a shared-subscription model, error handling is complex and dangerous:</p>
-      <ul>
-        <li><strong>Sending a failed message back through the topic affects all consumers:</strong> If a consumer fails to process a message and sends it back to the shared topic to retry, <em>every other consumer will receive it again</em>. This leads to massive duplicate processing and unintended side effects in other systems.</li>
-        <li><strong>Sending it back to a queue only affects one consumer:</strong> With auto-forwarding, routing the failed message back to the consumer's dedicated queue has zero impact on other subscribers.</li>
-      </ul>
-      <p>This avoids duplicate processing and unintended side effects in other consumers, making it the safest pattern for distributed error handling.</p>
-    </section>
-
+    <!-- Architecture Pattern (SVG Diagram) -->
     <section>
       <h2>Architecture Pattern</h2>
-      <p>The Queue Ownership Pattern separates routing rules from processing queues. Messages published to a shared topic are filtered by the subscription and natively forwarded by the broker to the consumer's private queue.</p>
+      <p>The diagram below illustrates how messages published to a shared topic are filtered by the subscription and natively forwarded by the broker to the consumer's private queue.</p>
       
       <div style="margin: 2rem 0; background: rgba(12, 20, 34, 0.6); padding: 2rem; border-radius: 20px; border: 1px solid rgba(34, 194, 183, 0.15); display: flex; justify-content: center;">
         <svg viewBox="0 0 780 180" width="100%" height="auto" style="max-width: 780px; font-family: Inter, sans-serif;">
@@ -150,82 +143,51 @@
     </section>
 
     <section>
-      <h2>Shared Subscription vs. Dedicated Queue</h2>
-      <p>Moving from a shared topic subscription model to a dedicated queue model shifts operational capabilities significantly:</p>
-
-      <table>
-        <thead>
-          <tr>
-            <th>Operational Vector</th>
-            <th>Shared-Subscription Model</th>
-            <th>Per-Consumer Queue Model (Autoforward)</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><strong>Retry and Lock Configuration</strong></td>
-            <td>Coupled. All consumer instances must share the same Max Delivery Count, Lock Duration, and Default TTL.</td>
-            <td class="highlight-bussin">Decoupled. Each consumer team can customize lock durations and max retries on their private queue.</td>
-          </tr>
-          <tr>
-            <td><strong>DLQ Isolation</strong></td>
-            <td>Global. Failed messages land in the subscription's DLQ. Multiple teams may have to sort through a single shared DLQ.</td>
-            <td class="highlight-bussin">Isolated. Failed messages land in the consumer's dedicated DLQ, separating team failure analysis.</td>
-          </tr>
-          <tr>
-            <td><strong>Alerting and Monitoring</strong></td>
-            <td>Complex. Distinguishing queue lag between different services requires looking into specific subscription runtime metrics.</td>
-            <td class="highlight-bussin">Simple. Standard metric alerts (e.g. QueueLength) can be applied directly to each team's dedicated queue.</td>
-          </tr>
-          <tr>
-            <td><strong>Scaling and Throttling</strong></td>
-            <td>Shared. Large volumes consumed by one subscription can starve others or hit total namespace throughput limits.</td>
-            <td class="highlight-bussin">Isolated. Queues provide a natural buffer, allowing each consumer to process and scale independently.</td>
-          </tr>
-          <tr>
-            <td><strong>Failure Isolation</strong></td>
-            <td>Wide. A single consumer app misbehaving can block or back up the entire shared subscription pipeline.</td>
-            <td class="highlight-bussin">Narrow. Operational issues on a consumer's queue are entirely isolated and have no impact on other subscribers.</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-
-    <section>
-      <h2>How to Configure</h2>
-      <p>Auto-forwarding is configured on the **Topic Subscription** by setting the <code>forwardTo</code> property to point to the destination Queue.</p>
-
-      <pre><code>// Bicep: Topic subscription natively forwarding to the billing queue
-resource billingSubscription 'Microsoft.ServiceBus/namespaces/topics/subscriptions@2021-11-01' = {
-  name: 'my-namespace/order-events/billing-subscription'
-  properties: {
-    forwardTo: 'consumer-billing-queue' // The target Queue
-  }
-}</code></pre>
-    </section>
-
-    <section>
-      <h2>Operational Considerations</h2>
+      <h2>The important part (DLQ and retry behaviour)</h2>
+      <p>This becomes most obvious when handling failed messages.</p>
+      <p>If a message is sent back through the topic (for example after a DLQ retry), all subscriptions that match that event will receive it again.</p>
+      
+      <p>In practice, that means:</p>
       <ul>
-        <li><strong>DLQ Locality:</strong> Because successful message transfers happen immediately on arrival, normal consumer processing failures occur on the destination queue. Failed messages live in the <strong>destination queue's DLQ</strong>, not the subscription's.</li>
-        <li><strong>Destination Queue Quotas:</strong> If the destination queue reaches its size quota, forwarding fails, and messages back up on the source subscription. Ensure target queue quotas align with publish volumes.</li>
-        <li><strong>No Chaining:</strong> Avoid chaining multiple forward hops (e.g., A → B → C). It introduces latency, complicates message tracing, and adds zero structural value.</li>
-        <li><strong>Billed Operations:</strong> Broker-level transfers count as internal operations. A forwarded message incurs one write operation on the subscription and one write on the target queue.</li>
+        <li>Multiple consumers may process the same retry</li>
+        <li>You can introduce duplicate processing</li>
+        <li>You may trigger side effects in systems that were not involved in the original failure</li>
+      </ul>
+
+      <p>If the message is instead sent back to a consumer-owned queue, only that consumer sees it again.</p>
+      <p>That keeps retries isolated and avoids affecting other consumers.</p>
+    </section>
+
+    <section>
+      <h2>How to set it up</h2>
+      <ol>
+        <li>Create a topic</li>
+        <li>Create a subscription under the topic</li>
+        <li>Create a queue for the consumer</li>
+        <li>Enable autoforwarding on the subscription</li>
+        <li>Point it to the consumer’s queue</li>
+      </ol>
+      <p>From then on, the consumer reads from its own queue instead of the subscription.</p>
+    </section>
+
+    <section>
+      <h2>When to use it</h2>
+      <p>Use autoforwarding when:</p>
+      <ul>
+        <li>Multiple consumers subscribe to the same topic</li>
+        <li>Each consumer needs independent failure handling</li>
+        <li>You want to avoid side effects when reprocessing messages</li>
       </ul>
     </section>
 
-    <section>
-      <h2>How Bussin Helps</h2>
-      <p>Because messages traverse entity boundaries automatically, auditing auto-forwarded paths can be tricky. Bussin makes it simple:</p>
-      <ul>
-        <li><strong>Trace Forwarding Boundaries:</strong> Instantly verify that your <code>forwardTo</code> mappings are active, healthy, and correctly configured.</li>
-        <li><strong>Unified DLQ Monitoring:</strong> Access the destination queue's dead-letter sub-queue directly without context-switching between different Azure portal screens.</li>
-        <li><strong>Safe Credentialless Access:</strong> Inspect message flows using secure Entra ID credentials rather than sharing risky SAS keys.</li>
-      </ul>
+    <section class="summary-section" style="margin-top: 3rem; padding: 2rem; background: rgba(34, 194, 183, 0.05); border-radius: 12px; border-left: 4px solid #22c2b7;">
+      <h2>Summary</h2>
+      <p>Autoforwarding turns a shared subscription model into a per-consumer queue model.</p>
+      <p><strong>Each consumer owns how it processes, retries, and handles failures — without impacting other consumers.</strong></p>
     </section>
   </main>
 
-    <footer class="site-footer">
+  <footer class="site-footer">
     <div class="container footer-inner">
       <p>&copy; 2026 Bussin. MIT License. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a></p>
     </div>
