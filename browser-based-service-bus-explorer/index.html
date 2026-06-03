@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Browser-Based Azure Service Bus Explorer | Secure PWA | bussin.dev</title>
-  <meta name="description" content="How bussin.dev connects directly to Azure Service Bus over WebSockets — no backend proxy, no install. Your messages never leave your browser.">
+  <meta name="description" content="Manage Azure Service Bus queues and topics directly in your browser. Bypasses intermediate proxy servers for private, high-performance messaging administration.">
   <meta name="keywords" content="browser based Service Bus, browser native Service Bus, online Service Bus client, WebSockets, secure Service Bus Explorer">
   <link rel="canonical" href="https://bussin.dev/browser-based-service-bus-explorer/">
   
   <!-- OpenGraph Metadata -->
   <meta property="og:title" content="Browser-Based Azure Service Bus Explorer | Secure PWA | bussin.dev">
-  <meta property="og:description" content="Learn how our client-side Azure Service Bus explorer works. Connects directly to Azure over WebSockets, running entirely within your browser sandbox.">
+  <meta property="og:description" content="Explore the benefits of a browser-native Azure Service Bus explorer. Learn why direct client-side execution ensures credential safety and simplifies cross-platform setups.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://bussin.dev/browser-based-service-bus-explorer/">
   <meta property="og:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
@@ -29,12 +29,10 @@
         <nav class="menu-panel">
           <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
           <a href="/" class="menu-heading" style="text-decoration: none; color: inherit; display: block;">BUSSIN</a>
-          <a href="/features/browser-native/">Features</a>
-          <a href="/service-bus-explorer-alternative/">Alternatives</a>
-          <span class="menu-heading">RESOURCES</span>
-          <a href="/docs/">Documentation</a>
-          <a href="/glossary/">Glossary</a>
-          <a href="/privacy/">Privacy & Security</a>
+          <a href="/features/">Features</a>
+          <a href="/how-it-works/">How It Works</a>
+          <a href="/security/">Security</a>
+          <a href="/docs/">Docs</a>
         </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
       </div>
@@ -44,147 +42,80 @@
 
   <main class="container page-content">
     <article>
-      <h1>How it Works</h1>
-      <p>Bussin runs entirely in your browser. By connecting directly to Azure, it eliminates the need for intermediate proxy servers, keeping your connections fast and your data private.</p>
+      <h1>Browser-Based Service Bus Explorer</h1>
+      <p class="lead-text">Bussin is a browser-native client for Azure Service Bus. By operating entirely within your browser's local sandbox, it delivers a secure administration dashboard without requiring native installation or third-party servers.</p>
       <div class="hero-actions">
-        <a class="button primary" href="/docs/">Read Documentation</a>
+        <a class="button primary" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+        <a class="button secondary" href="/docs/">Read Documentation</a>
       </div>
     </article>
 
-    <section>
-      <h2>Direct Browser-to-Broker Connections</h2>
-      <p>Most web-based messaging tools run your data through their own backend servers. This can add latency, cost, and security risks by exposing your messaging payloads to third-party hosts.</p>
-      <p>Bussin connects directly to Azure Service Bus using standard browser protocols:</p>
-      <ul>
-        <li><strong>WebSockets Connection:</strong> Azure Service Bus supports connections over WebSockets on port 443. Bussin connects directly to your namespace using this standard protocol.</li>
-        <li><strong>Local Authentication:</strong> Sign-in is handled in your browser using Microsoft's official library (MSAL.js). Your access tokens are kept only in temporary browser memory.</li>
-        <li><strong>No Backend Server:</strong> All connection details and messages are processed locally in your browser. No message data ever goes to our servers.</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>Security and Network Flow</h2>
-      <p>Security is enforced by your browser's sandbox. Because direct REST endpoints on Azure Service Bus lack CORS headers for browser requests, Bussin opens a direct WebSocket tunnel to send messaging frames safely to Azure:</p>
+    <section style="margin-top: 2.5rem;">
+      <h2>Why Choose a Browser-Based Tool?</h2>
+      <p>Traditional messaging utilities often require downloading heavy desktop clients or configuring complex local runtimes. A browser-based approach provides complementary advantages for cloud developers:</p>
       
-      <div class="architecture-container" style="margin: 2.5rem 0; width: 100%; display: flex; justify-content: center;">
-        <svg viewBox="0 0 840 380" width="100%" height="auto" class="architecture-diagram" style="background: #03060D; border: 1px solid rgba(34, 194, 183, 0.12); border-radius: 12px; padding: 20px; font-family: 'Inter', system-ui, sans-serif; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);">
-          <!-- Defs for markers and gradients -->
-          <defs>
-            <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-              <path d="M 0 1 L 10 5 L 0 9 z" fill="#22C2B7" />
-            </marker>
-            <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#22C2B7" stop-opacity="0.8" />
-              <stop offset="100%" stop-color="#028A94" stop-opacity="0.8" />
-            </linearGradient>
-          </defs>
-
-          <!-- BROWSER SANDBOX BOUNDS -->
-          <rect x="20" y="20" width="340" height="340" rx="12" fill="#0C1422" stroke="url(#glow)" stroke-width="2" />
-          <text x="40" y="50" fill="#FFFFFF" font-weight="800" font-size="15">Browser Sandbox (100% Client-Side)</text>
-          
-          <!-- Browser Inside components -->
-          <!-- MSAL.js -->
-          <rect x="40" y="75" width="300" height="65" rx="8" fill="#141E30" stroke="rgba(34, 194, 183, 0.3)" stroke-width="1" />
-          <text x="60" y="100" fill="#FFFFFF" font-weight="600" font-size="13">MSAL.js Engine</text>
-          <text x="60" y="120" fill="#94A3B8" font-size="11">Manages user identities and token caches</text>
-          
-          <!-- Blazor WASM UI -->
-          <rect x="40" y="170" width="300" height="65" rx="8" fill="#141E30" stroke="rgba(34, 194, 183, 0.3)" stroke-width="1" />
-          <text x="60" y="195" fill="#FFFFFF" font-weight="600" font-size="13">Blazor WebAssembly UI</text>
-          <text x="60" y="215" fill="#94A3B8" font-size="11">Renders admin panel and namespace blades</text>
-          
-          <!-- Rhea AMQP Engine -->
-          <rect x="40" y="265" width="300" height="65" rx="8" fill="#141E30" stroke="rgba(34, 194, 183, 0.3)" stroke-width="1" />
-          <text x="60" y="290" fill="#FFFFFF" font-weight="600" font-size="13">Rhea AMQP Wire Engine</text>
-          <text x="60" y="310" fill="#94A3B8" font-size="11">Pipes raw AMQP 1.0 frames</text>
-
-          <!-- AZURE CLOUD CLUSTER -->
-          <!-- Entra ID -->
-          <rect x="480" y="70" width="320" height="75" rx="8" fill="#0C1422" stroke="rgba(255, 255, 255, 0.1)" stroke-width="1.5" />
-          <text x="500" y="98" fill="#FFFFFF" font-weight="800" font-size="14">Entra ID (Azure AD)</text>
-          <text x="500" y="120" fill="#94A3B8" font-size="11">OAuth 2.0 PKCE Auth Provider</text>
-
-          <!-- Azure Resource Manager (ARM) -->
-          <rect x="480" y="165" width="320" height="75" rx="8" fill="#0C1422" stroke="rgba(255, 255, 255, 0.1)" stroke-width="1.5" />
-          <text x="500" y="193" fill="#FFFFFF" font-weight="800" font-size="14">Azure Resource Manager (ARM)</text>
-          <text x="500" y="215" fill="#94A3B8" font-size="11">management.azure.com (CORS-REST)</text>
-
-          <!-- Service Bus Data Plane -->
-          <rect x="480" y="260" width="320" height="75" rx="8" fill="#0C1422" stroke="rgba(255, 255, 255, 0.1)" stroke-width="1.5" />
-          <text x="500" y="288" fill="#FFFFFF" font-weight="800" font-size="14">Azure Service Bus Data Plane</text>
-          <text x="500" y="310" fill="#22C2B7" font-weight="600" font-size="11">Direct AMQP over WebSockets (Port 443)</text>
-
-          <!-- PATHS and ARROWS -->
-          <!-- Flow 1: MSAL.js -> Entra ID -->
-          <path d="M 340 93 L 480 93" fill="none" stroke="#22C2B7" stroke-width="2" marker-end="url(#arrow)" />
-          <text x="410" y="86" fill="#22C2B7" font-size="10" text-anchor="middle" font-weight="700">1. Acquire Token</text>
-
-          <!-- Flow 2: Entra ID -> MSAL.js -->
-          <path d="M 480 118 L 340 118" fill="none" stroke="#22C2B7" stroke-width="2" marker-end="url(#arrow)" />
-          <text x="410" y="132" fill="#22C2B7" font-size="10" text-anchor="middle" font-weight="700">2. Return Access Token</text>
-
-          <!-- Flow 3: Blazor WASM -> ARM -->
-          <path d="M 340 202 L 480 202" fill="none" stroke="#22C2B7" stroke-width="2" marker-end="url(#arrow)" />
-          <text x="410" y="195" fill="#22C2B7" font-size="10" text-anchor="middle" font-weight="700">3. List Resources (CORS REST)</text>
-
-          <!-- Flow 4: Rhea -> Service Bus Data Plane -->
-          <path d="M 340 297 L 480 297" fill="none" stroke="#22C2B7" stroke-width="2" marker-end="url(#arrow)" />
-          <text x="410" y="290" fill="#22C2B7" font-size="10" text-anchor="middle" font-weight="700">4. AMQP over WebSockets (WSS)</text>
-        </svg>
+      <div class="walkthrough-grid" style="margin-top: 2rem;">
+        <article class="interactive-card">
+          <h3>Zero Installation Friction</h3>
+          <p>Navigate directly to the app URL, log in with your Entra ID credentials, and start peeking queues. There are no installer packages to download and no corporate security approvals required.</p>
+        </article>
+        <article class="interactive-card">
+          <h3>Cross-Platform Compatibility</h3>
+          <p>Browser execution ensures that developers on macOS, Linux, and Windows have access to the exact same management interface. You can even run it as a Progressive Web App (PWA) for desktop integration.</p>
+        </article>
+        <article class="interactive-card">
+          <h3>Secured by Sandbox Isolation</h3>
+          <p>Bussin runs within standard browser isolation boundaries. This prevents cross-origin resource sharing (CORS) access and keeps your connection settings secured locally on your own machine.</p>
+        </article>
       </div>
     </section>
 
     <section>
-      <h2>Messaging Operations</h2>
-      <p>Since Bussin connects directly to the Service Bus broker, it supports all standard messaging operations:</p>
+      <h2>The Security of a Direct Connection</h2>
+      <p>Many web-based administration tools function by routing your database credentials, SAS keys, or message payloads through their own intermediate backend API servers. This model poses significant data privacy risks and latency overhead.</p>
+      <p>Bussin is built differently:</p>
       <ul>
-        <li><strong>Resource Discovery:</strong> Automatically lists all namespaces, queues, and topics you have permission to access.</li>
-        <li><strong>Message Peeking:</strong> Read messages without locking them or deleting them from the queue.</li>
-        <li><strong>Peek-Lock Workflows:</strong> Lock messages, inspect them, and explicitly choose to complete, abandon, or dead-letter them.</li>
-        <li><strong>Dead-Letter Recovery:</strong> Read failed messages and resubmit them back to the active queue.</li>
-        <li><strong>Batching:</strong> Send or receive multiple messages efficiently without blocking the interface.</li>
+        <li><strong>Direct to Broker:</strong> All network traffic flows exclusively between your browser process and your Azure Service Bus endpoints. We do not operate intermediate servers.</li>
+        <li><strong>Delegated Permissions:</strong> Authentication is handled using standard Microsoft Sign-In. Bussin cannot perform actions beyond what your Entra ID role is authorized to do.</li>
+        <li><strong>Local Memory Execution:</strong> Message headers, payloads, and search filters are stored strictly in your browser's volatile memory and disappear as soon as you close the tab.</li>
       </ul>
+      <p style="margin-top: 1.5rem; font-style: italic; color: #a7d5ea;">
+        To review the technical connection specs, check out our detailed <a href="/how-it-works/">Architecture and How It Works Guide</a>.
+      </p>
     </section>
 
     <section>
-      <h2>Security</h2>
-      <div class="feature-grid">
-        <article>
-          <h3>Secure Login</h3>
-          <p>Uses standard OAuth 2.0 PKCE login flows. Your session tokens stay securely in browser memory.</p>
-        </article>
-        <article>
-          <h3>Direct Connections</h3>
-          <p>Uses your browser's network stack to open secure WebSocket connections directly to Azure.</p>
-        </article>
-        <article>
-          <h3>No Data Storage</h3>
-          <p>We do not store your credentials or messages. Everything is kept in temporary memory and is cleared when you close the tab.</p>
-        </article>
-        <article>
-          <h3>Local Settings</h3>
-          <p>Your bookmarks, folders, and settings are saved locally in your browser's storage and are never uploaded.</p>
-        </article>
-      </div>
+      <h2>Core Administrative Capabilities</h2>
+      <p>Despite running as a browser-native app, Bussin supports standard Service Bus operations:</p>
+      <ul>
+        <li><strong>Message Peeking:</strong> Read active or dead-letter messages without locking or removing them.</li>
+        <li><strong>Settlement Support:</strong> Lock messages, inspect payloads, and explicitly choose to complete, abandon, or dead-letter them.</li>
+        <li><strong>Queue Recovery:</strong> View failures (like MaxDeliveryCountExceeded) and resubmit dead-letter messages back to active queues.</li>
+        <li><strong>Background Processing:</strong> Move large backlogs of failed messages in the background while keeping the user interface active.</li>
+      </ul>
     </section>
 
     <section>
       <figure class="visual-card" style="margin-top: 2rem;">
-        <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Bussin active console displaying folders, filters, and queue details" />
+        <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Bussin dashboard displaying folder structures and search options" />
         <figcaption>Direct, high-performance messaging administration console running securely in a standard browser tab.</figcaption>
       </figure>
     </section>
 
     <section>
-      <h2>More Resources</h2>
-      <p>For more technical guides, read about <a href="/docs/peek-lock/">Peek-lock operations</a>, explore <a href="/glossary/dead-letter-queue/">Dead-letter queues</a>, or compare Bussin to other utilities in our <a href="/service-bus-explorer-alternative/">Alternatives Guide</a>.</p>
+      <h2>Related Guides</h2>
+      <p>For further reading, explore our articles and comparisons:</p>
+      <ul style="line-height: 1.6;">
+        <li><strong>Alternatives:</strong> Compare Bussin's capabilities against traditional utilities. Read the <a href="/service-bus-explorer-alternative/">Alternatives Guide</a>.</li>
+        <li><strong>Dead-Letter Queue:</strong> Understand how DLQs collect failed messages. Read the <a href="/dead-letter-queue/">DLQ Guide</a>.</li>
+        <li><strong>macOS and Linux:</strong> Learn about PWA support on macOS and Linux. Read the <a href="/service-bus-linux-mac/">Linux/Mac Page</a>.</li>
+      </ul>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>&copy; 2026 Bussin. MIT License. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a></p>
+      <p>&copy; 2026 Bussin. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a></p>
     </div>
   </footer>
 </body>

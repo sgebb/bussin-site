@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Azure Service Bus Dead-Letter Queue (DLQ) Management | bussin.dev</title>
+  <meta name="description" content="Understand Azure Service Bus Dead-Letter Queues (DLQs). Learn common causes for dead-lettering, how to inspect payloads, and how to resubmit messages.">
+  <meta name="keywords" content="Azure Service Bus, Dead-letter queue, DLQ, MaxDeliveryCountExceeded, TTLExpiredException, resubmit messages, Service Bus Explorer">
+  <link rel="canonical" href="https://bussin.dev/dead-letter-queue/">
+  
+  <!-- OpenGraph Metadata -->
+  <meta property="og:title" content="Azure Service Bus Dead-Letter Queue (DLQ) Management | bussin.dev">
+  <meta property="og:description" content="A guide to managing and recovering dead-letter queue (DLQ) messages in Azure Service Bus. Inspect failure reasons and resubmit backlogs.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://bussin.dev/dead-letter-queue/">
+  <meta property="og:image" content="https://bussin.dev/assets/media/deadLetterInspect.jpg">
+  <meta property="og:site_name" content="Bussin">
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="header-brand">
+        <details class="topbar-menu menu-left">
+          <summary class="hamburger-icon" aria-label="Menu">☰</summary>
+        </details>
+        <nav class="menu-panel">
+          <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+          <a href="/" class="menu-heading" style="text-decoration: none; color: inherit; display: block;">BUSSIN</a>
+          <a href="/features/">Features</a>
+          <a href="/how-it-works/">How It Works</a>
+          <a href="/security/">Security</a>
+          <a href="/docs/">Docs</a>
+        </nav>
+        <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
+      </div>
+      <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+    </div>
+  </header>
+
+  <main class="container page-content">
+    <article>
+      <h1>Azure Service Bus Dead-Letter Queues (DLQ)</h1>
+      <p class="lead-text">Every queue and subscription in Azure Service Bus has a secondary, system-managed sub-queue called a dead-letter queue (DLQ). The DLQ stores messages that cannot be successfully delivered or processed by consumers. Understanding the root causes of dead-lettering helps you resolve pipeline failures.</p>
+    </article>
+
+    <section style="margin-top: 2rem;">
+      <h2>Common Causes of Dead-Lettering</h2>
+      <p>Azure Service Bus automatically routes messages to the DLQ when certain conditions are met:</p>
+      
+      <h3>1. Max Delivery Count Exceeded</h3>
+      <p>When a consumer locks a message but fails to complete or abandon it successfully, the broker releases the lock and increments the message's delivery count. If this count exceeds the queue's configured <code>MaxDeliveryCount</code> (default is 10), the message is dead-lettered with the reason: <code>MaxDeliveryCountExceeded</code>.</p>
+      <p><strong>Common cause:</strong> Consumer application crashes, runs into unhandled exceptions, or times out during processing.</p>
+
+      <h3>2. Time-To-Live (TTL) Expiration</h3>
+      <p>If a message remains in the active queue longer than its configured Time-To-Live (TTL) duration, and dead-lettering on expiration is enabled (<code>EnableDeadLetteringOnMessageExpiration</code>), the message is moved to the DLQ with the reason: <code>TTLExpiredException</code>.</p>
+      <p><strong>Common cause:</strong> Consumer service downtime or message backlogs leading to slow processing rates.</p>
+
+      <h3>3. Explicit Application Dead-Lettering</h3>
+      <p>Consumer applications can explicitly move a message to the DLQ by calling the settlement action. This is useful when the message body contains malformed JSON/XML, fails business validation, or is otherwise unprocessable.</p>
+      <p><strong>Common cause:</strong> Data schema mismatches or invalid input data.</p>
+
+      <h3>4. Header and Metadata Size Exceeded</h3>
+      <p>If the cumulative size of a message's custom properties and headers exceeds the protocol limits, Azure Service Bus moves the message to the DLQ.</p>
+    </section>
+
+    <section>
+      <h2>Inspecting and Replaying DLQ Messages</h2>
+      <p>Unlike active queues, where consumers actively pull messages, the dead-letter queue is a storage area. Inspecting it requires peeking or locking messages to determine why they failed, and then resubmitting them once the consumer or payload issue is fixed.</p>
+      
+      <figure class="visual-card" style="margin: 2rem 0;">
+        <a href="#zoom-dlq" class="zoom-trigger" title="Click to zoom screenshot">
+          <img src="/assets/media/deadLetterInspect.jpg" alt="Screenshot showing dead-letter queue message inspection details and resubmit operations" />
+        </a>
+        <figcaption>Inspect dead-letter reasons, error headers, and message payloads directly in Bussin. (Click to zoom)</figcaption>
+      </figure>
+
+      <p>Bussin makes managing dead-letter queues straightforward:</p>
+      <ul>
+        <li><strong>View Dead-Letter Details:</strong> Read the error reasons (like <code>MaxDeliveryCountExceeded</code> or custom application errors) and dead-letter descriptions directly in the UI.</li>
+        <li><strong>Pay-Load Inspection:</strong> Preview JSON or plain text bodies in your browser memory without altering the message's state on the broker.</li>
+        <li><strong>Replay and Resubmit:</strong> Resubmit failed messages back to the active queue individually or in batches to retry processing after resolving consumer issues.</li>
+        <li><strong>Safe Purges:</strong> Clear corrupt or unrecoverable DLQ backlogs in the background with real-time progress indicators.</li>
+      </ul>
+    </section>
+
+    <section class="related-links" style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(34, 194, 183, 0.15);">
+      <h2>Related Resources</h2>
+      <ul style="line-height: 1.6;">
+        <li><strong>Docs:</strong> Learn how to perform settlement operations or inspect queues. Read the <a href="/docs/">Usage Docs</a>.</li>
+        <li><strong>Autoforwarding:</strong> Read about moving messages between queues. Read the <a href="/autoforwarding/">Autoforwarding Guide</a>.</li>
+        <li><strong>Homepage:</strong> Return to the product overview. Visit the <a href="/">Bussin Homepage</a>.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; 2026 Bussin. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a></p>
+    </div>
+  </footer>
+
+  <!-- Click-to-zoom Modals -->
+  <div id="zoom-dlq" class="lightbox">
+    <a href="#_" class="lightbox-close-overlay" aria-label="Close zoom"></a>
+    <div class="lightbox-content">
+      <a href="#_" class="lightbox-close">&times;</a>
+      <img src="/assets/media/deadLetterInspect.jpg" alt="Screenshot showing dead-letter queue message inspection details and resubmit operations" />
+      <p class="lightbox-caption">Inspect dead-letter reasons, error headers, and message payloads directly in Bussin.</p>
+    </div>
+  </div>
+</body>
+</html>

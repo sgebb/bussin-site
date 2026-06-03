@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Azure Service Bus Autoforwarding Guide | Patterns & Configuration | bussin.dev</title>
+  <meta name="description" content="Learn how Azure Service Bus autoforwarding works. Explore common patterns, queue ownership models, and step-by-step configuration guidelines.">
+  <meta name="keywords" content="Azure Service Bus, autoforwarding, queue ownership model, message routing, hop limit, Service Bus Explorer">
+  <link rel="canonical" href="https://bussin.dev/autoforwarding/">
+  
+  <!-- OpenGraph Metadata -->
+  <meta property="og:title" content="Azure Service Bus Autoforwarding Guide | Patterns & Configuration | bussin.dev">
+  <meta property="og:description" content="A conceptual guide to Azure Service Bus autoforwarding. Learn about consumer-controlled queues, message routing boundaries, and routing limits.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://bussin.dev/autoforwarding/">
+  <meta property="og:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
+  <meta property="og:site_name" content="Bussin">
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="header-brand">
+        <details class="topbar-menu menu-left">
+          <summary class="hamburger-icon" aria-label="Menu">☰</summary>
+        </details>
+        <nav class="menu-panel">
+          <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+          <a href="/" class="menu-heading" style="text-decoration: none; color: inherit; display: block;">BUSSIN</a>
+          <a href="/features/">Features</a>
+          <a href="/how-it-works/">How It Works</a>
+          <a href="/security/">Security</a>
+          <a href="/docs/">Docs</a>
+        </nav>
+        <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
+      </div>
+      <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+    </div>
+  </header>
+
+  <main class="container page-content">
+    <article>
+      <h1>Azure Service Bus Autoforwarding</h1>
+      <p class="lead-text">Autoforwarding is an Azure Service Bus feature that automatically routes messages from a source queue or subscription to a target queue or topic within the same namespace. This helps decouple publishers and consumers and facilitates custom routing topologies.</p>
+    </article>
+
+    <section style="margin-top: 2rem;">
+      <h2>Why Use Autoforwarding?</h2>
+      <p>Autoforwarding is commonly used to implement specific messaging architectures:</p>
+      
+      <h3>1. The Queue Ownership Model</h3>
+      <p>In large systems, different development teams might consume messages from a shared topic. Rather than multiple consumers reading directly from subscription endpoints on a single shared topic, each consumer team can define a subscription that autoforwards messages to a private queue they own and control.</p>
+      <p>This allows each team to manage their own queue configurations, such as lock durations, TTL, and dead-letter queue (DLQ) policies, without affecting other subscribers.</p>
+
+      <h3>2. Message Consolidation</h3>
+      <p>You can consolidate messages from multiple subscriptions or queues into a single processing queue. Instead of configuring consumer applications to poll several distinct endpoints, they poll a single target queue, simplifying consumer scaling and deployment.</p>
+
+      <h3>3. Decoupling Publishers and Consumers</h3>
+      <p>Publishers send messages to a generic entry point topic. Autoforwarding rules route those messages to specialized queues based on subscription filter rules, shielding publishers from consumer-side queue changes.</p>
+    </section>
+
+    <section>
+      <h2>Core Mechanics and Limitations</h2>
+      <p>When working with autoforwarding, keep these key behaviors in mind:</p>
+      
+      <ul>
+        <li><strong>Atomic Transfer:</strong> The move from the source entity to the target entity happens atomically inside the broker. A message is not removed from the source until it has been successfully written to the destination.</li>
+        <li><strong>Hop Count Limits:</strong> Azure Service Bus enforces a limit of **4 hops** for autoforwarded messages. If a message exceeds 4 consecutive forwarding steps, it is dead-lettered at the 5th entity to prevent infinite routing loops.</li>
+        <li><strong>Dead-Letter Destination:</strong> If a target queue is full, disabled, or deleted when a message is forwarded, the message is sent directly to the **source queue's dead-letter queue**, not the destination's.</li>
+      </ul>
+
+      <figure class="visual-card" style="margin: 2rem 0;">
+        <a href="#zoom-autoforward" class="zoom-trigger" title="Click to zoom screenshot">
+          <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Bussin dashboard showing folders and queue routing options" />
+        </a>
+        <figcaption>Inspect your namespace's queues and topics, and check for active forwarding configurations in Bussin. (Click to zoom)</figcaption>
+      </figure>
+    </section>
+
+    <section class="related-links" style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(34, 194, 183, 0.15);">
+      <h2>Related Resources</h2>
+      <ul style="line-height: 1.6;">
+        <li><strong>Docs:</strong> Learn how to inspect queues and navigate namespaces. Read the <a href="/docs/">Usage Docs</a>.</li>
+        <li><strong>Dead-Letter Queue:</strong> Understand how DLQs collect failed messages. Read the <a href="/dead-letter-queue/">DLQ Guide</a>.</li>
+        <li><strong>Homepage:</strong> Return to the product overview. Visit the <a href="/">Bussin Homepage</a>.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; 2026 Bussin. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a></p>
+    </div>
+  </footer>
+
+  <!-- Click-to-zoom Modals -->
+  <div id="zoom-autoforward" class="lightbox">
+    <a href="#_" class="lightbox-close-overlay" aria-label="Close zoom"></a>
+    <div class="lightbox-content">
+      <a href="#_" class="lightbox-close">&times;</a>
+      <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Bussin dashboard showing folders and queue routing options" />
+      <p class="lightbox-caption">Inspect your namespace's queues and topics, and check for active forwarding configurations in Bussin.</p>
+    </div>
+  </div>
+</body>
+</html>

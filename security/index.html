@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Security and Privacy Policy | bussin.dev</title>
+  <meta name="description" content="Bussin privacy and security details. Learn about direct browser connections, zero data transit, and Microsoft authentication.">
+  <meta name="keywords" content="privacy policy, security, no proxy, browser sandbox, Entra ID security, safe Azure explorer">
+  <link rel="canonical" href="https://bussin.dev/security/">
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="header-brand">
+        <details class="topbar-menu menu-left">
+          <summary class="hamburger-icon" aria-label="Menu">☰</summary>
+        </details>
+        <nav class="menu-panel">
+          <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+          <a href="/" class="menu-heading" style="text-decoration: none; color: inherit; display: block;">BUSSIN</a>
+          <a href="/features/">Features</a>
+          <a href="/how-it-works/">How It Works</a>
+          <a href="/security/">Security</a>
+          <a href="/docs/">Docs</a>
+        </nav>
+        <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
+      </div>
+      <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+    </div>
+  </header>
+
+  <main class="container page-content">
+    <article>
+      <h1>Security</h1>
+      <p class="lead-text">Bussin is a static web application that runs entirely in your browser. All connection credentials, tokens, and message payloads are processed locally. No backend servers, proxy relays, or databases are used to store your data.</p>
+    </article>
+
+    <section>
+      <h2>Data Flow</h2>
+      <p>All network traffic flows directly between your browser and Microsoft Azure's cloud endpoints. We do not run middle-tier servers that intercept or process your messages. There is no external infrastructure that can access or leak your messaging payload.</p>
+    </section>
+
+    <section>
+      <h2>No Message Storage</h2>
+      <p>Zero Service Bus entity names, queue definitions, metadata, or message body payloads are ever sent to or stored on our servers. All message data retrieved from Azure is held strictly in your browser's volatile memory and is cleared when you close the tab.</p>
+    </section>
+
+    <section>
+      <h2>No Telemetry or Tracking</h2>
+      <p>We do not include third-party advertising cookies, session recorders, or analytics engines (like Google Analytics). All active connections run inside standard browser TLS connections. A basic profile record (User ID, email, name, and login timestamp) is logged upon Microsoft Entra ID authentication to our open-source, serverless metric tracker to track adoption, which teams can self-host in their own Azure subscription.</p>
+    </section>
+
+    <section>
+      <h2>Browser-Only Execution</h2>
+      <p>Because Bussin runs as a standard static web application, it inherits the sandbox protections enforced by modern browser engines:</p>
+      <ul>
+        <li><strong>Same-Origin Isolation:</strong> Cross-origin resource sharing (CORS) rules prevent other websites or scripts from accessing Bussin's memory space or local storage.</li>
+        <li><strong>TLS Encryption:</strong> All communication with Microsoft management and data endpoints is secured via standard browser-enforced TLS 1.2 or 1.3 channels.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Microsoft Authentication Model</h2>
+      <p>MSAL.js handles sign-in directly within your browser's security context. The acquired OAuth 2.0 access token is used locally to connect to Azure. Your credentials never pass through external servers, and access rights conform strictly to your active Azure Role-Based Access Control (RBAC) permissions.</p>
+    </section>
+
+    <section class="related-links" style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(34, 194, 183, 0.15);">
+      <h2>Related Resources</h2>
+      <p>Explore more details about how Bussin works and how to use it:</p>
+      <ul style="line-height: 1.6;">
+        <li><strong>How It Works:</strong> Review the connection architecture and required permissions. Read the <a href="/how-it-works/">Architecture Guide</a>.</li>
+        <li><strong>Docs:</strong> Learn how to perform settlement operations or inspect queues. Read the <a href="/docs/">Usage Docs</a>.</li>
+        <li><strong>Homepage:</strong> Return to the product overview. Visit the <a href="/">Bussin Homepage</a>.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; 2026 Bussin. MIT License. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a></p>
+    </div>
+  </footer>
+</body>
+</html>

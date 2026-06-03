@@ -29,12 +29,10 @@
         <nav class="menu-panel">
           <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
           <a href="/" class="menu-heading" style="text-decoration: none; color: inherit; display: block;">BUSSIN</a>
-          <a href="/features/browser-native/">Features</a>
-          <a href="/service-bus-explorer-alternative/">Alternatives</a>
-          <span class="menu-heading">RESOURCES</span>
-          <a href="/docs/">Documentation</a>
-          <a href="/glossary/">Glossary</a>
-          <a href="/privacy/">Privacy & Security</a>
+          <a href="/features/">Features</a>
+          <a href="/how-it-works/">How It Works</a>
+          <a href="/security/">Security</a>
+          <a href="/docs/">Docs</a>
         </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
       </div>
@@ -44,14 +42,14 @@
 
   <main class="container page-content">
     <article>
-      <h1>Privacy and Security</h1>
-      <p class="lead-text">Bussin is a client-side web application. All message processing, credential caching, and layout operations happen directly inside your browser container. This document outlines exactly how your network connections and credentials are handled.</p>
+      <h1>Privacy and Security Policy</h1>
+      <p class="lead-text">Bussin is a client-side web application. All message processing, credential validation, and UI operations happen directly inside your browser container. This document outlines exactly how your network connections and credentials are handled.</p>
     </article>
 
     <section style="margin-top: 2rem;">
-      <h2>What Bussin Does</h2>
+      <h2>Data Flow and Connections</h2>
       <ul>
-        <li><strong>Direct Connections:</strong> Renders the user interface and runs protocol exchanges locally. All messaging traffic flows exclusively between your browser process and Microsoft Azure's cloud gateways.</li>
+        <li><strong>Direct Connections:</strong> All messaging traffic flows exclusively between your browser and Microsoft Azure's cloud gateways. We do not run middle-tier servers that process your messages.</li>
         <li><strong>Token Caching:</strong> Uses the Microsoft Authentication Library (MSAL.js) to request standard OAuth 2.0 tokens. Access tokens for Service Bus actions are stored only in temporary session memory.</li>
         <li><strong>Local Caching:</strong> Saves your namespace bookmarks, workspace folder layouts, and settings inside your browser's local <code>localStorage</code>.</li>
         <li><strong>Usage Metrics:</strong> Logs a basic profile record (User ID, email, name, and login timestamp) upon successful Entra ID authentication to our open-source, serverless tracker for adoption metrics. Teams can self-host this tracker in their own Azure subscription using the provided C# source code and Bicep scripts.</li>
@@ -59,11 +57,11 @@
     </section>
 
     <section>
-      <h2>What Bussin Never Does</h2>
+      <h2>Data Protection</h2>
       <ul>
-        <li><strong>No Proxy Servers:</strong> We do not run any backend servers, databases, or API relays that intercept or process your messages. There is no external infrastructure that can access or leak your message content.</li>
+        <li><strong>No Proxy Servers:</strong> We do not run backend servers, databases, or API relays that intercept or process your messages. There is no external infrastructure that can access your message content.</li>
         <li><strong>No Payload Data Transit:</strong> Zero Service Bus entity names, queue definitions, metadata headers, or message body payloads are ever sent to, stored on, or processed by our systems.</li>
-        <li><strong>No Third-Party Tracking:</strong> We do not include third-party advertising cookies, Google Analytics, or external session recorders. All active connections run inside standard browser TLS envelopes.</li>
+        <li><strong>No Third-Party Tracking:</strong> We do not include third-party advertising cookies, Google Analytics, or external session recorders. All connections run inside standard browser TLS envelopes.</li>
       </ul>
     </section>
 
@@ -71,8 +69,8 @@
       <h2>Browser Sandbox</h2>
       <p>Because Bussin runs as a standard web application, it inherits the sandbox protections enforced by modern browser engines:</p>
       <ul>
-        <li><strong>Same-Origin Isolation:</strong> Cross-origin resource sharing rules prevent other websites or scripts from accessing Bussin's memory space or local storage databases.</li>
-        <li><strong>TLS Encryption:</strong> All direct communication with Microsoft management and data endpoints is secured via standard browser-enforced TLS 1.2 or 1.3 channels.</li>
+        <li><strong>Same-Origin Isolation:</strong> Cross-origin resource sharing (CORS) rules prevent other websites or scripts from accessing Bussin's memory space or local storage databases.</li>
+        <li><strong>TLS Encryption:</strong> All communication with Microsoft management and data endpoints is secured via standard browser-enforced TLS 1.2 or 1.3 channels.</li>
       </ul>
     </section>
 
@@ -88,7 +86,7 @@
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>&copy; 2026 Bussin. MIT License. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a></p>
+      <p>&copy; 2026 Bussin. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a></p>
     </div>
   </footer>
 </body>

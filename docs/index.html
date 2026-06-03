@@ -3,18 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Documentation Home | Azure Service Bus Workflows | bussin.dev</title>
-  <meta name="description" content="Technical documentation for bussin.dev. Learn prerequisites, Entra ID setup, connection models, and diagnostic workflows for browser-native Service Bus management.">
-  <meta name="keywords" content="Azure Service Bus documentation, Service Bus Explorer help, Service Bus roles, Entra ID Service Bus permission, browser native Service Bus, troubleshooting Service Bus">
+  <title>Bussin Documentation & Usage Guides | bussin.dev Docs</title>
+  <meta name="description" content="Guides and instructions for using Bussin: Getting started, peek lock workflows, DLQ inspection, and resubmitting messages.">
+  <meta name="keywords" content="Azure Service Bus documentation, Service Bus help, how to resubmit messages, peek lock guide, dead-letter queue recovery">
   <link rel="canonical" href="https://bussin.dev/docs/">
-  
-  <!-- OpenGraph Metadata -->
-  <meta property="og:title" content="Documentation Home | Azure Service Bus Workflows | bussin.dev">
-  <meta property="og:description" content="Guides for secure, browser-native Azure Service Bus administration. Covers Entra ID authentication, roles, peek-lock, and dead-letter recovery.">
-  <meta property="og:type" content="article">
-  <meta property="og:url" content="https://bussin.dev/docs/">
-  <meta property="og:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
-  <meta property="og:site_name" content="Bussin">
 
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/styles.css">
@@ -29,12 +21,10 @@
         <nav class="menu-panel">
           <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
           <a href="/" class="menu-heading" style="text-decoration: none; color: inherit; display: block;">BUSSIN</a>
-          <a href="/features/browser-native/">Features</a>
-          <a href="/service-bus-explorer-alternative/">Alternatives</a>
-          <span class="menu-heading">RESOURCES</span>
-          <a href="/docs/">Documentation</a>
-          <a href="/glossary/">Glossary</a>
-          <a href="/privacy/">Privacy & Security</a>
+          <a href="/features/">Features</a>
+          <a href="/how-it-works/">How It Works</a>
+          <a href="/security/">Security</a>
+          <a href="/docs/">Docs</a>
         </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
       </div>
@@ -44,131 +34,59 @@
 
   <main class="container page-content">
     <article>
-      <h1>Security and Access Configuration</h1>
-      <p class="lead-text">Bussin is a static web application with no backend server. Because all connections are made directly from your browser to Azure, access is managed entirely by standard Microsoft Entra ID (Azure Active Directory) registrations and Role-Based Access Control (RBAC) roles.</p>
+      <h1>Documentation & Usage Guides</h1>
+      <p class="lead-text">Learn how to configure, navigate, and perform standard message settlement actions inside Bussin.</p>
     </article>
 
-    <section style="margin-top: 2rem;">
-      <h2>1. Entra ID App Registration</h2>
-      <p>To authorize Bussin, register a standard application within your Microsoft Entra ID tenant:</p>
+    <section>
+      <h2>Getting Started</h2>
+      <p>Bussin runs directly in your browser. Follow these steps to log in and discover your namespaces:</p>
+      <ol>
+        <li>Open the application at <a href="https://app.bussin.dev" target="_blank" rel="noopener">app.bussin.dev</a>.</li>
+        <li>Select sign-in and authenticate using your Microsoft account. You must grant the application permissions to query your Azure resource directories and connect to your Service Bus.</li>
+        <li>Once logged in, Bussin automatically queries the Azure management API to display accessible subscriptions and namespaces in your sidebar. If your namespace is not listed, make sure your account has the required management permission (such as Azure Reader or Contributor) and data-plane access roles.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Peek Lock & Message Settlement</h2>
+      <p>When reading messages from a queue or subscription using Peek-Lock, the broker reserves them for a set duration (default is 30 seconds). While locked, other consumers cannot read the messages. Bussin lets you inspect locked messages and explicitly choose an action:</p>
       <ul>
-        <li><strong>Application Type:</strong> Single Page Application (SPA). Other types will fail due to security checks (CORS or PKCE).</li>
-        <li><strong>Redirect URIs:</strong>
-          <ul>
-            <li><code>https://app.bussin.dev</code> (for using the tool)</li>
-            <li><code>https://app.bussin.dev/demo</code> (for testing the demo mode)</li>
-          </ul>
-        </li>
-        <li><strong>API Permissions:</strong>
-          <ul>
-            <li><strong>Azure Service Bus:</strong> <code>user_impersonation</code>. This permission is required to open direct AMQP data streams.</li>
-            <li><strong>Azure Resource Manager:</strong> <code>user_impersonation</code>. This allows Bussin to list your subscriptions, namespaces, and messaging entities.</li>
-          </ul>
-        </li>
+        <li><strong>Complete:</strong> Confirms processing was successful and deletes the message from the queue.</li>
+        <li><strong>Abandon:</strong> Unlocks the message immediately, returning it to active status so it can be retried.</li>
+        <li><strong>Dead-Letter:</strong> Moves the message to the Dead-Letter Queue (DLQ). You can specify custom <code>DeadLetterReason</code> and <code>ErrorDescription</code> strings.</li>
       </ul>
+      <p>Bussin tracks lock leases and displays a countdown timer. If your manual inspection takes longer than the countdown, a single click extends the lock duration directly from your browser, preventing other clients from retrieving the message concurrently.</p>
     </section>
 
     <section>
-      <h2>2. Required Azure Service Bus Roles</h2>
-      <p>Ensure that your Azure account is assigned the appropriate roles on your Azure Service Bus namespace or entity:</p>
+      <h2>DLQ Inspection</h2>
+      <p>Messages that fail processing or expire are moved to the secondary Dead-Letter Queue (DLQ) sub-queue. Inspecting these messages is key to identifying processing errors:</p>
+      <ol>
+        <li>Select the queue or subscription from your folder sidebar.</li>
+        <li>Switch the view from "Active" to "Dead-Letter".</li>
+        <li>Peek the messages inline. Each message shows the headers, payload, and the specific failure reason (like <code>MaxDeliveryCountExceeded</code> or <code>TTLExpiredException</code>) appended by the broker.</li>
+      </ol>
+    </section>
+
+    <section>
+      <h2>Resubmitting Messages</h2>
+      <p>Once you resolve the processing errors, you can replay the failed messages back to the active queue:</p>
       <ul>
-        <li><strong>Azure Service Bus Data Owner:</strong> Full access to send, peek, lock, complete, or dead-letter messages.</li>
-        <li><strong>Azure Service Bus Data Receiver:</strong> Read-only access to peek and receive messages.</li>
-        <li><strong>Azure Service Bus Data Sender:</strong> Write-only access to publish messages.</li>
-      </ul>
-      <blockquote>
-        <strong>Note:</strong> Standard management roles (such as <em>Owner</em>, <em>Contributor</em>, or <em>Reader</em>) only apply to the Azure management plane. They do not grant permission to read or write messages. You must assign one of the <strong>Azure Service Bus Data</strong> roles listed above.
-      </blockquote>
-    </section>
-
-    <section>
-      <h2>Visual Architecture and Network Flow</h2>
-      <p>Bussin's security model is enforced by your browser's sandbox. Because direct REST endpoints on Azure Service Bus lack CORS headers (making direct browser REST requests impossible), Bussin opens a direct WebSocket tunnel to send standard AMQP messaging frames safely to Azure:</p>
-      
-      <div class="architecture-container" style="margin: 2.5rem 0; width: 100%; display: flex; justify-content: center;">
-        <svg viewBox="0 0 840 380" width="100%" height="auto" class="architecture-diagram" style="background: #03060D; border: 1px solid rgba(34, 194, 183, 0.12); border-radius: 12px; padding: 20px; font-family: 'Inter', system-ui, sans-serif; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);">
-          <!-- Defs for markers and gradients -->
-          <defs>
-            <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-              <path d="M 0 1 L 10 5 L 0 9 z" fill="#22C2B7" />
-            </marker>
-            <linearGradient id="glow" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#22C2B7" stop-opacity="0.8" />
-              <stop offset="100%" stop-color="#028A94" stop-opacity="0.8" />
-            </linearGradient>
-          </defs>
-
-          <!-- BROWSER SANDBOX BOUNDS -->
-          <rect x="20" y="20" width="340" height="340" rx="12" fill="#0C1422" stroke="url(#glow)" stroke-width="2" />
-          <text x="40" y="50" fill="#FFFFFF" font-weight="800" font-size="15">Browser Sandbox (100% Client-Side)</text>
-          
-          <!-- Browser Inside components -->
-          <!-- MSAL.js -->
-          <rect x="40" y="75" width="300" height="65" rx="8" fill="#141E30" stroke="rgba(34, 194, 183, 0.3)" stroke-width="1" />
-          <text x="60" y="100" fill="#FFFFFF" font-weight="600" font-size="13">MSAL.js Engine</text>
-          <text x="60" y="120" fill="#94A3B8" font-size="11">Manages user identities and token caches</text>
-          
-          <!-- Blazor WASM UI -->
-          <rect x="40" y="170" width="300" height="65" rx="8" fill="#141E30" stroke="rgba(34, 194, 183, 0.3)" stroke-width="1" />
-          <text x="60" y="195" fill="#FFFFFF" font-weight="600" font-size="13">Blazor WebAssembly UI</text>
-          <text x="60" y="215" fill="#94A3B8" font-size="11">Renders admin panel and namespace blades</text>
-          
-          <!-- Rhea AMQP Engine -->
-          <rect x="40" y="265" width="300" height="65" rx="8" fill="#141E30" stroke="rgba(34, 194, 183, 0.3)" stroke-width="1" />
-          <text x="60" y="290" fill="#FFFFFF" font-weight="600" font-size="13">Rhea AMQP Wire Engine</text>
-          <text x="60" y="310" fill="#94A3B8" font-size="11">Pipes raw AMQP 1.0 frames</text>
-
-          <!-- AZURE CLOUD CLUSTER -->
-          <!-- Entra ID -->
-          <rect x="480" y="70" width="320" height="75" rx="8" fill="#0C1422" stroke="rgba(255, 255, 255, 0.1)" stroke-width="1.5" />
-          <text x="500" y="98" fill="#FFFFFF" font-weight="800" font-size="14">Entra ID (Azure AD)</text>
-          <text x="500" y="120" fill="#94A3B8" font-size="11">OAuth 2.0 PKCE Auth Provider</text>
-
-          <!-- Azure Resource Manager (ARM) -->
-          <rect x="480" y="165" width="320" height="75" rx="8" fill="#0C1422" stroke="rgba(255, 255, 255, 0.1)" stroke-width="1.5" />
-          <text x="500" y="193" fill="#FFFFFF" font-weight="800" font-size="14">Azure Resource Manager (ARM)</text>
-          <text x="500" y="215" fill="#94A3B8" font-size="11">management.azure.com (CORS-REST)</text>
-
-          <!-- Service Bus Data Plane -->
-          <rect x="480" y="260" width="320" height="75" rx="8" fill="#0C1422" stroke="rgba(255, 255, 255, 0.1)" stroke-width="1.5" />
-          <text x="500" y="288" fill="#FFFFFF" font-weight="800" font-size="14">Azure Service Bus Data Plane</text>
-          <text x="500" y="310" fill="#22C2B7" font-weight="600" font-size="11">Direct AMQP over WebSockets (Port 443)</text>
-
-          <!-- PATHS and ARROWS -->
-          <!-- Flow 1: MSAL.js -> Entra ID -->
-          <path d="M 340 93 L 480 93" fill="none" stroke="#22C2B7" stroke-width="2" marker-end="url(#arrow)" />
-          <text x="410" y="86" fill="#22C2B7" font-size="10" text-anchor="middle" font-weight="700">1. Acquire Token</text>
-
-          <!-- Flow 2: Entra ID -> MSAL.js -->
-          <path d="M 480 118 L 340 118" fill="none" stroke="#22C2B7" stroke-width="2" marker-end="url(#arrow)" />
-          <text x="410" y="132" fill="#22C2B7" font-size="10" text-anchor="middle" font-weight="700">2. Return Access Token</text>
-
-          <!-- Flow 3: Blazor WASM -> ARM -->
-          <path d="M 340 202 L 480 202" fill="none" stroke="#22C2B7" stroke-width="2" marker-end="url(#arrow)" />
-          <text x="410" y="195" fill="#22C2B7" font-size="10" text-anchor="middle" font-weight="700">3. List Resources (CORS REST)</text>
-
-          <!-- Flow 4: Rhea -> Service Bus Data Plane -->
-          <path d="M 340 297 L 480 297" fill="none" stroke="#22C2B7" stroke-width="2" marker-end="url(#arrow)" />
-          <text x="410" y="290" fill="#22C2B7" font-size="10" text-anchor="middle" font-weight="700">4. AMQP over WebSockets (WSS)</text>
-        </svg>
-      </div>
-    </section>
-
-    <section>
-      <h2>Documentation and Glossary Reference</h2>
-      <p>Explore our guides and glossary terms to learn more about Azure Service Bus management:</p>
-      <ul style="line-height: 1.8;">
-        <li><strong>Peek Lock & Settlement:</strong> How message locking works, settlement operations (complete, abandon, dead-letter), and managing lock durations. Read the <a href="/docs/peek-lock/">Peek Lock Guide</a>.</li>
-        <li><strong>Connection Architecture:</strong> Technical details on how Bussin runs in your browser and talks directly to Azure. Read the <a href="/browser-based-service-bus-explorer/">Connection Architecture Guide</a>.</li>
-        <li><strong>Dead-Letter Queues (DLQ):</strong> What they are, why messages get dead-lettered, and how to recover them. Read the <a href="/glossary/dead-letter-queue/">Dead-Letter Queue Glossary Entry</a>.</li>
-        <li><strong>Autoforwarding:</strong> Learn how to forward messages from a subscription to a queue to isolate retries and failures. Read the <a href="/glossary/autoforwarding/">Autoforwarding Glossary Entry</a>.</li>
-        <li><strong>Alternative Guide:</strong> Compare Bussin's features to traditional desktop explorers. View the <a href="/service-bus-explorer-alternative/">Alternatives Guide</a>.</li>
+        <li><strong>Queue Resubmission:</strong> Select one or more dead-lettered messages and click "Resubmit". Bussin clones the messages and replays them back to the active queue. You can delete the originals once resubmission is complete.</li>
+        <li><strong>Topic Subscription Resubmission:</strong> Because Azure Service Bus does not allow publishing directly to a subscription queue, resubmitting a message from a subscription DLQ replays it back to the parent <em>topic</em>. Note that the message will be evaluated against all active subscription filters, potentially duplicating the message across other subscriptions.</li>
+        <li><strong>Bulk Replay:</strong> Use background operations to move or resubmit large backlogs of failed messages. The tool performs the actions asynchronously and displays progress bars.</li>
       </ul>
     </section>
 
-    <section>
-      <h2>Local Storage</h2>
-      <p>Your folders, bookmarks, and settings are saved locally inside your browser's <code>localStorage</code>. This data stays under your control and is never uploaded to any external server.</p>
+    <section class="related-links" style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(34, 194, 183, 0.15);">
+      <h2>Related Resources</h2>
+      <p>Explore more details about security and connection architecture:</p>
+      <ul style="line-height: 1.6;">
+        <li><strong>How It Works:</strong> Review the connection architecture and required permissions. Read the <a href="/how-it-works/">Architecture Guide</a>.</li>
+        <li><strong>Security:</strong> Learn about data flow and browser-only execution. Read the <a href="/security/">Security Overview</a>.</li>
+        <li><strong>Homepage:</strong> Return to the product overview. Visit the <a href="/">Bussin Homepage</a>.</li>
+      </ul>
     </section>
   </main>
 

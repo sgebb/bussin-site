@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bussin Features | Web client features | bussin.dev</title>
+  <meta name="description" content="Core features of Bussin: Browser-native execution, no installation, dead-letter queue browsing, message resubmission, and peek-lock support.">
+  <meta name="keywords" content="browser native Service Bus, WebSockets, WebAssembly Service Bus explorer, Azure Service Bus features, peek-lock, dead-letter queue">
+  <link rel="canonical" href="https://bussin.dev/features/">
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="header-brand">
+        <details class="topbar-menu menu-left">
+          <summary class="hamburger-icon" aria-label="Menu">☰</summary>
+        </details>
+        <nav class="menu-panel">
+          <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+          <a href="/" class="menu-heading" style="text-decoration: none; color: inherit; display: block;">BUSSIN</a>
+          <a href="/features/">Features</a>
+          <a href="/how-it-works/">How It Works</a>
+          <a href="/security/">Security</a>
+          <a href="/docs/">Docs</a>
+        </nav>
+        <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
+      </div>
+      <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+    </div>
+  </header>
+
+  <main class="container page-content">
+    <article>
+      <h1>Features</h1>
+      <p class="lead-text">Bussin is designed to get you in, let you do what you need with your Azure Service Bus, and get out. Here is what you can do with it.</p>
+    </article>
+
+    <section>
+      <h2>Browser-Native & No Installation</h2>
+      <p>Bussin runs entirely in your browser as a static web application. There is no need to download binaries, configure local environments, or ask for administrator installation privileges. Just navigate to the site and connect.</p>
+    </section>
+
+    <section>
+      <h2>Message Search and Peeking</h2>
+      <p>Read active or dead-letter messages without locking or deleting them from the broker. You can search through thousands of messages using property and body pattern matching inside your browser's memory.</p>
+      <figure class="visual-card" style="margin-top: 1.5rem;">
+        <img src="/assets/media/advancedPeek.jpg" alt="Screenshot displaying message search filter options in Bussin" />
+        <figcaption>Run property and body matching queries inside browser memory.</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <h2>Peek-Lock Settlement Support</h2>
+      <p>Work with standard Service Bus lock states. Lock messages for inspection, then explicitly complete, abandon, or dead-letter them with full protocol compliance. Live countdowns display exactly when your locks will expire, and a single click renews the lease.</p>
+    </section>
+
+    <section>
+      <h2>Dead-Letter Queue Browsing & Recovery</h2>
+      <p>Browse failed messages in the DLQ, read the failure reasons (like <code>MaxDeliveryCountExceeded</code> or <code>TTLExpiredException</code>), and resubmit them back to their active queue individually or in batches using background tasks.</p>
+      <figure class="visual-card" style="margin-top: 1.5rem;">
+        <img src="/assets/media/deadLetterInspect.jpg" alt="Screenshot showing dead-letter queue message inspection details and resubmit operations" />
+        <figcaption>Inspect dead-letter messages and replay them to their original queue.</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <h2>Background Operations</h2>
+      <p>Start long-running actions (such as moving large message backlogs or purging queues) in the background. The user interface remains responsive while background tasks track and show progress.</p>
+      <figure class="visual-card" style="margin-top: 1.5rem;">
+        <img src="/assets/media/confirmPurge.jpg" alt="Modal window confirming bulk purge parameters in Bussin" />
+        <figcaption>Start bulk operations or moves using background tasks.</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <h2>Namespace Organization</h2>
+      <p>Organize multiple Service Bus namespaces into nested folders. Pin favorite namespaces across different Microsoft Entra ID directories to switch contexts in milliseconds. All configurations are saved locally in your browser.</p>
+      <figure class="visual-card" style="margin-top: 1.5rem;">
+        <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Screenshot showing folders and navigation sidebar in Bussin" />
+        <figcaption>Organize multiple environments into folders and quickly search across namespaces.</figcaption>
+      </figure>
+    </section>
+
+    <section class="related-links" style="margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(34, 194, 183, 0.15);">
+      <h2>Related Resources</h2>
+      <p>Explore more guides and search landing pages:</p>
+      <ul style="line-height: 1.6;">
+        <li><strong>Homepage:</strong> Return to the main overview. Visit the <a href="/">Bussin Homepage</a>.</li>
+        <li><strong>Docs:</strong> Learn how to perform settlement operations or inspect queues. Read the <a href="/docs/">Usage Docs</a>.</li>
+        <li><strong>Alternatives:</strong> Compare Bussin's capabilities to other tools. Read the <a href="/service-bus-explorer-alternative/">Service Bus Explorer Alternatives Guide</a>.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; 2026 Bussin. MIT License. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a></p>
+    </div>
+  </footer>
+</body>
+</html>
