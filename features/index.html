@@ -86,6 +86,28 @@
     </section>
 
     <section>
+      <h2>Inline Message Editing & Resubmission</h2>
+      <p>Need to fix a payload or modify message properties before re-submitting? Edit message bodies, adjust editable system headers (like Correlation ID, Content Type, or Session ID), and manage custom application properties directly in the UI. Choose to resubmit as a clone, or cleanly delete the original message from the queue or DLQ upon success.</p>
+      <figure class="visual-card mt-sm">
+        <a href="#zoom-edit-resubmit">
+          <img loading="lazy" src="/assets/media/edit-and-resubmit.jpg" alt="Screenshot of the Inline Message Editor in Bussin showing editable properties and body textarea" />
+        </a>
+        <figcaption>Edit message body payloads, system properties, and custom headers inline. (Click to zoom)</figcaption>
+      </figure>
+    </section>
+
+    <section>
+      <h2>JSON Export & Batch Uploads</h2>
+      <p>Download selected messages, loaded messages, or up to 10,000 messages from the active or dead-letter queue as a structured JSON file. An interactive export modal lets you pick exactly which broker properties and custom application headers to include. The exported JSON fits the batch-upload schema, making it easy to import and send those messages back later with metadata intact.</p>
+      <figure class="visual-card mt-sm">
+        <a href="#zoom-export-options">
+          <img loading="lazy" src="/assets/media/export-options.jpg" alt="Screenshot of the Export Options dialog in Bussin showing checkbox fields selection" />
+        </a>
+        <figcaption>Customize metadata properties and custom application headers before exporting to JSON. (Click to zoom)</figcaption>
+      </figure>
+    </section>
+
+    <section>
       <h2>Background Operations</h2>
       <p>Start long-running actions (such as moving large message backlogs or purging queues) in the background. The user interface remains responsive while background tasks track and show progress.</p>
       <figure class="visual-card mt-sm">
@@ -157,6 +179,24 @@
       <a href="#_" class="lightbox-close">&times;</a>
       <img loading="lazy" src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Screenshot showing folders and navigation sidebar in Bussin" />
       <p class="lightbox-caption">Organize multiple environments into folders and quickly search across namespaces.</p>
+    </div>
+  </div>
+
+  <div id="zoom-edit-resubmit" class="lightbox">
+    <a href="#_" class="lightbox-close-overlay" aria-label="Close zoom"></a>
+    <div class="lightbox-content">
+      <a href="#_" class="lightbox-close">&times;</a>
+      <img loading="lazy" src="/assets/media/edit-and-resubmit.jpg" alt="Screenshot of the Inline Message Editor in Bussin showing editable properties and body textarea" />
+      <p class="lightbox-caption">Edit message body payloads, system properties, and custom headers inline before replaying.</p>
+    </div>
+  </div>
+
+  <div id="zoom-export-options" class="lightbox">
+    <a href="#_" class="lightbox-close-overlay" aria-label="Close zoom"></a>
+    <div class="lightbox-content">
+      <a href="#_" class="lightbox-close">&times;</a>
+      <img loading="lazy" src="/assets/media/export-options.jpg" alt="Screenshot of the Export Options dialog in Bussin showing checkbox fields selection" />
+      <p class="lightbox-caption">Select exactly which broker properties and application properties to export into your JSON file.</p>
     </div>
   </div>
 </body>

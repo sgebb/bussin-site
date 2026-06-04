@@ -508,6 +508,11 @@ details.topbar-menu[open] + .menu-panel {
   font-weight: 800;
   text-shadow: 0 0 10px rgba(34, 194, 183, 0.4);
 }
+.partial-mark {
+  color: #f59e0b;
+  font-weight: 800;
+  text-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+}
 .no-mark {
   color: var(--no-mark-color);
   font-weight: 700;

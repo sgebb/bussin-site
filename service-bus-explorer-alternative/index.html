@@ -79,7 +79,7 @@
         </article>
         <article class="interactive-card">
           <h3>3. Bussin (Browser-Native)</h3>
-          <p><strong>The Core Difference:</strong> Clean web client that connects directly to Azure from your browser. Designed for quick access—get in, inspect or repair queues, and leave. It requires no installation, is fully cross-platform, and runs entirely client-side.</p>
+          <p><strong>The Core Difference:</strong> Clean web client that connects directly to Azure from your browser. Designed for quick access—get in, inspect or repair queues, and leave. It supports advanced workflows like inline message editing, custom JSON exports, and batch uploads, while remaining fully cross-platform, requiring no installation, and running entirely client-side.</p>
         </article>
       </div>
     </section>
@@ -149,8 +149,20 @@
             <tr>
               <td><strong>Message Resubmission / Replay</strong></td>
               <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="partial-mark">~</span></td>
               <td class="text-center"><span class="checkmark">✓</span></td>
+            </tr>
+            <tr>
+              <td><strong>Inline Message Editing</strong></td>
+              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
               <td class="text-center"><span class="checkmark">✓</span></td>
+            </tr>
+            <tr>
+              <td><strong>JSON Export with Custom Headers</strong></td>
+              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+              <td class="text-center"><span class="partial-mark">~</span></td>
             </tr>
             <tr>
               <td><strong>Namespace Custom Folders</strong></td>
@@ -167,7 +179,8 @@
           </tbody>
         </table>
       </div>
-      <p style="color: var(--text-muted);font-size: 0.9rem; margin-top: 1rem;"><em>Bussin has no backend API, proxy server, or database access to your Service Bus. All actions conform to the user's active delegated Azure credentials. Your messages never leave your browser.</em></p>
+      <p style="color: var(--text-muted);font-size: 0.9rem; margin-top: 1rem;"><em>Note: <span class="partial-mark">~</span> denotes partial support (e.g. file exports are supported without interactive header filters in Paolo's tool, and Azure Portal resubmission is restricted to cloning from the DLQ without modification).</em></p>
+      <p style="color: var(--text-muted);font-size: 0.9rem; margin-top: 0.5rem;"><em>Bussin has no backend API, proxy server, or database access to your Service Bus. All actions conform to the user's active delegated Azure credentials. Your messages never leave your browser.</em></p>
     </section>
 
     <section>
