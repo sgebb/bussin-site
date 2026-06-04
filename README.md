@@ -2,7 +2,10 @@
 
 This is the repository for the marketing and documentation website of **Bussin** (Azure Service Bus Explorer).
 
+Looking for the app source code? Visit the main repository at **[sgebb/bussin](https://github.com/sgebb/bussin)**.
+
 Visit the live site at: **[https://bussin.dev](https://bussin.dev)**
 
 ## 🌐 Deployments
 This website is a static site hosted via GitHub Pages (mapped to the custom domain `bussin.dev`). Any changes merged into the main branch are automatically deployed.
+
