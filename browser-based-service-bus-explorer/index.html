@@ -91,20 +91,38 @@
     </section>
 
     <section>
-      <h2>Core Administrative Capabilities</h2>
-      <p>Despite running as a browser-native app, Bussin supports standard Service Bus operations:</p>
+      <h2>How Proxy-Based Tools Differ</h2>
+      <p>Most web-based administration tools for cloud services follow a standard pattern: your browser talks to the vendor's backend server, which then talks to your cloud provider on your behalf. This means:</p>
       <ul>
-        <li><strong>Message Peeking:</strong> Read active or dead-letter messages without locking or removing them.</li>
-        <li><strong>Settlement Support:</strong> Lock messages, inspect payloads, and explicitly choose to complete, abandon, or dead-letter them.</li>
-        <li><strong>Queue Recovery:</strong> View failures (like MaxDeliveryCountExceeded) and resubmit dead-letter messages back to active queues.</li>
-        <li><strong>Background Processing:</strong> Move large backlogs of failed messages in the background while keeping the user interface active.</li>
+        <li><strong>Credential Exposure:</strong> Your credentials or tokens pass through a third-party server that you don't control.</li>
+        <li><strong>Payload Transit:</strong> Your message payloads are decrypted and re-encrypted at the proxy layer, creating a potential data exposure surface.</li>
+        <li><strong>Vendor Dependency:</strong> The vendor's infrastructure becomes a single point of failure between you and your own cloud resources.</li>
       </ul>
+      <p>Bussin skips the proxy entirely. Your browser opens a direct AMQP 1.0 connection to Azure over WebSockets. The hosting server only serves the static HTML and WebAssembly files—after that, it's out of the loop.</p>
     </section>
 
     <section>
-      <figure class="visual-card" style="margin-top: 2rem;">
-        <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Bussin dashboard displaying folder structures and search options" />
-        <figcaption>Direct, high-performance messaging administration console running securely in a standard browser tab.</figcaption>
+      <h2>What Runs in Your Browser</h2>
+      <p>Bussin is a static web application composed of three client-side components:</p>
+      <div class="walkthrough-grid mt-md">
+        <article class="interactive-card">
+          <h3>MSAL.js</h3>
+          <p>Handles Entra ID authentication and token lifecycle directly in the browser. Tokens never leave your local session.</p>
+        </article>
+        <article class="interactive-card">
+          <h3>Blazor WebAssembly</h3>
+          <p>Renders the admin UI. The entire .NET runtime executes locally via WebAssembly—no server-side rendering.</p>
+        </article>
+        <article class="interactive-card">
+          <h3>Rhea AMQP Engine</h3>
+          <p>Pipes raw AMQP 1.0 frames over WebSockets to Azure Service Bus. This is the same wire protocol that native desktop clients use.</p>
+        </article>
+      </div>
+      <p class="mt-md">All three components run in your browser's security sandbox. Closing the tab destroys all state—tokens, messages, and search results.</p>
+
+      <figure class="visual-card mt-md">
+        <img src="/assets/media/darkmode.jpg" alt="Bussin dark mode interface showing namespace folders, queues, topics, and action buttons" />
+        <figcaption>The Bussin interface with folders, queues, and action panel—running entirely in the browser.</figcaption>
       </figure>
     </section>
 

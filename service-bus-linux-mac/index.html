@@ -71,6 +71,14 @@
         <li><strong>No Local Dependencies:</strong> Launches instantly without requiring native framework updates or runtimes.</li>
       </ul>
       
+      <h3 class="mt-md">Installing as a Desktop App</h3>
+      <p>In Chrome or Edge, navigate to <a href="https://app.bussin.dev" target="_blank" rel="noopener">app.bussin.dev</a> and look for the install icon in the address bar. Click it, confirm, and Bussin appears in your Applications folder (macOS) or app menu (Linux). That's it—no package manager, no terminal commands.</p>
+
+      <figure class="visual-card mt-sm">
+        <img src="/assets/media/installAsPwa.jpg" alt="Chrome browser showing the Install app dialog for Bussin with Install and Cancel buttons" />
+        <figcaption>Chrome's install prompt for Bussin—one click to add it to your dock or app menu.</figcaption>
+      </figure>
+
       <figure class="visual-card mt-md">
         <a href="#zoom-lightmode" class="zoom-trigger" title="Click to zoom screenshot">
           <img src="/assets/media/lightmode.jpg" alt="Bussin workspace displaying message peeks, headers, JSON body payload, and connection settings" />
@@ -80,8 +88,29 @@
     </section>
 
     <section>
-      <h2>Mobile and On-the-Go Friendly</h2>
-      <p>Bussin is designed with a responsive interface. When you are on-call, you can authenticate securely via Entra ID, inspect active queues, read dead-letter reasons, or resubmit messages directly from a mobile device or tablet.</p>
+      <h2>Browser Compatibility</h2>
+      <p>Bussin uses WebAssembly and WebSockets, which are supported by all modern browsers:</p>
+      <ul>
+        <li><strong>Chrome / Chromium:</strong> Full support. Recommended for PWA install and best WebAssembly performance.</li>
+        <li><strong>Firefox:</strong> Full support. All messaging features work in a standard tab. Does not support PWA install natively.</li>
+        <li><strong>Safari:</strong> Full support on macOS. WebSockets and WebAssembly both work. PWA support available via Add to Dock.</li>
+        <li><strong>Edge:</strong> Full support. Same Chromium engine as Chrome, with PWA install support.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Works on Mobile</h2>
+      <p>Bussin has a responsive interface that works on phones and tablets. Sign in with Entra ID, peek messages, check dead-letter reasons, or resubmit failed messages—all from a mobile browser. No app install needed, just open the URL.</p>
+      <p>This is especially practical for quick checks when you're away from your workstation. Log in, inspect the queue, and close the tab.</p>
+    </section>
+
+    <section class="related-links">
+      <h2>Related Resources</h2>
+      <ul>
+        <li><a href="/service-bus-explorer-alternative/"><strong>Alternatives</strong></a> — Compare Bussin to Azure Portal and the classic Service Bus Explorer.</li>
+        <li><a href="/browser-based-service-bus-explorer/"><strong>Browser-Based Explorer</strong></a> — Why a browser-native architecture keeps your data private.</li>
+        <li><a href="/features/"><strong>Features</strong></a> — Full list of messaging capabilities.</li>
+      </ul>
     </section>
   </main>
 
