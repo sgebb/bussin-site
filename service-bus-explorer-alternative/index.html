@@ -24,6 +24,7 @@
 
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="/assets/styles.css">
+  <script src="/assets/theme.js"></script>
 </head>
 <body>
   <header class="topbar">
@@ -85,7 +86,7 @@
 
     <section>
       <h2>Feature Comparison Table</h2>
-      <p style="color: #a7d5ea; margin-bottom: 1.5rem;">A direct comparison of core features across the main administrative clients.</p>
+      <p style="color: var(--text-secondary);margin-bottom: 1.5rem;">A direct comparison of core features across the main administrative clients.</p>
       <div style="overflow-x: auto;">
         <table class="compare-table">
           <thead>
@@ -166,7 +167,7 @@
           </tbody>
         </table>
       </div>
-      <p style="color: #93b7c6; font-size: 0.9rem; margin-top: 1rem;"><em>Bussin has no backend API, proxy server, or database access to your Service Bus. All actions conform to the user's active delegated Azure credentials. Your messages never leave your browser.</em></p>
+      <p style="color: var(--text-muted);font-size: 0.9rem; margin-top: 1rem;"><em>Bussin has no backend API, proxy server, or database access to your Service Bus. All actions conform to the user's active delegated Azure credentials. Your messages never leave your browser.</em></p>
     </section>
 
     <section>
@@ -228,7 +229,7 @@
     <a href="#_" class="lightbox-close-overlay" aria-label="Close zoom"></a>
     <div class="lightbox-content">
       <a href="#_" class="lightbox-close">&times;</a>
-      <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Bussin multi-tenant folder organization and active search bar dashboard view" />
+      <img loading="lazy" src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Bussin multi-tenant folder organization and active search bar dashboard view" />
       <p class="lightbox-caption">Direct browser-native messaging console operating inside a secure web container.</p>
     </div>
   </div>
