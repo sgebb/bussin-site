@@ -156,6 +156,27 @@
       </div>
     </section>
 
+    <section>
+      <h2>Smart Messaging Operations</h2>
+      <p>Because Azure Service Bus is a message queue (optimized for sequential stream processing) and not a database, the broker does not natively support "random-access" locking, deletion, or resubmission of specific active or DLQ messages by sequence number. To work around this design restriction and provide clean single-message operations, Bussin runs advanced background logic:</p>
+      
+      <h3>The Lock-Match-Complete Pattern</h3>
+      <p>To delete or resubmit a single message located deep in a queue without affecting other messages, Bussin executes a custom transaction-adjacent workflow:</p>
+      <ol>
+        <li><strong>Sequence Scanning:</strong> The tool scans message sequences in your browser's local memory to locate the target message's index and sequence ID.</li>
+        <li><strong>Offset-Based Locking:</strong> It opens a standard receiver link and lock-retrieves messages from the head of the queue sequentially until the target message is successfully retrieved and locked (e.g. if the target is at index 4, it locks 4 messages).</li>
+        <li><strong>Settle and Release:</strong> The target message is explicitly settled (Completed, Dead-Lettered, or Resubmitted), while the other messages locked during the scan are immediately abandoned (Released) to return back to their original position at the front of the queue.</li>
+      </ol>
+
+      <h3>Transaction & Duplication Safeguards</h3>
+      <p>When you trigger a message resubmission (cloning and sending a failed DLQ message back to the active queue), Bussin guarantees message preservation through strict action ordering:</p>
+      <ul>
+        <li><strong>Publish Before Delete:</strong> The new cloned message is successfully published to the target destination <em>before</em> the original is settled and removed from the source queue.</li>
+        <li><strong>Source Preservation:</strong> If the publish step fails, the operation halts immediately. The original message is never settled or removed, ensuring your data is preserved.</li>
+        <li><strong>At-Least-Once Delivery:</strong> In case the publish succeeds but the subsequent deletion of the original fails (due to connection loss or lock expiration), the message will exist in both the target and source queues. This safely conforms to standard distributed messaging principles, prioritizing duplication over data loss.</li>
+      </ul>
+    </section>
+
     <section class="related-links">
       <h2>Related Resources</h2>
       <ul>
