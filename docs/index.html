@@ -55,11 +55,21 @@
 
     <section>
       <h2>Getting Started</h2>
-      <p>Bussin runs directly in your browser. Follow these steps to log in and discover your namespaces:</p>
+      <p>Bussin runs directly in your browser. You can connect using either Entra ID or standard Connection Strings:</p>
+      
+      <h3>Option 1: Sign in with Microsoft (Entra ID)</h3>
       <ol>
         <li>Open the application at <a href="https://app.bussin.dev" target="_blank" rel="noopener">app.bussin.dev</a>.</li>
         <li>Select sign-in and authenticate using your Microsoft account. You must grant the application permissions to query your Azure resource directories and connect to your Service Bus.</li>
         <li>Once logged in, Bussin automatically queries the Azure management API to display accessible subscriptions and namespaces in your sidebar. If your namespace is not listed, make sure your account has the required management permission (such as Azure Reader or Contributor) and data-plane access roles.</li>
+      </ol>
+
+      <h3>Option 2: Run Without Login (Connection String Mode)</h3>
+      <ol>
+        <li>Open the application at <a href="https://app.bussin.dev" target="_blank" rel="noopener">app.bussin.dev</a>.</li>
+        <li>Select "Run without login — Connection String Mode".</li>
+        <li>In the sidebar, click the "Add CS" button, enter a friendly Display Name, paste your standard Service Bus Connection String, and specify any queues or topics you want to browse.</li>
+        <li>Click "Save Connection" to immediately access your resources. All connection strings are saved securely in your browser's local cache.</li>
       </ol>
     </section>
 

@@ -117,6 +117,12 @@
               <td class="text-center"><span class="checkmark">✓</span></td>
             </tr>
             <tr>
+              <td><strong>Connection String Support</strong></td>
+              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+            </tr>
+            <tr>
               <td><strong>Namespace Discovery</strong></td>
               <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
               <td class="text-center"><span class="checkmark">✓</span></td>
@@ -213,7 +219,7 @@
       </div>
       <div class="faq-item">
         <h3>Does Bussin work with connection strings?</h3>
-        <p>Not currently. Bussin uses delegated Entra ID tokens with Azure RBAC exclusively. Connection string support is being considered for a future release, which would also enable connecting to locally running Azure Service Bus emulators.</p>
+        <p>Yes! Bussin supports connecting directly using standard Azure Service Bus Connection Strings. This allows you to use the app in "Run without login" mode. It is particularly useful for connecting to external or partner Service Bus namespaces where you do not have Entra ID access. However, please note that the local Azure Service Bus Emulator is not supported directly because it lacks native WebSockets support (which browser-based applications require).</p>
       </div>
       <div class="faq-item">
         <h3>Can I use Bussin behind a corporate proxy or VPN?</h3>

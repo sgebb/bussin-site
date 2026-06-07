@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Azure Service Bus Explorer | Web Client | bussin.dev</title>
-  <meta name="description" content="Browse Azure Service Bus queues, topics, and dead-letter messages directly in your browser. Connects over WebSockets with Entra ID. No install required.">
-  <meta name="keywords" content="Azure Service Bus, Service Bus Explorer, Service Bus client, Service Bus Explorer alternative, Service Bus Mac, Service Bus Linux, browser native Service Bus, Dead-letter queue recovery, Entra ID Service Bus">
+  <meta name="description" content="Browse Azure Service Bus queues, topics, and dead-letter messages directly in your browser. Connects over WebSockets with Entra ID or Connection Strings. No install required.">
+  <meta name="keywords" content="Azure Service Bus, Service Bus Explorer, Service Bus client, Service Bus Explorer alternative, Service Bus Mac, Service Bus Linux, browser native Service Bus, Dead-letter queue recovery, Entra ID Service Bus, Service Bus Connection String">
   <link rel="canonical" href="https://bussin.dev/">
   
   <!-- OpenGraph Metadata -->
   <meta property="og:title" content="bussin.dev — Browser-Native Azure Service Bus Explorer">
-  <meta property="og:description" content="A browser-native Azure Service Bus explorer. Sign in with Entra ID, discover namespaces, and manage queues, topics, subscriptions, and dead-letter queues directly over WebSockets.">
+  <meta property="og:description" content="A browser-native Azure Service Bus explorer. Sign in with Entra ID or connect using a Connection String to manage queues, topics, subscriptions, and dead-letter queues over WebSockets.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://bussin.dev/">
   <meta property="og:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
@@ -19,7 +19,7 @@
   <!-- Twitter Card Metadata -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="bussin.dev — Browser-Native Azure Service Bus Explorer">
-  <meta name="twitter:description" content="Secure, client-side Azure Service Bus Explorer running in the browser. No server-side proxy, direct WebSockets, Entra ID integration.">
+  <meta name="twitter:description" content="Secure, client-side Azure Service Bus Explorer running in the browser. No server-side proxy, direct WebSockets, Entra ID and Connection String support.">
   <meta name="twitter:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
 
   <meta name="msvalidate.01" content="215C76BE0E727C4B79CAC7367AD2A516">
@@ -68,10 +68,10 @@
   </header>
 
   <main class="container page-content">
-    <section style="text-align: center; max-width: 800px; margin: 0 auto 2.5rem;">
+    <section style="text-align: left; max-width: 800px; margin: 0 0 2.5rem;">
       <h1>An easy, fast, in-browser Azure Service Bus Explorer</h1>
-      <p style="font-size: 1.15rem; line-height: 1.6; ">Bussin is a secure, client-side tool for Azure Service Bus that runs entirely in your browser. It lets you inspect and interact with topics, queues, and subscriptions, allowing you to peek, resubmit, send, and move messages to dead-letter queues. Because your messages and credentials are never sent to an external server or proxy, you maintain full data privacy.</p>
-      <div class="hero-actions" style="justify-content: center; margin-top: 2rem;">
+      <p style="font-size: 1.15rem; line-height: 1.6; ">Bussin is a secure, client-side tool for Azure Service Bus that runs entirely in your browser. Log in with Entra ID or connect instantly using a Connection String. Inspect and interact with topics, queues, and subscriptions, allowing you to peek, resubmit, send, and move messages to dead-letter queues. Because your messages and credentials are never sent to an external server or proxy, you maintain full data privacy.</p>
+      <div class="hero-actions" style="margin-top: 2rem;">
         <a class="button primary" href="https://app.bussin.dev" target="_blank" rel="noopener">Launch App</a>
         <a class="button secondary" href="/docs/">Read Docs</a>
       </div>
@@ -164,7 +164,7 @@
         <a href="#zoom-bottom">
           <img loading="lazy" src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="A screenshot showing the Bussin app ready for login" />
         </a>
-        <figcaption>Explore the interactive dashboard instantly in demo mode, or log in with Entra ID.</figcaption>
+        <figcaption>Explore the interactive dashboard instantly in demo mode, log in with Entra ID, or connect using a Connection String.</figcaption>
       </figure>
     </section>
   </main>
@@ -226,7 +226,7 @@
     <div class="lightbox-content">
       <a href="#_" class="lightbox-close">&times;</a>
       <img loading="lazy" src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="A screenshot showing the Bussin app ready for login" />
-      <p class="lightbox-caption">Explore the interactive dashboard instantly in demo mode, or log in with Entra ID.</p>
+      <p class="lightbox-caption">Explore the interactive dashboard instantly in demo mode, log in with Entra ID, or connect using a Connection String.</p>
     </div>
   </div>
 </body>

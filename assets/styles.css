@@ -657,51 +657,51 @@ details.topbar-menu[open] + .menu-panel {
   display: block;
 }
 
-/* Responsive sidebar design for larger screens */
+/* Responsive navigation layout for desktop screens */
 @media (min-width: 960px) {
-  /* Hide the hamburger icon since menu is always visible */
-  details.topbar-menu > summary.hamburger-icon {
+  /* Hide the hamburger menu details element entirely on desktop */
+  details.topbar-menu {
     display: none !important;
   }
 
-  /* Align topbar content with left sidebar on desktop and center it */
-  .topbar-inner {
-    margin-left: max(2rem, calc(50vw - 600px)) !important;
-    margin-right: max(2rem, calc(50vw - 600px)) !important;
-    max-width: none !important;
-    width: auto !important;
+  /* Style the brand logo and menu items horizontally in the top-bar */
+  .header-brand {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
   }
 
-  /* Force the menu panel to display as a persistent left sidebar and center it relative to the layout */
-  .menu-panel {
+  .header-brand .brand {
+    order: 1;
+  }
+
+  /* Position theme toggle next to brand logo */
+  .header-brand .theme-toggle-btn {
+    order: 2;
+    margin-right: 0.5rem;
+  }
+
+  /* Display navigation panel as a static horizontal row */
+  .header-brand .menu-panel {
+    order: 3;
     display: flex !important;
-    position: fixed !important;
-    left: max(2rem, calc(50vw - 600px)) !important;
-    top: 7.5rem !important;
-    width: 220px !important;
-    height: calc(100vh - 9.5rem) !important;
-    bottom: auto !important;
+    position: static !important;
+    flex-direction: row !important;
+    gap: 0.5rem !important;
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
     padding: 0 !important;
     max-height: none !important;
-    overflow-y: auto !important;
-    z-index: 100 !important;
-  }
-
-  /* Create margin space on the left of main page content for the sidebar and bound width to center the entire layout on wide screens */
-  main.page-content {
-    margin-left: max(280px, calc(50vw - 300px)) !important;
-    margin-right: auto !important;
+    overflow-y: visible !important;
+    z-index: auto !important;
     width: auto !important;
-    max-width: 900px !important;
+    height: auto !important;
   }
 
-  /* Shift the footer content to align with the main content */
-  .site-footer .footer-inner {
-    margin-left: max(280px, calc(50vw - 300px)) !important;
-    margin-right: max(2rem, calc(50vw - 600px)) !important;
+  /* Hide the menu heading ("BUSSIN") on desktop as the brand logo handles branding */
+  .menu-panel .menu-heading {
+    display: none !important;
   }
 }
 
