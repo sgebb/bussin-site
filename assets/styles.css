@@ -687,6 +687,7 @@ details.topbar-menu[open] + .menu-panel {
     display: flex !important;
     position: static !important;
     flex-direction: row !important;
+    align-items: center !important;
     gap: 0.5rem !important;
     background: transparent !important;
     border: none !important;
@@ -697,6 +698,12 @@ details.topbar-menu[open] + .menu-panel {
     z-index: auto !important;
     width: auto !important;
     height: auto !important;
+    min-width: auto !important;
+    max-width: none !important;
+  }
+
+  .header-brand .menu-panel a {
+    white-space: nowrap !important;
   }
 
   /* Hide the menu heading ("BUSSIN") on desktop as the brand logo handles branding */
