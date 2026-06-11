@@ -105,6 +105,19 @@
     </section>
 
     <section>
+      <h2>Managing Subscription Filters</h2>
+      <p>Subscription filters (historically called rules) determine which messages published to a topic are received by a specific subscription. Bussin allows you to inspect and modify these filters directly:</p>
+      <ol>
+        <li>Select a topic subscription in the folder sidebar.</li>
+        <li>Click <strong>Filters</strong> in the action sidebar to open the Manage Filters dialog.</li>
+        <li><strong>Inspect:</strong> View all existing filters (such as the default <code>$Default</code> true filter, SQL filters, or correlation filters).</li>
+        <li><strong>Add Filters:</strong> Define new SQL filters (e.g. <code>sys.Label = 'Order'</code>) or correlation filters (e.g. key-value property matches) to filter incoming messages.</li>
+        <li><strong>Delete Filters:</strong> Remove outdated or incorrect filters to stop accepting unwanted messages.</li>
+      </ol>
+      <p><em>Note: Modifying filters changes the live subscription configuration on the Azure Service Bus broker. Incorrect filters can cause messages to be dropped, so use with caution.</em></p>
+    </section>
+
+    <section>
       <h2>Scheduled Messages & Cancellation</h2>
       <p>Azure Service Bus allows scheduling messages to be enqueued at a future time. Bussin makes it easy to work with scheduled messages directly from your browser:</p>
       <ul>
