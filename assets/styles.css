@@ -1,13 +1,13 @@
 :root {
   /* Default Dark Theme variables */
-  --bg-primary: #03060d;
-  --bg-page: rgba(6, 10, 18, 0.96);
-  --bg-header: rgba(6, 11, 20, 0.96);
-  --bg-card: rgba(12, 20, 34, 0.9);
-  --bg-card-hover: rgba(16, 28, 48, 0.9);
-  --bg-th: rgba(14, 26, 45, 0.96);
-  --bg-tr-even: rgba(255, 255, 255, 0.03);
-  --bg-pre: rgba(10, 18, 29, 0.98);
+  --bg-primary: #0B1120;
+  --bg-page: rgba(10, 16, 28, 0.96);
+  --bg-header: rgba(10, 16, 28, 0.96);
+  --bg-card: rgba(20, 32, 52, 0.92);
+  --bg-card-hover: rgba(28, 42, 65, 0.92);
+  --bg-th: rgba(22, 36, 56, 0.96);
+  --bg-tr-even: rgba(255, 255, 255, 0.04);
+  --bg-pre: rgba(14, 24, 38, 0.98);
   
   --text-primary: #e7f5ff;
   --text-heading: #f8fcff;
@@ -26,14 +26,14 @@
   --shadow-glow: 0 0 30px rgba(34, 194, 183, 0.05);
   --shadow-card-hover: 0 12px 30px rgba(34, 194, 183, 0.08);
   
-  --border-primary: rgba(255, 255, 255, 0.06);
-  --border-table: rgba(255, 255, 255, 0.08);
+  --border-primary: rgba(255, 255, 255, 0.10);
+  --border-table: rgba(255, 255, 255, 0.12);
   --border-th: rgba(34, 194, 183, 0.3);
   
   --checkmark-color: #22c2b7;
   --no-mark-color: #ff6b76;
   
-  --scrollbar-track: #03060d;
+  --scrollbar-track: #0B1120;
   --scrollbar-thumb: rgba(34, 194, 183, 0.25);
   --scrollbar-thumb-hover: rgba(34, 194, 183, 0.45);
   
@@ -42,6 +42,12 @@
   --lightbox-border: rgba(34, 194, 183, 0.3);
   --lightbox-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(34, 194, 183, 0.1);
   --focus-outline: #22c2b7;
+
+  --btn-cta-text: #03060D;
+  --btn-sec-bg: rgba(255, 255, 255, 0.06);
+  --btn-sec-text: #d1e2f2;
+  --btn-sec-border: rgba(255, 255, 255, 0.12);
+  --accent-bg-glow: rgba(34, 194, 183, 0.08);
 
   /* App consistency values */
   color-scheme: dark;
@@ -97,6 +103,12 @@
   --lightbox-border: rgba(13, 148, 136, 0.3);
   --lightbox-shadow: 0 10px 40px rgba(15, 23, 42, 0.15), 0 0 30px rgba(13, 148, 136, 0.05);
   --focus-outline: #0d9488;
+
+  --btn-cta-text: #ffffff;
+  --btn-sec-bg: #f1f5f9;
+  --btn-sec-text: #334155;
+  --btn-sec-border: #e2e8f0;
+  --accent-bg-glow: rgba(13, 148, 136, 0.06);
 }
 
 * {

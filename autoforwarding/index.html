@@ -50,22 +50,22 @@
   <main class="container page-content">
     <article>
       <h1>Azure Service Bus Autoforwarding</h1>
-      <p class="lead-text">Autoforwarding is an Azure Service Bus feature that automatically routes messages from a source queue or subscription to a target queue or topic within the same namespace. This helps decouple publishers and consumers and facilitates custom routing topologies.</p>
+      <p class="lead-text">Autoforwarding is an Azure Service Bus feature that automatically routes messages from a source queue or subscription to a target queue or topic within the same namespace. This helps decouple publishers and consumers and makes it much easier to route messages.</p>
     </article>
 
     <section class="mt-md">
       <h2>Why Use Autoforwarding?</h2>
-      <p>Autoforwarding is commonly used to implement specific messaging architectures:</p>
+      <p>Autoforwarding is commonly used to build clean and manageable messaging systems:</p>
       
-      <h3>1. The Queue Ownership Model</h3>
-      <p>In large systems, different development teams might consume messages from a shared topic. Rather than multiple consumers reading directly from subscription endpoints on a single shared topic, each consumer team can define a subscription that autoforwards messages to a private queue they own and control.</p>
-      <p>This allows each team to manage their own queue configurations, such as lock durations, TTL, and dead-letter queue (DLQ) policies, without affecting other subscribers.</p>
+      <h3>1. Queue Ownership vs. Topic Dependency</h3>
+      <p>In large systems, different development teams often need to consume messages from a shared topic. Reading directly from topic subscriptions can cause coordination problems because a subscription is strictly dependent on its parent topic. If you consume directly from a subscription, you are bound to the parent topic's lifecycle, access policies, and management rules, meaning you don't have full control.</p>
+      <p>By using autoforwarding, you can configure the subscription to forward all incoming messages to a standalone queue. A queue is a first-class resource that your team can own completely. You can independently manage its settings (such as lock durations, time-to-live, and dead-letter policies), permissions, and scaling without being dependent on the parent topic or affecting other subscribers.</p>
 
       <h3>2. Message Consolidation</h3>
-      <p>You can consolidate messages from multiple subscriptions or queues into a single processing queue. Instead of configuring consumer applications to poll several distinct endpoints, they poll a single target queue, simplifying consumer scaling and deployment.</p>
+      <p>You can consolidate messages from multiple subscriptions or queues into a single processing queue. Instead of configuring consumer applications to poll several distinct endpoints, they only need to poll a single target queue that you own, simplifying how you scale and deploy your apps.</p>
 
       <h3>3. Decoupling Publishers and Consumers</h3>
-      <p>Publishers send messages to a generic entry point topic. Autoforwarding rules route those messages to specialized queues based on subscription filter rules, shielding publishers from consumer-side queue changes.</p>
+      <p>Publishers only need to know about a generic entry point topic. Autoforwarding handles sending those messages to the correct queues behind the scenes, shielding publishers from any changes to how consumers process messages.</p>
     </section>
 
     <section>
