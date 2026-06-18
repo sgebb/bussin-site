@@ -80,6 +80,11 @@
     </section>
 
     <section>
+      <h2>Session-Enabled Queue Support</h2>
+      <p>Managing session-enabled FIFO queues and topic subscriptions can be complex. Unlike typical tools that force you to know and supply specific Session IDs in advance to even view messages, Bussin detects session-enabled entities automatically and allows you to peek messages across all active sessions directly. When executing bulk data operations (such as a full queue purge), Bussin automatically falls back to an optimized sequential session receiver loop—leasing and draining next-available sessions one-by-one—to clean out message data safely and reliably.</p>
+    </section>
+
+    <section>
       <h2>Dead-Letter Queue Browsing & Recovery</h2>
       <p>Browse failed messages in the DLQ, read the failure reasons (like <code>MaxDeliveryCountExceeded</code> or <code>TTLExpiredException</code>), and resubmit them back to their active queue individually or in batches using background tasks.</p>
       <figure class="visual-card mt-sm">
