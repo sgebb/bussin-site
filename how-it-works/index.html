@@ -27,6 +27,18 @@
   <script src="/assets/theme.js"></script>
   <script data-goatcounter="https://bussin.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bussin.dev/" },
+      { "@type": "ListItem", "position": 2, "name": "How It Works", "item": "https://bussin.dev/how-it-works/" }
+    ]
+  }
+  </script>
 </head>
 <body>
   <header class="topbar">
@@ -42,6 +54,7 @@
           <a href="/how-it-works/">How It Works</a>
           <a href="/security/">Security</a>
           <a href="/docs/">Docs</a>
+          <a href="/mcp-server/">MCP Server</a>
         </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
       </div>
@@ -182,9 +195,9 @@
     <section class="related-links">
       <h2>Related Resources</h2>
       <ul>
-        <li><a href="/security/"><strong>Security</strong></a> — Learn about data flow and browser-only execution.</li>
-        <li><a href="/docs/"><strong>Docs</strong></a> — View step-by-step guides for interacting with queues.</li>
-        <li><a href="/"><strong>Homepage</strong></a> — Return to the product overview.</li>
+        <li><a href="/security/"><strong>Security</strong></a>: Learn about data flow and browser-only execution.</li>
+        <li><a href="/docs/"><strong>Docs</strong></a>: View step-by-step guides for interacting with queues.</li>
+        <li><a href="/"><strong>Homepage</strong></a>: Return to the product overview.</li>
       </ul>
     </section>
   </main>

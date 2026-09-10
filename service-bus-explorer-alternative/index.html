@@ -27,6 +27,60 @@
   <script src="/assets/theme.js"></script>
   <script data-goatcounter="https://bussin.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
+
+  <!-- Structured Data: mirrors the FAQ section below, verbatim. Keep the two in sync. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "FAQPage",
+        "@id": "https://bussin.dev/service-bus-explorer-alternative/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Does Bussin replace the desktop Service Bus Explorer?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Paolo Salvatori's Service Bus Explorer covers advanced broker administration (entity management, authorization rules, and emulator support) that Bussin intentionally does not. Bussin focuses on the day-to-day messaging workflow: peeking, searching, settling, and recovering messages instantly from any browser."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does Bussin connect without a backend?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Bussin establishes connection tunnels to the Azure Service Bus data plane over WebSockets (port 443). The protocol logic runs entirely client-side via WebAssembly in your browser, maintaining full security."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Bussin work with connection strings?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Bussin supports connecting directly using standard Azure Service Bus Connection Strings, which allows you to use the app in \"Run without login\" mode. It is particularly useful for connecting to external or partner Service Bus namespaces where you do not have Entra ID access. Note that the local Azure Service Bus Emulator is not supported directly because it lacks native WebSockets support, which browser-based applications require."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I use Bussin behind a corporate proxy or VPN?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Bussin communicates over standard WebSockets on port 443 (wss://), which passes through most corporate firewalls and proxies without additional configuration. No special firewall rules are needed beyond HTTPS access to your Service Bus namespace endpoints."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bussin.dev/" },
+          { "@type": "ListItem", "position": 2, "name": "Service Bus Explorer Alternatives", "item": "https://bussin.dev/service-bus-explorer-alternative/" }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <header class="topbar">
@@ -42,6 +96,7 @@
           <a href="/how-it-works/">How It Works</a>
           <a href="/security/">Security</a>
           <a href="/docs/">Docs</a>
+          <a href="/mcp-server/">MCP Server</a>
         </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
       </div>
@@ -77,11 +132,11 @@
         </article>
         <article class="interactive-card">
           <h3>2. Service Bus Explorer (Paolo Salvatori)</h3>
-          <p><strong>The Core Difference:</strong> Classic Windows desktop client with full administrative control—create and delete entities, edit queue properties, manage authorization rules. Best suited for advanced broker administration tasks. However, the UI can be complex to navigate, it's Windows-only (requires Wine on macOS and Linux), and requires local installation with connection string configuration.</p>
+          <p><strong>The Core Difference:</strong> Classic Windows desktop client with full administrative control: create and delete entities, edit queue properties, manage authorization rules. Best suited for advanced broker administration tasks. However, the UI can be complex to navigate, it's Windows-only (requires Wine on macOS and Linux), and requires local installation with connection string configuration.</p>
         </article>
         <article class="interactive-card">
           <h3>3. Bussin (Browser-Native)</h3>
-          <p><strong>The Core Difference:</strong> Clean web client that connects directly to Azure from your browser. Designed for quick access—get in, inspect or repair queues, and leave. It supports advanced workflows like inline message editing, custom JSON exports, and batch uploads, while remaining fully cross-platform, requiring no installation, and running entirely client-side.</p>
+          <p><strong>The Core Difference:</strong> Clean web client that connects directly to Azure from your browser. Designed for quick access: get in, inspect or repair queues, and leave. It supports advanced workflows like inline message editing, custom JSON exports, and batch uploads, while remaining fully cross-platform, requiring no installation, and running entirely client-side.</p>
         </article>
       </div>
     </section>
@@ -222,7 +277,7 @@
         </article>
         <article class="interactive-card">
           <h3>Bussin</h3>
-          <p>Day-to-day message debugging: peeking at payloads, recovering dead-lettered messages, searching message bodies, resubmitting failed batches. Best when you need to get in, fix something, and get out—from any device, without any setup.</p>
+          <p>Day-to-day message debugging: peeking at payloads, recovering dead-lettered messages, searching message bodies, resubmitting failed batches. Best when you need to get in, fix something, and get out, from any device and without any setup.</p>
         </article>
       </div>
     </section>
@@ -231,7 +286,7 @@
       <h2>Frequently Asked Questions</h2>
       <div class="faq-item">
         <h3>Does Bussin replace the desktop Service Bus Explorer?</h3>
-        <p>No. Paolo Salvatori's Service Bus Explorer covers advanced broker administration—entity management, authorization rules, and emulator support—that Bussin intentionally does not. Bussin focuses on the day-to-day messaging workflow: peeking, searching, settling, and recovering messages instantly from any browser.</p>
+        <p>No. Paolo Salvatori's Service Bus Explorer covers advanced broker administration (entity management, authorization rules, and emulator support) that Bussin intentionally does not. Bussin focuses on the day-to-day messaging workflow: peeking, searching, settling, and recovering messages instantly from any browser.</p>
       </div>
       <div class="faq-item">
         <h3>How does Bussin connect without a backend?</h3>
@@ -250,9 +305,9 @@
     <section class="related-links">
       <h2>Related Resources</h2>
       <ul>
-        <li><a href="/browser-based-service-bus-explorer/"><strong>Browser-Based Explorer</strong></a> — Why a browser-native architecture keeps your data private.</li>
-        <li><a href="/service-bus-linux-mac/"><strong>macOS and Linux</strong></a> — PWA installation and cross-platform setup.</li>
-        <li><a href="/dead-letter-queue/"><strong>Dead-Letter Queue</strong></a> — Common DLQ causes and how to recover messages.</li>
+        <li><a href="/browser-based-service-bus-explorer/"><strong>Browser-Based Explorer</strong></a>: Why a browser-native architecture keeps your data private.</li>
+        <li><a href="/service-bus-linux-mac/"><strong>macOS and Linux</strong></a>: PWA installation and cross-platform setup.</li>
+        <li><a href="/dead-letter-queue/"><strong>Dead-Letter Queue</strong></a>: Common DLQ causes and how to recover messages.</li>
       </ul>
     </section>
   </main>

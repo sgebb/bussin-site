@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Changelog | What's New in Bussin | bussin.dev</title>
+  <meta name="description" content="Release notes for Bussin, the browser-native Azure Service Bus explorer. New features, fixes and improvements to queue, topic and dead-letter queue tooling.">
+  <link rel="canonical" href="https://bussin.dev/changelog/">
+
+  <!-- OpenGraph Metadata -->
+  <meta property="og:title" content="Changelog | bussin.dev">
+  <meta property="og:description" content="What's new in Bussin. Release notes for the browser-native Azure Service Bus explorer.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bussin.dev/changelog/">
+  <meta property="og:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
+  <meta property="og:site_name" content="Bussin">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Changelog | bussin.dev">
+  <meta name="twitter:description" content="What's new in Bussin. Release notes for the browser-native Azure Service Bus explorer.">
+  <meta name="twitter:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <script src="/assets/theme.js"></script>
+  <script data-goatcounter="https://bussin.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+
+  <!--
+    MAINTENANCE NOTE
+    This page is a freshness signal: search engines and AI assistants treat a maintained
+    changelog as evidence the project is alive. It only works if it is actually updated.
+    Add a new <article class="faq-item"> block at the TOP for each release, and bump the
+    <lastmod> for this URL in /sitemap.xml at the same time.
+  -->
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "name": "Bussin Changelog",
+        "url": "https://bussin.dev/changelog/",
+        "description": "Release notes for Bussin, the browser-native Azure Service Bus explorer.",
+        "about": { "@id": "https://bussin.dev/#software" },
+        "publisher": { "@id": "https://bussin.dev/#organization" }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bussin.dev/" },
+          { "@type": "ListItem", "position": 2, "name": "Changelog", "item": "https://bussin.dev/changelog/" }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="header-brand">
+        <details class="topbar-menu menu-left">
+          <summary class="hamburger-icon" aria-label="Menu">☰</summary>
+        </details>
+        <nav class="menu-panel">
+          <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+          <a href="/" class="menu-heading menu-heading-link">BUSSIN</a>
+          <a href="/features/">Features</a>
+          <a href="/how-it-works/">How It Works</a>
+          <a href="/security/">Security</a>
+          <a href="/docs/">Docs</a>
+          <a href="/mcp-server/">MCP Server</a>
+        </nav>
+        <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
+      </div>
+      <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+    </div>
+  </header>
+
+  <main class="container page-content">
+    <section style="text-align: left; max-width: 820px; margin: 0 0 2.5rem;">
+      <h1>Changelog</h1>
+      <p style="font-size: 1.15rem; line-height: 1.6;">What's new in Bussin. The web app updates continuously. Reload <a href="https://app.bussin.dev" target="_blank" rel="noopener">app.bussin.dev</a> and you have the latest version; there is nothing to download or upgrade.</p>
+    </section>
+
+    <section>
+      <article class="faq-item">
+        <h2>MCP server for AI assistants</h2>
+        <p><em>September 2026</em></p>
+        <p>Released <a href="/mcp-server/"><code>bussin-mcp</code></a>, a Model Context Protocol server that connects Claude, ChatGPT, Cursor and other MCP-aware assistants to Azure Service Bus. It shares the AMQP client the web app uses, runs locally, and authenticates with Entra ID.</p>
+        <ul>
+          <li>Peek, search and inspect queues, topics, subscriptions and dead-letter queues in natural language</li>
+          <li>Read-only by default; sending and destructive operations are separate opt-in flags</li>
+          <li><code>--demo</code> mode runs against an in-process simulator, with no Azure account needed</li>
+        </ul>
+      </article>
+
+      <article class="faq-item">
+        <h2>Reliability and platform updates</h2>
+        <p><em>Recent</em></p>
+        <ul>
+          <li>Queue and message views now refresh automatically after any write operation, so what you see always reflects the broker</li>
+          <li>Fixed a duplicate confirmation dialog when resubmitting a message</li>
+          <li>Switched site analytics to GoatCounter, which is privacy-friendly with no cookies and no cross-site tracking. See our <a href="/security/">security page</a>.</li>
+          <li>Upgraded the application runtime to Node 24</li>
+        </ul>
+      </article>
+    </section>
+
+    <section class="related-links">
+      <h2>Related Resources</h2>
+      <ul>
+        <li><a href="/features/"><strong>Features</strong></a>: the full capability list.</li>
+        <li><a href="/mcp-server/"><strong>MCP Server</strong></a>: connect an AI assistant to your Service Bus.</li>
+        <li><a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener"><strong>GitHub</strong></a>: source, issues and commit history.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>&copy; 2026 Bussin. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a> · <a href="/security/">Security</a></p>
+    </div>
+  </footer>
+</body>
+</html>

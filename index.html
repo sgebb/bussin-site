@@ -9,7 +9,7 @@
   <link rel="canonical" href="https://bussin.dev/">
   
   <!-- OpenGraph Metadata -->
-  <meta property="og:title" content="bussin.dev — Browser-Native Azure Service Bus Explorer">
+  <meta property="og:title" content="bussin.dev | Browser-Native Azure Service Bus Explorer">
   <meta property="og:description" content="A browser-native Azure Service Bus explorer. Sign in with Entra ID or connect using a Connection String to manage queues, topics, subscriptions, and dead-letter queues over WebSockets.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://bussin.dev/">
@@ -18,7 +18,7 @@
 
   <!-- Twitter Card Metadata -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="bussin.dev — Browser-Native Azure Service Bus Explorer">
+  <meta name="twitter:title" content="bussin.dev | Browser-Native Azure Service Bus Explorer">
   <meta name="twitter:description" content="Secure, client-side Azure Service Bus Explorer running in the browser. No server-side proxy, direct WebSockets, Entra ID and Connection String support.">
   <meta name="twitter:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
 
@@ -29,22 +29,68 @@
   <script data-goatcounter="https://bussin.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
 
-  <!-- WebApplication Structured Data -->
+  <!-- Structured Data: the Bussin entity, its publisher, and the site itself -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": "Bussin",
-    "operatingSystem": "Windows, macOS, Linux",
-    "applicationCategory": "DeveloperApplication",
-    "browserRequirements": "Requires HTML5 WebSockets and ES6 support",
-    "offers": {
-      "@type": "Offer",
-      "price": "0.00",
-      "priceCurrency": "USD"
-    },
-    "description": "A client-side Azure Service Bus explorer that runs entirely in your browser. Connects directly to Azure over WebSockets for secure data management.",
-    "softwareVersion": "1.0.0"
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://bussin.dev/#software",
+        "name": "Bussin",
+        "alternateName": "Bussin Azure Service Bus Explorer",
+        "url": "https://bussin.dev/",
+        "downloadUrl": "https://app.bussin.dev",
+        "installUrl": "https://app.bussin.dev",
+        "applicationCategory": "DeveloperApplication",
+        "applicationSubCategory": "Azure Service Bus Explorer",
+        "operatingSystem": "Windows, macOS, Linux, ChromeOS, iOS, Android",
+        "browserRequirements": "Requires HTML5 WebSockets and ES6 support",
+        "softwareVersion": "1.0.0",
+        "isAccessibleForFree": true,
+        "license": "https://opensource.org/licenses/MIT",
+        "description": "A client-side Azure Service Bus explorer that runs entirely in your browser. Peek, search, resubmit and purge messages across queues, topics, subscriptions and dead-letter queues, connecting directly to Azure over WebSockets with no backend or proxy.",
+        "featureList": [
+          "Peek messages without consuming them",
+          "Dead-letter queue inspection and message resubmission",
+          "Deep message body and property search",
+          "Peek-lock settlement (complete, abandon, dead-letter)",
+          "Inline message editing and resubmission",
+          "Bulk purge and batch operations",
+          "Custom JSON export and batch upload",
+          "Subscription rule and filter management",
+          "Entra ID single sign-on and connection string support",
+          "Model Context Protocol server for AI assistants"
+        ],
+        "offers": {
+          "@type": "Offer",
+          "price": "0.00",
+          "priceCurrency": "USD"
+        },
+        "author": { "@id": "https://bussin.dev/#organization" },
+        "publisher": { "@id": "https://bussin.dev/#organization" },
+        "sameAs": [
+          "https://github.com/sgebb/bussin",
+          "https://www.npmjs.com/package/bussin-mcp"
+        ]
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://bussin.dev/#organization",
+        "name": "Bussin",
+        "url": "https://bussin.dev/",
+        "logo": "https://bussin.dev/assets/favicon.svg",
+        "sameAs": ["https://github.com/sgebb/bussin"]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://bussin.dev/#website",
+        "url": "https://bussin.dev/",
+        "name": "Bussin",
+        "description": "Browser-native Azure Service Bus explorer",
+        "publisher": { "@id": "https://bussin.dev/#organization" }
+      }
+    ]
   }
   </script>
 </head>
@@ -62,6 +108,7 @@
           <a href="/how-it-works/">How It Works</a>
           <a href="/security/">Security</a>
           <a href="/docs/">Docs</a>
+          <a href="/mcp-server/">MCP Server</a>
         </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
       </div>
@@ -88,7 +135,7 @@
 
     <section>
       <h2>What is Bussin?</h2>
-      <p>Bussin runs entirely in your browser. It establishes WebSockets connections directly to Azure from your browser. This keeps all network traffic strictly client-side and secure—meaning no data is stashed or transited through any third-party server.</p>
+      <p>Bussin runs entirely in your browser. It establishes WebSockets connections directly to Azure from your browser. This keeps all network traffic strictly client-side and secure, meaning no data is stashed or transited through any third-party server.</p>
       
       <div class="section-grid" style="margin-top: 2rem;">
         <article>
@@ -101,7 +148,7 @@
         </article>
         <article>
           <h3>Private & Secure</h3>
-          <p>Because your credentials, access tokens, and message payloads are processed purely in client-side memory, your business data stays private.</p>
+          <p>Your credentials, access tokens, and message payloads are handled entirely inside your browser and never reach a Bussin server, because there is no Bussin server to reach. See <a href="/security/">Security</a> for exactly what is kept in browser storage and what is held only in memory.</p>
         </article>
       </div>
     </section>
@@ -152,13 +199,15 @@
         <li>Want a <a href="/browser-based-service-bus-explorer/">browser-based Service Bus Explorer</a>?</li>
         <li>Want to learn about <a href="/dead-letter-queue/">Dead-Letter Queue recovery</a>?</li>
         <li>Need to configure <a href="/autoforwarding/">Azure Service Bus Auto-Forwarding</a>?</li>
+        <li>Want to connect Claude or ChatGPT to your queues with the <a href="/mcp-server/">Azure Service Bus MCP server</a>?</li>
+        <li>Curious what's new? See the <a href="/changelog/">changelog</a>.</li>
       </ul>
     </section>
 
     <section class="hero-grid">
       <div>
         <h2>Try Bussin Instantly</h2>
-        <p>You can try Bussin immediately with our live demo environment. Test operations like peek, resubmit, send, and moving messages to dead-letter queues in a mock namespace—without needing a login, permissions, or Azure consent.</p>
+        <p>You can try Bussin immediately with our live demo environment. Test operations like peek, resubmit, send, and moving messages to dead-letter queues in a mock namespace, without needing a login, permissions, or Azure consent.</p>
         <div class="hero-actions">
           <a class="button primary" href="https://app.bussin.dev/demo" target="_blank" rel="noopener">Try Live Demo</a>
           <a class="button secondary" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App (Sign In)</a>

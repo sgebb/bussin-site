@@ -27,6 +27,18 @@
   <script src="/assets/theme.js"></script>
   <script data-goatcounter="https://bussin.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bussin.dev/" },
+      { "@type": "ListItem", "position": 2, "name": "Features", "item": "https://bussin.dev/features/" }
+    ]
+  }
+  </script>
 </head>
 <body>
   <header class="topbar">
@@ -42,6 +54,7 @@
           <a href="/how-it-works/">How It Works</a>
           <a href="/security/">Security</a>
           <a href="/docs/">Docs</a>
+          <a href="/mcp-server/">MCP Server</a>
         </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
       </div>
@@ -83,7 +96,7 @@
 
     <section>
       <h2>Session-Enabled Queue Support</h2>
-      <p>Managing session-enabled FIFO queues and topic subscriptions can be complex. Unlike typical tools that force you to know and supply specific Session IDs in advance to even view messages, Bussin detects session-enabled entities automatically and allows you to peek messages across all active sessions directly. When executing bulk data operations (such as a full queue purge), Bussin automatically falls back to an optimized sequential session receiver loop—leasing and draining next-available sessions one-by-one—to clean out message data safely and reliably.</p>
+      <p>Managing session-enabled FIFO queues and topic subscriptions can be complex. Unlike typical tools that force you to know and supply specific Session IDs in advance to even view messages, Bussin detects session-enabled entities automatically and allows you to peek messages across all active sessions directly. When executing bulk data operations (such as a full queue purge), Bussin automatically falls back to an optimized sequential session receiver loop that leases and drains next-available sessions one by one, clearing out message data safely and reliably.</p>
     </section>
 
     <section>
@@ -137,7 +150,7 @@
 
     <section>
       <h2>Subscription Filter Management</h2>
-      <p>Inspect, add, and remove subscription filters (rules) directly from the browser interface. You can view all active SQL and correlation filters on any topic subscription, create new SQL filters to route specific messages, or define correlation filters based on message headers—giving you complete control over message routing rules directly inside the app, with built-in safety warnings to alert you of potential message loss before saving changes.</p>
+      <p>Inspect, add, and remove subscription filters (rules) directly from the browser interface. You can view all active SQL and correlation filters on any topic subscription, create new SQL filters to route specific messages, or define correlation filters based on message headers, giving you complete control over message routing rules directly inside the app, with built-in safety warnings to alert you of potential message loss before saving changes.</p>
     </section>
 
     <section>
@@ -154,19 +167,19 @@
     <section class="related-links">
       <h2>Deep Dives & Technical Guides</h2>
       <ul>
-        <li><a href="/dead-letter-queue/"><strong>Dead-Letter Queue</strong></a> — Understand how DLQs collect failed messages and how to inspect them.</li>
-        <li><a href="/autoforwarding/"><strong>Auto-Forwarding</strong></a> — Learn about routing messages between queues and subscriptions.</li>
-        <li><a href="/browser-based-service-bus-explorer/"><strong>Browser-Based Explorer</strong></a> — Read about running a Service Bus Explorer directly in your browser.</li>
-        <li><a href="/service-bus-explorer-alternative/"><strong>Explorer Alternatives</strong></a> — Compare Bussin with other Azure Service Bus desktop clients.</li>
-        <li><a href="/service-bus-linux-mac/"><strong>macOS & Linux Guide</strong></a> — How to run Bussin as a Progressive Web App (PWA) on macOS and Linux.</li>
+        <li><a href="/dead-letter-queue/"><strong>Dead-Letter Queue</strong></a>: Understand how DLQs collect failed messages and how to inspect them.</li>
+        <li><a href="/autoforwarding/"><strong>Auto-Forwarding</strong></a>: Learn about routing messages between queues and subscriptions.</li>
+        <li><a href="/browser-based-service-bus-explorer/"><strong>Browser-Based Explorer</strong></a>: Read about running a Service Bus Explorer directly in your browser.</li>
+        <li><a href="/service-bus-explorer-alternative/"><strong>Explorer Alternatives</strong></a>: Compare Bussin with other Azure Service Bus desktop clients.</li>
+        <li><a href="/service-bus-linux-mac/"><strong>macOS & Linux Guide</strong></a>: How to run Bussin as a Progressive Web App (PWA) on macOS and Linux.</li>
       </ul>
     </section>
 
     <section class="related-links">
       <h2>Related Resources</h2>
       <ul>
-        <li><a href="/"><strong>Homepage</strong></a> — Return to the main overview.</li>
-        <li><a href="/docs/"><strong>Docs</strong></a> — Learn how to perform settlement operations or inspect queues.</li>
+        <li><a href="/"><strong>Homepage</strong></a>: Return to the main overview.</li>
+        <li><a href="/docs/"><strong>Docs</strong></a>: Learn how to perform settlement operations or inspect queues.</li>
       </ul>
     </section>
   </main>

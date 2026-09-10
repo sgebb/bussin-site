@@ -27,6 +27,18 @@
   <script src="/assets/theme.js"></script>
   <script data-goatcounter="https://bussin.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bussin.dev/" },
+      { "@type": "ListItem", "position": 2, "name": "Documentation", "item": "https://bussin.dev/docs/" }
+    ]
+  }
+  </script>
 </head>
 <body>
   <header class="topbar">
@@ -42,6 +54,7 @@
           <a href="/how-it-works/">How It Works</a>
           <a href="/security/">Security</a>
           <a href="/docs/">Docs</a>
+          <a href="/mcp-server/">MCP Server</a>
         </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
       </div>
@@ -69,7 +82,7 @@
       <h3>Option 2: Run Without Login (Connection String Mode)</h3>
       <ol>
         <li>Open the application at <a href="https://app.bussin.dev" target="_blank" rel="noopener">app.bussin.dev</a>.</li>
-        <li>Select "Run without login — Connection String Mode".</li>
+        <li>Select "Run without login: Connection String Mode".</li>
         <li>In the sidebar, click the "Add CS" button, enter a friendly Display Name, paste your standard Service Bus Connection String, and specify any queues or topics you want to browse.</li>
         <li>Click "Save Connection" to immediately access your resources. All connection strings are saved securely in your browser's local cache.</li>
       </ol>
@@ -131,20 +144,20 @@
     <section class="related-links">
       <h2>Deep Dives & Technical Guides</h2>
       <ul>
-        <li><a href="/dead-letter-queue/"><strong>Dead-Letter Queue</strong></a> — Understand how DLQs collect failed messages and how to inspect them.</li>
-        <li><a href="/autoforwarding/"><strong>Auto-Forwarding</strong></a> — Learn about routing messages between queues and subscriptions.</li>
-        <li><a href="/browser-based-service-bus-explorer/"><strong>Browser-Based Explorer</strong></a> — Read about running a Service Bus Explorer directly in your browser.</li>
-        <li><a href="/service-bus-explorer-alternative/"><strong>Explorer Alternatives</strong></a> — Compare Bussin with other Azure Service Bus desktop clients.</li>
-        <li><a href="/service-bus-linux-mac/"><strong>macOS & Linux Guide</strong></a> — How to run Bussin as a Progressive Web App (PWA) on macOS and Linux.</li>
+        <li><a href="/dead-letter-queue/"><strong>Dead-Letter Queue</strong></a>: Understand how DLQs collect failed messages and how to inspect them.</li>
+        <li><a href="/autoforwarding/"><strong>Auto-Forwarding</strong></a>: Learn about routing messages between queues and subscriptions.</li>
+        <li><a href="/browser-based-service-bus-explorer/"><strong>Browser-Based Explorer</strong></a>: Read about running a Service Bus Explorer directly in your browser.</li>
+        <li><a href="/service-bus-explorer-alternative/"><strong>Explorer Alternatives</strong></a>: Compare Bussin with other Azure Service Bus desktop clients.</li>
+        <li><a href="/service-bus-linux-mac/"><strong>macOS & Linux Guide</strong></a>: How to run Bussin as a Progressive Web App (PWA) on macOS and Linux.</li>
       </ul>
     </section>
 
     <section class="related-links">
       <h2>Related Resources</h2>
       <ul>
-        <li><a href="/how-it-works/"><strong>How It Works</strong></a> — Review the connection architecture and required permissions.</li>
-        <li><a href="/security/"><strong>Security</strong></a> — Learn about data flow and browser-only execution.</li>
-        <li><a href="/"><strong>Homepage</strong></a> — Return to the product overview.</li>
+        <li><a href="/how-it-works/"><strong>How It Works</strong></a>: Review the connection architecture and required permissions.</li>
+        <li><a href="/security/"><strong>Security</strong></a>: Learn about data flow and browser-only execution.</li>
+        <li><a href="/"><strong>Homepage</strong></a>: Return to the product overview.</li>
       </ul>
     </section>
   </main>

@@ -27,6 +27,68 @@
   <script src="/assets/theme.js"></script>
   <script data-goatcounter="https://bussin.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "FAQPage",
+        "@id": "https://bussin.dev/dead-letter-queue/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Where is the Azure Service Bus dead-letter queue located?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "It is a system sub-queue of the entity it belongs to. For a queue the path is <queue-name>/$deadletterqueue; for a subscription it is <topic>/Subscriptions/<subscription>/$deadletterqueue. You do not create it, and it always exists, and it cannot be deleted independently of its parent."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do dead-lettered messages expire?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Time-to-live is not applied to messages once they are in the dead-letter queue, so they remain until something removes them. They also count against the entity's storage quota, which means an unattended dead-letter queue can eventually cause the parent queue to reject new messages."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I move a dead-lettered message back to the original queue directly?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Not as a broker-side move. Azure Service Bus has no return-to-source operation. Resubmission means reading the message, sending a copy to the source queue, and then removing the original. Tools that offer one-click replay perform exactly those steps for you."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why is my dead-letter queue empty when messages are clearly missing?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Three common reasons: the message expired while EnableDeadLetteringOnMessageExpiration was off, so it was dropped silently; it failed auto-forwarding and is in the transfer dead-letter queue of the source entity; or on a topic, no subscription rule matched, so it was never delivered anywhere."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does peeking a dead-lettered message change it?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Peek is a read-only operation. It does not lock the message, consume it, or increment its delivery count. You can inspect an entire dead-letter queue without altering any of it."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bussin.dev/" },
+          { "@type": "ListItem", "position": 2, "name": "Dead-Letter Queues", "item": "https://bussin.dev/dead-letter-queue/" }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <header class="topbar">
@@ -42,6 +104,7 @@
           <a href="/how-it-works/">How It Works</a>
           <a href="/security/">Security</a>
           <a href="/docs/">Docs</a>
+          <a href="/mcp-server/">MCP Server</a>
         </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
       </div>
@@ -72,7 +135,120 @@
       <p><strong>Common cause:</strong> Data schema mismatches or invalid input data.</p>
 
       <h3>4. Header and Metadata Size Exceeded</h3>
-      <p>If the cumulative size of a message's custom properties and headers exceeds the protocol limits, Azure Service Bus moves the message to the DLQ.</p>
+      <p>If the cumulative size of a message's custom properties and headers exceeds the protocol limits, Azure Service Bus moves the message to the DLQ with the reason <code>HeaderSizeExceeded</code>.</p>
+      <p><strong>Common cause:</strong> Diagnostic context, correlation identifiers, or retry metadata appended to a message on every hop through a pipeline, growing the header until it breaches the limit.</p>
+
+      <h3>5. Subscription Rule Errors</h3>
+      <p>On a topic subscription, a SQL filter or rule action is evaluated against every incoming message. If the expression throws, usually because it references a property that is missing, or compares incompatible types. In that case the broker dead-letters the message rather than dropping it.</p>
+      <p><strong>Common cause:</strong> A rule such as <code>priority &gt; 5</code> where some publishers omit <code>priority</code> entirely, or send it as a string.</p>
+
+      <h3>6. Auto-Forwarding Failures</h3>
+      <p>When a queue or subscription auto-forwards to a destination that no longer exists, has been disabled, or is full, the message is not dead-lettered to the normal DLQ. It goes to the <em>transfer</em> dead-letter queue of the <strong>source</strong> entity, at the path <code>$Transfer/$DeadLetterQueue</code>. This one catches people out: the messages are not where you would first look. See <a href="/autoforwarding/">auto-forwarding</a> for the full chain semantics.</p>
+    </section>
+
+    <section>
+      <h2>Reading the Dead-Letter Reason</h2>
+      <p>When Azure dead-letters a message it annotates it with system properties describing what happened. These are the first thing to check, and they are ordinary message properties you can read from any client:</p>
+      <div style="overflow-x: auto;">
+        <table class="compare-table">
+          <thead>
+            <tr><th>Property</th><th>What it tells you</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>DeadLetterReason</code></td>
+              <td>The category: <code>MaxDeliveryCountExceeded</code>, <code>TTLExpiredException</code>, <code>HeaderSizeExceeded</code>, or a custom string your own consumer supplied.</td>
+            </tr>
+            <tr>
+              <td><code>DeadLetterErrorDescription</code></td>
+              <td>The detail. When a consumer dead-letters explicitly this often carries the exception message, which is usually the single most useful field.</td>
+            </tr>
+            <tr>
+              <td><code>DeadLetterSource</code></td>
+              <td>Present when the message was dead-lettered from a <em>different</em> entity and then forwarded. Without it, a mixed DLQ gives no hint where a message originated.</td>
+            </tr>
+            <tr>
+              <td><code>DeliveryCount</code></td>
+              <td>How many delivery attempts were made. A count equal to <code>MaxDeliveryCount</code> confirms retry exhaustion rather than an explicit rejection.</td>
+            </tr>
+            <tr>
+              <td><code>EnqueuedTimeUtc</code></td>
+              <td>When the message first arrived. Compared against the dead-letter time, this separates "failed immediately" from "sat around and expired".</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top: 1.5rem;">A useful first pass is to group a DLQ by <code>DeadLetterReason</code>. A backlog that is entirely <code>MaxDeliveryCountExceeded</code> points at the consumer; a mixture of custom reasons points at the data.</p>
+    </section>
+
+    <section>
+      <h2>Diagnosing by Symptom</h2>
+      <div class="walkthrough-grid" style="margin-top: 2rem;">
+        <article class="interactive-card">
+          <h3>Everything dead-lettered at once</h3>
+          <p>A sharp spike with a single reason almost always means a deployment or a downstream dependency, not the messages. Check <code>EnqueuedTimeUtc</code> against your release history. These are usually safe to replay unchanged once the dependency recovers.</p>
+        </article>
+        <article class="interactive-card">
+          <h3>A slow trickle over days</h3>
+          <p>A steady drip of dead-letters with varied payloads suggests a data problem: a subset of messages hits an edge case the consumer mishandles. Inspect several bodies and look for what they share rather than what makes each unique.</p>
+        </article>
+        <article class="interactive-card">
+          <h3>Delivery count is 1</h3>
+          <p>The message was rejected outright, not retried. Either a consumer dead-lettered it deliberately, or it never reached one, because of a rule error or a header limit. <code>DeadLetterReason</code> distinguishes them.</p>
+        </article>
+        <article class="interactive-card">
+          <h3>The DLQ is empty but messages vanished</h3>
+          <p>Check the transfer dead-letter queue on the source entity, and confirm TTL expiry is set to dead-letter rather than to drop silently. Without <code>EnableDeadLetteringOnMessageExpiration</code>, expired messages are simply gone.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Replaying Safely</h2>
+      <p>Resubmitting a dead-lettered message means sending a copy back to the source queue. A few things are worth knowing before you replay a large batch:</p>
+      <ul style="line-height: 1.8;">
+        <li><strong>Fix the cause first.</strong> Replaying into a consumer that still fails simply walks the message back through <code>MaxDeliveryCount</code> attempts and returns it to the DLQ, with the added cost of the retries.</li>
+        <li><strong>A replayed message is a new message.</strong> It gets a new sequence number and enqueued time, and it lands at the back of the queue. Original ordering is not preserved, so replay is unsuitable where strict sequencing matters unless you replay the whole affected set in order.</li>
+        <li><strong>Duplicate detection may silently drop it.</strong> If the queue has duplicate detection enabled and you preserve the original <code>MessageId</code>, a replay inside the detection window is discarded as a duplicate. Either wait out the window or assign a new id.</li>
+        <li><strong>Replay in small batches first.</strong> Send a handful, confirm they process, then do the rest. This is far cheaper than discovering the fix was incomplete after ten thousand messages.</li>
+        <li><strong>Keep the originals until you are sure.</strong> Resubmitting copies and deleting the dead-lettered originals are separate steps for a reason.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Reducing Dead-Letters in the First Place</h2>
+      <ul style="line-height: 1.8;">
+        <li><strong>Tune <code>MaxDeliveryCount</code> to the failure mode.</strong> The default of 10 suits transient faults. For a genuinely poisonous message, ten attempts is nine wasted; for a flaky downstream call, ten may be too few.</li>
+        <li><strong>Validate at the edge.</strong> Rejecting a malformed payload where it is published is cheaper than discovering it in a consumer, and keeps the DLQ meaningful.</li>
+        <li><strong>Make consumers idempotent.</strong> Safe reprocessing is what makes replay a routine operation instead of a risk assessment.</li>
+        <li><strong>Give subscription rules defaults.</strong> Use <code>EXISTS(prop) AND prop &gt; 5</code> rather than <code>prop &gt; 5</code> so a missing property is a non-match instead of an evaluation error.</li>
+        <li><strong>Monitor DLQ depth, not just queue depth.</strong> A growing dead-letter count is often the earliest visible signal that something has broken.</li>
+      </ul>
+      <p style="margin-top: 1.5rem;"><strong>One operational detail worth remembering:</strong> dead-lettered messages count toward the entity's size quota, and they do not expire on their own. TTL does not apply once a message is in the DLQ. An ignored dead-letter queue will eventually fill the entity and start rejecting new sends. It needs draining, not just watching.</p>
+    </section>
+
+    <section>
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <h3>Where is the dead-letter queue located?</h3>
+        <p>It is a system sub-queue of the entity it belongs to. For a queue the path is <code>&lt;queue-name&gt;/$deadletterqueue</code>; for a subscription it is <code>&lt;topic&gt;/Subscriptions/&lt;subscription&gt;/$deadletterqueue</code>. You do not create it, and it always exists, and it cannot be deleted independently of its parent.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Do dead-lettered messages expire?</h3>
+        <p>No. Time-to-live is not applied to messages once they are in the dead-letter queue, so they remain until something removes them. They also count against the entity's storage quota, which means an unattended DLQ can eventually cause the parent queue to reject new messages.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can I move a message back to the original queue directly?</h3>
+        <p>Not as a broker-side move. Azure Service Bus has no "return to source" operation. Resubmission means reading the message, sending a copy to the source queue, and then removing the original. Tools that offer a one-click replay are performing exactly those steps for you.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Why is my dead-letter queue empty when messages are clearly missing?</h3>
+        <p>Three common reasons: the message expired while <code>EnableDeadLetteringOnMessageExpiration</code> was off, so it was dropped silently; it failed auto-forwarding and is in the transfer dead-letter queue of the source entity; or on a topic, no subscription rule matched, so it was never delivered anywhere.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Does peeking a dead-lettered message change it?</h3>
+        <p>No. Peek is a read-only operation. It does not lock the message, consume it, or increment its delivery count. You can inspect an entire dead-letter queue without altering any of it.</p>
+      </div>
     </section>
 
     <section>
@@ -98,9 +274,9 @@
     <section class="related-links">
       <h2>Related Resources</h2>
       <ul>
-        <li><a href="/docs/"><strong>Docs</strong></a> — Learn how to perform settlement operations or inspect queues.</li>
-        <li><a href="/autoforwarding/"><strong>Autoforwarding</strong></a> — Read about moving messages between queues.</li>
-        <li><a href="/"><strong>Homepage</strong></a> — Return to the product overview.</li>
+        <li><a href="/docs/"><strong>Docs</strong></a>: Learn how to perform settlement operations or inspect queues.</li>
+        <li><a href="/autoforwarding/"><strong>Autoforwarding</strong></a>: Read about moving messages between queues.</li>
+        <li><a href="/"><strong>Homepage</strong></a>: Return to the product overview.</li>
       </ul>
     </section>
   </main>

@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Azure Service Bus Explorer for Mac and Linux | PWA Client | bussin.dev</title>
-  <meta name="description" content="Azure Service Bus Explorer for macOS and Linux. Manage queues, topics, and dead-letter messages in any browser — no Windows dependency required.">
+  <meta name="description" content="Azure Service Bus Explorer for macOS and Linux. Manage queues, topics, and dead-letter messages in any browser, with no Windows dependency.">
   <meta name="keywords" content="Service Bus Explorer Mac, Service Bus Explorer Linux, Azure Service Bus macOS, Azure Service Bus Linux, Service Bus client Mac, cross-platform Service Bus explorer, online Service Bus client">
   <link rel="canonical" href="https://bussin.dev/service-bus-linux-mac/">
   
@@ -27,6 +27,18 @@
   <script src="/assets/theme.js"></script>
   <script data-goatcounter="https://bussin.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bussin.dev/" },
+      { "@type": "ListItem", "position": 2, "name": "Service Bus Explorer for Mac and Linux", "item": "https://bussin.dev/service-bus-linux-mac/" }
+    ]
+  }
+  </script>
 </head>
 <body>
   <header class="topbar">
@@ -42,6 +54,7 @@
           <a href="/how-it-works/">How It Works</a>
           <a href="/security/">Security</a>
           <a href="/docs/">Docs</a>
+          <a href="/mcp-server/">MCP Server</a>
         </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
       </div>
@@ -75,11 +88,11 @@
       </ul>
       
       <h3 class="mt-md">Installing as a Desktop App</h3>
-      <p>In Chrome or Edge, navigate to <a href="https://app.bussin.dev" target="_blank" rel="noopener">app.bussin.dev</a> and look for the install icon in the address bar. Click it, confirm, and Bussin appears in your Applications folder (macOS) or app menu (Linux). That's it—no package manager, no terminal commands.</p>
+      <p>In Chrome or Edge, navigate to <a href="https://app.bussin.dev" target="_blank" rel="noopener">app.bussin.dev</a> and look for the install icon in the address bar. Click it, confirm, and Bussin appears in your Applications folder (macOS) or app menu (Linux). That's it. No package manager, no terminal commands.</p>
 
       <figure class="visual-card mt-sm">
         <img src="/assets/media/installAsPwa.jpg" alt="Chrome browser showing the Install app dialog for Bussin with Install and Cancel buttons" />
-        <figcaption>Chrome's install prompt for Bussin—one click to add it to your dock or app menu.</figcaption>
+        <figcaption>Chrome's install prompt for Bussin. One click to add it to your dock or app menu.</figcaption>
       </figure>
 
       <figure class="visual-card mt-md">
@@ -103,16 +116,118 @@
 
     <section>
       <h2>Works on Mobile</h2>
-      <p>Bussin has a responsive interface that works on phones and tablets. Sign in with Entra ID, peek messages, check dead-letter reasons, or resubmit failed messages—all from a mobile browser. No app install needed, just open the URL.</p>
+      <p>Bussin has a responsive interface that works on phones and tablets. Sign in with Entra ID, peek messages, check dead-letter reasons, or resubmit failed messages, all from a mobile browser. No app install needed, just open the URL.</p>
       <p>This is especially practical for quick checks when you're away from your workstation. Log in, inspect the queue, and close the tab.</p>
+    </section>
+
+    <section>
+      <h2>Installing on Each Platform</h2>
+      <h3>macOS</h3>
+      <p>In Safari 17 or later, open <a href="https://app.bussin.dev" target="_blank" rel="noopener">app.bussin.dev</a> and choose <strong>File → Add to Dock</strong>. In Chrome or Edge, use the install icon at the right-hand end of the address bar. Either way Bussin lands in <code>~/Applications</code> and behaves like any other Dock app, so Command-Tab, Spotlight, and Mission Control all treat it as one.</p>
+
+      <h3>Linux</h3>
+      <p>Chrome and Chromium expose the same install icon in the address bar. Installing writes a standard <code>.desktop</code> entry into <code>~/.local/share/applications/</code>, so Bussin appears in GNOME Activities, the KDE launcher, or whatever menu your desktop uses, and can be pinned like a native application. No package manager, no root, no runtime to keep current.</p>
+      <p>Firefox no longer supports installing site-specific browsers, so on Firefox Bussin runs as an ordinary tab. Every messaging feature still works, and only the standalone window is missing.</p>
+
+      <h3>Windows</h3>
+      <p>Edge and Chrome both offer the install icon, and Bussin registers in the Start menu and taskbar. Windows users can equally run the classic desktop Service Bus Explorer; the browser version is worth it mainly if you want the same environment as your Mac and Linux colleagues.</p>
+    </section>
+
+    <section>
+      <h2>What Your Network Needs to Allow</h2>
+      <p>Because Bussin connects straight from your browser to Azure, the only traffic is to Microsoft endpoints. There is no Bussin server in the path. On a locked-down corporate network, these are what need to be reachable:</p>
+      <div style="overflow-x: auto;">
+        <table class="compare-table">
+          <thead>
+            <tr><th>Endpoint</th><th>Purpose</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>wss://&lt;namespace&gt;.servicebus.windows.net:443</code></td>
+              <td>AMQP over WebSockets, the actual messaging traffic</td>
+            </tr>
+            <tr>
+              <td><code>https://login.microsoftonline.com</code></td>
+              <td>Entra ID sign-in and token acquisition</td>
+            </tr>
+            <tr>
+              <td><code>https://management.azure.com</code></td>
+              <td>Discovering which namespaces and queues your account can see</td>
+            </tr>
+            <tr>
+              <td><code>https://app.bussin.dev</code></td>
+              <td>Loading the static application itself, once, then cached</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top: 1.5rem;">All of it is ordinary HTTPS and WebSocket traffic on port 443, so it passes through most corporate proxies unchanged. If your organisation already permits the Azure Portal, nothing further is usually required. Deep-packet-inspecting proxies that terminate WebSocket upgrades are the one exception worth knowing about. They will break the AMQP connection, and that affects any browser-based Service Bus tool equally.</p>
+    </section>
+
+    <section>
+      <h2>Azure Permissions</h2>
+      <p>Bussin uses your own identity and inherits exactly the roles you already have. There is nothing to grant to Bussin itself, because there is no service principal in the middle:</p>
+      <ul style="line-height: 1.8;">
+        <li><strong>Azure Service Bus Data Receiver</strong>: peek messages and inspect dead-letter queues</li>
+        <li><strong>Azure Service Bus Data Sender</strong>: send, resubmit, and replay messages</li>
+        <li><strong>Reader</strong> on the namespace or its resource group: see which namespaces and entities exist</li>
+      </ul>
+      <p>If you can already manage the namespace in the Azure Portal, you have what you need. If namespaces do not appear after signing in, missing <strong>Reader</strong> at the subscription or resource-group level is the usual cause. Data-plane roles alone let you act on entities but not enumerate them.</p>
+    </section>
+
+    <section>
+      <h2>Other Options on macOS and Linux</h2>
+      <p>Bussin is not the only way to work with Service Bus away from Windows, and it is worth knowing where each option fits:</p>
+      <div class="walkthrough-grid" style="margin-top: 2rem;">
+        <article class="interactive-card">
+          <h3>Azure Portal</h3>
+          <p>Cross-platform by definition and good for configuration and metrics. Its Service Bus Explorer blade handles basic send and peek, but has no deep search, no bulk operations, and no way to organise several namespaces.</p>
+        </article>
+        <article class="interactive-card">
+          <h3>Azure CLI</h3>
+          <p><code>az servicebus</code> manages entities well and scripts nicely, but it is a management-plane tool. It cannot peek a message body, which is usually the thing you actually need when debugging.</p>
+        </article>
+        <article class="interactive-card">
+          <h3>Native desktop clients</h3>
+          <p>Some commercial tools ship genuine macOS and Linux builds. They are capable, and worth considering if you want offline indexing or very large local exports, at the cost of an install and, often, a licence.</p>
+        </article>
+        <article class="interactive-card">
+          <h3>Wine or a Windows VM</h3>
+          <p>Running the classic Service Bus Explorer under Wine does work, but startup is slow, rendering is inconsistent, and connection-string handling is awkward. Practical as a fallback for the administrative features nothing else covers.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <h3>Is there a native Service Bus Explorer for macOS?</h3>
+        <p>Microsoft does not publish one. The classic Service Bus Explorer is a Windows desktop application. Options on macOS are the Azure Portal, a browser-based client such as Bussin, a third-party native tool, or running the Windows client under Wine or in a virtual machine.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Does Bussin work offline?</h3>
+        <p>The application shell is cached and will open without a connection, but Service Bus itself is a cloud service, so peeking or sending needs network access to your namespace. There is no local message cache to browse offline.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can I use it with the local Service Bus emulator?</h3>
+        <p>Not directly. The emulator does not expose AMQP over WebSockets, and a browser can only open WebSocket connections. For emulator work, use a native client or the SDK. Bussin's built-in demo mode covers trying the interface without a real namespace.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Does installing the PWA store my credentials on disk?</h3>
+        <p>No. Installing changes how the application is presented, not how it works. Tokens stay in browser memory for the session, exactly as they do in a normal tab.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Which browser works best?</h3>
+        <p>Chrome and Edge, marginally. Both offer PWA install and the fastest WebAssembly startup. Safari and Firefox support every messaging feature; Safari adds to the Dock from version 17, and Firefox runs in a tab only.</p>
+      </div>
     </section>
 
     <section class="related-links">
       <h2>Related Resources</h2>
       <ul>
-        <li><a href="/service-bus-explorer-alternative/"><strong>Alternatives</strong></a> — Compare Bussin to Azure Portal and the classic Service Bus Explorer.</li>
-        <li><a href="/browser-based-service-bus-explorer/"><strong>Browser-Based Explorer</strong></a> — Why a browser-native architecture keeps your data private.</li>
-        <li><a href="/features/"><strong>Features</strong></a> — Full list of messaging capabilities.</li>
+        <li><a href="/service-bus-explorer-alternative/"><strong>Alternatives</strong></a>: Compare Bussin to Azure Portal and the classic Service Bus Explorer.</li>
+        <li><a href="/browser-based-service-bus-explorer/"><strong>Browser-Based Explorer</strong></a>: Why a browser-native architecture keeps your data private.</li>
+        <li><a href="/features/"><strong>Features</strong></a>: Full list of messaging capabilities.</li>
       </ul>
     </section>
   </main>

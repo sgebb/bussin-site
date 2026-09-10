@@ -27,6 +27,18 @@
   <script src="/assets/theme.js"></script>
   <script data-goatcounter="https://bussin.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bussin.dev/" },
+      { "@type": "ListItem", "position": 2, "name": "Security", "item": "https://bussin.dev/security/" }
+    ]
+  }
+  </script>
 </head>
 <body>
   <header class="topbar">
@@ -42,6 +54,7 @@
           <a href="/how-it-works/">How It Works</a>
           <a href="/security/">Security</a>
           <a href="/docs/">Docs</a>
+          <a href="/mcp-server/">MCP Server</a>
         </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
       </div>
@@ -85,11 +98,15 @@
     </section>
 
     <section>
-      <h2>Data Caching</h2>
+      <h2>What Bussin Stores in Your Browser</h2>
+      <p>Nothing Bussin stores ever leaves your machine, but some of it does persist between sessions rather than living only in memory. Being precise about this matters more than sounding reassuring, so here is exactly what is written where.</p>
       <ul>
-        <li><strong>Token Caching:</strong> Uses the Microsoft Authentication Library (MSAL.js) to request standard OAuth 2.0 tokens. Access tokens for Service Bus actions are stored only in temporary session memory.</li>
-        <li><strong>Local Caching:</strong> Saves your namespace bookmarks, workspace folder layouts, and settings inside your browser's local <code>localStorage</code>.</li>
+        <li><strong>Token cache (<code>localStorage</code>):</strong> Sign-in uses the Microsoft Authentication Library (MSAL.js), configured with its <code>localStorage</code> cache so you are not forced to re-authenticate on every page load. OAuth 2.0 tokens issued by Entra ID therefore persist on disk until they expire or you sign out. This is MSAL's own cache, in its own format, and it is the same mechanism the Azure Portal and most Microsoft web clients use.</li>
+        <li><strong>Connection strings (<code>localStorage</code>):</strong> If you add a namespace using a Service Bus connection string, that string is saved with your workspace so the namespace is still there next time you open the app. A connection string contains a shared access key, which is a long-lived credential, and it is stored in plain text. Anything with access to your browser profile can read it. If you would rather not persist a key, use Entra ID sign-in instead, or remove the namespace when you are done with it.</li>
+        <li><strong>Workspace settings (<code>localStorage</code>):</strong> Namespace bookmarks, folder layouts, column choices, and theme.</li>
+        <li><strong>Message data (memory only):</strong> Message bodies, properties, and search results are never written to storage. They are held in the tab's memory and are gone when you close or reload it.</li>
       </ul>
+      <p>All of this lives under the <code>app.bussin.dev</code> origin, so browser same-origin rules keep other sites out of it. Clearing site data for that origin removes everything above. On a shared or untrusted machine, prefer Entra ID sign-in over connection strings, and sign out when you finish.</p>
     </section>
 
     <section>
@@ -104,9 +121,9 @@
     <section class="related-links">
       <h2>Related Resources</h2>
       <ul>
-        <li><a href="/how-it-works/"><strong>How It Works</strong></a> — Review the connection architecture and required permissions.</li>
-        <li><a href="/docs/"><strong>Docs</strong></a> — Learn how to perform settlement operations or inspect queues.</li>
-        <li><a href="/"><strong>Homepage</strong></a> — Return to the product overview.</li>
+        <li><a href="/how-it-works/"><strong>How It Works</strong></a>: Review the connection architecture and required permissions.</li>
+        <li><a href="/docs/"><strong>Docs</strong></a>: Learn how to perform settlement operations or inspect queues.</li>
+        <li><a href="/"><strong>Homepage</strong></a>: Return to the product overview.</li>
       </ul>
     </section>
   </main>

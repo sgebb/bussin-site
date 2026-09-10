@@ -27,6 +27,68 @@
   <script src="/assets/theme.js"></script>
   <script data-goatcounter="https://bussin.goatcounter.com/count"
           async src="//gc.zgo.at/count.js"></script>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "FAQPage",
+        "@id": "https://bussin.dev/autoforwarding/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Can I auto-forward between two different Service Bus namespaces?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Source and destination must be in the same Service Bus namespace. Crossing namespaces requires something that receives and re-sends, such as an Azure Function, a Logic App, or your own relay process."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How many times can a message be auto-forwarded?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Up to four hops. Beyond that the message is dead-lettered rather than forwarded again, which prevents a misconfigured loop from cycling forever."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Where do messages go if the auto-forward destination is full or deleted?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "To the transfer dead-letter queue of the source entity, at $Transfer/$DeadLetterQueue, not the destination's dead-letter queue and not the source's ordinary one. This is the most common reason auto-forwarded messages appear to disappear."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does auto-forwarding preserve message properties?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. The message is moved intact, so body, application properties and system properties all survive the hop. The enqueued time reflects arrival at each entity, so it will differ from the original."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I tell whether a queue is auto-forwarding?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Check the entity's forwardTo property. It is set on the source, so a queue that appears permanently empty is worth inspecting. An empty queue and a forwarding queue look identical from the outside."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bussin.dev/" },
+          { "@type": "ListItem", "position": 2, "name": "Azure Service Bus Autoforwarding", "item": "https://bussin.dev/autoforwarding/" }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <header class="topbar">
@@ -42,6 +104,7 @@
           <a href="/how-it-works/">How It Works</a>
           <a href="/security/">Security</a>
           <a href="/docs/">Docs</a>
+          <a href="/mcp-server/">MCP Server</a>
         </nav>
         <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
       </div>
@@ -76,8 +139,10 @@
       
       <ul>
         <li><strong>Atomic Transfer:</strong> The move from the source entity to the target entity happens atomically inside the broker. A message is not removed from the source until it has been successfully written to the destination.</li>
-        <li><strong>Hop Count Limits:</strong> Azure Service Bus enforces a limit of **4 hops** for autoforwarded messages. If a message exceeds 4 consecutive forwarding steps, it is dead-lettered at the 5th entity to prevent infinite routing loops.</li>
-        <li><strong>Dead-Letter Destination:</strong> If a target queue is full, disabled, or deleted when a message is forwarded, the message is sent directly to the **source queue's dead-letter queue**, not the destination's.</li>
+        <li><strong>Hop Count Limits:</strong> Azure Service Bus enforces a limit of <strong>4 hops</strong> for autoforwarded messages. If a message exceeds 4 consecutive forwarding steps, it is dead-lettered to prevent infinite routing loops.</li>
+        <li><strong>Dead-Letter Destination:</strong> If a target queue is full, disabled, or deleted when a message is forwarded, the message goes to the <strong>transfer dead-letter queue of the source entity</strong>, at the path <code>$Transfer/$DeadLetterQueue</code>, not to the destination's dead-letter queue, and not to the source's ordinary one.</li>
+        <li><strong>Same Namespace Only:</strong> A forwarding destination must live in the same namespace as its source. Moving messages between namespaces requires a relay of your own, or Azure Functions / Logic Apps.</li>
+        <li><strong>Each Hop Is Billed:</strong> A forwarded message is charged as an additional operation, because it is a receive and a send. A four-hop chain costs roughly four times a direct delivery.</li>
       </ul>
 
       <figure class="visual-card" style="margin: 2rem 0;">
@@ -88,12 +153,102 @@
       </figure>
     </section>
 
+    <section>
+      <h2>Configuring Auto-Forwarding</h2>
+      <p>Forwarding is a property of the <em>source</em> entity, set when it is created or updated, not a separate resource. Two independent properties control it:</p>
+      <div style="overflow-x: auto;">
+        <table class="compare-table">
+          <thead>
+            <tr><th>Property</th><th>Effect</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>forwardTo</code></td>
+              <td>Active messages arriving at this entity are moved to the named destination instead of waiting for a consumer.</td>
+            </tr>
+            <tr>
+              <td><code>forwardDeadLetteredMessagesTo</code></td>
+              <td>Messages that dead-letter here are moved to the named destination. This is how you build a single consolidated dead-letter queue for a whole namespace.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="margin-top: 1.5rem;">The second is easy to overlook and often the more useful of the two. Rather than checking a dead-letter queue on every subscription, point them all at one <code>failed-messages</code> queue and monitor that instead.</p>
+
+      <h3 style="margin-top: 2rem;">In Bicep</h3>
+      <pre><code>resource ordersSub 'Microsoft.ServiceBus/namespaces/topics/subscriptions@2021-11-01' = {
+  name: 'orders-processor'
+  parent: ordersTopic
+  properties: {
+    forwardTo: 'orders-work-queue'
+    forwardDeadLetteredMessagesTo: 'failed-messages'
+    maxDeliveryCount: 5
+  }
+}</code></pre>
+
+      <h3>With the Azure CLI</h3>
+      <pre><code>az servicebus topic subscription update \
+  --resource-group my-rg \
+  --namespace-name my-namespace \
+  --topic-name orders \
+  --name orders-processor \
+  --forward-to orders-work-queue</code></pre>
+
+      <p><strong>A permissions detail that causes most first-time failures:</strong> the identity configuring the forwarding needs Send rights on the <em>destination</em> entity, not just Manage on the source. If the destination is in a different resource group or was created by another team, this is usually the missing piece.</p>
+    </section>
+
+    <section>
+      <h2>Where It Bites</h2>
+      <div class="walkthrough-grid" style="margin-top: 2rem;">
+        <article class="interactive-card">
+          <h3>Messages vanish from the source</h3>
+          <p>Forwarding is invisible from the consuming side. A queue with <code>forwardTo</code> set will always look empty, because messages are moved the instant they arrive. If a queue reports zero depth while publishers insist they are sending, check whether it forwards somewhere.</p>
+        </article>
+        <article class="interactive-card">
+          <h3>Chains are hard to see</h3>
+          <p>Nothing in the portal draws the graph. A message can traverse four entities before reaching a consumer, and each hop is only visible by inspecting that entity's own properties. Document your chains, or you will end up reconstructing them under pressure during an incident.</p>
+        </article>
+        <article class="interactive-card">
+          <h3>Deleting a destination breaks the source</h3>
+          <p>Removing a forwarding target does not clear the source's <code>forwardTo</code>. The source keeps forwarding into a void, and every message lands in the transfer dead-letter queue. Always clear the property before deleting the destination.</p>
+        </article>
+        <article class="interactive-card">
+          <h3>Transactions do not span the hop</h3>
+          <p>Sending to an entity that auto-forwards is not supported inside a transaction scope. If your publisher relies on transactional sends, forward from a subscription rather than from the queue it writes to.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <h3>Can I auto-forward between two different namespaces?</h3>
+        <p>No. Source and destination must be in the same Service Bus namespace. Crossing namespaces requires something that receives and re-sends, such as an Azure Function, a Logic App, or your own relay process.</p>
+      </div>
+      <div class="faq-item">
+        <h3>How many times can a message be forwarded?</h3>
+        <p>Up to four hops. Beyond that the message is dead-lettered rather than forwarded again, which prevents a misconfigured loop from cycling forever.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Where do messages go if the destination is full or deleted?</h3>
+        <p>To the transfer dead-letter queue of the source entity, at <code>$Transfer/$DeadLetterQueue</code>, not the destination's dead-letter queue and not the source's ordinary one. This is the single most common reason auto-forwarded messages appear to disappear.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Does auto-forwarding preserve message properties?</h3>
+        <p>Yes. The message is moved intact, so body, application properties and system properties all survive the hop. The enqueued time reflects arrival at each entity, so it will differ from the original.</p>
+      </div>
+      <div class="faq-item">
+        <h3>How do I tell whether a queue is forwarding?</h3>
+        <p>Check the entity's <code>forwardTo</code> property. It is set on the source, so a queue that appears permanently empty is worth inspecting. An empty queue and a forwarding queue look identical from the outside.</p>
+      </div>
+    </section>
+
     <section class="related-links">
       <h2>Related Resources</h2>
       <ul>
-        <li><a href="/docs/"><strong>Docs</strong></a> — Learn how to inspect queues and navigate namespaces.</li>
-        <li><a href="/dead-letter-queue/"><strong>Dead-Letter Queue</strong></a> — Understand how DLQs collect failed messages.</li>
-        <li><a href="/"><strong>Homepage</strong></a> — Return to the product overview.</li>
+        <li><a href="/docs/"><strong>Docs</strong></a>: Learn how to inspect queues and navigate namespaces.</li>
+        <li><a href="/dead-letter-queue/"><strong>Dead-Letter Queue</strong></a>: Understand how DLQs collect failed messages.</li>
+        <li><a href="/"><strong>Homepage</strong></a>: Return to the product overview.</li>
       </ul>
     </section>
   </main>
