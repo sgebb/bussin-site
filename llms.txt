@@ -1,0 +1,18 @@
+# Bussin
+
+> Browser-native Azure Service Bus explorer. Peek, search, edit and resubmit messages
+> across queues, topics, subscriptions and dead-letter queues, connecting directly to
+> Azure over WebSockets with no backend or proxy. Source-available under BUSL-1.1.
+
+- [Home](https://bussin.dev/): What Bussin is, who it's for, and how it connects to Azure Service Bus.
+- [Features](https://bussin.dev/features/): Full feature list — peek, search, edit, resubmit, purge, batch operations.
+- [How it works](https://bussin.dev/how-it-works/): Architecture — client-side WebSockets, Entra ID and connection string auth, no backend.
+- [Security](https://bussin.dev/security/): Auth model, data handling, and license (BUSL-1.1, source-available).
+- [Docs](https://bussin.dev/docs/): Usage documentation.
+- [MCP Server](https://bussin.dev/mcp-server/): Model Context Protocol server for Azure Service Bus, for use with LLM agents.
+- [Service Bus Explorer alternative](https://bussin.dev/service-bus-explorer-alternative/): Comparison against Service Bus Explorer, QueueExplorer, viewbus, and others.
+- [Service Bus on Linux/Mac](https://bussin.dev/service-bus-linux-mac/): Using Bussin as a cross-platform Service Bus client.
+- [Browser-based Service Bus explorer](https://bussin.dev/browser-based-service-bus-explorer/): Why a browser-native client instead of a desktop install.
+- [Dead-letter queue recovery](https://bussin.dev/dead-letter-queue/): Inspecting and resubmitting dead-lettered messages.
+- [Autoforwarding](https://bussin.dev/autoforwarding/): Working with Service Bus auto-forwarding rules.
+- [Changelog](https://bussin.dev/changelog/): Release history.

@@ -1,0 +1,54 @@
+name: IndexNow submit
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - name: Submit changed URLs to IndexNow
+        run: |
+          set -euo pipefail
+
+          KEY="878fe6d1bd983289ccc46175e797ae9c"
+          HOST="bussin.dev"
+          KEY_LOCATION="https://${HOST}/${KEY}.txt"
+
+          if git rev-parse HEAD~1 >/dev/null 2>&1; then
+            CHANGED=$(git diff --name-only HEAD~1 HEAD -- '*.html')
+          else
+            CHANGED=$(git ls-files '*.html')
+          fi
+
+          if [ -z "$CHANGED" ]; then
+            echo "No HTML files changed, nothing to submit."
+            exit 0
+          fi
+
+          URLS_JSON="[]"
+          while IFS= read -r path; do
+            [ -z "$path" ] && continue
+            if [ "$path" = "index.html" ]; then
+              url_path="/"
+            else
+              url_path="/${path%/index.html}/"
+            fi
+            URLS_JSON=$(node -e "const a=$URLS_JSON; a.push('https://${HOST}${url_path}'); console.log(JSON.stringify(a));")
+          done <<< "$CHANGED"
+
+          echo "Submitting: $URLS_JSON"
+
+          BODY=$(node -e "
+            const urls = $URLS_JSON;
+            console.log(JSON.stringify({host: '${HOST}', key: '${KEY}', keyLocation: '${KEY_LOCATION}', urlList: urls}));
+          ")
+
+          curl -s -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            -d "$BODY"

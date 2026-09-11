@@ -89,6 +89,16 @@
 
     <section>
       <article class="faq-item">
+        <h2>MCP server version 0.1.2</h2>
+        <p><em>September 11, 2026</em></p>
+        <p>Metadata only, no functional changes. <code>bussin-mcp@0.1.2</code> adds the <code>mcpName</code> field the <a href="https://github.com/modelcontextprotocol/registry" target="_blank" rel="noopener">official MCP registry</a> uses to verify package ownership, so the server can be listed there.</p>
+        <ul>
+          <li>Declared <code>mcpName</code> as <code>io.github.sgebb/bussin-mcp</code> for MCP registry publication</li>
+          <li>CI now fails the build if the publishable tarball would contain a sourcemap, omit the LICENSE, or declare a license other than BUSL-1.1</li>
+        </ul>
+      </article>
+
+      <article class="faq-item">
         <h2>MCP server version 0.1.1</h2>
         <p><em>September 11, 2026</em></p>
         <p><code>bussin-mcp@0.1.1</code> corrects the license metadata for both <code>bussin-mcp</code> and <code>bussin-client-js</code> to Business Source License 1.1 (BUSL-1.1). See <a href="https://github.com/sgebb/bussin/blob/main/LICENSE">LICENSE</a> for terms.</p>
