@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Azure Service Bus Explorer Web Alternative | Direct Client | bussin.dev</title>
-  <meta name="description" content="Compare Bussin to Azure Portal and Paolo's Service Bus Explorer. Browser-native, cross-platform, no install, with direct Entra ID authentication.">
-  <meta name="keywords" content="Azure Service Bus Explorer, Service Bus Explorer alternative, Service Bus Explorer online, Service Bus Explorer Mac, Service Bus Explorer Linux, browser native Service Bus, Entra ID Service Bus">
+  <title>Service Bus Explorer Alternatives Compared | bussin.dev</title>
+  <meta name="description" content="An honest comparison of the five Azure Service Bus tools developers actually use: Bussin, Azure Portal, Service Bus Explorer, QueueExplorer, and viewbus. Platforms, price, auth, and what each one cannot do.">
+  <meta name="keywords" content="Azure Service Bus Explorer, Service Bus Explorer alternative, QueueExplorer, viewbus, Service Bus Explorer Mac, Service Bus Explorer Linux, Azure Service Bus tools comparison, Entra ID Service Bus">
   <link rel="canonical" href="https://bussin.dev/service-bus-explorer-alternative/">
-  
+
   <!-- OpenGraph Metadata -->
-  <meta property="og:title" content="Azure Service Bus Explorer Web Alternative | Direct Client | bussin.dev">
-  <meta property="og:description" content="Comparison of traditional desktop clients to a browser-native Service Bus explorer. Inspect active and dead-letter queues over secure WebSockets with no install.">
+  <meta property="og:title" content="Service Bus Explorer Alternatives Compared | bussin.dev">
+  <meta property="og:description" content="Bussin, Azure Portal, Service Bus Explorer, QueueExplorer, and viewbus side by side: platform support, price, authentication, and the limits of each tool.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://bussin.dev/service-bus-explorer-alternative/">
   <meta property="og:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
@@ -18,8 +18,8 @@
 
   <!-- Twitter Card Metadata -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Azure Service Bus Explorer Web Alternative | bussin.dev">
-  <meta name="twitter:description" content="Compare Bussin to Azure Portal and Service Bus Explorer. Browser-native, cross-platform, no install.">
+  <meta name="twitter:title" content="Service Bus Explorer Alternatives Compared | bussin.dev">
+  <meta name="twitter:description" content="Five Azure Service Bus tools side by side: platform support, price, authentication, and what each one cannot do.">
   <meta name="twitter:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
 
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
@@ -42,15 +42,39 @@
             "name": "Does Bussin replace the desktop Service Bus Explorer?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "No. Paolo Salvatori's Service Bus Explorer covers advanced broker administration (entity management, authorization rules, and emulator support) that Bussin intentionally does not. Bussin focuses on the day-to-day messaging workflow: peeking, searching, settling, and recovering messages instantly from any browser."
+              "text": "No. Paolo Salvatori's Service Bus Explorer creates and deletes entities, edits queue and topic properties, manages authorization rules, and connects to the local Service Bus emulator. Bussin does none of that. Bussin covers the day-to-day messaging workflow instead: peeking, searching, settling, and recovering messages from any browser. Plenty of people keep both installed."
             }
           },
           {
             "@type": "Question",
-            "name": "How does Bussin connect without a backend?",
+            "name": "Which of these tools run on macOS and Linux?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Bussin establishes connection tunnels to the Azure Service Bus data plane over WebSockets (port 443). The protocol logic runs entirely client-side via WebAssembly in your browser, maintaining full security."
+              "text": "Bussin and the Azure Portal run in any modern browser, so any OS works. QueueExplorer ships native builds for Windows, macOS (Apple Silicon and Intel), and Linux as deb, rpm, AppImage, and tar.gz. viewbus ships Windows and macOS builds but no Linux build. Paolo's Service Bus Explorer requires Windows 10 or later and .NET Framework 4.6.2, so macOS and Linux need Wine or a virtual machine."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What do these tools cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The Azure Portal, Service Bus Explorer, viewbus, and Bussin are all free. QueueExplorer is commercial: as of September 2026 it is 149 USD per computer for Standard and 249 USD for Professional, with volume discounts and a 14-day trial."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I resubmit a dead-lettered message and remove the original?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "In Bussin, yes, in one action and across a whole selection. The Azure Portal cannot: its resend operation sends a copy and Microsoft documents that the original stays in the dead-letter queue, so you have to purge or receive it separately. Service Bus Explorer, QueueExplorer, and viewbus all support moving messages back to the source entity."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why can Bussin not connect to the local Service Bus emulator?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The emulator does not expose an AMQP-over-WebSockets listener, and WebSockets are the only transport a browser page can use to reach an AMQP broker. There is no workaround from inside a browser. If you need to work against the emulator, use Service Bus Explorer or QueueExplorer, both of which have a dedicated emulator connection option."
             }
           },
           {
@@ -58,7 +82,7 @@
             "name": "Does Bussin work with connection strings?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes. Bussin supports connecting directly using standard Azure Service Bus Connection Strings, which allows you to use the app in \"Run without login\" mode. It is particularly useful for connecting to external or partner Service Bus namespaces where you do not have Entra ID access. Note that the local Azure Service Bus Emulator is not supported directly because it lacks native WebSockets support, which browser-based applications require."
+              "text": "Yes. Bussin accepts a standard Service Bus connection string in \"Run without login\" mode, which is how you reach a partner or customer namespace you have no Entra ID access to. The Azure Portal cannot do this: it only shows namespaces your signed-in identity can already see through Azure Resource Manager."
             }
           },
           {
@@ -66,7 +90,7 @@
             "name": "Can I use Bussin behind a corporate proxy or VPN?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "Yes. Bussin communicates over standard WebSockets on port 443 (wss://), which passes through most corporate firewalls and proxies without additional configuration. No special firewall rules are needed beyond HTTPS access to your Service Bus namespace endpoints."
+              "text": "Usually. Bussin talks to the Service Bus data plane over WebSockets on port 443 (wss://), which passes through most corporate proxies without special rules. The exception is a namespace reachable only through a private endpoint, where your browser has to be running on a host inside that virtual network. That constraint applies to the Azure Portal's explorer too."
             }
           }
         ]
@@ -94,6 +118,7 @@
           <a href="/" class="menu-heading menu-heading-link">BUSSIN</a>
           <a href="/features/">Features</a>
           <a href="/how-it-works/">How It Works</a>
+          <a href="/service-bus-explorer-alternative/">Compare</a>
           <a href="/security/">Security</a>
           <a href="/docs/">Docs</a>
           <a href="/mcp-server/">MCP Server</a>
@@ -108,42 +133,48 @@
     <section class="hero-grid">
       <div>
         <h1>Service Bus Explorer Alternatives</h1>
-        <p>Bussin is a secure, browser-native alternative to traditional desktop messaging tools. It runs directly in your browser as a static client, establishing secure WebSockets connections directly to Azure. It conforms to your existing Entra ID permissions and role configurations without requiring intermediate servers.</p>
-        <p class="hero-subtext" style="margin-top: 1.5rem;">Peek messages, inspect dead-letter reasons, and resubmit or purge messages instantly without downloading client executables.</p>
+        <p>Five tools cover most Azure Service Bus work: the Azure Portal, Paolo Salvatori's Service Bus Explorer, QueueExplorer, viewbus, and Bussin. They are not interchangeable. Two are browser tools, three are desktop applications, one is commercial, and only two can talk to the local emulator.</p>
+        <p class="hero-subtext" style="margin-top: 1.5rem;">Bussin is the browser-native option. It is a static page that opens AMQP connections straight to your namespace, so there is nothing to install and no server of ours in the path. This page lays out where that wins and where it does not.</p>
       </div>
       <div class="hero-visual">
         <figure class="hero-card">
           <a href="#zoom-single-blade" class="zoom-trigger" title="Click to zoom screenshot">
             <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Bussin folder organization and active search bar dashboard view" />
           </a>
-          <figcaption>Direct browser-native messaging console operating inside a secure web container. (Click to zoom)</figcaption>
+          <figcaption>Bussin running in a browser tab, with namespace folders and message search. (Click to zoom)</figcaption>
         </figure>
       </div>
     </section>
 
     <section>
-      <h2>Comparing the Main Options</h2>
-      <p>When choosing a management client for Azure Service Bus, developers typically use one of three tools. Here is the core difference between each:</p>
-      
+      <h2>The Five Tools</h2>
       <div class="walkthrough-grid" style="margin-top: 2rem;">
         <article class="interactive-card">
-          <h3>1. Azure Portal (Web Console)</h3>
-          <p><strong>The Core Difference:</strong> Built-in web utility. Good for basic queue metrics and configuration changes. However, it lacks advanced debugging features like custom message peeking, peek-lock settlements, search filtering, and environmental folder organization.</p>
+          <h3>Azure Portal</h3>
+          <p>The Service Bus Explorer blade built into the portal. Peek, receive, send, resend, and purge, plus everything else the portal does for entity management. Free and already in front of you. Its explorer blade peeks at most 100 messages at a time, has no message search, and Microsoft documents that it does not support sessions.</p>
         </article>
         <article class="interactive-card">
-          <h3>2. Service Bus Explorer (Paolo Salvatori)</h3>
-          <p><strong>The Core Difference:</strong> Classic Windows desktop client with full administrative control: create and delete entities, edit queue properties, manage authorization rules. Best suited for advanced broker administration tasks. However, the UI can be complex to navigate, it's Windows-only (requires Wine on macOS and Linux), and requires local installation with connection string configuration.</p>
+          <h3>Service Bus Explorer (Paolo Salvatori)</h3>
+          <p>The long-standing community tool, MIT licensed, still shipping: 6.2.0 landed in April 2026. The most complete of the five. Full broker administration, import and export, relay and notification hub support, and emulator connections. Windows 10 or later with .NET Framework 4.6.2 only, and the UI has thirteen years of features layered into it.</p>
         </article>
         <article class="interactive-card">
-          <h3>3. Bussin (Browser-Native)</h3>
-          <p><strong>The Core Difference:</strong> Clean web client that connects directly to Azure from your browser. Designed for quick access: get in, inspect or repair queues, and leave. It supports advanced workflows like inline message editing, custom JSON exports, and batch uploads, while remaining fully cross-platform, requiring no installation, and running entirely client-side.</p>
+          <h3>QueueExplorer (Cogin)</h3>
+          <p>A native desktop application, and the only paid tool here: 149 USD per computer for Standard, 249 USD for Professional, 14-day trial. It also covers RabbitMQ, MSMQ, and ActiveMQ in the same licence, which is the real reason to buy it. Native Windows, macOS, and Linux builds. Professional adds schema import and export and custom columns that pull fields out of message bodies with XPath, JSON expressions, or regex.</p>
+        </article>
+        <article class="interactive-card">
+          <h3>viewbus</h3>
+          <p>A free native desktop app for Windows and macOS, no account and no telemetry. Fuzzy search across bodies in many entities at once, syntax highlighting for XML, YAML, and protobuf, threshold alerts on queue depth, and a diff view when you edit a message before resending. Closed source for now, with open-sourcing on the public roadmap. No Linux build, and no entity management.</p>
+        </article>
+        <article class="interactive-card">
+          <h3>Bussin</h3>
+          <p>A browser tab. Nothing to install, works on any OS including a phone, and the page speaks AMQP to your namespace directly so no server of ours sees your tokens or payloads. Built around repairing messages: search bodies and properties, edit, resubmit in bulk while deleting the originals, and cancel scheduled messages. Source available under BUSL-1.1, free for personal and internal business use. Ships an MCP server so an AI agent can read and act on your queues.</p>
         </article>
       </div>
     </section>
 
     <section>
-      <h2>Feature Comparison Table</h2>
-      <p style="color: var(--text-secondary);margin-bottom: 1.5rem;">A direct comparison of core features across the main administrative clients.</p>
+      <h2>Feature Comparison</h2>
+      <p style="color: var(--text-secondary);margin-bottom: 1.5rem;">Every row below was checked against each vendor's own documentation in September 2026. Rows we could not verify for all five tools are discussed in prose instead of guessed at in the table.</p>
       <div style="overflow-x: auto;">
         <table class="compare-table">
           <thead>
@@ -151,154 +182,209 @@
               <th>Feature</th>
               <th class="highlight-bussin">Bussin</th>
               <th>Azure Portal</th>
-              <th>Service Bus Explorer (Paolo)</th>
+              <th>Service Bus Explorer</th>
+              <th>QueueExplorer</th>
+              <th>viewbus</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td><strong>No Installation Required</strong></td>
+              <td><strong>Runs with no installation</strong></td>
               <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
               <td class="text-center"><span class="checkmark">✓</span></td>
               <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
-            </tr>
-            <tr>
-              <td><strong>macOS & Linux Support</strong></td>
-              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
-              <td class="text-center"><span class="checkmark">✓</span></td>
-              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
-            </tr>
-            <tr>
-              <td><strong>Entra ID Sign-In & SSO</strong></td>
-              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
-              <td class="text-center"><span class="checkmark">✓</span></td>
-              <td class="text-center"><span class="checkmark">✓</span></td>
-            </tr>
-            <tr>
-              <td><strong>Connection String Support</strong></td>
-              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
-              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
-              <td class="text-center"><span class="checkmark">✓</span></td>
-            </tr>
-            <tr>
-              <td><strong>Namespace Discovery</strong></td>
-              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
-              <td class="text-center"><span class="checkmark">✓</span></td>
-              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
-            </tr>
-            <tr>
-              <td><strong>Mobile-Responsive UI</strong></td>
-              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
               <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
               <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
             </tr>
             <tr>
-              <td><strong>Direct Connections (No Proxy Server)</strong></td>
+              <td><strong>Windows, macOS and Linux</strong></td>
               <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
               <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
               <td class="text-center"><span class="checkmark">✓</span></td>
-            </tr>
-            <tr>
-              <td><strong>Deep Message Search</strong></td>
-              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
-              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
-              <td class="text-center"><span class="checkmark">✓</span></td>
-            </tr>
-            <tr>
-              <td><strong>Peek-Lock Settlements</strong></td>
-              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
-              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
-              <td class="text-center"><span class="checkmark">✓</span></td>
-            </tr>
-            <tr>
-              <td><strong>Scheduled Message Cancellation</strong></td>
-              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
-              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
-              <td class="text-center"><span class="checkmark">✓</span></td>
-            </tr>
-            <tr>
-              <td><strong>Message Resubmission / Replay</strong></td>
-              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
-              <td class="text-center"><span class="partial-mark">~</span></td>
-              <td class="text-center"><span class="checkmark">✓</span></td>
-            </tr>
-            <tr>
-              <td><strong>Inline Message Editing</strong></td>
-              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
-              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
-              <td class="text-center"><span class="checkmark">✓</span></td>
-            </tr>
-            <tr>
-              <td><strong>JSON Export with Custom Headers</strong></td>
-              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
-              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
               <td class="text-center"><span class="partial-mark">~</span></td>
             </tr>
             <tr>
-              <td><strong>Subscription Filter (Rule) Management</strong></td>
+              <td><strong>Usable from a phone or tablet</strong></td>
               <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+            </tr>
+            <tr>
+              <td><strong>Free of charge</strong></td>
+              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+            </tr>
+            <tr>
+              <td><strong>Source code available</strong></td>
+              <td class="highlight-bussin text-center"><span class="partial-mark">~</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+            </tr>
+            <tr>
+              <td><strong>Entra ID sign-in</strong></td>
+              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
               <td class="text-center"><span class="checkmark">✓</span></td>
               <td class="text-center"><span class="checkmark">✓</span></td>
             </tr>
             <tr>
-              <td><strong>Session-Enabled Queue Support</strong></td>
+              <td><strong>Paste an external connection string</strong></td>
               <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+            </tr>
+            <tr>
+              <td><strong>Peek more than 100 messages at once</strong></td>
+              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+            </tr>
+            <tr>
+              <td><strong>Search message bodies</strong></td>
+              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+            </tr>
+            <tr>
+              <td><strong>Resubmit from DLQ and delete the original</strong></td>
+              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+            </tr>
+            <tr>
+              <td><strong>Create and delete queues and topics</strong></td>
+              <td class="highlight-bussin text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+            </tr>
+            <tr>
+              <td><strong>Manage subscription filter rules</strong></td>
+              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+            </tr>
+            <tr>
+              <td><strong>Connect to the local Service Bus emulator</strong></td>
+              <td class="highlight-bussin text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+            </tr>
+            <tr>
+              <td><strong>MCP server for AI agents</strong></td>
+              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
               <td class="text-center"><span class="partial-mark">~</span></td>
-              <td class="text-center"><span class="partial-mark">~</span></td>
-            </tr>
-            <tr>
-              <td><strong>Namespace Custom Folders</strong></td>
-              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
-              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
-              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
-            </tr>
-            <tr>
-              <td><strong>100% Free & Open Source</strong></td>
-              <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
-              <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
-              <td class="text-center"><span class="checkmark">✓</span></td>
             </tr>
           </tbody>
         </table>
       </div>
-      <p style="color: var(--text-muted);font-size: 0.9rem; margin-top: 1rem;"><em>Note: <span class="partial-mark">~</span> denotes partial support (e.g. file exports are supported without interactive header filters in Paolo's tool, and Azure Portal resubmission is restricted to cloning from the DLQ without modification).</em></p>
-      <p style="color: var(--text-muted);font-size: 0.9rem; margin-top: 0.5rem;"><em>Bussin has no backend API, proxy server, or database access to your Service Bus. All actions conform to the user's active delegated Azure credentials. Your messages never leave your browser.</em></p>
+      <p style="color: var(--text-muted);font-size: 0.9rem; margin-top: 1rem;"><em>Notes on the <span class="partial-mark">~</span> marks. viewbus ships Windows and macOS builds but no Linux build. Bussin's source is published under BUSL-1.1, which is source-available rather than open source: free for personal, educational, and internal business use, and it converts to Apache 2.0 on 1 January 2029. viewbus includes a read-only MCP server; Bussin's also performs write operations such as sending, resubmitting, and purging.</em></p>
+      <p style="color: var(--text-muted);font-size: 0.9rem; margin-top: 0.5rem;"><em>QueueExplorer's message search is a filter over loaded messages, and Professional's custom columns can extract fields with XPath, JSON expressions, or regex. Bussin and viewbus search across several entities at once. Prices and versions are as published in September 2026; check the vendors for current figures.</em></p>
     </section>
 
     <section>
-      <h2>When to Use Which Tool</h2>
+      <h2>Where Bussin Loses</h2>
+      <p>Running inside a browser tab costs real capability. If any of the following matters to you, pick a different tool for that job.</p>
+      <ul style="line-height: 1.8;">
+        <li><strong>No local emulator.</strong> The Service Bus emulator exposes AMQP over TCP, not over WebSockets, and a browser page can only open WebSocket connections. This is not a missing feature, it is a hard architectural limit. Service Bus Explorer and QueueExplorer both connect to the emulator.</li>
+        <li><strong>No entity management.</strong> Bussin cannot create or delete a queue, topic, or subscription, and cannot edit entity properties such as lock duration, max delivery count, or TTL. Subscription filter rules are the one exception. For the rest, use the portal or Service Bus Explorer.</li>
+        <li><strong>No authorization rule management.</strong> Shared access policies and RBAC assignments are portal work.</li>
+        <li><strong>Batch send does not cover session-enabled entities</strong>, because each message needs its own session ID. Single sends are fine. Bulk delete and purge on partitioned or session-enabled entities also fall back to slower data-plane receiver loops, since the fast broker-side purge API does not support those entity types.</li>
+        <li><strong>No relay, notification hub, or Event Hub support.</strong> Service Bus Explorer covers all three.</li>
+        <li><strong>Only Service Bus.</strong> If you also run RabbitMQ, MSMQ, or ActiveMQ, QueueExplorer handles all of them under one licence.</li>
+        <li><strong>Private endpoints still need network access.</strong> A namespace reachable only through a private endpoint requires your browser to run on a host inside that virtual network. The portal's explorer has the same constraint, but a desktop tool on a VPN-connected machine has an easier time of it.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>When to Use Which</h2>
       <div class="walkthrough-grid mt-md">
         <article class="interactive-card">
           <h3>Azure Portal</h3>
-          <p>Quick glance at queue depths, topic configurations, or subscription counts. Best for ops dashboards and configuration changes you make infrequently.</p>
+          <p>Creating entities, editing their configuration, managing access policies, and reading metrics. For messages it is serviceable but thin: 100 peeked messages at a time, no body search, no sessions, and its resend always leaves the original sitting in the dead-letter queue.</p>
         </article>
         <article class="interactive-card">
-          <h3>Service Bus Explorer (Paolo)</h3>
-          <p>Deep administration tasks: creating and deleting entities, editing queue properties, managing authorization rules, or working with local emulators. Best when you need full broker control and don't mind the setup.</p>
+          <h3>Service Bus Explorer</h3>
+          <p>You are on Windows and you want one tool that does everything, including emulator work, relays, and notification hubs. Still the deepest of the five. The cost is a desktop install and a dense UI.</p>
+        </article>
+        <article class="interactive-card">
+          <h3>QueueExplorer</h3>
+          <p>You manage more brokers than Service Bus alone, or you want XPath and regex columns over message bodies. The only one you have to pay for, and the only paid one with native Linux builds.</p>
+        </article>
+        <article class="interactive-card">
+          <h3>viewbus</h3>
+          <p>You prefer a native desktop app on Windows or macOS, want queue-depth alerting, and work with protobuf or YAML payloads. Free, and closest to Bussin in what it is for.</p>
         </article>
         <article class="interactive-card">
           <h3>Bussin</h3>
-          <p>Day-to-day message debugging: peeking at payloads, recovering dead-lettered messages, searching message bodies, resubmitting failed batches. Best when you need to get in, fix something, and get out, from any device and without any setup.</p>
+          <p>Something is stuck in a dead-letter queue and you want it fixed now, from whatever machine you happen to be at. Open a tab, sign in with the identity you already have, find the messages, edit them, put them back, leave. Also the only option on Linux or a phone without installing anything, and the one to reach for when you have a connection string for someone else's namespace and no Entra ID access to it.</p>
         </article>
       </div>
+    </section>
+
+    <section>
+      <h2>How a Browser Tab Talks to Service Bus</h2>
+      <p>This is the part that decides what Bussin can and cannot do, so it is worth being concrete about.</p>
+      <p>Namespace discovery goes through Azure Resource Manager over ordinary HTTPS. ARM sends CORS headers, so a browser page can list your subscriptions, resource groups, namespaces, queues, and topics with a bearer token and no proxy. That is why you never type a connection string for a namespace you already have access to, and why Bussin only ever shows you what your Entra ID identity can actually see.</p>
+      <p>Message operations are different. The Service Bus data-plane REST endpoints send no CORS headers, so a browser page cannot call them at all. Bussin instead opens an AMQP 1.0 connection over a secure WebSocket to <code>wss://&lt;namespace&gt;.servicebus.windows.net:443/$servicebus/websocket</code>. WebSocket handshakes are not subject to CORS, so this works from a page. The AMQP protocol logic runs in your browser, and authentication happens through a Claims-Based Security handshake against the namespace's <code>$cbs</code> node using your Entra ID token.</p>
+      <p>Two consequences follow. Everything stays on port 443, so corporate proxies and VPNs generally pass it without new firewall rules. And your tokens and message payloads never reach a server of ours, because there is no server of ours: bussin.dev serves static files, and the traffic that carries your data goes browser to Azure. That also means every action is governed by your existing RBAC. You need <strong>Azure Service Bus Data Receiver</strong> to peek, <strong>Data Sender</strong> to send or resubmit, or <strong>Data Owner</strong> for both. Bussin cannot grant itself anything your account does not already have.</p>
+      <p>The same design is what rules out the emulator, which has no WebSocket listener to connect to.</p>
     </section>
 
     <section>
       <h2>Frequently Asked Questions</h2>
       <div class="faq-item">
         <h3>Does Bussin replace the desktop Service Bus Explorer?</h3>
-        <p>No. Paolo Salvatori's Service Bus Explorer covers advanced broker administration (entity management, authorization rules, and emulator support) that Bussin intentionally does not. Bussin focuses on the day-to-day messaging workflow: peeking, searching, settling, and recovering messages instantly from any browser.</p>
+        <p>No. Paolo Salvatori's Service Bus Explorer creates and deletes entities, edits queue and topic properties, manages authorization rules, and connects to the local Service Bus emulator. Bussin does none of that. Bussin covers the day-to-day messaging workflow instead: peeking, searching, settling, and recovering messages from any browser. Plenty of people keep both installed.</p>
       </div>
       <div class="faq-item">
-        <h3>How does Bussin connect without a backend?</h3>
-        <p>Bussin establishes connection tunnels to the Azure Service Bus data plane over WebSockets (port 443). The protocol logic runs entirely client-side via WebAssembly in your browser, maintaining full security.</p>
+        <h3>Which of these tools run on macOS and Linux?</h3>
+        <p>Bussin and the Azure Portal run in any modern browser, so any OS works. QueueExplorer ships native builds for Windows, macOS (Apple Silicon and Intel), and Linux as deb, rpm, AppImage, and tar.gz. viewbus ships Windows and macOS builds but no Linux build. Paolo's Service Bus Explorer requires Windows 10 or later and .NET Framework 4.6.2, so macOS and Linux need Wine or a virtual machine.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What do these tools cost?</h3>
+        <p>The Azure Portal, Service Bus Explorer, viewbus, and Bussin are all free. QueueExplorer is commercial: as of September 2026 it is 149 USD per computer for Standard and 249 USD for Professional, with volume discounts and a 14-day trial.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can I resubmit a dead-lettered message and remove the original?</h3>
+        <p>In Bussin, yes, in one action and across a whole selection. The Azure Portal cannot: its resend operation sends a copy and Microsoft documents that the original stays in the dead-letter queue, so you have to purge or receive it separately. Service Bus Explorer, QueueExplorer, and viewbus all support moving messages back to the source entity.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Why can Bussin not connect to the local Service Bus emulator?</h3>
+        <p>The emulator does not expose an AMQP-over-WebSockets listener, and WebSockets are the only transport a browser page can use to reach an AMQP broker. There is no workaround from inside a browser. If you need to work against the emulator, use Service Bus Explorer or QueueExplorer, both of which have a dedicated emulator connection option.</p>
       </div>
       <div class="faq-item">
         <h3>Does Bussin work with connection strings?</h3>
-        <p>Yes! Bussin supports connecting directly using standard Azure Service Bus Connection Strings. This allows you to use the app in "Run without login" mode. It is particularly useful for connecting to external or partner Service Bus namespaces where you do not have Entra ID access. However, please note that the local Azure Service Bus Emulator is not supported directly because it lacks native WebSockets support (which browser-based applications require).</p>
+        <p>Yes. Bussin accepts a standard Service Bus connection string in "Run without login" mode, which is how you reach a partner or customer namespace you have no Entra ID access to. The Azure Portal cannot do this: it only shows namespaces your signed-in identity can already see through Azure Resource Manager.</p>
       </div>
       <div class="faq-item">
         <h3>Can I use Bussin behind a corporate proxy or VPN?</h3>
-        <p>Yes. Bussin communicates over standard WebSockets on port 443 (wss://), which passes through most corporate firewalls and proxies without additional configuration. No special firewall rules are needed beyond HTTPS access to your Service Bus namespace endpoints.</p>
+        <p>Usually. Bussin talks to the Service Bus data plane over WebSockets on port 443 (wss://), which passes through most corporate proxies without special rules. The exception is a namespace reachable only through a private endpoint, where your browser has to be running on a host inside that virtual network. That constraint applies to the Azure Portal's explorer too.</p>
       </div>
     </section>
 
@@ -308,13 +394,15 @@
         <li><a href="/browser-based-service-bus-explorer/"><strong>Browser-Based Explorer</strong></a>: Why a browser-native architecture keeps your data private.</li>
         <li><a href="/service-bus-linux-mac/"><strong>macOS and Linux</strong></a>: PWA installation and cross-platform setup.</li>
         <li><a href="/dead-letter-queue/"><strong>Dead-Letter Queue</strong></a>: Common DLQ causes and how to recover messages.</li>
+        <li><a href="/mcp-server/"><strong>MCP Server</strong></a>: Give an AI agent read or write access to your queues.</li>
+        <li><a href="/features/"><strong>Features</strong></a>: Screenshots and walkthroughs of each workflow.</li>
       </ul>
     </section>
   </main>
 
   <footer class="site-footer">
     <div class="container footer-inner">
-      <p>&copy; 2026 Bussin. Open source: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a> · <a href="/security/">Security</a></p>
+      <p>&copy; 2026 Bussin. Source available: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a> · <a href="/security/">Security</a></p>
     </div>
   </footer>
 
@@ -324,7 +412,7 @@
     <div class="lightbox-content">
       <a href="#_" class="lightbox-close">&times;</a>
       <img loading="lazy" src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Bussin multi-tenant folder organization and active search bar dashboard view" />
-      <p class="lightbox-caption">Direct browser-native messaging console operating inside a secure web container.</p>
+      <p class="lightbox-caption">Bussin running in a browser tab, with namespace folders and message search.</p>
     </div>
   </div>
 </body>
