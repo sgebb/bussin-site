@@ -485,6 +485,26 @@ details.topbar-menu[open] + .menu-panel {
 .footer-inner a {
   color: var(--text-secondary);
 }
+.footer-badge {
+  display: flex;
+  align-items: center;
+}
+.ms-store-badge {
+  display: inline-block;
+  line-height: 0;
+}
+.badge-dark {
+  display: block;
+}
+.badge-light {
+  display: none;
+}
+:root.light-theme .badge-dark {
+  display: none;
+}
+:root.light-theme .badge-light {
+  display: block;
+}
 .button.secondary {
   color: var(--btn-sec-text);
 }
