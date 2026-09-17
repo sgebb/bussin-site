@@ -32,10 +32,76 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bussin.dev/" },
-      { "@type": "ListItem", "position": 2, "name": "Browser-Based Service Bus Explorer", "item": "https://bussin.dev/browser-based-service-bus-explorer/" }
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bussin.dev/" },
+          { "@type": "ListItem", "position": 2, "name": "Browser-Based Service Bus Explorer", "item": "https://bussin.dev/browser-based-service-bus-explorer/" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://bussin.dev/browser-based-service-bus-explorer/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How can a web page talk to Azure Service Bus without a backend?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Over AMQP 1.0 on a secure WebSocket. The Service Bus data-plane REST endpoints send no CORS headers, so a browser page cannot call them at all, but WebSocket handshakes are not subject to CORS. Bussin opens a connection to wss://<namespace>.servicebus.windows.net:443/$servicebus/websocket and runs the AMQP protocol logic in your browser, authenticating through a Claims-Based Security handshake against the namespace's $cbs node. Namespace discovery is separate and goes through Azure Resource Manager over ordinary HTTPS, which does send CORS headers."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is a browser-based Service Bus explorer less secure than a desktop one?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Not in this design, and in one respect it is safer. The usual worry about web tools is that they route your credentials and payloads through the vendor's backend. Bussin has no backend, so there is nothing in the middle to trust. bussin.dev serves static files and the data traffic goes browser to Azure. Your tokens and messages stay inside the browser's security sandbox, and closing the tab destroys them."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Bussin work behind a corporate proxy or VPN?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Usually. All traffic runs over port 443 as wss://, which most corporate proxies and VPNs pass without new firewall rules. The exception is a namespace reachable only through a private endpoint, where your browser has to run on a host inside that virtual network. The Azure Portal's own explorer has the same constraint."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which browsers are supported?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Any modern browser with WebSocket and WebAssembly support: Chrome, Edge, Firefox, and Safari on desktop, and the mobile equivalents on iOS and Android. There is no Windows requirement and no runtime to install, which is the main reason people use it on macOS, Linux, and ChromeOS."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I install it as a desktop app instead of using a tab?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Bussin is installable as a Progressive Web App, which gives it its own window, a dock or taskbar icon, and no browser chrome, while still running the same client-side code. It is also listed in the Microsoft Store. Neither option adds a server to the path."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Where are my namespaces and folders stored?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "In your browser's local storage on your own machine. Folder layouts and pinned namespaces persist between sessions so you do not rebuild them each time. Message payloads, search results, and access tokens are held in memory only and are gone when the tab closes."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why can a browser-based explorer not reach the local Service Bus emulator?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "The emulator exposes no AMQP-over-WebSockets listener, and WebSockets are the only transport available to a browser page for reaching an AMQP broker. There is no workaround from inside a browser. Emulator work needs a desktop client such as Service Bus Explorer or QueueExplorer."
+            }
+          }
+        ]
+      }
     ]
   }
   </script>
@@ -141,6 +207,38 @@
         <img src="/assets/media/darkmode.jpg" alt="Bussin dark mode interface showing namespace folders, queues, topics, and action buttons" />
         <figcaption>The Bussin interface with folders, queues, and action panel, running entirely in the browser.</figcaption>
       </figure>
+    </section>
+
+    <section>
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <h3>How can a web page talk to Azure Service Bus without a backend?</h3>
+        <p>Over AMQP 1.0 on a secure WebSocket. The Service Bus data-plane REST endpoints send no CORS headers, so a browser page cannot call them at all, but WebSocket handshakes are not subject to CORS. Bussin opens a connection to <code>wss://&lt;namespace&gt;.servicebus.windows.net:443/$servicebus/websocket</code> and runs the AMQP protocol logic in your browser, authenticating through a Claims-Based Security handshake against the namespace's <code>$cbs</code> node. Namespace discovery is separate and goes through Azure Resource Manager over ordinary HTTPS, which does send CORS headers.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Is a browser-based Service Bus explorer less secure than a desktop one?</h3>
+        <p>Not in this design, and in one respect it is safer. The usual worry about web tools is that they route your credentials and payloads through the vendor's backend. Bussin has no backend, so there is nothing in the middle to trust. bussin.dev serves static files and the data traffic goes browser to Azure. Your tokens and messages stay inside the browser's security sandbox, and closing the tab destroys them. <a href="/security/">Security</a> has the specifics.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Does Bussin work behind a corporate proxy or VPN?</h3>
+        <p>Usually. All traffic runs over port 443 as <code>wss://</code>, which most corporate proxies and VPNs pass without new firewall rules. The exception is a namespace reachable only through a private endpoint, where your browser has to run on a host inside that virtual network. The Azure Portal's own explorer has the same constraint.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Which browsers are supported?</h3>
+        <p>Any modern browser with WebSocket and WebAssembly support: Chrome, Edge, Firefox, and Safari on desktop, and the mobile equivalents on iOS and Android. There is no Windows requirement and no runtime to install, which is the main reason people use it on macOS, Linux, and ChromeOS.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can I install it as a desktop app instead of using a tab?</h3>
+        <p>Yes. Bussin is installable as a Progressive Web App, which gives it its own window, a dock or taskbar icon, and no browser chrome, while still running the same client-side code. It is also listed in the Microsoft Store. Neither option adds a server to the path. The <a href="/service-bus-linux-mac/">macOS and Linux guide</a> covers installation.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Where are my namespaces and folders stored?</h3>
+        <p>In your browser's local storage on your own machine. Folder layouts and pinned namespaces persist between sessions so you do not rebuild them each time. Message payloads, search results, and access tokens are held in memory only and are gone when the tab closes.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Why can a browser-based explorer not reach the local Service Bus emulator?</h3>
+        <p>The emulator exposes no AMQP-over-WebSockets listener, and WebSockets are the only transport available to a browser page for reaching an AMQP broker. There is no workaround from inside a browser. Emulator work needs a desktop client such as Service Bus Explorer or QueueExplorer.</p>
+      </div>
     </section>
 
     <section>

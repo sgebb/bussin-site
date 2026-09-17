@@ -32,10 +32,84 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bussin.dev/" },
-      { "@type": "ListItem", "position": 2, "name": "Features", "item": "https://bussin.dev/features/" }
+    "@graph": [
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bussin.dev/" },
+          { "@type": "ListItem", "position": 2, "name": "Features", "item": "https://bussin.dev/features/" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://bussin.dev/features/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Which Service Bus Explorer features does Bussin cover?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Bussin covers the message-level half of what people use Service Bus Explorer for: peeking active and dead-letter messages, searching bodies and properties, peek-lock settlement, inline editing and resubmission, bulk purge and move, JSON export and batch upload, scheduled message cancellation, and subscription filter management. It does not cover entity administration, so creating or deleting queues and topics, editing entity properties, and managing authorization rules still belong in the Azure Portal or the desktop Service Bus Explorer."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I search message bodies, not just properties?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Bussin matches patterns against both the message body and broker or application properties. Search runs against the messages loaded into your browser's memory, so it never consumes anything from the broker and never sends your payloads anywhere. You can load thousands of messages and filter them without changing their delivery count."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I resubmit a dead-lettered message and delete the original in one step?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, individually or across a whole selection. This is a common gap in other tools. The Azure Portal's resend operation sends a copy and Microsoft documents that the original stays in the dead-letter queue, so you have to purge or receive it separately."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Bussin support session-enabled queues?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, and without asking you for a Session ID first. Bussin detects session-enabled entities and peeks across all active sessions. For bulk operations such as a full purge, it falls back to a sequential session receiver loop that leases and drains next-available sessions one at a time."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Will peeking messages affect delivery counts or locks?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Peek is a read that does not lock or consume, so delivery counts stay where they are. Locking is a separate, explicit action: you lock a message when you intend to complete, abandon, or dead-letter it, and Bussin shows a live countdown to lock expiry with a one-click renew."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How many messages can I export at once?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Up to 10,000 from either the active or the dead-letter queue, or just your current selection. You choose which broker properties and custom application headers to include, and the resulting JSON matches Bussin's batch-upload schema, so you can send the same messages back later with their metadata intact."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does the browser tab need to stay open during a bulk operation?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. Long-running actions such as purging a large queue or moving a backlog run as background tasks that keep the UI responsive and report progress, but the work happens in your browser, so closing the tab ends the operation. Messages already settled stay settled."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can I edit subscription filters from Bussin?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. You can view every SQL and correlation filter on a topic subscription, add new ones, and remove existing ones. Bussin warns you before saving a change that could cause messages to stop matching a subscription."
+            }
+          }
+        ]
+      }
     ]
   }
   </script>
@@ -66,12 +140,12 @@
   <main class="container page-content">
     <article>
       <h1>Features</h1>
-      <p class="lead-text">Bussin is designed to get you in, let you do what you need with your Azure Service Bus, and get out. Here is what you can do with it.</p>
+      <p class="lead-text">Bussin is designed to get you in, let you do what you need with your Azure Service Bus, and get out. If you are used to the desktop Service Bus Explorer, most of the message-level workflow below will look familiar. Here is what you can do with it.</p>
     </article>
 
     <section>
       <h2>Browser-Native & No Installation</h2>
-      <p>Bussin runs entirely in your browser as a static web application. There is no need to download binaries, configure local environments, or ask for administrator installation privileges. Just navigate to the site and connect.</p>
+      <p>Bussin runs entirely in your browser as a static web application. There is no need to download binaries, configure local environments, or ask for administrator installation privileges. Just navigate to the site and connect. A desktop Service Bus Explorer needs Windows and a .NET Framework install before you can look at a single message; Bussin needs a browser tab.</p>
     </section>
 
     <section>
@@ -163,6 +237,42 @@
         </a>
         <figcaption>Organize multiple environments into folders and quickly search across namespaces. (Click to zoom)</figcaption>
       </figure>
+    </section>
+
+    <section>
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <h3>Which Service Bus Explorer features does Bussin cover?</h3>
+        <p>Bussin covers the message-level half of what people use Service Bus Explorer for: peeking active and dead-letter messages, searching bodies and properties, peek-lock settlement, inline editing and resubmission, bulk purge and move, JSON export and batch upload, scheduled message cancellation, and subscription filter management. It does not cover entity administration, so creating or deleting queues and topics, editing entity properties, and managing authorization rules still belong in the Azure Portal or the desktop Service Bus Explorer. The <a href="/service-bus-explorer-alternative/">comparison page</a> lays out the split in detail.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can I search message bodies, not just properties?</h3>
+        <p>Yes. Bussin matches patterns against both the message body and broker or application properties. Search runs against the messages loaded into your browser's memory, so it never consumes anything from the broker and never sends your payloads anywhere. You can load thousands of messages and filter them without changing their delivery count.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can I resubmit a dead-lettered message and delete the original in one step?</h3>
+        <p>Yes, individually or across a whole selection. This is a common gap in other tools. The Azure Portal's resend operation sends a copy and Microsoft documents that the original stays in the dead-letter queue, so you have to purge or receive it separately. See the <a href="/dead-letter-queue/">dead-letter queue guide</a> for the full recovery workflow.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Does Bussin support session-enabled queues?</h3>
+        <p>Yes, and without asking you for a Session ID first. Bussin detects session-enabled entities and peeks across all active sessions. For bulk operations such as a full purge, it falls back to a sequential session receiver loop that leases and drains next-available sessions one at a time.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Will peeking messages affect delivery counts or locks?</h3>
+        <p>No. Peek is a read that does not lock or consume, so delivery counts stay where they are. Locking is a separate, explicit action: you lock a message when you intend to complete, abandon, or dead-letter it, and Bussin shows a live countdown to lock expiry with a one-click renew.</p>
+      </div>
+      <div class="faq-item">
+        <h3>How many messages can I export at once?</h3>
+        <p>Up to 10,000 from either the active or the dead-letter queue, or just your current selection. You choose which broker properties and custom application headers to include, and the resulting JSON matches Bussin's batch-upload schema, so you can send the same messages back later with their metadata intact.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Does the browser tab need to stay open during a bulk operation?</h3>
+        <p>Yes. Long-running actions such as purging a large queue or moving a backlog run as background tasks that keep the UI responsive and report progress, but the work happens in your browser, so closing the tab ends the operation. Messages already settled stay settled.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can I edit subscription filters from Bussin?</h3>
+        <p>Yes. You can view every SQL and correlation filter on a topic subscription, add new ones, and remove existing ones. Bussin warns you before saving a change that could cause messages to stop matching a subscription.</p>
+      </div>
     </section>
 
     <section class="related-links">
