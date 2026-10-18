@@ -88,7 +88,18 @@
     </section>
 
     <section>
-      
+
+      <article class="faq-item">
+        <h2>Single-step sign-in and consent</h2>
+        <p><em>October 15, 2026</em></p>
+        <p>Signing in now asks for everything Bussin needs in one prompt. Previously you had to approve Azure Management and Service Bus in two separate popups, and the second one could be blocked by the browser.</p>
+        <ul>
+          <li>One consent prompt covers both Azure Resource Manager (to list your namespaces) and Azure Service Bus (to peek, send and manage messages)</li>
+          <li>If access is missing or expired, the permissions card offers a single <strong>Grant Required Permissions</strong> or <strong>Sign In Again</strong> action that fixes both</li>
+          <li>The permissions card now tells you which problem it found, instead of a generic "Permission Required" message for everything</li>
+        </ul>
+      </article>
+
       <article class="faq-item">
         <h2>MCP server version 0.1.4</h2>
         <p><em>September 11, 2026</em></p>

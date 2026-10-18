@@ -86,7 +86,7 @@
 
     <section>
       <h2>Authentication & Required Permissions</h2>
-      <p>Authentication is handled directly in your browser using Microsoft's official library (MSAL.js) via the standard OAuth 2.0 PKCE flow. To list namespaces and manage messages, Bussin requests two delegated scopes:</p>
+      <p>Authentication is handled directly in your browser using Microsoft's official library (MSAL.js) via the standard OAuth 2.0 PKCE flow. To list namespaces and manage messages, Bussin requests two delegated scopes. Consent is single-step: a single sign-in prompt asks for both, so you are never sent through a second popup.</p>
       <ul>
         <li><code>https://management.azure.com/user_impersonation</code>: To list your namespaces and subscriptions.</li>
         <li><code>https://servicebus.azure.net/user_impersonation</code>: To open data-plane connections to interact with queues and topics.</li>
