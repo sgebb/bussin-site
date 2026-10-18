@@ -90,6 +90,22 @@
     <section>
 
       <article class="faq-item">
+        <h2>Cleaner navigation, Watch, and a simpler phone layout</h2>
+        <p><em>October 18, 2026</em></p>
+        <p>A round of layout and usability changes, mostly aimed at namespaces with many queues and topics, and at using Bussin on a phone.</p>
+        <ul>
+          <li>The explorer header is now a single row: a link back to <strong>Namespaces</strong>, then the namespace and the selected topic, subscription or queue, so you can always see what you are looking at. <strong>Favorite</strong>, <strong>Refresh</strong> and <strong>Statistics</strong> are labeled buttons next to it</li>
+          <li>The queue, topic and subscription lists show four rows and wider cells, so long entity names stay readable. Message counts are shortened (for example <code>1.2k</code>) so they no longer squeeze the name</li>
+          <li>The arrow on the <strong>Peek</strong> button opens a menu with <strong>Newest first</strong>, <strong>Watch new messages</strong> and <strong>Advanced peek</strong>. When non-default peek options are active, a line under the button says which ones</li>
+          <li>Live Monitor is now <strong>Watch</strong>. It only shows messages that arrive after you start it, works on dead-letter queues, and keeps its connection signed in during long sessions</li>
+          <li>New <strong>Organize favorites</strong> dialog for renaming favorites, creating and deleting folders, and dragging favorites into folders or a new order. Renaming used to be hidden behind a click on the namespace title. When you have no favorites, the sidebar tells you how to add one</li>
+          <li><strong>Add namespace</strong> is now the first card on the namespaces page, for connecting with a connection string when a namespace isn't listed</li>
+          <li>On phones Bussin shows a simpler layout focused on peeking, purging and resubmitting dead-lettered messages. See <a href="/docs/#mobile">Using Bussin on a phone</a></li>
+          <li>Fixed: deleting a folder no longer hides the folders inside it, and long entity lists no longer overlap on small screens</li>
+        </ul>
+      </article>
+
+      <article class="faq-item">
         <h2>Single-step sign-in and consent</h2>
         <p><em>October 15, 2026</em></p>
         <p>Signing in now asks for everything Bussin needs in one prompt. Previously you had to approve Azure Management and Service Bus in two separate popups, and the second one could be blocked by the browser.</p>

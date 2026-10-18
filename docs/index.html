@@ -77,14 +77,14 @@
       <ol>
         <li>Open the application at <a href="https://app.bussin.dev" target="_blank" rel="noopener">app.bussin.dev</a>.</li>
         <li>Select sign-in and authenticate using your Microsoft account. You must grant the application permissions to query your Azure resource directories and connect to your Service Bus.</li>
-        <li>Once logged in, Bussin automatically queries the Azure management API to display accessible subscriptions and namespaces in your sidebar. If your namespace is not listed, make sure your account has the required management permission (such as Azure Reader or Contributor) and data-plane access roles.</li>
+        <li>Once logged in, Bussin automatically queries the Azure management API and lists the namespaces you can access on the namespaces page. Star one to pin it to the sidebar. If your namespace is not listed, make sure your account has the required management permission (such as Azure Reader or Contributor) and data-plane access roles, or use the <strong>Add namespace</strong> card to connect with a connection string instead.</li>
       </ol>
 
       <h3>Option 2: Run Without Login (Connection String Mode)</h3>
       <ol>
         <li>Open the application at <a href="https://app.bussin.dev" target="_blank" rel="noopener">app.bussin.dev</a>.</li>
         <li>Select "Run without login: Connection String Mode".</li>
-        <li>In the sidebar, click the "Add CS" button, enter a friendly Display Name, paste your standard Service Bus Connection String, and specify any queues or topics you want to browse.</li>
+        <li>On the namespaces page, click "Add namespace", enter a friendly Display Name, paste your standard Service Bus Connection String, and specify any queues or topics you want to browse.</li>
         <li>Click "Save Connection" to immediately access your resources. All connection strings are saved securely in your browser's local cache.</li>
       </ol>
     </section>
@@ -101,11 +101,28 @@
     </section>
 
     <section>
+      <h2>Peek Options</h2>
+      <p><strong>Peek</strong> loads the oldest messages first without locking them. Once messages are loaded, the button becomes <strong>Peek More</strong> and continues from where the last peek stopped. The arrow next to it opens a menu with other ways to peek:</p>
+      <ul>
+        <li><strong>Newest first:</strong> loads the 50 most recent messages instead of the oldest. <strong>Peek More</strong> then goes further back in time.</li>
+        <li><strong>Watch new messages:</strong> see <a href="#watch">Watching for New Messages</a> below.</li>
+        <li><strong>Advanced peek:</strong> choose how many messages to load, start from a specific sequence number, or filter by message ID, subject or body text. On entities with more than 10,000 messages a filtered search runs as a background task.</li>
+      </ul>
+      <p>While non-default options are active, a line under the Peek button says which ones. <strong>Peek More</strong> keeps using them; clear the list and press <strong>Peek</strong> to go back to the defaults.</p>
+    </section>
+
+    <section id="watch">
+      <h2>Watching for New Messages</h2>
+      <p><strong>Watch new messages</strong> (shortcut <kbd>M</kbd>) shows messages as they arrive on the selected queue or subscription, starting from the moment you open it. Existing messages are not listed. With the DLQ toggle on, it watches the dead-letter queue instead, which is handy for seeing failures as they happen.</p>
+      <p>Watch peeks about once a second and never locks or consumes anything. Because it only peeks, it is best-effort: if a consumer receives and completes a message before the next peek, Watch never sees it. On a busy queue with active consumers, treat it as a sample of the traffic rather than a complete log.</p>
+    </section>
+
+    <section>
       <h2>DLQ Inspection</h2>
       <p>Messages that fail processing or expire are moved to the secondary Dead-Letter Queue (DLQ) sub-queue. Inspecting these messages is key to identifying processing errors:</p>
       <ol>
-        <li>Select the queue or subscription from your folder sidebar.</li>
-        <li>Switch the view from "Active" to "Dead-Letter".</li>
+        <li>Open the namespace and select the queue or subscription.</li>
+        <li>Tick the <strong>DLQ</strong> toggle next to <strong>Send</strong>. On a phone it sits at the end of the entity path in the header.</li>
         <li>Peek the messages inline. Each message shows the headers, payload, and the specific failure reason (like <code>MaxDeliveryCountExceeded</code> or <code>TTLExpiredException</code>) appended by the broker.</li>
       </ol>
     </section>
@@ -124,8 +141,8 @@
       <h2>Managing Subscription Filters</h2>
       <p>Subscription filters (historically called rules) determine which messages published to a topic are received by a specific subscription. Bussin allows you to inspect and modify these filters directly:</p>
       <ol>
-        <li>Select a topic subscription in the folder sidebar.</li>
-        <li>Click <strong>Filters</strong> in the action sidebar to open the Manage Filters dialog.</li>
+        <li>Open the namespace and select a topic subscription.</li>
+        <li>Click <strong>Manage Filters</strong> in the action panel to open the Manage Filters dialog.</li>
         <li><strong>Inspect:</strong> View all existing filters (such as the default <code>$Default</code> true filter, SQL filters, or correlation filters).</li>
         <li><strong>Add Filters:</strong> Define new SQL filters (e.g. <code>sys.Label = 'Order'</code>) or correlation filters (e.g. key-value property matches) to filter incoming messages.</li>
         <li><strong>Delete Filters:</strong> Remove outdated or incorrect filters to stop accepting unwanted messages.</li>
@@ -140,6 +157,28 @@
         <li><strong>Inspection:</strong> Scheduled messages are clearly flagged with clock icons in the message list. You can see their scheduled enqueue times in the message details view.</li>
         <li><strong>Cancellation:</strong> If you need to cancel a scheduled message before its scheduled time, you can do so directly by clicking "Cancel Scheduled" in the message details modal, or by selecting multiple scheduled messages in the list and clicking "Delete". Bussin handles the AMQP cancellation command automatically under the hood.</li>
       </ul>
+    </section>
+
+    <section>
+      <h2>Organizing Favorites</h2>
+      <p>Star a namespace on the namespaces page, or with <strong>Favorite</strong> in the explorer header, to pin it to the sidebar. Click <strong>Organize</strong> next to the Favorites heading to:</p>
+      <ul>
+        <li>Give a favorite your own name, for example "Orders (prod)" instead of the namespace name.</li>
+        <li>Create, rename and delete folders. Deleting a folder moves its favorites back to the top level.</li>
+        <li>Drag favorites and folders to reorder them or move them into another folder.</li>
+        <li>Remove a favorite. For a namespace you added with a connection string, this also deletes the saved connection string.</li>
+      </ul>
+      <p>Favorites are saved in this browser's local storage only, separately for each Entra ID tenant. They do not sync to other browsers or devices.</p>
+    </section>
+
+    <section id="mobile">
+      <h2>Using Bussin on a Phone</h2>
+      <p>On screens narrower than a tablet, Bussin shows a simpler layout aimed at the things you typically do away from your desk: checking a queue, clearing out a dead-letter queue, or resubmitting failed messages.</p>
+      <ul>
+        <li><strong>Available:</strong> Peek and Peek More, the DLQ toggle (in the header), Purge, Resubmit All, message details with per-message resubmit and delete, Favorite and Refresh, and renaming or removing favorites.</li>
+        <li><strong>Desktop only:</strong> Send, Manage Filters, the peek menu (Newest first, Watch, Advanced peek), Statistics, download and column settings in the message list, and folders in Organize favorites.</li>
+      </ul>
+      <p>It is the same app with fewer buttons, so everything hidden on the phone is there when you open Bussin on a wider screen. Favorites are stored per browser, so your phone keeps its own list.</p>
     </section>
 
     <section class="related-links">

@@ -140,6 +140,15 @@ svg {
   margin: 0 auto;
   padding: 0 1rem;
 }
+/* Keep #anchor targets (e.g. /docs/#mobile) from landing under the sticky topbar */
+section[id] {
+  scroll-margin-top: 7rem;
+}
+@media (max-width: 860px) {
+  section[id] {
+    scroll-margin-top: 11rem;
+  }
+}
 .topbar {
   position: sticky;
   top: 0;
