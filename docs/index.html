@@ -90,6 +90,16 @@
     </section>
 
     <section>
+      <h2>Finding Namespaces and Entities</h2>
+      <p>Both lists have a filter that matches on name as you type:</p>
+      <ul>
+        <li><strong>Filter namespaces</strong> on the namespaces page matches namespace, subscription and resource group names. It stays at the top of the screen while you scroll the list.</li>
+        <li><strong>Filter entities</strong> in the explorer header narrows the queue, topic and subscription lists. When the filter matches the selected topic, all of its subscriptions stay visible.</li>
+      </ul>
+      <p>For the entities you open most, use <a href="#favorites">favorites</a>.</p>
+    </section>
+
+    <section>
       <h2>Peek Lock & Message Settlement</h2>
       <p>When reading messages from a queue or subscription using Peek-Lock, the broker reserves them for a set duration (default is 30 seconds). While locked, other consumers cannot read the messages. Bussin lets you inspect locked messages and explicitly choose an action:</p>
       <ul>
@@ -122,7 +132,7 @@
       <p>Messages that fail processing or expire are moved to the secondary Dead-Letter Queue (DLQ) sub-queue. Inspecting these messages is key to identifying processing errors:</p>
       <ol>
         <li>Open the namespace and select the queue or subscription.</li>
-        <li>Tick the <strong>DLQ</strong> toggle next to <strong>Send</strong>. On a phone it sits at the end of the entity path in the header.</li>
+        <li>Tick the <strong>DLQ</strong> toggle next to <strong>Send</strong>. On a phone it sits at the top of the Read panel.</li>
         <li>Peek the messages inline. Each message shows the headers, payload, and the specific failure reason (like <code>MaxDeliveryCountExceeded</code> or <code>TTLExpiredException</code>) appended by the broker.</li>
       </ol>
     </section>
@@ -159,9 +169,11 @@
       </ul>
     </section>
 
-    <section>
+    <section id="favorites">
       <h2>Organizing Favorites</h2>
-      <p>Star a namespace on the namespaces page, or with <strong>Favorite</strong> in the explorer header, to pin it to the sidebar. Click <strong>Organize</strong> next to the Favorites heading to:</p>
+      <p>Star a namespace on the namespaces page, or with <strong>Favorite</strong> in the explorer header, to pin it to the sidebar.</p>
+      <p>Queues, topics and subscriptions can be favorites too. Hover over one in the entity lists (on a phone, select it) and click its star. Favorite entities are listed first in their column and appear under their namespace in the sidebar, where a click opens the namespace with that entity selected. Starring an entity also makes its namespace a favorite, so the shortcut always has somewhere to go.</p>
+      <p>Click <strong>Organize</strong> next to the Favorites heading to:</p>
       <ul>
         <li>Give a favorite your own name, for example "Orders (prod)" instead of the namespace name.</li>
         <li>Create, rename and delete folders. Deleting a folder moves its favorites back to the top level.</li>
@@ -175,8 +187,8 @@
       <h2>Using Bussin on a Phone</h2>
       <p>On screens narrower than a tablet, Bussin shows a simpler layout aimed at the things you typically do away from your desk: checking a queue, clearing out a dead-letter queue, or resubmitting failed messages.</p>
       <ul>
-        <li><strong>Available:</strong> Peek and Peek More, the DLQ toggle (in the header), Purge, Resubmit All, message details with per-message resubmit and delete, Favorite and Refresh, and renaming or removing favorites.</li>
-        <li><strong>Desktop only:</strong> Send, Manage Filters, the peek menu (Newest first, Watch, Advanced peek), Statistics, download and column settings in the message list, and folders in Organize favorites.</li>
+        <li><strong>Available:</strong> Peek and Peek More, the DLQ toggle (at the top of the Read panel), searching the loaded messages, Purge, Resubmit All, message details with per-message resubmit and delete, Filter entities, favorite namespaces and entities, Refresh, and renaming or removing favorites.</li>
+        <li><strong>Desktop only:</strong> Send, Manage Filters, the peek menu (Newest first, Watch, Advanced peek), Statistics, selecting several messages at once, editing a message before resubmitting it, download and column settings in the message list, and folders in Organize favorites.</li>
       </ul>
       <p>It is the same app with fewer buttons, so everything hidden on the phone is there when you open Bussin on a wider screen. Favorites are stored per browser, so your phone keeps its own list.</p>
     </section>
