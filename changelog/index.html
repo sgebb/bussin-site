@@ -90,6 +90,37 @@
     <section>
 
       <article class="faq-item">
+        <h2>Much faster purges, and a steadier namespace list</h2>
+        <p><em>October 31, 2026</em></p>
+        <p>Purging a large queue is now many times faster, and a round of reliability fixes for busy namespaces, sign-in and the namespace list.</p>
+        <ul>
+          <li>Purge now uses Service Bus's server-side batch delete, which removes messages without downloading them. Bussin was requesting it under the wrong operation name, so every purge fell back to receiving and deleting messages one by one. Standard namespaces delete 500 messages per request, Premium 4000</li>
+          <li>When a purge has to receive messages instead (partitioned or session-enabled entities), it no longer stops early on a busy namespace. It keeps going until nothing from before the purge started is left, and tells you if some messages can't be removed because they are scheduled, deferred or locked</li>
+          <li>Purges wait and retry when the namespace is throttling (ServerBusy) instead of failing, and leave messages that arrive during the purge alone</li>
+          <li>The namespaces list no longer empties when you go back and forth between pages, and namespaces from all your subscriptions load in parallel</li>
+          <li>Fixed a <strong>Sign In Again</strong> card that could appear right after your namespaces had loaded</li>
+          <li>Deleting messages and moving them to the dead-letter queue now report any messages that couldn't be found, instead of counting everything as done. Resubmit tells you when an original could not be removed</li>
+          <li>A search that hits an error, such as an expired sign-in, now stops with that error instead of reporting partial results as complete. A search you stop shows as stopped</li>
+          <li>Watch shows the latest 500 messages and stays responsive on busy queues, and no longer stops silently when its connection drops</li>
+          <li>Paging through partitioned queues works past sequence number 2,147,483,647</li>
+          <li>The first load downloads about a third less (3.2 MB instead of 4.7 MB compressed)</li>
+          <li>Purge and search work in demo mode</li>
+        </ul>
+      </article>
+
+      <article class="faq-item">
+        <h2>MCP server version 0.2.0</h2>
+        <p><em>October 31, 2026</em></p>
+        <p><code>bussin-mcp@0.2.0</code> fixes the destructive tools against Azure Service Bus and changes what two of them return.</p>
+        <ul>
+          <li><code>delete_messages</code>, <code>dead_letter_messages</code> and <code>resubmit_dead_letter</code> with <code>removeOriginals</code> now work against real namespaces. They relied on receiving messages by sequence number, which Service Bus only allows for deferred messages, so they failed outside demo mode. They now lock messages from the head of the queue up to the requested ones, settle those and release the rest, the same way the web app does</li>
+          <li>Changed output: <code>delete_messages</code> lists only the messages it deleted and adds <code>notFound</code>. <code>dead_letter_messages</code> returns <code>movedToDeadLetter</code> as a list of sequence numbers instead of a count, plus <code>notFound</code></li>
+          <li><code>purge_entity</code> uses server-side batch delete and retries when the namespace is throttling</li>
+          <li><code>search_messages</code> fails with the actual error instead of returning partial results</li>
+        </ul>
+      </article>
+
+      <article class="faq-item">
         <h2>Favorite entities, entity filter, and a smoother phone layout</h2>
         <p><em>October 29, 2026</em></p>
         <p>Faster ways to get to the queues you actually use, and a round of fixes for phones and smaller screens.</p>
