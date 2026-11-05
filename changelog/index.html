@@ -90,6 +90,30 @@
     <section>
 
       <article class="faq-item">
+        <h2>Moving, deleting and resubmitting selected messages fixed</h2>
+        <p><em>November 5, 2026</em></p>
+        <p>Selected messages now get exactly the action you picked, and failures are shown instead of hidden.</p>
+        <ul>
+          <li>Moving messages to the dead-letter queue, deleting them, or resubmitting with <strong>Delete from Dead Letter Queue</strong> could do nothing to a message that wasn't first in the queue, and could apply the action to an unselected message right before a selected one. Each message now gets its own outcome, and the messages in between are left alone</li>
+          <li><strong>Resubmit all</strong> with delete now locks each batch, sends the copies and only then removes the originals. If removing them fails it stops and says how many were resubmitted, instead of leaving copies in both places without telling you</li>
+          <li>Messages an action failed on stay in the list, with a warning that says what went wrong for which messages</li>
+          <li>The <strong>Purge</strong> confirmation no longer shows the resubmit option <strong>Delete from Dead Letter Queue after resubmit</strong></li>
+          <li>When the namespace's firewall blocks your IP address, the error says so and points to its <em>Networking</em> settings, instead of saying you lack permissions</li>
+          <li>The error at the bottom of the explorer clears when you open another namespace</li>
+        </ul>
+      </article>
+
+      <article class="faq-item">
+        <h2>MCP server version 0.2.1</h2>
+        <p><em>November 5, 2026</em></p>
+        <p><code>bussin-mcp@0.2.1</code> fixes the tools that act on specific messages.</p>
+        <ul>
+          <li><code>delete_messages</code> and <code>dead_letter_messages</code> could leave a requested message untouched while reporting it as done, unless it was first in the queue, and could apply the action to the message right before it. Each message now gets its own outcome</li>
+          <li><code>resubmit_dead_letter</code> with <code>removeOriginals</code> could leave the original in the dead-letter queue for the same reason, so the message existed twice</li>
+        </ul>
+      </article>
+
+      <article class="faq-item">
         <h2>Much faster purges, and a steadier namespace list</h2>
         <p><em>October 31, 2026</em></p>
         <p>Purging a large queue is now many times faster, and a round of reliability fixes for busy namespaces, sign-in and the namespace list.</p>
