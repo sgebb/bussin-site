@@ -97,6 +97,9 @@
           <li>Queues show their scheduled message count again, in blue in parentheses after the active count (<em>active (scheduled) / dead-lettered</em>). Topics show theirs in a badge of their own. Both had been missing since the October redesign</li>
           <li>Hover over a name cut off with "…" and the full name appears at once, in a bubble over the list</li>
           <li>Favorite stars on the namespace cards no longer show on top of the <strong>Filter namespaces</strong> box and the <strong>Wrong Tenant?</strong> link when you scroll</li>
+          <li><strong>Resubmit all</strong> now shows up under running tasks, with a live count and a stop button. It used to run without any sign of progress</li>
+          <li><strong>Resubmit all</strong> only resubmits the messages that were in the dead-letter queue when you started it. If resubmitted messages fail and are dead-lettered again, it leaves them there, finishes, and tells you, instead of resubmitting them over and over without ever finishing</li>
+          <li>A stopped resubmit says it was stopped, instead of reporting it as complete</li>
         </ul>
       </article>
 
