@@ -23,6 +23,10 @@
   <meta name="twitter:image" content="https://bussin.dev/assets/media/advancedPeek.jpg">
 
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <meta name="theme-color" content="#070b14" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f6f7f4" media="(prefers-color-scheme: light)">
   <link rel="stylesheet" href="/assets/styles.css">
   <script src="/assets/theme.js"></script>
   <script data-goatcounter="https://bussin.goatcounter.com/count"
@@ -115,6 +119,7 @@
   </script>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <header class="topbar">
     <div class="container topbar-inner">
       <div class="header-brand">
@@ -124,7 +129,7 @@
         <nav class="menu-panel">
           <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
           <a href="/" class="menu-heading menu-heading-link">BUSSIN</a>
-          <a href="/features/">Features</a>
+          <a href="/features/" aria-current="page">Features</a>
           <a href="/how-it-works/">How It Works</a>
           <a href="/service-bus-explorer-alternative/">Compare</a>
           <a href="/security/">Security</a>
@@ -137,7 +142,7 @@
     </div>
   </header>
 
-  <main class="container page-content">
+  <main id="main" class="container page-content">
     <article>
       <h1>Features</h1>
       <p class="lead-text">Bussin is designed to get you in, let you do what you need with your Azure Service Bus, and get out. If you are used to the desktop Service Bus Explorer, most of the message-level workflow below will look familiar. Here is what you can do with it.</p>
@@ -296,8 +301,52 @@
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-inner">
-      <p>&copy; 2026 Bussin. Source available: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a> · <a href="/security/">Security</a></p>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a class="brand" href="/"><img src="/assets/favicon.svg" alt="" class="brand-icon" width="32" height="32" />bussin</a>
+          <p>The Azure Service Bus explorer that runs in your browser.</p>
+          <a href="https://get.microsoft.com/installer/download/9ntht4mr25cg?referrer=appbadge" target="_blank" rel="noopener" class="ms-store-badge">
+            <img class="badge-dark" src="https://get.microsoft.com/images/en-us%20dark.svg" width="150" height="54" loading="lazy" alt="Get Bussin from Microsoft Store"/>
+            <img class="badge-light" src="https://get.microsoft.com/images/en-us%20light.svg" width="150" height="54" loading="lazy" alt="Get Bussin from Microsoft Store"/>
+          </a>
+        </div>
+        <nav class="footer-col" aria-labelledby="f-product">
+          <h2 id="f-product">Product</h2>
+          <ul>
+            <li><a href="https://app.bussin.dev/demo" target="_blank" rel="noopener">Live demo</a></li>
+            <li><a href="/features/">Features</a></li>
+            <li><a href="/how-it-works/">How it works</a></li>
+            <li><a href="/security/">Security</a></li>
+            <li><a href="/mcp-server/">MCP server</a></li>
+            <li><a href="/changelog/">Changelog</a></li>
+          </ul>
+        </nav>
+        <nav class="footer-col" aria-labelledby="f-guides">
+          <h2 id="f-guides">Guides</h2>
+          <ul>
+            <li><a href="/docs/">Docs</a></li>
+            <li><a href="/dead-letter-queue/">Dead-letter queues</a></li>
+            <li><a href="/autoforwarding/">Auto-forwarding</a></li>
+            <li><a href="/service-bus-linux-mac/">Linux and macOS</a></li>
+            <li><a href="/browser-based-service-bus-explorer/">Browser-based explorer</a></li>
+            <li><a href="/service-bus-explorer-alternative/">Explorer alternatives</a></li>
+          </ul>
+        </nav>
+        <nav class="footer-col" aria-labelledby="f-source">
+          <h2 id="f-source">Source</h2>
+          <ul>
+            <li><a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">App on GitHub</a></li>
+            <li><a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Site on GitHub</a></li>
+            <li><a href="https://www.npmjs.com/package/bussin-mcp" target="_blank" rel="noopener">bussin-mcp on npm</a></li>
+            <li><a href="https://apps.microsoft.com/detail/9NTHT4MR25CG" target="_blank" rel="noopener">Microsoft Store</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Bussin. Source available under BUSL-1.1.</span>
+        <span>Free, no account, no backend.</span>
+      </div>
     </div>
   </footer>
 

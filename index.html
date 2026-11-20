@@ -3,27 +3,39 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Azure Service Bus Explorer | Web Client | bussin.dev</title>
+  <title>Azure Service Bus Explorer in Your Browser | Bussin</title>
   <meta name="description" content="Browse Azure Service Bus queues, topics, and dead-letter messages in your browser. Connects over WebSockets with Entra ID or Connection Strings. No install.">
   <meta name="keywords" content="Azure Service Bus, Service Bus Explorer, Service Bus client, Service Bus Explorer alternative, Service Bus Mac, Service Bus Linux, browser native Service Bus, Dead-letter queue recovery, Entra ID Service Bus, Service Bus Connection String">
   <link rel="canonical" href="https://bussin.dev/">
-  
+  <meta name="theme-color" content="#070b14" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f6f7f4" media="(prefers-color-scheme: light)">
+
   <!-- OpenGraph Metadata -->
-  <meta property="og:title" content="bussin.dev | Browser-Native Azure Service Bus Explorer">
-  <meta property="og:description" content="A browser-native Azure Service Bus explorer. Sign in with Entra ID or connect using a Connection String to manage queues, topics, subscriptions, and dead-letter queues over WebSockets.">
+  <meta property="og:title" content="Bussin: the Azure Service Bus Explorer that runs in your browser">
+  <meta property="og:description" content="Peek, search, resubmit and purge Azure Service Bus messages from a browser tab. Entra ID or connection string, straight to Azure over WebSockets. No install, no backend, free.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://bussin.dev/">
-  <meta property="og:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
+  <meta property="og:image" content="https://bussin.dev/assets/media/og-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Bussin, the Azure Service Bus Explorer in your browser, next to a screenshot of the app">
   <meta property="og:site_name" content="Bussin">
+  <meta property="og:locale" content="en_US">
 
   <!-- Twitter Card Metadata -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="bussin.dev | Browser-Native Azure Service Bus Explorer">
+  <meta name="twitter:title" content="Bussin: the Azure Service Bus Explorer that runs in your browser">
   <meta name="twitter:description" content="Secure, client-side Azure Service Bus Explorer running in the browser. No server-side proxy, direct WebSockets, Entra ID and Connection String support.">
-  <meta name="twitter:image" content="https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg">
+  <meta name="twitter:image" content="https://bussin.dev/assets/media/og-card.jpg">
+  <meta name="twitter:image:alt" content="Bussin, the Azure Service Bus Explorer in your browser, next to a screenshot of the app">
 
   <meta name="msvalidate.01" content="215C76BE0E727C4B79CAC7367AD2A516">
   <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <link rel="preload" href="/assets/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" as="image" type="image/webp"
+        imagesrcset="/assets/media/single-blade-view-bussin-auto-forwarding-900.webp 900w, /assets/media/single-blade-view-bussin-auto-forwarding-1600.webp 1600w"
+        imagesizes="(min-width: 1200px) 1180px, 100vw" fetchpriority="high">
   <link rel="stylesheet" href="/assets/styles.css">
   <script src="/assets/theme.js"></script>
   <script data-goatcounter="https://bussin.goatcounter.com/count"
@@ -50,6 +62,13 @@
         "isAccessibleForFree": true,
         "license": "https://github.com/sgebb/bussin/blob/main/LICENSE",
         "description": "A client-side Azure Service Bus explorer that runs entirely in your browser. Peek, search, resubmit and purge messages across queues, topics, subscriptions and dead-letter queues, connecting directly to Azure over WebSockets with no backend or proxy.",
+        "image": "https://bussin.dev/assets/media/og-card.jpg",
+        "screenshot": [
+          "https://bussin.dev/assets/media/single-blade-view-bussin-auto-forwarding.jpg",
+          "https://bussin.dev/assets/media/advancedPeek.jpg",
+          "https://bussin.dev/assets/media/deadLetterInspect.jpg",
+          "https://bussin.dev/assets/media/confirmPurge.jpg"
+        ],
         "featureList": [
           "Peek messages without consuming them",
           "Dead-letter queue inspection and message resubmission",
@@ -80,7 +99,7 @@
         "@id": "https://bussin.dev/#organization",
         "name": "Bussin",
         "url": "https://bussin.dev/",
-        "logo": "https://bussin.dev/assets/favicon.svg",
+        "logo": "https://bussin.dev/assets/icon-512.png",
         "sameAs": ["https://github.com/sgebb/bussin"]
       },
       {
@@ -89,6 +108,7 @@
         "url": "https://bussin.dev/",
         "name": "Bussin",
         "description": "Browser-native Azure Service Bus explorer",
+        "inLanguage": "en",
         "publisher": { "@id": "https://bussin.dev/#organization" }
       },
       {
@@ -173,7 +193,8 @@
   }
   </script>
 </head>
-<body>
+<body class="home">
+  <a class="skip-link" href="#main">Skip to content</a>
   <header class="topbar">
     <div class="container topbar-inner">
       <div class="header-brand">
@@ -196,243 +217,378 @@
     </div>
   </header>
 
-  <main class="container page-content">
-    <section style="text-align: left; max-width: 800px; margin: 0 0 2.5rem;">
-      <h1>An easy, fast, in-browser Azure Service Bus Explorer</h1>
-      <p style="font-size: 1.15rem; line-height: 1.6; ">Bussin is a secure, client-side tool for Azure Service Bus that runs entirely in your browser. Log in with Entra ID or connect instantly using a Connection String. Inspect and interact with topics, queues, and subscriptions, allowing you to peek, resubmit, send, and move messages to dead-letter queues. Because your messages and credentials are never sent to an external server or proxy, you maintain full data privacy.</p>
-      <div class="hero-actions" style="margin-top: 2rem;">
-        <a class="button primary" href="https://app.bussin.dev" target="_blank" rel="noopener">Launch App</a>
-        <a class="button secondary" href="/docs/">Read Docs</a>
+  <main id="main" class="container page-content">
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Built for Azure Service Bus</p>
+        <h1>The Azure Service Bus Explorer that <em>runs in your browser</em></h1>
+        <p class="hero-lede">Peek, search, resubmit and purge messages across queues, topics, subscriptions and dead-letter queues. Sign in with Entra ID or paste a connection string. Your browser talks straight to Azure over WebSockets, so there is nothing to install and no server in between.</p>
+        <div class="hero-actions">
+          <a class="button primary" href="https://app.bussin.dev/demo" target="_blank" rel="noopener">Try the live demo <span class="arrow" aria-hidden="true">→</span></a>
+          <a class="button secondary" href="https://app.bussin.dev" target="_blank" rel="noopener">Open the app</a>
+        </div>
+        <ul class="hero-meta" aria-label="At a glance">
+          <li>Free</li>
+          <li>No install</li>
+          <li>Windows, macOS, Linux</li>
+          <li>Demo needs no sign-in</li>
+        </ul>
+      </div>
+
+      <figure class="app-frame">
+        <div class="app-frame-bar" aria-hidden="true">
+          <div class="app-frame-dots"><span></span><span></span><span></span></div>
+          <div class="app-frame-url"><b>app.bussin.dev</b>/demo</div>
+          <span></span>
+        </div>
+        <a href="#zoom-hero" aria-label="Enlarge screenshot">
+          <picture>
+            <source type="image/webp"
+                    srcset="/assets/media/single-blade-view-bussin-auto-forwarding-900.webp 900w, /assets/media/single-blade-view-bussin-auto-forwarding-1600.webp 1600w"
+                    sizes="(min-width: 1200px) 1180px, 100vw">
+            <img src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" width="2400" height="1500" fetchpriority="high" decoding="async"
+                 alt="Bussin showing a Service Bus namespace with its queues, topics and subscriptions, grouped into environment folders in the sidebar">
+          </picture>
+        </a>
+      </figure>
+
+      <dl class="proof">
+        <div><dt>0 servers</dt><dd>between your browser and your namespace</dd></div>
+        <div><dt>AMQP 1.0</dt><dd>over a secure WebSocket on port 443</dd></div>
+        <div><dt>Your RBAC</dt><dd>Entra ID sign-in or a plain connection string</dd></div>
+        <div><dt>MCP server</dt><dd>let Claude or ChatGPT read your queues</dd></div>
+      </dl>
+    </section>
+
+    <!-- How it connects -->
+    <section id="how-it-connects">
+      <div class="wire">
+        <div>
+          <p class="eyebrow">How it connects</p>
+          <div class="section-head" style="margin-bottom:1.75rem">
+            <h2>No backend. No proxy. Just your browser and Azure.</h2>
+            <p>bussin.dev serves static files and nothing else. Once the page loads, the connection is yours.</p>
+          </div>
+          <ol class="points">
+            <li><span class="num">01</span><h3>Direct connections</h3><p>Your browser opens its own AMQP connection to <code>*.servicebus.windows.net</code>. Tokens and payloads never touch a Bussin server, because there isn't one.</p></li>
+            <li><span class="num">02</span><h3>Your permissions, nothing more</h3><p>Every action runs under your own Data Receiver, Sender or Owner role. Bussin can't do anything your account couldn't do in the portal.</p></li>
+            <li><span class="num">03</span><h3>Nothing stored on our side</h3><p>No logs, no telemetry on your messages. <a href="/security/">Security</a> lists exactly what stays in browser storage and what lives only in memory.</p></li>
+          </ol>
+        </div>
+
+        <figure class="wire-diagram">
+          <svg viewBox="0 0 520 330" role="img" aria-labelledby="wire-title wire-desc">
+            <title id="wire-title">Connection diagram</title>
+            <desc id="wire-desc">Your browser connects directly to Azure Service Bus using AMQP 1.0 over a secure WebSocket. There is no Bussin server in the path.</desc>
+            <defs>
+              <path id="rail-path" d="M 196 214 L 316 214" />
+              <path id="rail-back" d="M 316 214 L 196 214" />
+            </defs>
+
+            <!-- Ghost server: not in the path -->
+            <rect class="ghost" x="170" y="18" width="180" height="62" rx="10" />
+            <text class="t-ghost" x="260" y="44" text-anchor="middle">bussin server</text>
+            <text class="t-ghost" x="260" y="64" text-anchor="middle" font-size="10">not in the path</text>
+            <line class="strike" x1="208" y1="40" x2="312" y2="40" />
+            <path class="ghost" d="M 110 150 L 110 49 L 170 49" />
+            <path class="ghost" d="M 410 150 L 410 49 L 350 49" />
+
+            <!-- Browser -->
+            <rect class="node-accent" x="16" y="150" width="180" height="128" rx="12" />
+            <text class="t-label" x="34" y="176">Your browser</text>
+            <text class="t-title" x="34" y="204">app.bussin.dev</text>
+            <rect class="chip" x="34" y="220" width="70" height="22" rx="5" /><text class="t-chip" x="69" y="235" text-anchor="middle">MSAL.js</text>
+            <rect class="chip" x="110" y="220" width="70" height="22" rx="5" /><text class="t-chip" x="145" y="235" text-anchor="middle">AMQP</text>
+            <text class="t-sub" x="34" y="264">runs in the sandbox</text>
+
+            <!-- Wire -->
+            <use href="#rail-path" class="rail" />
+            <text class="t-wire" x="256" y="200" text-anchor="middle">wss :443</text>
+            <text class="t-ghost" x="256" y="238" text-anchor="middle" font-size="10">AMQP 1.0</text>
+            <circle class="pkt" r="4"><animateMotion dur="2.4s" repeatCount="indefinite"><mpath href="#rail-path" /></animateMotion></circle>
+            <circle class="pkt" r="4"><animateMotion dur="2.4s" begin="1.2s" repeatCount="indefinite"><mpath href="#rail-path" /></animateMotion></circle>
+            <circle class="pkt-back" r="3"><animateMotion dur="2.4s" begin="0.6s" repeatCount="indefinite"><mpath href="#rail-back" /></animateMotion></circle>
+
+            <!-- Azure -->
+            <rect class="node" x="316" y="130" width="188" height="168" rx="12" />
+            <text class="t-label" x="334" y="156">Azure</text>
+            <text class="t-title" x="334" y="184">Service Bus</text>
+            <rect class="chip" x="334" y="198" width="152" height="22" rx="5" /><text class="t-chip" x="344" y="213">queue/orders</text>
+            <rect class="chip" x="334" y="226" width="152" height="22" rx="5" /><text class="t-chip" x="344" y="241">topic/events</text>
+            <rect class="chip-dlq" x="334" y="254" width="152" height="22" rx="5" /><text class="t-chip-dlq" x="344" y="269">$DeadLetterQueue</text>
+          </svg>
+        </figure>
       </div>
     </section>
 
-    <figure class="hero-card">
-      <a href="#zoom-hero">
-        <img loading="lazy" src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Bussin web dashboard showcasing namespace folders, active filters, and message detail blade" />
-      </a>
-      <figcaption>Direct explorer for Azure Service Bus entities running in a standard browser container.</figcaption>
-    </figure>
+    <!-- Features -->
+    <section id="features">
+      <div class="section-head">
+        <p class="eyebrow">What you can do</p>
+        <h2>Everything you open Service Bus Explorer for, minus the install</h2>
+        <p>The message-level work that fills a debugging session, in a tool that opens in a second on any machine.</p>
+      </div>
 
-    <section>
-      <h2>What is Bussin?</h2>
-      <p>Bussin runs entirely in your browser. It establishes WebSockets connections directly to Azure from your browser. This keeps all network traffic strictly client-side and secure, meaning no data is stashed or transited through any third-party server.</p>
-      
-      <div class="section-grid" style="margin-top: 2rem;">
-        <article>
-          <h3>Direct Connections</h3>
-          <p>Bussin runs all connections directly in your browser's security sandbox. No backend servers, no intermediate proxy nodes.</p>
+      <div class="feature-rows">
+        <article class="feature-row">
+          <div class="feature-copy">
+            <p class="tag">Peek &amp; search</p>
+            <h3>Search message bodies, not just properties</h3>
+            <p>Load thousands of messages without consuming them and filter on body content, broker properties or application properties. Search runs in browser memory, so delivery counts stay put and payloads never leave your machine.</p>
+            <a class="text-link" href="/docs/">Peek options in the docs</a>
+          </div>
+          <a class="shot" href="#zoom-wt2" aria-label="Enlarge search screenshot">
+            <picture>
+              <source type="image/webp" srcset="/assets/media/advancedPeek-900.webp 900w, /assets/media/advancedPeek-1600.webp 1600w" sizes="(min-width: 860px) 640px, 100vw">
+              <img src="/assets/media/advancedPeek.jpg" width="2400" height="1500" loading="lazy" decoding="async" alt="Bussin advanced peek panel with body and property filter options">
+            </picture>
+          </a>
         </article>
-        <article>
-          <h3>Built for Developers</h3>
-          <p>Whether you need to debug live message flows, inspect message bodies, or troubleshoot dead-letter queues, Bussin provides a simple, direct interface.</p>
+
+        <article class="feature-row">
+          <div class="feature-copy">
+            <p class="tag dlq">Dead-letter recovery</p>
+            <h3>Resubmit dead-lettered messages and remove the original</h3>
+            <p>Read the <code>DeadLetterReason</code>, fix the payload inline, and send it back to its source in one step, for one message or a whole selection. The portal's resend leaves the original sitting in the DLQ.</p>
+            <a class="text-link" href="/dead-letter-queue/">Dead-letter queue guide</a>
+          </div>
+          <a class="shot" href="#zoom-wt4" aria-label="Enlarge dead-letter screenshot">
+            <picture>
+              <source type="image/webp" srcset="/assets/media/deadLetterInspect-900.webp 900w, /assets/media/deadLetterInspect-1600.webp 1600w" sizes="(min-width: 860px) 640px, 100vw">
+              <img src="/assets/media/deadLetterInspect.jpg" width="2400" height="1500" loading="lazy" decoding="async" alt="Dead-letter message details in Bussin with dead-letter reason and resubmit controls">
+            </picture>
+          </a>
         </article>
-        <article>
-          <h3>Private & Secure</h3>
-          <p>Your credentials, access tokens, and message payloads are handled entirely inside your browser and never reach a Bussin server, because there is no Bussin server to reach. See <a href="/security/">Security</a> for exactly what is kept in browser storage and what is held only in memory.</p>
+
+        <article class="feature-row">
+          <div class="feature-copy">
+            <p class="tag">Bulk operations</p>
+            <h3>Purge and move in the background</h3>
+            <p>Start a purge or a bulk move and keep working. Long jobs run as background tasks with progress, and session-enabled entities are drained session by session without asking you for a Session ID.</p>
+            <a class="text-link" href="/features/">See every feature</a>
+          </div>
+          <a class="shot" href="#zoom-wt3" aria-label="Enlarge purge screenshot">
+            <picture>
+              <source type="image/webp" srcset="/assets/media/confirmPurge-900.webp 900w, /assets/media/confirmPurge-1600.webp 1600w" sizes="(min-width: 860px) 640px, 100vw">
+              <img src="/assets/media/confirmPurge.jpg" width="2400" height="1500" loading="lazy" decoding="async" alt="Bussin confirmation dialog for a bulk purge running as a background task">
+            </picture>
+          </a>
         </article>
       </div>
     </section>
 
-    <section>
-      <h2>Product Walkthrough</h2>
-      <div class="walkthrough-grid">
-        <figure class="visual-card">
-          <a href="#zoom-wt1">
-            <img loading="lazy" src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Screenshot showing folders and navigation sidebar in Bussin" />
-          </a>
-          <figcaption>Organize multiple environments into folders and quickly search across namespaces.</figcaption>
-        </figure>
-        <figure class="visual-card">
-          <a href="#zoom-wt2">
-            <img loading="lazy" src="/assets/media/advancedPeek.jpg" alt="Screenshot displaying message search filter options in Bussin" />
-          </a>
-          <figcaption>Run property and body matching queries inside browser memory.</figcaption>
-        </figure>
-        <figure class="visual-card">
-          <a href="#zoom-wt3">
-            <img loading="lazy" src="/assets/media/confirmPurge.jpg" alt="Modal window confirming safe bulk purge parameters in Bussin" />
-          </a>
-          <figcaption>Start bulk operations or moves using background tasks.</figcaption>
-        </figure>
-        <figure class="visual-card">
-          <a href="#zoom-wt4">
-            <img loading="lazy" src="/assets/media/deadLetterInspect.jpg" alt="Screenshot showing dead-letter queue message details and resubmit operations" />
-          </a>
-          <figcaption>Inspect dead-letter messages and replay them to their original queue.</figcaption>
-        </figure>
+    <!-- Comparison -->
+    <section id="compare">
+      <div class="section-head">
+        <p class="eyebrow">Compared</p>
+        <h2>Bussin next to the tools you already know</h2>
+        <p>Where Bussin differs from the Azure Portal, Paolo Salvatori's desktop Service Bus Explorer, and QueueExplorer. The <a href="/service-bus-explorer-alternative/">full comparison</a> also covers viewbus and entity administration.</p>
       </div>
-    </section>
-
-    <section>
-      <h2>Brief Feature Overview</h2>
-      <p>Bussin brings the power of traditional desktop admin tools straight to a secure browser tab. For detailed guides, explore our main navigation:</p>
-      <ul>
-        <li><strong><a href="/features/">Features:</a></strong> Detailed list of functional capabilities like message peeking, lock settlement, inline message editing & resubmission, custom JSON exporting, batch uploading, and bulk operations.</li>
-        <li><strong><a href="/how-it-works/">How It Works:</a></strong> Browser architecture, WebSockets connection details, authentication flow, and required Azure permissions.</li>
-        <li><strong><a href="/security/">Security:</a></strong> Complete details on data flow, direct memory processing (no server storage or telemetry collection), and why connections remain browser-only.</li>
-        <li><strong><a href="/docs/">Docs:</a></strong> Step-by-step usage guides for getting started, peek lock, and dead-letter queue recovery.</li>
-      </ul>
-      <h3 style="margin-top: 2rem; ">Common Use Cases</h3>
-      <ul style="line-height: 1.8;">
-        <li>Looking for a <a href="/service-bus-explorer-alternative/">Service Bus Explorer alternative</a>?</li>
-        <li>Need a <a href="/service-bus-linux-mac/">Service Bus tool on Linux or Mac</a>?</li>
-        <li>Want a <a href="/browser-based-service-bus-explorer/">browser-based Service Bus Explorer</a>?</li>
-        <li>Want to learn about <a href="/dead-letter-queue/">Dead-Letter Queue recovery</a>?</li>
-        <li>Need to configure <a href="/autoforwarding/">Azure Service Bus Auto-Forwarding</a>?</li>
-        <li>Want to connect Claude or ChatGPT to your queues with the <a href="/mcp-server/">Azure Service Bus MCP server</a>?</li>
-        <li>Curious what's new? See the <a href="/changelog/">changelog</a>.</li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>Bussin Compared to Other Service Bus Tools</h2>
-      <p>Most people arrive here already using something else. This is where Bussin differs from the Azure Portal, from Paolo Salvatori's desktop Service Bus Explorer, and from QueueExplorer. The <a href="/service-bus-explorer-alternative/">full comparison</a> covers viewbus and entity administration as well.</p>
       <table class="compare-table">
         <thead>
           <tr>
-            <th>Feature</th>
-            <th class="highlight-bussin">Bussin</th>
-            <th>Azure Portal</th>
-            <th>Service Bus Explorer</th>
-            <th>QueueExplorer</th>
+            <th scope="col">Feature</th>
+            <th scope="col" class="highlight-bussin text-center">Bussin</th>
+            <th scope="col" class="text-center">Azure Portal</th>
+            <th scope="col" class="text-center">Service Bus Explorer</th>
+            <th scope="col" class="text-center">QueueExplorer</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><strong>Runs with no installation</strong></td>
-            <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
-            <td class="text-center"><span class="checkmark">✓</span></td>
-            <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
-            <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+            <td class="highlight-bussin text-center"><span class="checkmark" aria-hidden="true">✓</span><span class="sr-only">Yes</span></td>
+            <td class="text-center"><span class="checkmark" aria-hidden="true">✓</span><span class="sr-only">Yes</span></td>
+            <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span><span class="sr-only">No</span></td>
+            <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span><span class="sr-only">No</span></td>
           </tr>
           <tr>
             <td><strong>Windows, macOS and Linux</strong></td>
-            <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
-            <td class="text-center"><span class="checkmark">✓</span></td>
-            <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
-            <td class="text-center"><span class="checkmark">✓</span></td>
+            <td class="highlight-bussin text-center"><span class="checkmark" aria-hidden="true">✓</span><span class="sr-only">Yes</span></td>
+            <td class="text-center"><span class="checkmark" aria-hidden="true">✓</span><span class="sr-only">Yes</span></td>
+            <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span><span class="sr-only">No</span></td>
+            <td class="text-center"><span class="checkmark" aria-hidden="true">✓</span><span class="sr-only">Yes</span></td>
           </tr>
           <tr>
             <td><strong>Free of charge</strong></td>
-            <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
-            <td class="text-center"><span class="checkmark">✓</span></td>
-            <td class="text-center"><span class="checkmark">✓</span></td>
-            <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+            <td class="highlight-bussin text-center"><span class="checkmark" aria-hidden="true">✓</span><span class="sr-only">Yes</span></td>
+            <td class="text-center"><span class="checkmark" aria-hidden="true">✓</span><span class="sr-only">Yes</span></td>
+            <td class="text-center"><span class="checkmark" aria-hidden="true">✓</span><span class="sr-only">Yes</span></td>
+            <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span><span class="sr-only">No</span></td>
           </tr>
           <tr>
             <td><strong>Resubmit from DLQ and remove the original</strong></td>
-            <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
-            <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
-            <td class="text-center"><span class="checkmark">✓</span></td>
-            <td class="text-center"><span class="checkmark">✓</span></td>
+            <td class="highlight-bussin text-center"><span class="checkmark" aria-hidden="true">✓</span><span class="sr-only">Yes</span></td>
+            <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span><span class="sr-only">No</span></td>
+            <td class="text-center"><span class="checkmark" aria-hidden="true">✓</span><span class="sr-only">Yes</span></td>
+            <td class="text-center"><span class="checkmark" aria-hidden="true">✓</span><span class="sr-only">Yes</span></td>
           </tr>
           <tr>
             <td><strong>Connect with a connection string only</strong></td>
-            <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
-            <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
-            <td class="text-center"><span class="checkmark">✓</span></td>
-            <td class="text-center"><span class="checkmark">✓</span></td>
+            <td class="highlight-bussin text-center"><span class="checkmark" aria-hidden="true">✓</span><span class="sr-only">Yes</span></td>
+            <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span><span class="sr-only">No</span></td>
+            <td class="text-center"><span class="checkmark" aria-hidden="true">✓</span><span class="sr-only">Yes</span></td>
+            <td class="text-center"><span class="checkmark" aria-hidden="true">✓</span><span class="sr-only">Yes</span></td>
           </tr>
           <tr>
             <td><strong>Peek sessions without knowing the Session ID</strong></td>
-            <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
-            <td class="text-center"><span class="partial-mark">~</span></td>
-            <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
-            <td class="text-center"><span class="checkmark">✓</span></td>
+            <td class="highlight-bussin text-center"><span class="checkmark" aria-hidden="true">✓</span><span class="sr-only">Yes</span></td>
+            <td class="text-center"><span class="partial-mark" aria-hidden="true">~</span><span class="sr-only">Partial</span></td>
+            <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span><span class="sr-only">No</span></td>
+            <td class="text-center"><span class="checkmark" aria-hidden="true">✓</span><span class="sr-only">Yes</span></td>
           </tr>
           <tr>
             <td><strong>Create and delete entities</strong></td>
-            <td class="highlight-bussin text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
-            <td class="text-center"><span class="checkmark">✓</span></td>
-            <td class="text-center"><span class="checkmark">✓</span></td>
-            <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+            <td class="highlight-bussin text-center"><span class="no-mark" aria-hidden="true">✖</span><span class="sr-only">No</span></td>
+            <td class="text-center"><span class="checkmark" aria-hidden="true">✓</span><span class="sr-only">Yes</span></td>
+            <td class="text-center"><span class="checkmark" aria-hidden="true">✓</span><span class="sr-only">Yes</span></td>
+            <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span><span class="sr-only">No</span></td>
           </tr>
           <tr>
             <td><strong>Connects to the local emulator</strong></td>
-            <td class="highlight-bussin text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
-            <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
-            <td class="text-center"><span class="checkmark">✓</span></td>
-            <td class="text-center"><span class="checkmark">✓</span></td>
+            <td class="highlight-bussin text-center"><span class="no-mark" aria-hidden="true">✖</span><span class="sr-only">No</span></td>
+            <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span><span class="sr-only">No</span></td>
+            <td class="text-center"><span class="checkmark" aria-hidden="true">✓</span><span class="sr-only">Yes</span></td>
+            <td class="text-center"><span class="checkmark" aria-hidden="true">✓</span><span class="sr-only">Yes</span></td>
           </tr>
           <tr>
             <td><strong>MCP server for AI assistants</strong></td>
-            <td class="highlight-bussin text-center"><span class="checkmark">✓</span></td>
-            <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
-            <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
-            <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span></td>
+            <td class="highlight-bussin text-center"><span class="checkmark" aria-hidden="true">✓</span><span class="sr-only">Yes</span></td>
+            <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span><span class="sr-only">No</span></td>
+            <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span><span class="sr-only">No</span></td>
+            <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span><span class="sr-only">No</span></td>
           </tr>
         </tbody>
       </table>
-      <p>The last two rows are the honest limits. Bussin handles messages, not entity administration, and a browser page cannot reach the emulator because the emulator has no WebSocket listener to connect to. If you need either, keep the desktop Service Bus Explorer alongside Bussin.</p>
+      <p>The two crosses in the Bussin column are the honest limits. Bussin handles messages, not entity administration, and a browser page cannot reach the emulator because the emulator has no WebSocket listener to connect to. If you need either, keep the desktop Service Bus Explorer alongside Bussin.</p>
     </section>
 
-    <section>
-      <h2>Frequently Asked Questions</h2>
-      <div class="faq-item">
-        <h3>What is Bussin?</h3>
-        <p>Bussin is an Azure Service Bus explorer that runs in a browser tab. It peeks and searches messages, settles peek-locks, edits and resubmits payloads, recovers dead-lettered messages, cancels scheduled messages, and manages subscription filters across queues, topics, and subscriptions. It connects straight to Azure over AMQP 1.0 on a secure WebSocket, so there is no backend and no proxy.</p>
+    <!-- Guides -->
+    <section id="guides">
+      <div class="section-head">
+        <p class="eyebrow">Guides</p>
+        <h2>Pick up where you left off</h2>
       </div>
-      <div class="faq-item">
-        <h3>Is Bussin free?</h3>
-        <p>Yes. Bussin is free to use and its source is available under BUSL-1.1. There is no paid tier, no account to create on bussin.dev, and no trial period. You sign in with your own Entra ID identity or paste a connection string.</p>
+      <nav class="guide-grid" aria-label="Guides and comparisons">
+        <a class="guide-card" href="/service-bus-explorer-alternative/"><span class="k">Compare</span><strong>Service Bus Explorer alternatives</strong><span>Bussin, the portal, Service Bus Explorer, QueueExplorer and viewbus, row by row.</span></a>
+        <a class="guide-card" href="/service-bus-linux-mac/"><span class="k">Platforms</span><strong>Service Bus on Linux and macOS</strong><span>Skip Wine and VMs. Work with your namespace from any OS.</span></a>
+        <a class="guide-card" href="/dead-letter-queue/"><span class="k">Guide</span><strong>Dead-letter queue recovery</strong><span>Read dead-letter reasons, diagnose by symptom, and replay safely.</span></a>
+        <a class="guide-card" href="/autoforwarding/"><span class="k">Guide</span><strong>Auto-forwarding</strong><span>Chain queues and topics, and watch for the transfer DLQ.</span></a>
+        <a class="guide-card" href="/browser-based-service-bus-explorer/"><span class="k">Explainer</span><strong>Why a browser-based explorer</strong><span>What a browser can do with Service Bus, and where it stops.</span></a>
+        <a class="guide-card" href="/mcp-server/"><span class="k">AI</span><strong>Azure Service Bus MCP server</strong><span>Connect Claude, ChatGPT or Cursor to your queues.</span></a>
+        <a class="guide-card" href="/how-it-works/"><span class="k">Architecture</span><strong>How it works</strong><span>AMQP over WebSockets, MSAL sign-in and the permissions you need.</span></a>
+        <a class="guide-card" href="/docs/"><span class="k">Docs</span><strong>Getting started</strong><span>Connect, peek-lock, inspect the DLQ and resubmit, step by step.</span></a>
+        <a class="guide-card" href="/changelog/"><span class="k">Updates</span><strong>Changelog</strong><span>What's new in the app, release by release.</span></a>
+      </nav>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq">
+      <div class="section-head">
+        <p class="eyebrow">FAQ</p>
+        <h2>Frequently asked questions</h2>
       </div>
-      <div class="faq-item">
-        <h3>Do I need to install anything?</h3>
-        <p>No. Open <a href="https://app.bussin.dev" target="_blank" rel="noopener">app.bussin.dev</a> and connect. There is no installer, no .NET runtime to add, and no administrator approval needed, which matters on locked-down corporate machines. If you prefer an app window and a dock icon, you can install Bussin as a Progressive Web App from the browser, or get it from the Microsoft Store.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Does Bussin work on macOS and Linux?</h3>
-        <p>Yes, in any modern browser, including on ChromeOS, iOS, and Android. This is the usual reason people look for an alternative to the desktop Service Bus Explorer, which requires Windows 10 or later and .NET Framework 4.6.2 and otherwise needs Wine or a virtual machine. See the <a href="/service-bus-linux-mac/">macOS and Linux guide</a>.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Is Bussin a replacement for Service Bus Explorer?</h3>
-        <p>For day-to-day message work, yes. For entity administration, no. Paolo Salvatori's Service Bus Explorer creates and deletes entities, edits queue and topic properties, manages authorization rules, and connects to the local emulator. Bussin does none of those. Many people keep both and reach for Bussin when they are on a machine where the desktop tool will not run. The <a href="/service-bus-explorer-alternative/">comparison page</a> goes through this feature by feature.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Do my messages or credentials pass through a Bussin server?</h3>
-        <p>No, because there is no Bussin server to pass through. bussin.dev serves static files. Once the page has loaded, your browser opens its own AMQP connection to your namespace and the traffic carrying tokens and message payloads goes browser to Azure. Nothing is logged or stored on our side. <a href="/security/">Security</a> sets out what is held in browser storage and what stays in memory only.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Can I use Bussin without an Entra ID account on the namespace?</h3>
-        <p>Yes. Bussin accepts a standard Service Bus connection string in "Run without login" mode, which is how you reach a partner or customer namespace you have no directory access to. The Azure Portal cannot do this, since it only lists namespaces your signed-in identity can already see through Azure Resource Manager.</p>
-      </div>
-      <div class="faq-item">
-        <h3>What Azure permissions does Bussin need?</h3>
-        <p>Whatever your own identity already has. <strong>Azure Service Bus Data Receiver</strong> lets you peek and receive, <strong>Data Sender</strong> lets you send and resubmit, and <strong>Data Owner</strong> covers both. Every action runs under your existing RBAC assignments, so Bussin cannot do anything your account could not do in the portal.</p>
-      </div>
-      <div class="faq-item">
-        <h3>Can Bussin connect to the local Service Bus emulator?</h3>
-        <p>No. The emulator exposes no AMQP-over-WebSockets listener, and WebSockets are the only transport a browser page can use to reach an AMQP broker. There is no workaround from inside a browser. Use Service Bus Explorer or QueueExplorer for emulator work.</p>
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary><h3>What is Bussin?</h3></summary>
+          <p>Bussin is an Azure Service Bus explorer that runs in a browser tab. It peeks and searches messages, settles peek-locks, edits and resubmits payloads, recovers dead-lettered messages, cancels scheduled messages, and manages subscription filters across queues, topics, and subscriptions. It connects straight to Azure over AMQP 1.0 on a secure WebSocket, so there is no backend and no proxy.</p>
+        </details>
+        <details class="faq-item">
+          <summary><h3>Is Bussin free?</h3></summary>
+          <p>Yes. Bussin is free to use and its source is available under BUSL-1.1. There is no paid tier, no account to create on bussin.dev, and no trial period. You sign in with your own Entra ID identity or paste a connection string.</p>
+        </details>
+        <details class="faq-item">
+          <summary><h3>Do I need to install anything?</h3></summary>
+          <p>No. Open <a href="https://app.bussin.dev" target="_blank" rel="noopener">app.bussin.dev</a> and connect. There is no installer, no .NET runtime to add, and no administrator approval needed, which matters on locked-down corporate machines. If you prefer an app window and a dock icon, you can install Bussin as a Progressive Web App from the browser, or get it from the Microsoft Store.</p>
+        </details>
+        <details class="faq-item">
+          <summary><h3>Does Bussin work on macOS and Linux?</h3></summary>
+          <p>Yes, in any modern browser, including on ChromeOS, iOS, and Android. This is the usual reason people look for an alternative to the desktop Service Bus Explorer, which requires Windows 10 or later and .NET Framework 4.6.2 and otherwise needs Wine or a virtual machine. See the <a href="/service-bus-linux-mac/">macOS and Linux guide</a>.</p>
+        </details>
+        <details class="faq-item">
+          <summary><h3>Is Bussin a replacement for Service Bus Explorer?</h3></summary>
+          <p>For day-to-day message work, yes. For entity administration, no. Paolo Salvatori's Service Bus Explorer creates and deletes entities, edits queue and topic properties, manages authorization rules, and connects to the local emulator. Bussin does none of those. Many people keep both and reach for Bussin when they are on a machine where the desktop tool will not run. The <a href="/service-bus-explorer-alternative/">comparison page</a> goes through this feature by feature.</p>
+        </details>
+        <details class="faq-item">
+          <summary><h3>Do my messages or credentials pass through a Bussin server?</h3></summary>
+          <p>No, because there is no Bussin server to pass through. bussin.dev serves static files. Once the page has loaded, your browser opens its own AMQP connection to your namespace and the traffic carrying tokens and message payloads goes browser to Azure. Nothing is logged or stored on our side. <a href="/security/">Security</a> sets out what is held in browser storage and what stays in memory only.</p>
+        </details>
+        <details class="faq-item">
+          <summary><h3>Can I use Bussin without an Entra ID account on the namespace?</h3></summary>
+          <p>Yes. Bussin accepts a standard Service Bus connection string in "Run without login" mode, which is how you reach a partner or customer namespace you have no directory access to. The Azure Portal cannot do this, since it only lists namespaces your signed-in identity can already see through Azure Resource Manager.</p>
+        </details>
+        <details class="faq-item">
+          <summary><h3>What Azure permissions does Bussin need?</h3></summary>
+          <p>Whatever your own identity already has. <strong>Azure Service Bus Data Receiver</strong> lets you peek and receive, <strong>Data Sender</strong> lets you send and resubmit, and <strong>Data Owner</strong> covers both. Every action runs under your existing RBAC assignments, so Bussin cannot do anything your account could not do in the portal.</p>
+        </details>
+        <details class="faq-item">
+          <summary><h3>Can Bussin connect to the local Service Bus emulator?</h3></summary>
+          <p>No. The emulator exposes no AMQP-over-WebSockets listener, and WebSockets are the only transport a browser page can use to reach an AMQP broker. There is no workaround from inside a browser. Use Service Bus Explorer or QueueExplorer for emulator work.</p>
+        </details>
       </div>
     </section>
 
-    <section class="hero-grid">
-      <div>
-        <h2>Try Bussin Instantly</h2>
-        <p>You can try Bussin immediately with our live demo environment. Test operations like peek, resubmit, send, and moving messages to dead-letter queues in a mock namespace, without needing a login, permissions, or Azure consent.</p>
-        <div class="hero-actions">
-          <a class="button primary" href="https://app.bussin.dev/demo" target="_blank" rel="noopener">Try Live Demo</a>
-          <a class="button secondary" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App (Sign In)</a>
-        </div>
+    <!-- Closing CTA -->
+    <section class="cta-band">
+      <p class="eyebrow">Try it now</p>
+      <h2>Open a queue before your coffee cools</h2>
+      <p>The live demo runs against a mock namespace, so you can peek, resubmit, send and dead-letter messages without a login, permissions or Azure consent.</p>
+      <div class="hero-actions">
+        <a class="button primary" href="https://app.bussin.dev/demo" target="_blank" rel="noopener">Try the live demo <span class="arrow" aria-hidden="true">→</span></a>
+        <a class="button secondary" href="https://app.bussin.dev" target="_blank" rel="noopener">Open the app and sign in</a>
       </div>
-      <figure class="visual-card">
-        <a href="#zoom-bottom">
-          <img loading="lazy" src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="A screenshot showing the Bussin app ready for login" />
-        </a>
-        <figcaption>Explore the interactive dashboard instantly in demo mode, log in with Entra ID, or connect using a Connection String.</figcaption>
-      </figure>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div class="container footer-inner">
-      <div class="footer-badge">
-        <a href="https://get.microsoft.com/installer/download/9ntht4mr25cg?referrer=appbadge" target="_blank" rel="noopener" class="ms-store-badge">
-          <img class="badge-dark" src="https://get.microsoft.com/images/en-us%20dark.svg" width="200" alt="Get Bussin from Microsoft Store"/>
-          <img class="badge-light" src="https://get.microsoft.com/images/en-us%20light.svg" width="200" alt="Get Bussin from Microsoft Store"/>
-        </a>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a class="brand" href="/"><img src="/assets/favicon.svg" alt="" class="brand-icon" width="32" height="32" />bussin</a>
+          <p>The Azure Service Bus explorer that runs in your browser.</p>
+          <a href="https://get.microsoft.com/installer/download/9ntht4mr25cg?referrer=appbadge" target="_blank" rel="noopener" class="ms-store-badge">
+            <img class="badge-dark" src="https://get.microsoft.com/images/en-us%20dark.svg" width="150" height="54" loading="lazy" alt="Get Bussin from Microsoft Store"/>
+            <img class="badge-light" src="https://get.microsoft.com/images/en-us%20light.svg" width="150" height="54" loading="lazy" alt="Get Bussin from Microsoft Store"/>
+          </a>
+        </div>
+        <nav class="footer-col" aria-labelledby="f-product">
+          <h2 id="f-product">Product</h2>
+          <ul>
+            <li><a href="https://app.bussin.dev/demo" target="_blank" rel="noopener">Live demo</a></li>
+            <li><a href="/features/">Features</a></li>
+            <li><a href="/how-it-works/">How it works</a></li>
+            <li><a href="/security/">Security</a></li>
+            <li><a href="/mcp-server/">MCP server</a></li>
+            <li><a href="/changelog/">Changelog</a></li>
+          </ul>
+        </nav>
+        <nav class="footer-col" aria-labelledby="f-guides">
+          <h2 id="f-guides">Guides</h2>
+          <ul>
+            <li><a href="/docs/">Docs</a></li>
+            <li><a href="/dead-letter-queue/">Dead-letter queues</a></li>
+            <li><a href="/autoforwarding/">Auto-forwarding</a></li>
+            <li><a href="/service-bus-linux-mac/">Linux and macOS</a></li>
+            <li><a href="/browser-based-service-bus-explorer/">Browser-based explorer</a></li>
+            <li><a href="/service-bus-explorer-alternative/">Explorer alternatives</a></li>
+          </ul>
+        </nav>
+        <nav class="footer-col" aria-labelledby="f-source">
+          <h2 id="f-source">Source</h2>
+          <ul>
+            <li><a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">App on GitHub</a></li>
+            <li><a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Site on GitHub</a></li>
+            <li><a href="https://www.npmjs.com/package/bussin-mcp" target="_blank" rel="noopener">bussin-mcp on npm</a></li>
+            <li><a href="https://apps.microsoft.com/detail/9NTHT4MR25CG" target="_blank" rel="noopener">Microsoft Store</a></li>
+          </ul>
+        </nav>
       </div>
-      <p>&copy; 2026 Bussin. Source available: <a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">Bussin App</a> · <a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Bussin Site</a> · <a href="/security/">Security</a></p>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Bussin. Source available under BUSL-1.1.</span>
+        <span>Free, no account, no backend.</span>
+      </div>
     </div>
   </footer>
 
@@ -440,26 +596,17 @@
   <div id="zoom-hero" class="lightbox">
     <a href="#_" class="lightbox-close-overlay" aria-label="Close zoom"></a>
     <div class="lightbox-content">
-      <a href="#_" class="lightbox-close">&times;</a>
-      <img loading="lazy" src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Bussin web dashboard showcasing namespace folders, active filters, and message detail blade" />
-      <p class="lightbox-caption">Direct explorer for Azure Service Bus entities running in a standard browser container.</p>
-    </div>
-  </div>
-
-  <div id="zoom-wt1" class="lightbox">
-    <a href="#_" class="lightbox-close-overlay" aria-label="Close zoom"></a>
-    <div class="lightbox-content">
-      <a href="#_" class="lightbox-close">&times;</a>
-      <img loading="lazy" src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Screenshot showing folders and navigation sidebar in Bussin" />
-      <p class="lightbox-caption">Organize multiple environments into folders and quickly search across namespaces.</p>
+      <a href="#_" class="lightbox-close" aria-label="Close">&times;</a>
+      <img loading="lazy" src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="Bussin showing a Service Bus namespace with its queues, topics and subscriptions" />
+      <p class="lightbox-caption">Organize environments into folders and browse queues, topics and subscriptions side by side.</p>
     </div>
   </div>
 
   <div id="zoom-wt2" class="lightbox">
     <a href="#_" class="lightbox-close-overlay" aria-label="Close zoom"></a>
     <div class="lightbox-content">
-      <a href="#_" class="lightbox-close">&times;</a>
-      <img loading="lazy" src="/assets/media/advancedPeek.jpg" alt="Screenshot displaying message search filter options in Bussin" />
+      <a href="#_" class="lightbox-close" aria-label="Close">&times;</a>
+      <img loading="lazy" src="/assets/media/advancedPeek.jpg" alt="Bussin advanced peek panel with body and property filter options" />
       <p class="lightbox-caption">Run property and body matching queries inside browser memory.</p>
     </div>
   </div>
@@ -467,8 +614,8 @@
   <div id="zoom-wt3" class="lightbox">
     <a href="#_" class="lightbox-close-overlay" aria-label="Close zoom"></a>
     <div class="lightbox-content">
-      <a href="#_" class="lightbox-close">&times;</a>
-      <img loading="lazy" src="/assets/media/confirmPurge.jpg" alt="Modal window confirming safe bulk purge parameters in Bussin" />
+      <a href="#_" class="lightbox-close" aria-label="Close">&times;</a>
+      <img loading="lazy" src="/assets/media/confirmPurge.jpg" alt="Bussin confirmation dialog for a bulk purge running as a background task" />
       <p class="lightbox-caption">Start bulk operations or moves using background tasks.</p>
     </div>
   </div>
@@ -476,18 +623,9 @@
   <div id="zoom-wt4" class="lightbox">
     <a href="#_" class="lightbox-close-overlay" aria-label="Close zoom"></a>
     <div class="lightbox-content">
-      <a href="#_" class="lightbox-close">&times;</a>
-      <img loading="lazy" src="/assets/media/deadLetterInspect.jpg" alt="Screenshot showing dead-letter queue message details and resubmit operations" />
+      <a href="#_" class="lightbox-close" aria-label="Close">&times;</a>
+      <img loading="lazy" src="/assets/media/deadLetterInspect.jpg" alt="Dead-letter message details in Bussin with dead-letter reason and resubmit controls" />
       <p class="lightbox-caption">Inspect dead-letter messages and replay them to their original queue.</p>
-    </div>
-  </div>
-
-  <div id="zoom-bottom" class="lightbox">
-    <a href="#_" class="lightbox-close-overlay" aria-label="Close zoom"></a>
-    <div class="lightbox-content">
-      <a href="#_" class="lightbox-close">&times;</a>
-      <img loading="lazy" src="/assets/media/single-blade-view-bussin-auto-forwarding.jpg" alt="A screenshot showing the Bussin app ready for login" />
-      <p class="lightbox-caption">Explore the interactive dashboard instantly in demo mode, log in with Entra ID, or connect using a Connection String.</p>
     </div>
   </div>
 </body>
