@@ -78,7 +78,7 @@
             "name": "Why can Bussin not connect to the local Service Bus emulator?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "The emulator does not expose an AMQP-over-WebSockets listener, and WebSockets are the only transport a browser page can use to reach an AMQP broker. There is no workaround from inside a browser. If you need to work against the emulator, use Service Bus Explorer or QueueExplorer, both of which have a dedicated emulator connection option."
+              "text": "Not yet. The emulator currently accepts AMQP over TCP only, and a browser page can only reach an AMQP broker over WebSockets. We have asked Microsoft to add a WebSocket listener to the emulator, and a draft pull request for it is open, waiting on a public emulator image. Bussin will connect to the emulator once that ships. Until then, use a desktop client such as Service Bus Explorer for emulator work."
             }
           },
           {
@@ -138,7 +138,7 @@
     <section class="hero-grid">
       <div>
         <h1>Service Bus Explorer Alternatives</h1>
-        <p>Five tools cover most Azure Service Bus work: the Azure Portal, Paolo Salvatori's Service Bus Explorer, QueueExplorer, viewbus, and Bussin. They are not interchangeable. Two are browser tools, three are desktop applications, one is commercial, and only two can talk to the local emulator.</p>
+        <p>Five tools cover most Azure Service Bus work: the Azure Portal, Paolo Salvatori's Service Bus Explorer, QueueExplorer, viewbus, and Bussin. They are not interchangeable. Two are browser tools, three are desktop applications, one is commercial, and only two can talk to the local emulator. A newer wave of free, open-source desktop apps is <a href="#open-source-desktop">covered further down</a>.</p>
         <p class="hero-subtext" style="margin-top: 1.5rem;">Bussin is the browser-native option. It is a static page that opens AMQP connections straight to your namespace, so there is nothing to install and no server of ours in the path. This page lays out where that wins and where it does not.</p>
       </div>
       <div class="hero-visual">
@@ -291,7 +291,7 @@
             </tr>
             <tr>
               <td><strong>Connect to the local Service Bus emulator</strong></td>
-              <td class="highlight-bussin text-center"><span class="no-mark" aria-hidden="true">✖</span><span class="sr-only">No</span></td>
+              <td class="highlight-bussin text-center"><span class="no-mark" aria-hidden="true">✖</span><span class="sr-only">No</span><a class="fn" href="#emulator-note" aria-label="See note on emulator support">*</a></td>
               <td class="text-center"><span class="no-mark" aria-hidden="true">✖</span><span class="sr-only">No</span></td>
               <td class="text-center"><span class="checkmark" aria-hidden="true">✓</span><span class="sr-only">Yes</span></td>
               <td class="text-center"><span class="checkmark" aria-hidden="true">✓</span><span class="sr-only">Yes</span></td>
@@ -310,13 +310,63 @@
       </div>
       <p style="color: var(--text-muted);font-size: 0.9rem; margin-top: 1rem;"><em>Notes on the <span class="partial-mark">~</span> marks. viewbus ships Windows and macOS builds but no Linux build. Bussin's source is published under BUSL-1.1, which is source-available rather than open source: free for personal, educational, and internal business use, and it converts to Apache 2.0 on 1 January 2029. viewbus includes a read-only MCP server; Bussin's also performs write operations such as sending, resubmitting, and purging.</em></p>
       <p style="color: var(--text-muted);font-size: 0.9rem; margin-top: 0.5rem;"><em>QueueExplorer's message search is a filter over loaded messages, and Professional's custom columns can extract fields with XPath, JSON expressions, or regex. Bussin and viewbus search across several entities at once. Prices and versions are as published in September 2026; check the vendors for current figures.</em></p>
+      <p id="emulator-note" class="table-note"><span class="fn" aria-hidden="true">*</span> <strong>Emulator support is waiting on Microsoft.</strong> The emulator only accepts AMQP over TCP today, and a browser can only speak AMQP over WebSockets. We opened <a href="https://github.com/Azure/azure-service-bus-emulator-installer/issues/143" target="_blank" rel="noopener">a request for a WebSocket listener</a>, and Microsoft has a <a href="https://github.com/Azure/azure-service-bus-emulator-installer/pull/154" target="_blank" rel="noopener">draft pull request</a> for it that is waiting on a public emulator image. Bussin will connect to the emulator once that ships.</p>
+    </section>
+
+    <section id="open-source-desktop">
+      <h2>Newer Open-Source Desktop Explorers</h2>
+      <p>Several newer free desktop apps run on macOS and Linux as well as Windows. They are worth knowing about, especially if you can install software and want entity management or emulator access, which Bussin does not offer. They are listed here rather than in the table above because most are young projects and we could not verify every row for each of them.</p>
+      <table class="compare-table tools-table">
+        <thead>
+          <tr>
+            <th scope="col">Tool</th>
+            <th scope="col">Runs on</th>
+            <th scope="col">License</th>
+            <th scope="col">Worth knowing</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="https://github.com/Horizon-Tech-doo/dispatched" target="_blank" rel="noopener"><strong>Dispatched</strong></a><br><span class="tool-kind">Desktop, CLI and MCP server</span></td>
+            <td>Windows, macOS, Linux</td>
+            <td>Apache-2.0</td>
+            <td>Public preview (0.1.0). Body search with regex and JSONPath, entity management, emulator support, and an MCP server with a read-only mode. The macOS build is notarized; Windows installers are not code-signed yet.</td>
+          </tr>
+          <tr>
+            <td><a href="https://github.com/Carael/CrossBusExplorer" target="_blank" rel="noopener"><strong>CrossBusExplorer</strong></a><br><span class="tool-kind">Desktop (Tauri and .NET)</span></td>
+            <td>Windows, macOS, Linux</td>
+            <td>MIT</td>
+            <td>Entity and rule management, dead-letter resend, Azure CLI or browser sign-in, and SAS connection strings. Can add temporary "tap" subscriptions to watch live topic traffic.</td>
+          </tr>
+          <tr>
+            <td><a href="https://github.com/peppial/ServiceBusExplorer" target="_blank" rel="noopener"><strong>ServiceBusExplorer (peppial)</strong></a><br><span class="tool-kind">Desktop (Avalonia, .NET 10)</span></td>
+            <td>Windows, macOS, Linux</td>
+            <td>MIT</td>
+            <td>A cross-platform rewrite of Paolo Salvatori's tool. Entity and rule management, emulator connections, and read-only connections enforced for production namespaces. The macOS build is not notarized.</td>
+          </tr>
+          <tr>
+            <td><a href="https://github.com/chanakya-net/ServiceBusExplorer-Mac" target="_blank" rel="noopener"><strong>SB-Mac</strong></a><br><span class="tool-kind">Desktop (Avalonia)</span></td>
+            <td>macOS</td>
+            <td>MIT</td>
+            <td>A native-feeling Mac app that also browses Azure Event Hubs and decodes legacy WCF DataContract bodies. Not notarized, so the first launch needs a Gatekeeper workaround.</td>
+          </tr>
+          <tr>
+            <td><a href="https://github.com/CosX/service-bus-explorer-tui" target="_blank" rel="noopener"><strong>service-bus-explorer-tui</strong></a><br><span class="tool-kind">Terminal UI (Rust)</span></td>
+            <td>Windows, macOS, Linux</td>
+            <td>MIT</td>
+            <td>Keyboard-driven, installs with Homebrew, winget, or cargo. Entity management, dead-letter resubmit, emulator support, and Azure Monitor metric charts.</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="table-note">Checked against each project's README in November 2026. These move quickly, so check the repositories for current status.</p>
+      <p>All of these are installs, and most macOS builds need a Gatekeeper workaround on first launch. If you can install software, they are good options. Bussin's case is the machine where you cannot or would rather not: a locked-down work laptop, someone else's computer, a Linux box without .NET, or a phone.</p>
     </section>
 
     <section>
       <h2>Where Bussin Loses</h2>
       <p>Running inside a browser tab costs real capability. If any of the following matters to you, pick a different tool for that job.</p>
       <ul style="line-height: 1.8;">
-        <li><strong>No local emulator.</strong> The Service Bus emulator exposes AMQP over TCP, not over WebSockets, and a browser page can only open WebSocket connections. This is a hard architectural limit. Service Bus Explorer and QueueExplorer can both connect to the emulator.</li>
+        <li><strong>No local emulator, for now.</strong> The Service Bus emulator exposes AMQP over TCP, not over WebSockets, and a browser page can only open WebSocket connections. We <a href="https://github.com/Azure/azure-service-bus-emulator-installer/issues/143" target="_blank" rel="noopener">asked for a WebSocket listener</a>, and Microsoft has a <a href="https://github.com/Azure/azure-service-bus-emulator-installer/pull/154" target="_blank" rel="noopener">draft pull request</a> waiting on a public emulator image. Until it ships, Service Bus Explorer, QueueExplorer, and several of the open-source apps below connect to the emulator.</li>
         <li><strong>No entity management.</strong> Bussin cannot create or delete a queue, topic, or subscription, and cannot edit entity properties such as lock duration, max delivery count, or TTL. Subscription filter rules are the one exception. For the rest, use the portal or Service Bus Explorer.</li>
         <li><strong>No authorization rule management.</strong> Shared access policies and RBAC assignments are portal work.</li>
         <li><strong>Batch send does not cover session-enabled entities</strong>, because each message needs its own session ID. Single sends are fine. Bulk delete and purge on partitioned or session-enabled entities also fall back to slower data-plane receiver loops, since the fast broker-side purge API does not support those entity types.</li>
@@ -357,7 +407,7 @@
       <p>Namespace discovery goes through Azure Resource Manager over ordinary HTTPS. ARM sends CORS headers, so a browser page can list your subscriptions, resource groups, namespaces, queues, and topics with a bearer token and no proxy. That is why you never type a connection string for a namespace you already have access to, and why Bussin only ever shows you what your Entra ID identity can actually see.</p>
       <p>Message operations are different. The Service Bus data-plane REST endpoints send no CORS headers, so a browser page cannot call them at all. Bussin instead opens an AMQP 1.0 connection over a secure WebSocket to <code>wss://&lt;namespace&gt;.servicebus.windows.net:443/$servicebus/websocket</code>. WebSocket handshakes are not subject to CORS, so this works from a page. The AMQP protocol logic runs in your browser, and authentication happens through a Claims-Based Security handshake against the namespace's <code>$cbs</code> node using your Entra ID token.</p>
       <p>Two consequences follow. Everything stays on port 443, so corporate proxies and VPNs generally pass it without new firewall rules. And your tokens and message payloads never reach a server of ours, because there is no server of ours: bussin.dev serves static files, and the traffic that carries your data goes browser to Azure. That also means every action is governed by your existing RBAC. You need <strong>Azure Service Bus Data Receiver</strong> to peek, <strong>Data Sender</strong> to send or resubmit, or <strong>Data Owner</strong> for both. Bussin cannot grant itself anything your account does not already have.</p>
-      <p>The same design is what rules out the emulator, which has no WebSocket listener to connect to.</p>
+      <p>The same design is what rules out the emulator today: it has no WebSocket listener to connect to yet. See the <a href="#emulator-note">note under the comparison table</a>.</p>
     </section>
 
     <section>
@@ -380,7 +430,7 @@
       </div>
       <div class="faq-item">
         <h3>Why can Bussin not connect to the local Service Bus emulator?</h3>
-        <p>The emulator does not expose an AMQP-over-WebSockets listener, and WebSockets are the only transport a browser page can use to reach an AMQP broker. There is no workaround from inside a browser. If you need to work against the emulator, use Service Bus Explorer or QueueExplorer, both of which have a dedicated emulator connection option.</p>
+        <p>Not yet. The emulator currently accepts AMQP over TCP only, and a browser page can only reach an AMQP broker over WebSockets. We have <a href="https://github.com/Azure/azure-service-bus-emulator-installer/issues/143" target="_blank" rel="noopener">asked Microsoft to add a WebSocket listener</a> to the emulator, and a <a href="https://github.com/Azure/azure-service-bus-emulator-installer/pull/154" target="_blank" rel="noopener">draft pull request</a> for it is open, waiting on a public emulator image. Bussin will connect to the emulator once that ships. Until then, use a desktop client such as Service Bus Explorer for emulator work.</p>
       </div>
       <div class="faq-item">
         <h3>Does Bussin work with connection strings?</h3>

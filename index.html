@@ -184,7 +184,7 @@
             "name": "Can Bussin connect to the local Service Bus emulator?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "No. The emulator exposes no AMQP-over-WebSockets listener, and WebSockets are the only transport a browser page can use to reach an AMQP broker. There is no workaround from inside a browser. Use Service Bus Explorer or QueueExplorer for emulator work."
+              "text": "Not yet. The emulator currently accepts AMQP over TCP only, and a browser page can only reach an AMQP broker over WebSockets. We have asked Microsoft to add a WebSocket listener to the emulator, and a draft pull request for it is open, waiting on a public emulator image. Bussin will connect to the emulator once that ships. Until then, use a desktop client such as Service Bus Explorer for emulator work."
             }
           }
         ]
@@ -462,7 +462,7 @@
           </tr>
         </tbody>
       </table>
-      <p>The two crosses in the Bussin column are the honest limits. Bussin handles messages, not entity administration, and a browser page cannot reach the emulator because the emulator has no WebSocket listener to connect to. If you need either, keep the desktop Service Bus Explorer alongside Bussin.</p>
+      <p>The two crosses in the Bussin column are the honest limits. Bussin handles messages, not entity administration, and a browser page cannot reach the emulator until it gets a WebSocket listener, which is <a href="https://github.com/Azure/azure-service-bus-emulator-installer/pull/154" target="_blank" rel="noopener">in progress at Microsoft</a>. Until then, keep a desktop tool alongside Bussin for those jobs.</p>
     </section>
 
     <!-- Guides -->
@@ -525,7 +525,7 @@
         </details>
         <details class="faq-item">
           <summary><h3>Can Bussin connect to the local Service Bus emulator?</h3></summary>
-          <p>No. The emulator exposes no AMQP-over-WebSockets listener, and WebSockets are the only transport a browser page can use to reach an AMQP broker. There is no workaround from inside a browser. Use Service Bus Explorer or QueueExplorer for emulator work.</p>
+          <p>Not yet. The emulator currently accepts AMQP over TCP only, and a browser page can only reach an AMQP broker over WebSockets. We have <a href="https://github.com/Azure/azure-service-bus-emulator-installer/issues/143" target="_blank" rel="noopener">asked Microsoft to add a WebSocket listener</a> to the emulator, and a <a href="https://github.com/Azure/azure-service-bus-emulator-installer/pull/154" target="_blank" rel="noopener">draft pull request</a> for it is open, waiting on a public emulator image. Bussin will connect to the emulator once that ships. Until then, use a desktop client such as Service Bus Explorer for emulator work.</p>
         </details>
       </div>
     </section>

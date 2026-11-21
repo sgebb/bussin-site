@@ -101,7 +101,7 @@
             "name": "Why can a browser-based explorer not reach the local Service Bus emulator?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "The emulator exposes no AMQP-over-WebSockets listener, and WebSockets are the only transport available to a browser page for reaching an AMQP broker. There is no workaround from inside a browser. Emulator work needs a desktop client such as Service Bus Explorer or QueueExplorer."
+              "text": "The emulator currently accepts AMQP over TCP only, and a browser page can only reach an AMQP broker over WebSockets. We have asked Microsoft to add a WebSocket listener to the emulator, and a draft pull request for it is open, waiting on a public emulator image. Bussin will connect to the emulator once that ships. Until then, use a desktop client such as Service Bus Explorer for emulator work."
             }
           }
         ]
@@ -242,7 +242,7 @@
       </div>
       <div class="faq-item">
         <h3>Why can a browser-based explorer not reach the local Service Bus emulator?</h3>
-        <p>The emulator exposes no AMQP-over-WebSockets listener, and WebSockets are the only transport available to a browser page for reaching an AMQP broker. There is no workaround from inside a browser. Emulator work needs a desktop client such as Service Bus Explorer or QueueExplorer.</p>
+        <p>The emulator currently accepts AMQP over TCP only, and a browser page can only reach an AMQP broker over WebSockets. We have <a href="https://github.com/Azure/azure-service-bus-emulator-installer/issues/143" target="_blank" rel="noopener">asked Microsoft to add a WebSocket listener</a> to the emulator, and a <a href="https://github.com/Azure/azure-service-bus-emulator-installer/pull/154" target="_blank" rel="noopener">draft pull request</a> for it is open, waiting on a public emulator image. Bussin will connect to the emulator once that ships. Until then, use a desktop client such as Service Bus Explorer for emulator work.</p>
       </div>
     </section>
 

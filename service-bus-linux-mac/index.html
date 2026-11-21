@@ -216,7 +216,7 @@
       </div>
       <div class="faq-item">
         <h3>Can I use it with the local Service Bus emulator?</h3>
-        <p>Not directly. The emulator does not expose AMQP over WebSockets, and a browser can only open WebSocket connections. For emulator work, use a native client or the SDK. Bussin's built-in demo mode covers trying the interface without a real namespace.</p>
+        <p>Not yet. The emulator does not expose AMQP over WebSockets, and a browser can only open WebSocket connections. A <a href="https://github.com/Azure/azure-service-bus-emulator-installer/pull/154" target="_blank" rel="noopener">draft change at Microsoft</a> adds a WebSocket listener, and Bussin will connect once it ships. Until then, use a native client or the SDK for emulator work. Bussin's built-in demo mode covers trying the interface without a real namespace.</p>
       </div>
       <div class="faq-item">
         <h3>Does installing the PWA store my credentials on disk?</h3>

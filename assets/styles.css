@@ -1133,3 +1133,42 @@ summary:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
 }
+
+/* ---------- Table footnotes and the tools table ---------- */
+.fn {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--signal) !important;
+  text-decoration: none !important;
+  margin-left: 0.2rem;
+  vertical-align: super;
+  line-height: 0;
+}
+.table-note {
+  color: var(--text-muted) !important;
+  font-size: 0.9rem;
+  margin-top: 1rem;
+}
+.table-note .fn { vertical-align: baseline; margin: 0 0.15rem 0 0; }
+.tools-table td { vertical-align: top !important; }
+.tools-table td:first-child { min-width: 12rem; }
+.tools-table td:first-child a { text-decoration: none; }
+.tools-table td:nth-child(2),
+.tools-table td:nth-child(3) { white-space: nowrap; }
+.tool-kind {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+@media (max-width: 860px) {
+  .tools-table td:last-child { min-width: 20rem; }
+}
+/* The tools table fits at tablet width; only scroll it on phones */
+@media (min-width: 600px) and (max-width: 860px) {
+  .page-content table.tools-table { display: table; overflow: visible; }
+  .tools-table td:first-child,
+  .tools-table th:first-child { position: static; box-shadow: none; min-width: 9rem; }
+  .tools-table td:last-child { min-width: 0; }
+}
