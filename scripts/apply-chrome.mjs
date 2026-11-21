@@ -19,6 +19,7 @@ const footer = `<footer class="site-footer">
           <ul>
             <li><a href="https://app.bussin.dev/demo" target="_blank" rel="noopener">Live demo</a></li>
             <li><a href="/features/">Features</a></li>
+            <li><a href="/docs/">Docs</a></li>
             <li><a href="/how-it-works/">How it works</a></li>
             <li><a href="/security/">Security</a></li>
             <li><a href="/mcp-server/">MCP server</a></li>
@@ -28,11 +29,11 @@ const footer = `<footer class="site-footer">
         <nav class="footer-col" aria-labelledby="f-guides">
           <h2 id="f-guides">Guides</h2>
           <ul>
-            <li><a href="/docs/">Docs</a></li>
+            <li><a href="/guides/">All guides</a></li>
+            <li><a href="/service-bus-retry-backoff/">Retries with backoff</a></li>
             <li><a href="/dead-letter-queue/">Dead-letter queues</a></li>
             <li><a href="/autoforwarding/">Auto-forwarding</a></li>
             <li><a href="/service-bus-linux-mac/">Linux and macOS</a></li>
-            <li><a href="/browser-based-service-bus-explorer/">Browser-based explorer</a></li>
             <li><a href="/service-bus-explorer-alternative/">Explorer alternatives</a></li>
           </ul>
         </nav>
@@ -59,7 +60,7 @@ const headExtras = [
   ['bricolage-grotesque.woff2', `<link rel="preload" href="/assets/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>`],
 ];
 
-const files = execSync('git ls-files "*.html"', { encoding: 'utf8' })
+const files = execSync('git ls-files --cached --others --exclude-standard "*.html"', { encoding: 'utf8' })
   .split('\n').filter(Boolean)
   .concat(['index.html']);
 
@@ -79,6 +80,13 @@ for (const file of [...new Set(files)]) {
     s = s.replace(/<body([^>]*)>/, `<body$1>\n  <a class="skip-link" href="#main">Skip to content</a>`);
   }
   s = s.replace('<main class="container page-content">', '<main id="main" class="container page-content">');
+
+  // Guides in the header nav.
+  s = s.replace(/ aria-current="page"/g, '');
+  const compareLink = '<a href="/service-bus-explorer-alternative/">Compare</a>';
+  if (!s.includes(`${compareLink}\n          <a href="/guides/">Guides</a>`)) {
+    s = s.replace(compareLink, `${compareLink}\n          <a href="/guides/">Guides</a>`);
+  }
 
   // Mark the current section in the nav.
   const path = '/' + file.replace(/index\.html$/, '');

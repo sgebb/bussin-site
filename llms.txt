@@ -13,6 +13,8 @@
 - [Service Bus Explorer alternative](https://bussin.dev/service-bus-explorer-alternative/): Comparison against Service Bus Explorer, QueueExplorer, viewbus, and others.
 - [Service Bus on Linux/Mac](https://bussin.dev/service-bus-linux-mac/): Using Bussin as a cross-platform Service Bus client.
 - [Browser-based Service Bus explorer](https://bussin.dev/browser-based-service-bus-explorer/): Why a browser-native client instead of a desktop install.
+- [Guides](https://bussin.dev/guides/): Index of practical Azure Service Bus guides.
+- [Retries with exponential backoff](https://bussin.dev/service-bus-retry-backoff/): Retrying Service Bus messages with a delay using scheduled messages, with notes on duplicate detection, transactions, topics and sessions.
 - [Dead-letter queue recovery](https://bussin.dev/dead-letter-queue/): Inspecting and resubmitting dead-lettered messages.
 - [Autoforwarding](https://bussin.dev/autoforwarding/): Working with Service Bus auto-forwarding rules.
 - [Changelog](https://bussin.dev/changelog/): Release history.

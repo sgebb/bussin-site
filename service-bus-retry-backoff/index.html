@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exponential Backoff Retries in Azure Service Bus | bussin.dev</title>
+  <meta name="description" content="Abandoning a Service Bus message retries it immediately. How to retry with exponential backoff using scheduled messages, with notes on duplicate detection, transactions, topics and sessions.">
+  <link rel="canonical" href="https://bussin.dev/service-bus-retry-backoff/">
+
+  <!-- OpenGraph Metadata -->
+  <meta property="og:title" content="Exponential Backoff Retries in Azure Service Bus">
+  <meta property="og:description" content="How to retry Service Bus messages with a delay using scheduled messages, with notes on duplicate detection, transactions, topics and sessions.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://bussin.dev/service-bus-retry-backoff/">
+  <meta property="og:image" content="https://bussin.dev/assets/media/og-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="Bussin">
+  <meta property="article:published_time" content="2026-11-21">
+
+  <!-- Twitter Card Metadata -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Exponential Backoff Retries in Azure Service Bus">
+  <meta name="twitter:description" content="How to retry Service Bus messages with a delay using scheduled messages.">
+  <meta name="twitter:image" content="https://bussin.dev/assets/media/og-card.jpg">
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <meta name="theme-color" content="#070b14" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f6f7f4" media="(prefers-color-scheme: light)">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <script src="/assets/theme.js"></script>
+  <script data-goatcounter="https://bussin.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "TechArticle",
+        "@id": "https://bussin.dev/service-bus-retry-backoff/#article",
+        "headline": "Exponential Backoff Retries in Azure Service Bus",
+        "description": "How to retry Azure Service Bus messages with exponential backoff using scheduled messages, with notes on duplicate detection, transactions, topics and sessions.",
+        "datePublished": "2026-11-21",
+        "dateModified": "2026-11-21",
+        "image": "https://bussin.dev/assets/media/og-card.jpg",
+        "inLanguage": "en",
+        "author": { "@type": "Organization", "name": "Bussin", "url": "https://bussin.dev/" },
+        "publisher": { "@type": "Organization", "name": "Bussin", "url": "https://bussin.dev/", "logo": { "@type": "ImageObject", "url": "https://bussin.dev/assets/icon-512.png" } },
+        "mainEntityOfPage": "https://bussin.dev/service-bus-retry-backoff/"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bussin.dev/" },
+          { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://bussin.dev/guides/" },
+          { "@type": "ListItem", "position": 3, "name": "Retry with backoff", "item": "https://bussin.dev/service-bus-retry-backoff/" }
+        ]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://bussin.dev/service-bus-retry-backoff/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Can I abandon a Service Bus message with a delay?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Abandon makes the message available again immediately and increases its delivery count. To wait before retrying, complete the original and send a scheduled copy, preferably in one transaction."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Why does my retried message never arrive?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "A copy made from the received message keeps the original MessageId. If duplicate detection is enabled on the entity, the broker drops the copy as a duplicate. Give each retry its own MessageId."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="header-brand">
+        <details class="topbar-menu menu-left">
+          <summary class="hamburger-icon" aria-label="Menu">☰</summary>
+        </details>
+        <nav class="menu-panel">
+          <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+          <a href="/" class="menu-heading menu-heading-link">BUSSIN</a>
+          <a href="/features/">Features</a>
+          <a href="/how-it-works/">How It Works</a>
+          <a href="/service-bus-explorer-alternative/">Compare</a>
+          <a href="/guides/">Guides</a>
+          <a href="/security/">Security</a>
+          <a href="/docs/">Docs</a>
+          <a href="/mcp-server/">MCP Server</a>
+        </nav>
+        <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
+      </div>
+      <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+    </div>
+  </header>
+
+  <main id="main" class="container page-content">
+    <article>
+      <nav class="crumbs" aria-label="Breadcrumb"><a href="/guides/">Guides</a> <span aria-hidden="true">/</span> Retries</nav>
+      <h1>Exponential Backoff Retries in Azure Service Bus</h1>
+      <p class="lead-text">When a handler calls <code>AbandonMessageAsync</code>, the message is available again right away. For failures that need time to clear, such as a downstream service that is briefly unavailable, you usually want to wait between attempts instead. This guide shows a simple way to do that with scheduled messages.</p>
+      <p class="article-meta">Published November 2026 · C# with Azure.Messaging.ServiceBus</p>
+    </article>
+
+    <section>
+      <h2>The approach</h2>
+      <p>Service Bus has no option to abandon a message with a delay. Abandon releases the lock and increases <code>DeliveryCount</code>, and after <code>MaxDeliveryCount</code> attempts (10 by default) the message is dead-lettered. Deferring a message sets it aside but never redelivers it, and the lock duration is a single fixed delay of at most five minutes.</p>
+      <p>What Service Bus does have is scheduled messages: a message sent with <code>ScheduledEnqueueTime</code> is not delivered until that time. So on failure you can complete the original message and send a copy scheduled for later. The copy is a new message with a delivery count of one, so you track the attempt number yourself in an application property.</p>
+    </section>
+
+    <section>
+      <h2>The code</h2>
+      <p>These extensions use C# 14 extension members. The delay grows by a factor of four per attempt, from one second up to about an hour, and after seven retries the message goes to the dead-letter queue with the exception type as the reason.</p>
+<pre><code>public static class ServiceBusRetryExtensions
+{
+    private const string RetryCountProperty = "RetryCount";
+    private const int MaxRetryCount = 7;
+
+    extension(ServiceBusReceivedMessage message)
+    {
+        public int RetryCount =&gt;
+            message.ApplicationProperties.TryGetValue(RetryCountProperty, out var value) &amp;&amp; value is int count
+                ? count
+                : 0;
+    }
+
+    extension(ServiceBusReceiver receiver)
+    {
+        public async Task RetryLaterOrDeadLetterAsync(
+            ServiceBusSender sender,
+            ServiceBusReceivedMessage message,
+            Exception exception,
+            ILogger logger,
+            CancellationToken cancellationToken)
+        {
+            var retryCount = message.RetryCount;
+            if (retryCount &gt;= MaxRetryCount)
+            {
+                logger.LogError(exception, "Message {MessageId} failed {RetryCount} times, dead-lettering",
+                    message.MessageId, retryCount);
+                await receiver.DeadLetterMessageAsync(
+                    message,
+                    $"ProcessingFailed:{exception.GetType().Name}",
+                    $"Message failed {retryCount} times. Error: {exception.Message}",
+                    cancellationToken);
+                return;
+            }
+
+            // 1s, 4s, 16s, 64s, ~4m, ~17m, ~68m
+            var delay = TimeSpan.FromSeconds(Math.Pow(4, retryCount));
+            logger.LogWarning(exception, "Message {MessageId} failed, retry {Attempt} in {Delay}",
+                message.MessageId, retryCount + 1, delay);
+
+            var retryMessage = new ServiceBusMessage(message)
+            {
+                // The copy would otherwise keep the original MessageId.
+                MessageId = $"{message.MessageId}:retry-{retryCount + 1}",
+                ScheduledEnqueueTime = DateTimeOffset.UtcNow + delay,
+            };
+            retryMessage.ApplicationProperties[RetryCountProperty] = retryCount + 1;
+
+            // Complete the original and send the copy as one unit.
+            using var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
+            await receiver.CompleteMessageAsync(message, cancellationToken);
+            await sender.SendMessageAsync(retryMessage, cancellationToken);
+            scope.Complete();
+        }
+    }
+}</code></pre>
+      <p>When many messages fail at once, their retries become available at roughly the same time, but your receiver still works through them at its normal concurrency. If you run with very high concurrency against a fragile dependency, adding a small random amount to each delay spreads them out further.</p>
+    </section>
+
+    <section>
+      <h2>Things to know</h2>
+
+      <h3>Give each retry its own MessageId</h3>
+      <p>The <code>ServiceBusMessage(ServiceBusReceivedMessage)</code> constructor copies the original <code>MessageId</code>. If duplicate detection is enabled on the entity, the broker accepts the copy without an error and then discards it as a duplicate. Deriving a new ID from the original, as above, avoids this and keeps retries easy to trace.</p>
+
+      <h3>Complete and send in one transaction</h3>
+      <p>Without a transaction, a failure between the two calls leaves you with either two copies or none. For example, if the lock expired during processing, the send succeeds but the complete fails, and the original is delivered again. Service Bus supports <a href="https://learn.microsoft.com/en-us/azure/service-bus-messaging/service-bus-transactions" target="_blank" rel="noopener">transactions</a> covering sends and settlements, so the two calls either both happen or neither does.</p>
+      <p>The scope is not passed to the sender or receiver. <code>TransactionScope</code> sets an ambient transaction, and the Service Bus client checks for it on each operation and enlists automatically, the same way <code>SqlConnection</code> does. <code>TransactionScopeAsyncFlowOption.Enabled</code> is required for the transaction to flow across <code>await</code>; without it the calls silently run outside the transaction.</p>
+      <p>This only works because the receiver and the sender come from the same <code>ServiceBusClient</code>. A transaction lives on a single AMQP connection, and each client owns one connection that all of its senders and receivers share. With two separate clients the operations travel over different connections, and one transaction cannot cover both. A single <code>ServiceBusClient</code> registered as a singleton, with senders and receivers created from it, is the usual setup and gives you this for free.</p>
+      <p>Other limits: transactions need the Standard or Premium tier, they time out two minutes after the first operation, and they only cover Service Bus operations, not your database. Scheduled sends work inside a transaction, although Microsoft's documentation does not mention it.</p>
+
+      <h3>Topics send the retry to every subscription</h3>
+      <p>You cannot send to a subscription, only to its topic, so a retry from one subscription is delivered to every subscription whose filter matches. One way to handle this is to set a property such as <code>RetryFor = "billing"</code> on the copy and give each subscription a filter like <code>RetryFor IS NULL OR RetryFor = 'billing'</code>. Another is a separate retry queue per subscription. Sending to a different entity than you received from also requires <code>EnableCrossEntityTransactions</code> on the client.</p>
+
+      <h3>Sessions lose ordering</h3>
+      <p>The copy keeps its <code>SessionId</code>, but the rest of the session continues while the copy waits, so later messages can be processed before the retry. If ordering matters, the receiver has to hold back the session until the retry completes; <a href="https://www.planetgeek.ch/2026/09/15/azure-service-bus-sessions-delayed-retries-may-need-a-hold-back/" target="_blank" rel="noopener">this post on session hold-backs</a> covers how.</p>
+
+      <h3>Not every exception should be retried</h3>
+      <p>A validation error will fail the same way on every attempt. Send those straight to the dead-letter queue. Keep <code>MaxDeliveryCount</code> on the entity as well, since it still catches messages that crash the process before your handler runs.</p>
+    </section>
+
+    <section>
+      <h2>Inspecting retries</h2>
+      <p>Scheduled messages are not delivered to receivers until their time, but a peek shows them. In <a href="https://app.bussin.dev/demo" target="_blank" rel="noopener">Bussin</a> they appear alongside active messages with their scheduled time and <code>RetryCount</code>, and you can cancel them. Messages that run out of retries show up in the dead-letter queue with the reason set above; the <a href="/dead-letter-queue/">dead-letter guide</a> covers working through those.</p>
+    </section>
+
+    <section>
+      <h2>Frequently Asked Questions</h2>
+      <div class="faq-item">
+        <h3>Can I abandon a Service Bus message with a delay?</h3>
+        <p>No. Abandon makes the message available again immediately and increases its delivery count. To wait before retrying, complete the original and send a scheduled copy, preferably in one transaction.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Why does my retried message never arrive?</h3>
+        <p>A copy made from the received message keeps the original <code>MessageId</code>. If duplicate detection is enabled on the entity, the broker drops the copy as a duplicate. Give each retry its own <code>MessageId</code>.</p>
+      </div>
+    </section>
+
+    <section class="related-links">
+      <h2>Related Guides</h2>
+      <ul>
+        <li><a href="/dead-letter-queue/"><strong>Dead-letter queues</strong></a>: Where messages end up when retries run out.</li>
+        <li><a href="/autoforwarding/"><strong>Auto-forwarding</strong></a>: Forwarding chains, including retry queues.</li>
+        <li><a href="/guides/"><strong>All guides</strong></a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a class="brand" href="/"><img src="/assets/favicon.svg" alt="" class="brand-icon" width="32" height="32" />bussin</a>
+          <p>The Azure Service Bus explorer that runs in your browser.</p>
+          <a href="https://get.microsoft.com/installer/download/9ntht4mr25cg?referrer=appbadge" target="_blank" rel="noopener" class="ms-store-badge">
+            <img class="badge-dark" src="https://get.microsoft.com/images/en-us%20dark.svg" width="150" height="54" loading="lazy" alt="Get Bussin from Microsoft Store"/>
+            <img class="badge-light" src="https://get.microsoft.com/images/en-us%20light.svg" width="150" height="54" loading="lazy" alt="Get Bussin from Microsoft Store"/>
+          </a>
+        </div>
+        <nav class="footer-col" aria-labelledby="f-product">
+          <h2 id="f-product">Product</h2>
+          <ul>
+            <li><a href="https://app.bussin.dev/demo" target="_blank" rel="noopener">Live demo</a></li>
+            <li><a href="/features/">Features</a></li>
+            <li><a href="/docs/">Docs</a></li>
+            <li><a href="/how-it-works/">How it works</a></li>
+            <li><a href="/security/">Security</a></li>
+            <li><a href="/mcp-server/">MCP server</a></li>
+            <li><a href="/changelog/">Changelog</a></li>
+          </ul>
+        </nav>
+        <nav class="footer-col" aria-labelledby="f-guides">
+          <h2 id="f-guides">Guides</h2>
+          <ul>
+            <li><a href="/guides/">All guides</a></li>
+            <li><a href="/service-bus-retry-backoff/" aria-current="page">Retries with backoff</a></li>
+            <li><a href="/dead-letter-queue/">Dead-letter queues</a></li>
+            <li><a href="/autoforwarding/">Auto-forwarding</a></li>
+            <li><a href="/service-bus-linux-mac/">Linux and macOS</a></li>
+            <li><a href="/service-bus-explorer-alternative/">Explorer alternatives</a></li>
+          </ul>
+        </nav>
+        <nav class="footer-col" aria-labelledby="f-source">
+          <h2 id="f-source">Source</h2>
+          <ul>
+            <li><a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">App on GitHub</a></li>
+            <li><a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Site on GitHub</a></li>
+            <li><a href="https://www.npmjs.com/package/bussin-mcp" target="_blank" rel="noopener">bussin-mcp on npm</a></li>
+            <li><a href="https://apps.microsoft.com/detail/9NTHT4MR25CG" target="_blank" rel="noopener">Microsoft Store</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Bussin. Source available under BUSL-1.1.</span>
+        <span>Free, no account, no backend.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

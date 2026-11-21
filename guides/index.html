@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Azure Service Bus Guides | bussin.dev</title>
+  <meta name="description" content="Practical guides to Azure Service Bus: retries with exponential backoff, dead-letter queue recovery, auto-forwarding, and working with Service Bus on macOS, Linux and in the browser.">
+  <link rel="canonical" href="https://bussin.dev/guides/">
+
+  <!-- OpenGraph Metadata -->
+  <meta property="og:title" content="Azure Service Bus Guides | bussin.dev">
+  <meta property="og:description" content="Practical guides to Azure Service Bus: retries with backoff, dead-letter recovery, auto-forwarding, and cross-platform tooling.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bussin.dev/guides/">
+  <meta property="og:image" content="https://bussin.dev/assets/media/og-card.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="Bussin">
+
+  <!-- Twitter Card Metadata -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Azure Service Bus Guides | bussin.dev">
+  <meta name="twitter:description" content="Practical guides to Azure Service Bus: retries with backoff, dead-letter recovery, auto-forwarding, and cross-platform tooling.">
+  <meta name="twitter:image" content="https://bussin.dev/assets/media/og-card.jpg">
+
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="/assets/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+  <meta name="theme-color" content="#070b14" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f6f7f4" media="(prefers-color-scheme: light)">
+  <link rel="stylesheet" href="/assets/styles.css">
+  <script src="/assets/theme.js"></script>
+  <script data-goatcounter="https://bussin.goatcounter.com/count"
+          async src="//gc.zgo.at/count.js"></script>
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "CollectionPage",
+        "@id": "https://bussin.dev/guides/#page",
+        "name": "Azure Service Bus Guides",
+        "url": "https://bussin.dev/guides/",
+        "isPartOf": { "@id": "https://bussin.dev/#website" },
+        "mainEntity": {
+          "@type": "ItemList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "url": "https://bussin.dev/service-bus-retry-backoff/", "name": "Exponential backoff retries in Azure Service Bus" },
+            { "@type": "ListItem", "position": 2, "url": "https://bussin.dev/dead-letter-queue/", "name": "Dead-letter queue recovery" },
+            { "@type": "ListItem", "position": 3, "url": "https://bussin.dev/autoforwarding/", "name": "Auto-forwarding" },
+            { "@type": "ListItem", "position": 4, "url": "https://bussin.dev/service-bus-linux-mac/", "name": "Azure Service Bus on macOS and Linux" },
+            { "@type": "ListItem", "position": 5, "url": "https://bussin.dev/browser-based-service-bus-explorer/", "name": "Browser-based Service Bus explorer" },
+            { "@type": "ListItem", "position": 6, "url": "https://bussin.dev/service-bus-explorer-alternative/", "name": "Service Bus Explorer alternatives" },
+            { "@type": "ListItem", "position": 7, "url": "https://bussin.dev/mcp-server/", "name": "Azure Service Bus MCP server" },
+            { "@type": "ListItem", "position": 8, "url": "https://bussin.dev/how-it-works/", "name": "How Bussin works" },
+            { "@type": "ListItem", "position": 9, "url": "https://bussin.dev/docs/", "name": "Bussin docs" }
+          ]
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://bussin.dev/" },
+          { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://bussin.dev/guides/" }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="guides-page">
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="header-brand">
+        <details class="topbar-menu menu-left">
+          <summary class="hamburger-icon" aria-label="Menu">☰</summary>
+        </details>
+        <nav class="menu-panel">
+          <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+          <a href="/" class="menu-heading menu-heading-link">BUSSIN</a>
+          <a href="/features/">Features</a>
+          <a href="/how-it-works/">How It Works</a>
+          <a href="/service-bus-explorer-alternative/">Compare</a>
+          <a href="/guides/" aria-current="page">Guides</a>
+          <a href="/security/">Security</a>
+          <a href="/docs/">Docs</a>
+          <a href="/mcp-server/">MCP Server</a>
+        </nav>
+        <a class="brand" href="/" title="Go to home"><img src="/assets/favicon.svg" alt="bussin logo" class="brand-icon" />bussin</a>
+      </div>
+      <a class="button header-cta" href="https://app.bussin.dev" target="_blank" rel="noopener">Open App</a>
+    </div>
+  </header>
+
+  <main id="main" class="container page-content">
+    <article>
+      <h1>Azure Service Bus Guides</h1>
+      <p class="lead-text">Practical write-ups of the Service Bus problems we keep running into: messages that fail, messages that pile up, and getting at your queues from machines the usual tools do not support.</p>
+    </article>
+
+    <section>
+      <p class="eyebrow">Messaging patterns</p>
+      <nav class="guide-grid" aria-label="Messaging patterns">
+        <a class="guide-card" href="/service-bus-retry-backoff/"><span class="k">Retries <span class="new">New</span></span><strong>Exponential backoff retries</strong><span>Wait between attempts using scheduled messages instead of retrying immediately.</span></a>
+        <a class="guide-card" href="/dead-letter-queue/"><span class="k">Dead-lettering</span><strong>Dead-letter queue recovery</strong><span>Why messages get dead-lettered, how to diagnose a backlog by symptom, and how to replay it safely.</span></a>
+        <a class="guide-card" href="/autoforwarding/"><span class="k">Routing</span><strong>Auto-forwarding</strong><span>Chaining queues and topics, its limits, and the transfer dead-letter queue that catches people out.</span></a>
+      </nav>
+    </section>
+
+    <section>
+      <p class="eyebrow">Tools and platforms</p>
+      <nav class="guide-grid" aria-label="Tools and platforms">
+        <a class="guide-card" href="/service-bus-linux-mac/"><span class="k">Platforms</span><strong>Service Bus on macOS and Linux</strong><span>Your options when the desktop Service Bus Explorer will not run, without Wine or a VM.</span></a>
+        <a class="guide-card" href="/service-bus-explorer-alternative/"><span class="k">Compare</span><strong>Service Bus Explorer alternatives</strong><span>The portal, Service Bus Explorer, QueueExplorer, viewbus, Bussin and the newer open-source apps.</span></a>
+        <a class="guide-card" href="/browser-based-service-bus-explorer/"><span class="k">Explainer</span><strong>Why a browser-based explorer</strong><span>What a browser can and cannot do with Service Bus, and how it reaches Azure without a proxy.</span></a>
+        <a class="guide-card" href="/mcp-server/"><span class="k">AI</span><strong>Azure Service Bus MCP server</strong><span>Let Claude, ChatGPT or Cursor peek, search and act on your queues.</span></a>
+      </nav>
+    </section>
+
+    <section>
+      <p class="eyebrow">Using Bussin</p>
+      <nav class="guide-grid" aria-label="Using Bussin">
+        <a class="guide-card" href="/docs/"><span class="k">Docs</span><strong>Getting started</strong><span>Connect, peek-lock, inspect the dead-letter queue and resubmit, step by step.</span></a>
+        <a class="guide-card" href="/how-it-works/"><span class="k">Architecture</span><strong>How it works</strong><span>AMQP over WebSockets, MSAL sign-in and the Azure roles you need.</span></a>
+        <a class="guide-card" href="/security/"><span class="k">Security</span><strong>Security and privacy</strong><span>What stays in your browser, what is stored where, and what we never see.</span></a>
+      </nav>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-about">
+          <a class="brand" href="/"><img src="/assets/favicon.svg" alt="" class="brand-icon" width="32" height="32" />bussin</a>
+          <p>The Azure Service Bus explorer that runs in your browser.</p>
+          <a href="https://get.microsoft.com/installer/download/9ntht4mr25cg?referrer=appbadge" target="_blank" rel="noopener" class="ms-store-badge">
+            <img class="badge-dark" src="https://get.microsoft.com/images/en-us%20dark.svg" width="150" height="54" loading="lazy" alt="Get Bussin from Microsoft Store"/>
+            <img class="badge-light" src="https://get.microsoft.com/images/en-us%20light.svg" width="150" height="54" loading="lazy" alt="Get Bussin from Microsoft Store"/>
+          </a>
+        </div>
+        <nav class="footer-col" aria-labelledby="f-product">
+          <h2 id="f-product">Product</h2>
+          <ul>
+            <li><a href="https://app.bussin.dev/demo" target="_blank" rel="noopener">Live demo</a></li>
+            <li><a href="/features/">Features</a></li>
+            <li><a href="/docs/">Docs</a></li>
+            <li><a href="/how-it-works/">How it works</a></li>
+            <li><a href="/security/">Security</a></li>
+            <li><a href="/mcp-server/">MCP server</a></li>
+            <li><a href="/changelog/">Changelog</a></li>
+          </ul>
+        </nav>
+        <nav class="footer-col" aria-labelledby="f-guides">
+          <h2 id="f-guides">Guides</h2>
+          <ul>
+            <li><a href="/guides/">All guides</a></li>
+            <li><a href="/service-bus-retry-backoff/">Retries with backoff</a></li>
+            <li><a href="/dead-letter-queue/">Dead-letter queues</a></li>
+            <li><a href="/autoforwarding/">Auto-forwarding</a></li>
+            <li><a href="/service-bus-linux-mac/">Linux and macOS</a></li>
+            <li><a href="/service-bus-explorer-alternative/">Explorer alternatives</a></li>
+          </ul>
+        </nav>
+        <nav class="footer-col" aria-labelledby="f-source">
+          <h2 id="f-source">Source</h2>
+          <ul>
+            <li><a href="https://github.com/sgebb/bussin" target="_blank" rel="noopener">App on GitHub</a></li>
+            <li><a href="https://github.com/sgebb/bussin-site" target="_blank" rel="noopener">Site on GitHub</a></li>
+            <li><a href="https://www.npmjs.com/package/bussin-mcp" target="_blank" rel="noopener">bussin-mcp on npm</a></li>
+            <li><a href="https://apps.microsoft.com/detail/9NTHT4MR25CG" target="_blank" rel="noopener">Microsoft Store</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 Bussin. Source available under BUSL-1.1.</span>
+        <span>Free, no account, no backend.</span>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
